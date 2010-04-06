@@ -1,0 +1,35 @@
+% Demonstrate the use of a correlation-id: the last parameter in sendMsg and rcvMsg/rcvMult.
+
+:- eval(msg007()).
+
+branch() :-
+	% This reaction will stay active after receiving the first message so that both messages will be received
+	rcvMult(XID,self,From,inform,a(1),1),
+	println(["Received: ",rcvMult(XID,self,From,inform,a(1),1)],"").
+branch() :-
+	% This reaction will stay active after receiving the first message so that both messages will be received
+	rcvMult(XID,self,From,inform,a(2),2),
+	println(["Received: ",rcvMult(XID,self,From,inform,a(2),2)],"").
+
+msg007() :-
+	println(["==========Messaging test 007=========="]),
+	branch().
+msg007() :-
+	% Only two of these will be received due to correlation (an extra parameter at the end of sendMsg and rcvMult)
+	sendMsg(XID,self,0,inform,a(1),1),
+	println(["Sent: ",sendMsg(XID,self,0,inform,a(1),1)],""),
+	sendMsg(XID,self,0,inform,a(1),2),
+	println(["Sent: ",sendMsg(XID,self,0,inform,a(1),2)],""),
+	sendMsg(XID,self,0,inform,a(2),1),
+	println(["Sent: ",sendMsg(XID,self,0,inform,a(2),1)],""),
+	sendMsg(XID,self,0,inform,a(2),2),
+	println(["Sent: ",sendMsg(XID,self,0,inform,a(2),2)],"").
+
+% This outputs:
+% ==========Messaging test 007==========
+% Sent: [sendMsg,prova:1,self,0,inform,[a,1],1]
+% Sent: [sendMsg,prova:1,self,0,inform,[a,1],2]
+% Sent: [sendMsg,prova:1,self,0,inform,[a,2],1]
+% Sent: [sendMsg,prova:1,self,0,inform,[a,2],2]
+% Received: [rcvMsg,prova:1,self,0,inform,[a,1],1]
+% Received: [rcvMsg,prova:1,self,0,inform,[a,2],2]

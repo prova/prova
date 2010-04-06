@@ -1,0 +1,10 @@
+:- solve(test_tokenize_list("a,b,c",L)).
+
+test_tokenize_list(In,[T|Ts]) :-
+	% Create a list of tokens separated by ","
+	tokenize_list([In,","],[T|Ts]).
+test_tokenize_list(In,L) :-
+	% Create a list of tokens separated by ","
+	tokenize_list([In,","],L).
+test_tokenize_list(In,ttt) :-
+	tokenize_list(In,",",ttt).

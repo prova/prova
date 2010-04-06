@@ -1,0 +1,28 @@
+% Process join is mostly implemented since Prova 2.0 RC2 in built-ins "init_join" and "join_test".
+% It is now fully thread-safe so that parallel rule streams can be safely joined.
+
+join(Me,XID,JoinID,Msg) :-
+	join_test(Me,XID,JoinID,Msg,Complete),
+	!,
+	derive(JoinID(Me,XID,Complete)).
+join(Me,XID,JoinID,Msg).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% "Predicate join" rules %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% All these are mostly done in builtins to ensure thread safety
+
+predicate_join(XID,JoinID,Msg,Params) :-
+	predicate_join_test(XID,JoinID,Msg,Params,JoinPredicate,Waiting,Count,Complete),
+	derive(JoinPredicate(XID,JoinID,State,Msg,Waiting,Count,Complete,Params)),
+	derive(JoinID(State,XID,Count,Complete,Params)),
+	!,
+	predicate_join_exit(XID,JoinID,State).
+predicate_join(XID,JoinID,Msg,Params) :-
+	predicate_join_exit(XID,JoinID,"").
+
+pattern_join(JoinType,Msg,Params) :-
+	pattern_join_instance(JoinType,Msg,XID),
+	predicate_join(JoinType,XID,Msg,Params).
+

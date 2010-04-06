@@ -1,0 +1,66 @@
+% Demonstrate a guarded reaction and @and groups.
+%
+% This will print:
+%
+% AND detected: [[[user1,async,0,request,[logout,user1,10.10.10.10]], [user1,async,0,request,[login,user1,20.20.20.20]]]] 
+% Pattern detected: [[[user1,async,0,and,[[[user1,async,0,request,[logout,user1,10.10.10.10]], [user1,async,0,request,[login,user1,20.20.20.20]]]]]]] 
+% Pattern detected: [[[user2,async,0,request,[update,user2,30.30.30.30]]]]
+
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,request,login(User,IP)),
+	server_1(XID,User,IP).
+
+server_1(XID,User,IP) :-
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,login(User,IP2)) [IP2!=IP],
+	println(["got 1"]).
+server_1(XID,User,IP) :-
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,logout(User,IP)),
+	println(["got 2"]).
+server_1(XID,User,IP) :-
+	@and(g1) @timeout(2500) @group(g2)
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["AND detected: ",Events," "]).
+server_1(XID,User,IP) :-
+	@and(g1)
+	rcvMsg(XID,Protocol,From,timeout,Events),
+	println(["AND timeout: ",Events," "]).
+server_1(XID,User,IP) :-
+	@group(g2)
+	rcvMsg(XID,Protocol,From,request,update(User,IP)),
+	println(["got 3"]).
+server_1(XID,User,IP) :-
+	@or(g2) @timeout(1000)
+	rcvMsg(XID,Protocol,From,or,Events),
+	println(["Pattern detected: ",Events," "]).
+	
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(user1,async,0,request,login(user1,'10.10.10.10')),
+	sendMsg(user3,async,0,request,login(user3,'80.80.80.80')),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(500L),
+	sendMsg(user2,async,0,request,login(user2,'30.30.30.30')),
+	sendMsg(user3,async,0,request,logout(user3,'80.80.80.80')),
+	sendMsg(user1,async,0,request,logout(user1,'10.10.10.10')),
+	sendMsg(user1,async,0,request,login(user1,'20.20.20.20')),
+	java.lang.Thread.sleep(700L),
+	% This is ignored due to timeout on @or that propagates to the child @and
+	sendMsg(user3,async,0,request,login(user3,'90.90.90.90')),
+	sendMsg(user2,async,0,request,login(user2,'40.40.40.40')),
+	sendMsg(user2,async,0,request,update(user2,'30.30.30.30')),
+	% This is ignored as OR will have fired
+	sendMsg(user2,async,0,request,logout(user2,'30.30.30.30')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

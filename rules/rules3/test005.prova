@@ -1,0 +1,27 @@
+:- eval(test_collections2()).
+
+test_collections2() :-
+	G=H,
+	"toto"="toto",
+	"toto"=H,
+	println(["G=",G]),
+	I=Integer(5),
+	println(["I=",I]),
+	4=Integer(4),
+	List=java.util.ArrayList(),
+	LX=java.util.ArrayList([1,"2"]),
+	List.addAll(LX),
+	List.add("1"),
+	List.add("2"),
+	println(["List=",List]),
+	Element = List.get(1),
+	println(["Element=",Element]),
+	Map=java.util.HashMap(),
+	Map.put(0,"false"),
+	Map.put(1,Integer.I),
+	println(["Map=",Map]),
+	Value1=Map.get(1),
+	println(["Value1=",Value1]),
+	Value0=Map.get(0),
+	type(Value0,Type0),
+	println(["Type0=",Type0]).

@@ -1,0 +1,5 @@
+:- solve(tca(X)).
+
+tca(X) :- !, cache(tca(X)).
+
+tca(a).

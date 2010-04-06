@@ -1,0 +1,39 @@
+% ------------------------------------------------------------------------------------------------------
+% This test illustrates the cache implementation to memorize results of subgoals.
+% ------------------------------------------------------------------------------------------------------
+
+% include basic predicates
+
+a0() :- cache(a1()),cache(a2()),cache(a3()),cache(a4()).
+a1() :- cache(a2()),cache(a3()),cache(a4()),cache(a5()).
+a2() :- cache(a3()),cache(a4()),cache(a5()),cache(a6()).
+a3() :- cache(a4()),cache(a5()),cache(a6()),cache(a7()).
+a4() :- cache(a5()),cache(a6()),cache(a7()),cache(a8()).
+a5() :- cache(a6()),cache(a7()),cache(a8()),cache(a9()).
+a6() :- cache(a7()),cache(a8()),cache(a9()),cache(a10()).
+a7() :- cache(a8()),cache(a9()),cache(a10()),cache(a11()).
+a8() :- cache(a9()),cache(a10()),cache(a11()),cache(a12()).
+a9() :- cache(a10()),cache(a11()),cache(a12()),cache(a13()).
+a10() :- cache(a11()),cache(a12()),cache(a13()),cache(a14()).
+a11() :- cache(a12()),cache(a13()),cache(a14()),cache(a15()).
+a12() :- cache(a13()),cache(a14()),cache(a15()),cache(a16()).
+a13() :- cache(a14()),cache(a15()),cache(a16()),cache(a17()).
+a14() :- cache(a15()),cache(a16()),cache(a17()),cache(a18()).
+a15() :- cache(a16()),cache(a17()),cache(a18()),cache(a19()).
+a16() :- cache(a17()),cache(a18()),cache(a19()),cache(a20()).
+a17().
+a18().
+a19().
+a20().
+
+
+
+
+
+
+% Tests
+
+
+testDag() :- a0().
+
+:-solve(testDag()). % use cache to answer subgoals

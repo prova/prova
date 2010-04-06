@@ -1,0 +1,67 @@
+%%% A revised version of yale shooter with all combinations
+%%%  of free and bound variables possible in the queries
+
+:- solve(holds_at(X,T)). % -> see all states at all times
+:- solve(less(t1,T)). % -> t2, t3, t4
+:- solve(clipped(t0,alive,T)). % -> t4
+:- solve(not(clipped(t0,alive,T))). % -> no
+:- solve(holds_at(alive,T)). % -> t0, t1, t2, t3
+:- solve(holds_at(X,t3)). % -> 'alive','loaded'
+:- solve(holds_at(dead,t4)). % -> 'yes'
+:- solve(holds_at(alive,t4)). % -> 'no'
+:- solve(clipped(t0,alive,t4)). % -> 'yes'
+
+holds_at(F,T) :-
+	initially_p(F),
+	time(T),
+	not(clipped(t0,F,T)).
+holds_at(F,T2) :-
+	happens(A,T1),
+	initiates(A,F,T1),
+	less(T1,T2),
+	not(clipped(T1,F,T2)).
+
+clipped(T1,F,T2) :-
+	happens(A,T),
+	less(T1,T),
+	less(T,T2),
+	terminates(A,F,T).
+
+initiates(load,loaded,_).
+initiates(shoot,dead,T) :-
+	holds_at(loaded,T).
+
+terminates(shoot,alive,T) :-
+	holds_at(loaded,T).
+terminates(shoot,loaded,T) :-
+   holds_at(loaded,T).
+
+initially_p(alive).
+
+happens(load,t1).
+happens(sneeze,t2).
+happens(shoot,t3).
+
+less(T1,T2) :-
+	fact_less(T1,T2).
+less(T1,T2) :-
+	fact_less(T1,T),
+	less(T,T2).
+
+fact_less(t0,t1).
+fact_less(t1,t2).
+fact_less(t2,t3).
+fact_less(t3,t4).
+   
+time(t0).
+time(t1).
+time(t2).
+time(t3).
+time(t4).
+
+
+not([X|Args]) :-
+	derive([X|Args]),
+	!,
+	fail().
+not([X|Args]).

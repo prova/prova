@@ -1,0 +1,47 @@
+% Starting with Prova 1.90, retract/retractall remove facts or rules with
+%    headers SUBSUMED by the provided fact pattern. This includes
+%    both the cases of constants matching variables in the pattern and variables
+%    that are not more general that those in the pattern 
+% The example also demonstrates a new insert(fact) predicate that inserts a fact only after
+%    checking that no facts subsumed by it are left in the KB. If a subsumed fact or rule
+%    are found, the KB is not changed.
+
+:- solve(ra002_1(X,Y)).
+:- solve(ra002_2(X,Y)).
+:- solve(ra002_3(X,Y)).
+
+ra002_1(X,Y) :-
+	println(["-----"]),
+	% The first fact not more general than this is removed by retract below
+	retract(f(ws.prova.examples.Portfolio.N,M)),
+	f(X,Y).
+ra002_2(X,Y) :-
+	println(["-----"]),
+	% Facts more general than this are not removed by retractall below 
+	retractall(f(ws.prova.examples.IBMPortfolio.N,Integer.M)),
+	f(X,Y).
+ra002_3(X,Y) :-
+	println(["-----"]),
+	insert(f(ws.prova.examples.Portfolio.N,Integer.M)),
+	% Does not add anything as it subsumes a fact already in the KB
+	insert(f(ws.prova.examples.Portfolio.N,M)),
+	f(X,Y).
+
+f(ws.prova.examples.IBMPortfolio.N,Integer.M).
+f(ws.prova.examples.Portfolio.N,M).
+f(ws.prova.examples.IBMPortfolio.N,Integer.M).
+f(2,3).
+
+% ==================
+% This prints:
+% -----
+% X=ws.prova.examples.Portfolio.<30>, Y=<27>
+% X=ws.prova.examples.IBMPortfolio.<39>, Y=java.lang.Integer.<40>
+% X=2, Y=3
+% -----
+% X=ws.prova.examples.Portfolio.<80>, Y=<77>
+% X=2, Y=3
+% -----
+% X=2, Y=3
+% X=ws.prova.examples.Portfolio.<137>, Y=java.lang.Integer.<138>
+% X=ws.prova.examples.Portfolio.<150>, Y=<146>

@@ -1,0 +1,78 @@
+% Comparision with Esper example:
+% every sample=Sample(temp > 50) ->
+% ( (Sample(sensor=sample.sensor, temp > 50) and not Sample(sensor=sample.sensor, temp <= 50))
+% ->
+% (Sample(sensor=sample.sensor, temp > 50) and not Sample(sensor=sample.sensor, temp <= 50))
+% ) where timer:within(90 seconds))
+% 1. Clear termination condition: temperature dropping under Limit
+% 2. Parallel execution for different sensors
+% 3. Timeout outcome processing
+% 4. Use of rcvMult matches Esper "every"
+%
+% Global constant $Count is used for counting successful detections and passing them back to the Java test
+
+:- eval(init()). 
+
+sensor(sensor1).
+sensor(sensor2).
+sensor(sensor3).
+
+limit(50.0).
+
+init() :-
+	limit(Limit),
+	sensor(Sensor),
+	server(Sensor,Limit).
+
+server(Sensor,Limit) :-
+	rcvMult(Sensor,Protocol,From,data,temp(Temp)) [Temp>Limit],
+	server_1(Sensor,Limit).
+
+server_1(Sensor,Limit) :-
+	@group(g1) @stop
+	rcvMsg(Sensor,Protocol,From,data,temp(Temp)) [Temp<=Limit].
+server_1(Sensor,Limit) :-
+	@group(g1) @count(2)
+	rcvMsg(Sensor,Protocol,From,data,temp(Temp)) [Temp>Limit].
+server_1(Sensor,Limit) :-
+	@and(g1) @timeout(500)
+	rcvMsg(Sensor,Protocol,From,and,Events),
+	$Count.incrementAndGet(),
+	println(["Pattern detected: ",Events]).
+server_1(Sensor,Limit) :-
+	@and(g1)
+	rcvMsg(Sensor,Protocol,From,timeout,Events),
+	$Count.incrementAndGet(),
+	println(["Timeout detected: ",Events]).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use sensor-id as conversation-id (XID) for partitioning so that each sensor is processed sequentially
+	sendMsg(sensor1,async,0,data,temp(21.0)),
+	sendMsg(sensor2,async,0,data,temp(32.0)),
+
+	sendMsg(sensor1,async,0,data,temp(51.0)),
+	sendMsg(sensor2,async,0,data,temp(62.0)),
+	sendMsg(sensor3,async,0,data,temp(53.0)),
+
+	java.lang.Thread.sleep(300L),
+	sendMsg(sensor1,async,0,data,temp(61.0)),
+	sendMsg(sensor2,async,0,data,temp(72.0)),
+	sendMsg(sensor3,async,0,data,temp(63.0)),
+	sendMsg(sensor3,async,0,data,temp(33.0)),
+	sendMsg(sensor3,async,0,data,temp(73.0)),
+	sendMsg(sensor1,async,0,data,temp(71.0)),
+	sendMsg(sensor1,async,0,data,temp(81.0)),
+	sendMsg(sensor1,async,0,data,temp(91.0)),
+
+	java.lang.Thread.sleep(300L),
+	sendMsg(sensor1,async,0,data,temp(101.0)),
+	sendMsg(sensor2,async,0,data,temp(82.0)).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

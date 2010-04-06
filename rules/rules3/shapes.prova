@@ -1,0 +1,32 @@
+% Demonstrating the use of tabling
+
+shapes( X, _, 0 ) :- X<0, !. 
+shapes( 0, _, 1 ) :- !. 
+shapes( 1, _, 1 ) :- !. 
+shapes( _, 1, 1 ) :- !. 
+shapes( Cards, Suits, Result ) :- 
+    FewerCards=Cards-Suits, 
+    cache(shapes( FewerCards, Suits, A )), 
+    FewerSuits=Suits-1, 
+    cache(shapes( Cards, FewerSuits, B )), 
+	 Result=A+B.
+
+
+shapesmemo( X, _, 0 ) :- X<0. 
+shapesmemo( 0, _, 1 ). 
+shapesmemo( 1, _, 1 ). 
+shapesmemo( _, 1, 1 ). 
+
+
+shapes2( X, Y, Z ) :- cache(shapesmemo( X, Y, Z)) , !. 
+shapes2( Cards, Suits, Result ) :- 
+    FewerCards = Cards - Suits, 
+    shapes2( FewerCards, Suits, A ), 
+    FewerSuits = Suits - 1, 
+    shapes2( Cards, FewerSuits, B ), 
+	 Result = A + B,
+    println([Result]), 
+    assert(shapesmemo( Cards, Suits, Result)). 
+
+
+:- solve(shapes(100,80,X)).

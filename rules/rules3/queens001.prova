@@ -1,0 +1,35 @@
+not([A|X]) :-
+	derive([A|X]),
+	!,
+	fail(). 
+not([A|X]). 
+
+%Try
+:- solve(queens(8,P)).
+
+%queens(N,[N1,N2,...,NN]) is true if you can put a queen on an NxN
+%                         in the ith rank of the nth file, s.t. no
+%                         queen attacks any other queen.
+
+queens(N,Qs) :-
+	range(1,N,Ns),
+	queens(Ns,[],Qs).
+
+queens([],Qs,Qs):-!.
+queens(UnplacedQs, SafeQs, Qs) :-
+	selectq(Q, UnplacedQs, UnplacedQs1),
+	not(attack(Q,SafeQs)),
+%	cache(queens(UnplacedQs1,[Q|SafeQs],Qs)).
+	queens(UnplacedQs1,[Q|SafeQs],Qs).
+
+attack(X,Xs) :- attack(X, 1, Xs).
+
+attack(X,N,[Y|_]) :- X=Y+N.
+attack(X,N,[Y|_]) :- X=Y-N.
+attack(X,N,[_|Ys]) :- N1=N+1, attack(X,N1,Ys).
+
+range(N,N,[N]) :- !.
+range(M,N,[M|Ns]) :- M < N, M1=M+1, range(M1,N,Ns).
+
+selectq(X,[X|Xs],Xs).  
+selectq(X,[Y|Ys],[Y|Zs]) :- selectq(X,Ys,Zs). 

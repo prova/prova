@@ -1,0 +1,43 @@
+% Test typed constants and assignments
+% Corrected in Prova version 1.5
+
+:- solve(test_constants1(T)).
+
+% The next clause was not working correctly in Prova versions before 1.5.
+% We could not have had a Java constant before the next goal or clause.
+test_constants1(T) :-
+	println(["========test constants========"]),
+
+	T=Boolean.TRUE.
+
+:- eval(test_constants2()).
+:- eval(test_assignments()).
+
+test_constants2() :-
+	% Assign a Java constant to a (free) variable
+	True=Boolean.TRUE,
+	println([True]),
+
+	% Java constants can also be used on the lhs of equality
+	Boolean.FALSE=False,
+	println([False]),
+
+	% Call a Java method returning a boolean and immediately check the result
+	%   against a typed Java constant on the lhs 
+	A="string",
+	Boolean.TRUE=A.equals("string"),
+	println(["OK1"]).
+
+test_assignments() :-
+	println(["=======test assignments======="]),
+
+	% Explicit lists can only be used on the right of the '=' sign 
+	L=[1,2],
+	println([L]),
+
+	% Show how to use typed variables for assignment
+	Integer.I=2,
+	println([Integer.I]),
+	println(["========test complete========="]).
+
+

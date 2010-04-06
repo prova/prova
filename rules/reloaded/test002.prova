@@ -1,0 +1,10 @@
+:- solve(member(X,[1,Double.D,"3"])).
+:- solve(member(Integer.X,[1,Double.D,"3"])).
+:- solve(member("3",[1,Double.D,"3"])).
+:- solve(member("-1",[1,Double.D,"3"])).
+
+member(X,[X|Xs]).	    % X is a member of a list if it is the first element
+member(X,[_|Xs]) :-  % X is a member of a list if it is in the list tail
+	member(X,Xs).
+
+:- solve(member([X,X,3,4],[1,[2,2|Z],[2,3]])).

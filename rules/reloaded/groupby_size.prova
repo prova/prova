@@ -1,0 +1,24 @@
+% For every N input events, output a map with counts of events grouped by a value. 
+% This test can only be run from ProvaMetadata.java as it requires an AtomicInteger count passed a global constant.
+
+:- eval(groupby_size()).
+
+groupby_size() :-
+	println(["==========Groupby size test=========="]),
+
+	Counter = ws.prova.eventing.MapCounter(),
+	% This reaction operates indefinitely. When the count hits 5,
+	%   a copy of the current groupby map Counter is sent as part of the result,
+	%   and the count is reset back to 5 (second argument of @size) and Counter is cleared.
+	@group(g1) @size(5,5,Counter)
+	rcvMsg(XID,async,From,inform,a(I)) [IM=I mod 5,Counter.incrementAt(IM)],
+	println(["Received: ",rcvMsg(XID,async,From,inform,a(I))],"").
+groupby_size() :-
+	% This reaction is matched each time a new result with the groupby map for 5 input events appears.
+	@or(g1)
+	rcvMsg(XID,Protocol,From,or,[Results]),
+	% The first element of the results is the Counter map
+	Counter = Results.get(0),
+	Delta = Counter.totalCount(),
+	$Count.addAndGet(Delta),
+	println(["Pattern detected: ",Results]).

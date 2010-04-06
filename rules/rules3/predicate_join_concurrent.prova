@@ -1,0 +1,101 @@
+% For Prova Reloaded
+
+:- eval(consult("utils.prova")). 
+
+:- eval(predicate_join_concurrent()). 
+
+predicate_join_concurrent() :- 
+   println(["==========predicate_join_concurrent=========="]), 
+
+	for(I,0,2),
+
+   sendMsg(XID,async,0,request,a()), 
+   rcvMsg(XID,async,Me,reply,a()), 
+
+   % Initialise the predicate join: 
+   %    XID is conversation id; 
+   %    join_1 is the exit predicate that must be unique for each join; 
+   %    join_predicate_1 is the join conditions; 
+   %    i1..i3 are the required tokens. 
+   init_predicate_join(XID,join_1,[i1(),i2(),i3()],join_predicate), 
+println([XID]),
+   % This will create three parallel processing streams. 
+   % Note that Prova does not run them in separate threads but they are independent and can communicate 
+   %    with other agents asynchronously effectively allowing for parallel processing. 
+   loop_a_body("Worker",XID). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Three branches executing three parallel activities % 
+% representing a divergence in the process           % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+loop_a_body(Partner,XID) :- 
+	switch_thread(a),
+   println(["Branch 1 complete"]), 
+   predicate_join(XID,join_1,i1(),[Partner]). 
+loop_a_body(Partner,XID) :- 
+	switch_thread(b),
+   println(["Branch 2 complete"]), 
+   predicate_join(XID,join_1,i2(),[Partner]). 
+loop_a_body(Partner,XID) :- 
+	switch_thread(c),
+   println(["Branch 3 complete"]), 
+   predicate_join(XID,join_1,i3(),[Partner]). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Rules representing the exit branches of the JOIN % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+% The following rule will be invoked by join once ONE input for join_1 has arrived. 
+% This is governed by the first join_predicate rule. 
+join_1(s(0),XID,Count,Inputs,[Partner]) :- 
+   println(["Joined for XID=",XID," at state 's(0)' with inputs: ",Inputs]), 
+   % Report to the test case runner that this step is complete 
+   sendMsg(XID,self,0,job_completed,[]). 
+% The following rule will be invoked by join once all inputs for join_1 have arrived 
+% This is governed by the second join_predicate rule. 
+join_1(reset,XID,Count,Inputs,[Partner]) :- 
+   println(["Joined for XID=",XID," at state 'reset' with inputs: ",Inputs]), 
+   sendMsg(XID,self,0,body_a_complete,[]), 
+   % Report to the test case runner that this step is complete 
+   sendMsg(XID,self,0,job_completed,[]). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Rules establishing when the predicate join reaches appropriate states % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+% The rule for determining a join condition. Note that the state must have format "s(Number)". 
+join_predicate(XID,join_1,s(0),Msg,Waiting,Count,Complete,Params) :- 
+   1=Complete.size(). 
+% The rule for determining a reset condition. When this condition is reached, the JOIN is reset. 
+% However, we also offer a chance to define an optional JOIN exit branch when the reset is reached 
+%    (see rule 2 for the join_1 predicate). 
+join_predicate(XID,join_1,reset,Msg,Waiting,Count,Complete,Params) :- 
+   0=Waiting.size().
+
+switch_thread(A) :-
+	sendMsgSync(XID,task,0,switch,[A]),
+	rcvMsg(XID,task,From,switch,[A]).
+
+for(From,From,From) :- !.
+for(From,From,To) :-
+	From<=To.
+for(I,From,To) :-
+	From2=From+1,
+	for(I,From2,To).
+
+%%%%%%%%%%%%%%%%% 
+% A NOOP worker % 
+%%%%%%%%%%%%%%%%% 
+
+rcvMsg(XID,Protocol,From,request,[X|Xs]) :-
+println([rcvMsg(XID,Protocol,From,request,[X|Xs])]),
+	sendMsg(XID,Protocol,0,reply,[X|Xs]).
+
+% A testing harness catch-all reaction for printing all messages.
+rcvMsg(XID,Protocol,From,Performative,[X|Xs]) :-
+	println([Performative,[X|Xs]]).
+
+% A testing harness catch-all reaction for printing all messages.
+rcvMsg(XID,Protocol,From,Performative,[X|Xs],Extra) :-
+	println([Performative,[X|Xs],Extra]).

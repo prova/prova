@@ -1,0 +1,40 @@
+% Resolution of Issue I03-A of Ricardo Amador
+% Since Prova 1.90
+% Shows a corrected behaviour in eval, solve, sendMsg, and other built-ins.
+% When list rest variable is accompanied by the same variable occurring independently,
+%    these variables were considered as separate variables prior to version 1.90. 
+
+:- eval( test1_1( xpto([a|L],L) ) ).
+
+:- eval( test1_2() ).
+
+test1_2() :-
+	println(["The output below should be a copy of the one above."]),
+	test1_1( xpto([a|L],L) ).
+
+test1_1(X) :-
+	println([xpti,X]),
+	unify(X,xpto([a,b],_)),
+	println([xpti,X]).
+test1_1(X) :-
+	unify(xpto([a|L],L),xpto([a,b],_)),
+	println([xpti,xpto([a|L],L)]).
+
+unify(X, X).
+
+:- eval(test2()).
+
+test2() :-
+	println(["Two tests with sendMsg"]),
+	ok(),
+	was_bad_before_1_90().
+	
+ok() :-
+	sendMsg(XID, self, 0, xpto, xpto([a|L],[[l|L]])).
+was_bad_before_1_90() :-
+	sendMsg(XID, self, 0, xpto, xpto([a|L],L)).
+
+rcvMsg(_, self, _, xpto, X) :-
+	println([xpto,X]),
+	unify(X, xpto([a,b],_)),
+	println([xpti,X]).

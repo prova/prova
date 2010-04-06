@@ -1,0 +1,55 @@
+@label(rule1) r1(X):-q(X).
+@label(rule2) r2(X):-q(X).
+@label(rule3) r2(X):-q(X).
+
+q(1).
+q(2).
+q(3).
+
+:-solve(r1(X1)).
+
+% scoped with label "rule1"
+p1(X):-
+	@label(rule1)
+	r1(X).
+:-solve(p1(X2)).
+
+
+% fails since scope is "rule2"
+p2(X):-
+	@label(rule2)
+	r1(X). 
+:-solve(p2(X3)).
+
+% succeeds since scope is EITHER "rule2" OR "rule1"
+p2a(X):-
+	@label(rule2,rule1)
+	r1(X). 
+:-solve(p2a(X4)).
+
+% match AND get rule label for the rule that matched
+p3(X,Y):-
+	@label(Y)
+	r1(X).
+:-solve(p3(X5,Label5)).
+
+% match AND get rule label for the rule that matched
+p4(X,Y):-
+	@label(Y)
+	r2(X).
+:-solve(p4(X6,Label6)).
+
+% dynamically set the metadata value expected from matching rules
+:-solve(p4(X7,rule2)).
+
+% get module label
+p5(X,Y):-
+	@src(Y) @label(rule1)
+	r1(X).
+:-solve(p5(X8,Src8)).
+
+% get module label
+p6(X,Y):-
+	@src(Y) @label(rule3)
+	r2(X).
+:-solve(p6(X9,Src9)).

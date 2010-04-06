@@ -1,0 +1,113 @@
+% Rewritten for Prova 3.0
+% Must be run from complex_fipa_exchange() in ProvaMessagingTest.java
+% Demonstrate how to
+% - send messages to self including
+%      inform, queryref, queryref_acc, eval, and rexec;
+% - write and use reaction rules
+%      to intercept incoming messages based on patterns.
+% - introduce an indefinite timeout for the Prova processor
+% - intercept the message "return"  
+%      and the 10 sec timer.
+% - use rcvMsg to intercept a message inside a rule body (inline)
+% - use rcvMult to intercept multiple messages inside a rule body (inline)
+
+:- eval(test023()).
+
+% Example data
+data(3.141592).
+
+parent(cell,intracellular).
+
+% Send out messages
+test023() :-
+	println(["==========test023=========="]),
+	% Use a regular timer executed "remotely" (in this instance, intra-agent)
+	sendMsg(XID1,self,0,rexec,[[java.lang.Thread,sleep,750L],["timer",0]]),
+
+	% Update the mental state by way of a message 'inform'
+	% Note: one extra "parent" record will be added
+	sendMsg(XID2,self,0,inform,parent(cellular_component,cell)),
+
+	% Send a queryref message with replies to be sent back to the agent
+	sendMsg(XID3,self,0,queryref,parent(X,Y)),
+	rcvMult(XID3,self,Me,reply,parent(X,Y)),
+	println(["Inline reaction ",rcvMult(self,Me,reply,parent(X,Y))]),
+
+	% Use queryref to submit a query and collect the result inline
+	sendMsg(XID4,self,0,queryref,data(Value)),
+	rcvMsg(XID4,self,Me,reply,data(Value)),
+	println(["Inline reaction ",rcvMsg(self,Me,reply,data(Value))]),
+	println(["Value=",Value]),
+
+	% Submit a goal by way of a message
+	% Note that it is processed after the above messages
+	sendMsg(XID5,self,0,eval,print_data(D)).
+test023() :-
+	% Send a queryref_acc message with all replies combined in a Java List
+	% Note that there are no query results for "sibling"
+	%    so the returned Accumulator wll be empty.
+	sendMsg(XID1,self,0,queryref_acc,[id2,sibling(X,Y)]),
+	rcvMsg(XID1,self,Me,reply,[id2,Acc]),
+	println(["Inline reaction ",rcvMsg(self,Me,reply,[id2,Acc])]),
+	println(["Resultset=",Acc]),
+	element(sibling(A,B),Acc),
+	println(["sibling(A,B)=",A,",",B]).
+test023() :-
+	% Send a queryref_acc message with all replies combined in a Java List
+	sendMsg(XID1,self,0,queryref_acc,[id3,parent(X,Y)]),
+	rcvMsg(XID1,self,Me,reply,[id3,Acc]),
+	println(["Inline reaction ",rcvMsg(self,Me,reply,[id3,Acc])]),
+	println(["Resultset=",Acc]),
+	element(parent(A,B),Acc),
+	println(["parent(",A,",",B,")"]).
+
+rcvMsg(XID,Protocol,From,rexec,[[Object,Method|Args],LocalContext]) :-
+	println(["Rule reaction ",rcvMsg(XID,From,rexec,[[Object,Method|Args],LocalContext])]),
+	spawn(XID1,Object,Method,Args),
+println(["<== spawn XID=",XID1]),
+	rcvMsg(XID1,Protocol,Me,return,Ret),
+println(["==> return XID=",XID1]),
+	sendMsg(XID,Protocol,From,return,[[Ret,Object,Method|Args],LocalContext]).
+
+% Reaction to inform
+rcvMsg(XID,Protocol,From,inform,[X|Xs]) :-
+	println(["Rule reaction ",rcvMsg(XID,Protocol,From,inform,[X|Xs])]),
+	retractall([X|Xs]),
+	assert([X|Xs]).
+
+% Reaction to the reply to the previously sent queryref
+rcvMsg(XID,Protocol,From,reply,parent(X,Y)) :-
+	println(["Rule reaction ",rcvMsg(XID,Protocol,From,inform,[X|Xs])]),
+	println(["parent(",X,",",Y,")"]).
+
+% Reaction to the timer
+rcvMsg(XID,Protocol,From,return,[[Ret,Timer,sleep,Millisec],["timer",Count0]]) :-
+	println(["Rule reaction ",rcvMsg(XID,Protocol,From,return,[[Ret,Timer,sleep,Millisec],[timer,Count0]])]),
+	println(["Timer expired:",Count0]," "),
+	iam(Me),
+	Count=Count0+1,
+	% Start the timer again
+	sendMsg(XID,Protocol,Me,rexec,[[Timer,sleep,Millisec],["timer",Count]]).
+
+% Reaction rule to general queryref
+rcvMsg(XID,Protocol,From,queryref,[X|Xs]) :-
+	println(["Rule reaction 1 ",rcvMsg(XID,Protocol,From,queryref,[X|Xs])]),
+	derive([X|Xs]),
+	sendMsg(XID,Protocol,From,reply,[X|Xs]).
+rcvMsg(XID,Protocol,From,queryref,[X|Xs]) :-
+	println(["Rule reaction 2 ",rcvMsg(XID,Protocol,From,queryref,[X|Xs])]),
+	sendMsg(XID,Protocol,From,eof,[X|Xs]).
+
+% Reaction rule to general queryref_acc
+rcvMsg(XID,Protocol,From,queryref_acc,[ID,[X|Xs]]) :-
+	println(["Rule reaction 1 ",rcvMsg(XID,Protocol,From,queryref_acc,[ID,[X|Xs]])]),
+	findall([X|Xs],[X|Xs],L),
+	sendMsg(XID,Protocol,From,reply,[ID,L]).
+rcvMsg(XID,Protocol,From,queryref_acc,[ID,[X|Xs]]) :-
+	println(["Rule reaction 2 ",rcvMsg(XID,From,queryref_acc,[ID,[X|Xs]])]),
+	sendMsg(XID,Protocol,From,eof,[ID,L]).
+
+% Goal to be called via eval message
+print_data(D) :-
+	data(D),
+	println(["D=",D]).

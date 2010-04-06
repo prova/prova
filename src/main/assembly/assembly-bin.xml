@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<assembly>
+	<id>all</id>
+
+	<formats>
+		<format>zip</format>
+	</formats>
+
+	<includeBaseDirectory>false</includeBaseDirectory>
+
+	<dependencySets>
+		<dependencySet>
+			<outputFileNameMapping>${artifact.artifactId}.${artifact.extension}
+			</outputFileNameMapping>
+			<excludes>
+				<exclude>com.simontuffs:one-jar-boot
+				</exclude>
+				<exclude>${project.groupId}:${project.artifactId}
+				</exclude>
+			</excludes>
+			<outputDirectory>/lib</outputDirectory>
+			<unpack>false</unpack>
+			<scope>runtime</scope>
+		</dependencySet>
+		<!--                
+-->
+		<dependencySet>
+			<includes>
+
+				<include>${project.groupId}:${project.artifactId}
+				</include>
+			</includes>
+			<outputDirectory>/bin</outputDirectory>
+			<unpack>false</unpack>
+			<scope>runtime</scope>
+		</dependencySet>
+
+		<!--
+			<dependencySet> <includes> <include>com.simontuffs:one-jar-boot
+			</include> </includes> <outputDirectory>/</outputDirectory>
+			<unpack>true</unpack> <scope>runtime</scope> </dependencySet>
+		-->
+	</dependencySets>
+
+	<fileSets>
+		<fileSet>
+			<directory>rules/rules3</directory>
+			<lineEnding>dos</lineEnding>
+			<fileMode>0644</fileMode>
+			<outputDirectory>/rules</outputDirectory>
+		</fileSet>
+	</fileSets>
+	<files>
+		<file>
+			<source>/src/main/assembly/prova3.bat
+			</source>
+			<outputDirectory>/bin</outputDirectory>
+			<destName>prova3.bat</destName>
+			<fileMode>0755</fileMode>
+			<lineEnding>dos</lineEnding>
+			<filtered />
+		</file>
+		<file>
+			<source>/src/main/assembly/README
+			</source>
+			<outputDirectory>/</outputDirectory>
+			<destName>README</destName>
+			<fileMode>0644</fileMode>
+			<lineEnding>dos</lineEnding>
+			<filtered />
+		</file>
+	</files>
+
+</assembly>

@@ -1,0 +1,64 @@
+% Demonstrate AND(E1,NOT E2) -> E3.
+%
+% This will print:
+%
+% Suspicious login user3 250.250.250.250 50.50.50.50
+% Suspicious login user1 100.100.100.100 10.10.10.10
+% 1st detected: [[[user1,async,0,request,[login,user1,10.10.10.10]]]] 
+% 1st detected: [[[user3,async,0,request,[login,user3,50.50.50.50]]]] 
+% Suspicious login user3 50.50.50.50 60.60.60.60
+% 2nd detected: [[[user3,async,0,request,[login,user3,50.50.50.50]]]] 
+% 1st detected: [[[user3,async,0,request,[login,user3,60.60.60.60]]]] 
+% Pattern detected: [[[user3,async,0,and,[[[user3,async,0,request,[login,user3,50.50.50.50]]]]], [user3,async,0,request,[login,user3,60.60.60.60]]]] 
+% Logout user1 10.10.10.10
+% Logout user3 60.60.60.60
+
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,request,login(User,IP)),
+	server_1(XID,User,IP).
+
+server_1(XID,User,IP) :-
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,login(User,IP2)) [IP2!=IP],
+	println(["Suspicious login",User,IP,IP2]," ").
+server_1(XID,User,IP) :-
+	% This reaction succeeds immediately if all other events in the AND group arrive and the overall group has no timeout.
+	@group(g1) @not
+	rcvMsg(XID,Protocol,From,request,logout(User,IP)),
+	println(["Logout",User,IP]," ").
+server_1(XID,User,IP) :-
+	@and(g1) @group(g2)
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["1st detected: ",Events," "]),
+	@group(g2)
+	rcvMsg(XID,Protocol,From,request,login(User,IP2)) [IP2!=IP],
+	println(["2nd detected: ",Events," "]).
+server_1(XID,User,IP) :-
+	@and(g2) @timeout(500)
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["Pattern detected: ",Events," "]).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(user1,async,0,request,login(user1,'100.100.100.100')),
+	sendMsg(user3,async,0,request,login(user3,'250.250.250.250')),
+	sendMsg(user1,async,0,request,login(user1,'10.10.10.10')),
+	sendMsg(user3,async,0,request,login(user3,'50.50.50.50')),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(200L),
+	sendMsg(user3,async,0,request,login(user3,'60.60.60.60')),
+	java.lang.Thread.sleep(300L),
+	sendMsg(user3,async,0,request,logout(user3,'60.60.60.60')),
+	sendMsg(user1,async,0,request,logout(user1,'10.10.10.10')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

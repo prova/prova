@@ -1,0 +1,138 @@
+:- eval(consult('rules/reloaded/functional.prova')).
+
+t(1,2).
+t(2,3).
+t(3,2).
+
+:-solve(test_match(S2)).
+
+test_match([X1,Y1,X2,Y2]) :-
+	match(t(X0,2),t(X1,Y1),G),
+	println([X1,Y1],","),
+	match(t(X0,2),t(X2,Y2),G),
+	println([X2,Y2],",").
+
+:-solve(f(S3)).
+
+o(1,2).
+o(2,3).
+o(3,2).
+
+add_snd([F(X,Y),D],F(X,YM)) :-
+	YM=Y+D.
+	
+f(R) :-
+	map([lambda(A,add_snd(A,1)),fact(o(X,2))],R).
+
+:-solve(update_1(S4)).
+
+:-solve(a(S5,3)).
+
+a(1,2).
+a(2,3).
+a(3,2).
+
+inc_snd(A(X,Y),A(X,YM)) :-
+	YM=Y+1.
+
+update_1(R) :-
+	derive(
+		[[map(inc_snd)],fact(a(X0,2)),R]
+	).
+
+b(1,2).
+b(2,3).
+b(3,2).
+
+inc_snd_st([A(X,Y),S],[A(X,YM),SM]) :-
+	YM=Y+1,
+	SM=S+1.
+
+update_st(R) :-
+	derive(
+		[[ map( [map(inc_snd_st)] ) ],state([fact(b(X0,2)),0]),R]
+	).
+
+:-solve(update_st(S6)).
+
+:-solve(b(S7,3)).
+
+c(1,2).
+c(2,3).
+c(3,2).
+
+add_snd_st([D,F(X,Y),S],[F(X,YM),SM]) :-
+	YM=Y+D,
+	SM=S+1.
+
+update_st2(R) :-
+	derive(
+		[[ map( [map(lambda(A,add_snd_st(1,A)))] ) ],state([fact(c(X0,2)),0]),R]
+	).
+
+:-solve(update_st2(S8)).
+
+:-solve(c(S9,3)).
+
+d(1,2).
+d(2,3).
+d(3,2).
+
+update_st3(R) :-
+	derive(
+		[[ map( [map(add_snd_st(1))] ) ],state([fact(d(X0,2)),0]),R]
+	).
+
+:-solve(update_st3(S10)).
+
+:-solve(d(S11,3)).
+
+:-solve(test(S12)).
+
+test(X) :-
+	nth([3,L],X),
+	from(1,L),
+	!.
+
+from(N,[]).
+from(N,[N|Xs]) :-
+	N1=N+1,
+	from(N1,Xs).
+
+nth([1,[X]],X) :- !.
+nth([N,[_|Xs]],X) :-
+	NM1=N-1,
+	nth([NM1,Xs],X).
+
+:-solve(test_nth_fibo(S13)).
+
+fibo([X0,X1],[X0]).
+fibo([X0,X1],[X0|Xs]) :-
+	X2=X0+X1,
+	fibo([X1,X2],Xs).
+
+test_nth_fibo(X) :-
+	fibo([0,1],L),
+	nth([5,L],X),
+	!.
+
+:-solve(test_nth_fact(S14)).
+
+n(1,7).
+n(2,3).
+n(3,7).
+
+test_nth_fact(X) :-
+	from_fact(n(X0,7),L),
+	% Get the second fact
+	nth([2,L],X),
+	!.
+
+from_fact(Pat,L) :-
+	from_fact(Pat,L,G).
+
+from_fact(Pat,[],G).
+from_fact(Pat,[X|Xs],G) :-
+	match(Pat,X,G),
+	from_fact(Pat,Xs,G).
+

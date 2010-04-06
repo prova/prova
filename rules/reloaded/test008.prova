@@ -1,0 +1,20 @@
+% Demonstrate assert, asserta, retract, and retractall.
+% asserta is available since Prova 1.7.2.
+
+:- solve(test008(X,Y)).
+
+test008(X,Y) :-
+	assert(symmetric(f)),
+	% The fact below will be added higher than the one above
+	asserta(symmetric(g)),
+	symmetric(X),
+	println(["Rule A1: symmetric",X]," "),
+	symmetric(Y),
+	println(["Rule A2: symmetric",Y]," ").
+test008(X,Y) :-
+	assert(dual(h,a)),
+	assert(dual(h,_)),
+	asserta(dual(h,f)),
+ 	retractall(dual(_,a)),
+	dual(X,Y),
+	println(["Rule B: dual",X,Y]," ").

@@ -1,0 +1,63 @@
+:- eval(init_server()).
+
+init_server() :-
+	$Orders=java.util.concurrent.ConcurrentHashMap().
+
+:- eval(server()). 
+
+server() :-
+	@group(g0) @id(order)
+	rcvMult(OrderID,Protocol,Sender,request,order(Item)),
+	$Orders.put(OrderID,order(OrderID,Sender,Item)),
+	sendMsg(OrderID,Protocol,Sender,ack(order)),
+	server_2(OrderID,Item).
+server() :-
+	rcvMsg(OrderID,Protocol,Sender,request,cancel(Item)) [false=$Orders.containsKey(OrderID)],
+	println(["Order",OrderID,"cannot be cancelled"]," "),
+	$FailedCancels.incrementAndGet(),
+	sendMsg(OrderID,Protocol,Sender,noack(cancel)).
+server() :-
+	@group(g0) @stop(order)
+	rcvMsg(XID,Protocol,From,control,stop_orders()).
+server() :-
+	@and(g0)
+	rcvMsg(OrderID,Protocol,Sender,and,[Order]),
+	$SuccessfulOrders.incrementAndGet(),
+	println(["Proceed with the order as timeout for cancel is elapsed ",OrderID]).
+
+server_2(OrderID,Item) :-
+	@group(g1) @not @timeout(1000)
+	rcvMsg(OrderID,Protocol,Sender,request,cancel(Item)) [!],
+	$Orders.remove(OrderID),
+	println(["Order",OrderID,cancelled]," "),
+	$SuccessfulCancels.incrementAndGet(),
+	sendMsg(OrderID,Protocol,Sender,ack(cancel)).
+server_2(OrderID,Item) :-
+	@and(g1) @group(g0)
+	rcvMsg(OrderID,Protocol,Sender,and,E),
+	$Orders.remove(OrderID),
+	println(["Timeout elapsed for order ",OrderID]).
+
+:- eval(client()). 
+
+client() :-
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use order-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(order1,async,0,request,order(item1)),
+	sendMsg(order2,async,0,request,order(item2)),
+	sendMsg(order3,async,0,request,order(item3)),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(500L),
+	sendMsg(order2,async,0,request,cancel(item2)),
+	java.lang.Thread.sleep(700L),
+	sendMsg(order1,async,0,request,cancel(item1)).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).
+
+% A testing harness catch-all reaction for printing all messages.
+%rcvMsg(XID,Protocol,From,Performative,[X|Xs]) :-
+%	println([XID,Protocol,From,Performative,[X|Xs]]).

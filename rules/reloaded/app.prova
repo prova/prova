@@ -1,0 +1,7 @@
+:-solve(attach([1|L],[2,3],X)).
+
+:-solve(attach([1|[1,L]],[2,3],X)).
+
+:-solve(attach([1|[1|L]],[2,3],X)).
+
+:-solve(attach([1|[1|L]],[2,3|Z],X)).

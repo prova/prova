@@ -1,0 +1,13 @@
+:-eval(run()).
+
+time(1240774897000L).
+time(1240774898000L).
+
+run() :-
+	DF=java.text.SimpleDateFormat("dd/MM/yyyy kk:mm:ss.mmm"),
+	time(Millis),
+	Calendar=java.util.GregorianCalendar(),
+	Calendar.setTimeInMillis(Millis),
+	Date=Calendar.getTime(),
+	Out=DF.format(Date),
+	println([Out]).

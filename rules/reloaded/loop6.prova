@@ -1,0 +1,7 @@
+:- solve(tca(X0,Y0)).
+
+tca(X,Y) :- q(X,Y).
+q(X,Y) :- cache(tca(X,Z)), t(Z,Y).
+
+q(a,b).
+t(b,c).

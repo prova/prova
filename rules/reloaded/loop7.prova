@@ -1,0 +1,11 @@
+:- solve(test(X0,Y0)).
+
+test(X0,Y0) :-
+	cache(tca(X0)),
+	cache(tca(Y0)).
+
+tca(V) :- t(V).
+tca(c).
+
+t(a).
+t(b).

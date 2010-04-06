@@ -1,0 +1,61 @@
+% Demonstrate login->(purchase|return)*->logout
+%
+% This will print:
+%
+% Return user1 10.10.10.10
+% Suspicious purchase user3 50.50.50.50 60.60.60.60
+% Suspicious purchase user3 50.50.50.50 70.70.70.70
+% Logout user1 10.10.10.10
+% Logout user3 50.50.50.50
+% Pattern detected: [[[user3,async,0,request,[purchase,user3,60.60.60.60]], [user3,async,0,request,[purchase,user3,70.70.70.70]], [user3,async,0,request,[logout,user3,50.50.50.50]]]] 
+% Pattern detected: [[[user1,async,0,request,[return,user1,10.10.10.10]], [user1,async,0,request,[logout,user1,10.10.10.10]]]] 
+
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,request,login(User,IP)),
+	server_1(XID,User,IP).
+
+server_1(XID,User,IP) :-
+	% Indefinitely record purchase events as part of the pattern 
+	@group(g1) @count(-1) @id(id1)
+	rcvMsg(XID,Protocol,From,request,purchase(User,IP2)) [IP2!=IP],
+	println(["Suspicious purchase",User,IP,IP2]," ").
+server_1(XID,User,IP) :-
+	% Any return after the first one is ignored but the first one is optional but recorded
+	@group(g1) @optional
+	rcvMsg(XID,Protocol,From,request,return(User,IP)),
+	println(["Return",User,IP]," ").
+server_1(XID,User,IP) :-
+	% logout removes the id1 branch and so finishes the pattern instance as all branches are satisfied
+	@group(g1) @stop(id1)
+	rcvMsg(XID,Protocol,From,request,logout(User,IP)),
+	println(["Logout",User,IP]," ").
+server_1(XID,User,IP) :-
+	@and(g1) @timeout(1000)
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["Pattern detected: ",Events," "]).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(user1,async,0,request,login(user1,'10.10.10.10')),
+	sendMsg(user3,async,0,request,login(user3,'50.50.50.50')),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(200L),
+	sendMsg(user1,async,0,request,purchase(user2,'30.30.30.30')),
+	sendMsg(user3,async,0,request,purchase(user3,'60.60.60.60')),
+	sendMsg(user1,async,0,request,return(user1,'10.10.10.10')),
+	sendMsg(user3,async,0,request,purchase(user3,'70.70.70.70')),
+	java.lang.Thread.sleep(300L),
+	sendMsg(user1,async,0,request,logout(user1,'10.10.10.10')),
+	sendMsg(user3,async,0,request,logout(user3,'50.50.50.50')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

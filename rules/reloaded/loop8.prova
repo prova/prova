@@ -1,0 +1,14 @@
+:- solve(test(1,B)).
+
+test(X,Y) :-
+	cache(tca(X,Y)).
+
+tca(X,Y) :- cache(tca(X,Z)),a(Z,Y).
+tca(X,Y) :- cache(tca(X,Z)),b(Z,Y).
+tca(X,Y) :- a(X,Y).
+
+a(1,2).
+a(3,4).
+
+b(2,3).
+b(4,5).

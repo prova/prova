@@ -1,0 +1,55 @@
+% Since Prova 2.0
+
+:- eval(client()).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% SERVER %%%%%
+%%%%%%%%%%%%%%%%%%
+
+rcvMsg(XID,Protocol,From,request,Proposal) :-
+	consider1(From,Proposal,Offer),
+	sendMsg(XID,Protocol,From,respond,Offer).
+
+consider1(_,[Proposal],[1,12]) :-
+	Proposal>20.
+
+rcvMsg(XID,Protocol,From,request,Proposal) :-
+	consider2(From,Proposal,Offer),
+	sendMsg(XID,Protocol,From,respond,Offer).
+
+consider2(_,[Proposal],[2,12]) :-
+	Proposal>15.
+
+rcvMsg(XID,Protocol,From,request,Proposal) :-
+	consider3(From,Proposal,Offer),
+	sendMsg(XID,Protocol,From,respond,Offer).
+
+consider3(_,[Proposal],[3,10]) :-
+	Proposal>15,
+	Proposal<20.
+
+%%%%%%%%%%%%%%%%%%
+%%%%% CLIENT %%%%%
+%%%%%%%%%%%%%%%%%%
+
+client() :-
+	sendMsg(XID,self,0,request,[19]),
+	assert(best(XID,0,0)),
+	branch(XID).
+
+branch(XID) :-
+	rcvMult(XID,self,Me,respond,[Service,Offer]),
+	println(["Received offer: ",Offer," from ",Service]),
+	choose(XID,BestService,Service,Offer).
+branch(XID) :-
+	spawn(XID,java.lang.Thread,sleep,1000L),
+	rcvMsg(XID,self,Me,return,Ret),
+	best(XID,BestService,BestOffer),
+	println(["Received best offer: ",BestOffer," from ",BestService]),
+	sendMsg(XID,self,0,eof,_).
+
+choose(XID,BestService,Service,Offer) :-
+	best(XID,BestService,BestOffer),
+	Offer>BestOffer,
+	retract(best(XID,BestService,BestOffer)),
+	assert(best(XID,Service,Offer)).

@@ -1,0 +1,10 @@
+% Prova 3.0
+% Demonstrating command-line arguments.
+
+:- solve(args(N)).
+
+args(N) :-
+	data($0,N).
+
+data(a,1).
+data(b,2).

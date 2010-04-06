@@ -1,0 +1,19 @@
+:- eval(msg003()).
+
+msg003() :-
+	println(["==========Messaging test 003=========="]),
+
+	% This reaction will stay active after receiving the first message so that both messages will be received
+	rcvMult(XID,self,From,inform,a(I)),
+	println(["Received: ",rcvMult(XID,self,From,inform,a(I))],"").
+msg003() :-
+	for(I,1,2),
+	sendMsg(XID,self,0,inform,a(I)),
+	println(["Sent: ",sendMsg(XID,self,0,inform,a(I))],"").
+
+% This outputs:
+% ==========Messaging test 003==========
+% Sent: [sendMsg,prova1,self,0,inform,[a,1]]
+% Sent: [sendMsg,prova2,self,0,inform,[a,2]]
+% Received: [rcvMsg,prova1,self,0,inform,[a,1]]
+% Received: [rcvMsg,prova2,self,0,inform,[a,2]]

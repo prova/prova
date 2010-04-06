@@ -1,0 +1,66 @@
+% Demonstrate retrospective negation with extra not.
+% Detect not 1 basket removes that are not matched against any previous basket adds.
+%
+% This returns:
+% ==========Retrospective negation with extra not test==========
+% user3 basket products [1]
+% user1 basket products [2]
+% user3 invalid return 4
+% user1 basket products [2, 3]
+% user3 basket products [1, 1]
+% user1 invalid return 1
+% user3 invalid return 5
+% user3 logout  50.50.50.50
+% Pattern detected: [[[user3,async,0,basket,[add,user3,50.50.50.50,1]], [user3,async,0,basket,[remove,user3,50.50.50.50,4]], [user3,async,0,basket,[add,user3,50.50.50.50,1]], [user3,async,0,basket,[remove,user3,50.50.50.50,5]], [user3,async,0,site,[logout,user3,50.50.50.50]]]] 
+% user1 logout  10.10.10.10
+
+:- eval(server()).
+
+server() :-
+	println(["==========Retrospective negation with extra not test=========="]),
+
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,site,login(User,IP)),
+	Basket = java.util.ArrayList(),
+	server_1(XID,User,IP,Basket).
+
+server_1(XID,User,IP,Basket) :-
+	@group(g1) @id(id1) @count(-1)
+	rcvMsg(XID,Protocol,From,basket,add(User,IP,ID)) [Basket.add(ID)],
+	println([User,"basket products",Basket]," ").
+server_1(XID,User,IP,Basket) :-
+	@group(g1) @id(id2) @count(1,1,strict) @not
+	rcvMsg(XID,Protocol,From,basket,remove(User,IP,ID)) [false=Basket.contains(ID)],
+	println([User,"invalid return",ID]," ").
+server_1(XID,User,IP,Basket) :-
+	@group(g1) @stop(id1,id2)
+	rcvMsg(XID,Protocol,From,site,logout(User,IP)),
+	println([User,"logout ",IP]," ").
+server_1(XID,User,IP,Basket) :-
+	@and(g1)
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["Pattern detected: ",Events," "]).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(user1,async,0,site,login(user1,'10.10.10.10')),
+	sendMsg(user3,async,0,site,login(user3,'50.50.50.50')),
+	sendMsg(user1,async,0,basket,add(user1,'10.10.10.10',2)),
+	sendMsg(user1,async,0,basket,add(user1,'10.10.10.10',3)),
+	sendMsg(user3,async,0,basket,add(user3,'50.50.50.50',1)),
+	sendMsg(user3,async,0,basket,remove(user3,'50.50.50.50',4)),
+	sendMsg(user1,async,0,basket,remove(user1,'10.10.10.10',1)),
+	sendMsg(user1,async,0,basket,remove(user1,'10.10.10.10',3)),
+	sendMsg(user3,async,0,basket,add(user3,'50.50.50.50',1)),
+	sendMsg(user3,async,0,basket,remove(user3,'50.50.50.50',5)),
+	sendMsg(user1,async,0,site,logout(user1,'10.10.10.10')),
+	sendMsg(user3,async,0,site,logout(user3,'50.50.50.50')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

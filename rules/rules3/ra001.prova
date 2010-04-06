@@ -1,0 +1,15 @@
+:- solve(a(3)).
+:- solve(a(Number.X)).
+:- solve(a(Integer.I)).
+:- solve(a(Short.I)).
+
+a(Integer.I).
+a(Double.I).
+
+% ==================
+% This prints:
+% yes
+% X=java.lang.Integer.<7>
+% X=java.lang.Double.<10>
+% I=java.lang.Integer.<13>
+% no

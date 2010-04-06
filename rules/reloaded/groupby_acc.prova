@@ -1,0 +1,24 @@
+% Every 25 milliseconds, output a sorted map with events grouped by a value. 
+% This test can only be run from ProvaMetadata.java as it requires an AtomicLong count passed a global constant.
+
+:- eval(groupby_acc()).
+
+groupby_acc() :-
+	println(["==========Groupby accumulator rate test=========="]),
+
+	Acc = ws.prova.eventing.SortedAccumulator(),
+	% This reaction operates indefinitely. When the timer elapses,
+	%   the sorted accumulator Acc is sent as part of the result,
+	%   and the timer is reset back to the second argument of @timer.
+	@group(g1) @timer(25,25,Acc)
+	rcvMsg(XID,self,From,inform,a(I,V)) [IM=I mod 5,Acc.processAt(IM,V)],
+	println(["Received: ",rcvMsg(XID,self,From,inform,a(I,V))],"").
+groupby_acc() :-
+	% This reaction is matched each time every 25 milliseconds with a new result
+	@or(g1)
+	rcvMsg(XID,self,From,or,[Results]),
+	% The first element of the results is the sorted accumulator
+	Acc = Results.get(0),
+	Delta = Acc.totalCount(),
+	$Count.addAndGet(Delta),
+	println(["Pattern detected: ",Results]).

@@ -1,0 +1,23 @@
+:- solve(p(AB)).
+
+:- solve(p(ab)).
+
+:- solve(q(ac)).
+
+:- solve(r(AB)).
+
+% One solution
+p(AB) :-
+	concat([a,b], AB).
+
+% One solution
+q(ab) :-
+	concat([a,b], ab).
+
+% No solutions here
+r(AB) :- 
+	concat([a,b], AB),
+	concat([a,c], AC), 
+	concat([a,c], AB), 
+	% This line is (correctly) unreachable in Prova reloaded
+	println(["1: ",AB," = ",AC]).

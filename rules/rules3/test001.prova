@@ -1,0 +1,11 @@
+is_a("anticoagulant","molecular_function"). 
+
+% Rules (how to derive new knowledge)
+parent(X,Y) :-   % X is parent of Y IF Y is a (kind of) X
+	is_a(Y,X).
+parent(X,Y) :-   % X is parent of Y IF X has a Y
+	has_a(X,Y).
+
+% Goal (what to do/what to derive)
+% Who is Parent of "anticoagulant"?
+:- solve(parent(Parent,"anticoagulant")).

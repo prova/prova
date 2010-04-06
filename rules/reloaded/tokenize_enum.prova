@@ -1,0 +1,11 @@
+:- solve(test_tokenize_enum_1(Value1)).
+
+:- solve(test_tokenize_enum_2(Value2)).
+
+test_tokenize_enum_1(Value) :-
+	% non-deterministically enumerate delimited tokens in a string
+	tokenize_enum([$Text,"\t"],Value).
+
+test_tokenize_enum_2(tt) :-
+	% non-deterministically enumerate delimited tokens in a string
+	tokenize_enum([$Text,"\t"],tt).

@@ -1,0 +1,48 @@
+% Since Prova 3.0, February 27, 2010
+% Demonstrate
+%   - new concurrent processing of inbound messages sent with protocol "async";
+%
+% Any message with protocol "async" gets processed by the thread pool in true concurrency.
+% Note that the destination equal to 0 must be used to send self messages with protocol "async".
+%
+
+:- eval(async_001()).
+
+score("Aberdeen v Kilmarnock","Aberdeen",1).
+score("Aberdeen v Kilmarnock","Kilmarnock",2).
+
+async_001() :-
+	println(["==========async test 001=========="]),
+
+	sendMsg(XID,async,0,score,["Aberdeen v Kilmarnock","Aberdeen"]),
+	sendMsg(XID,async,0,score,["Aberdeen v Kilmarnock","Kilmarnock"]),
+	sendMsg(XID,async,0,score,["Aberdeen v Kilmarnock","Kilmarnock"]).
+
+on_event(score(Match,Team)) :-
+	score(Match,Team,Score0),
+	!,
+	retract(score(Match,Team,Score0)),
+	Score=Score0+1,
+	assert(score(Match,Team,Score)),
+	println(score(Match,Team,Score)," > ").
+
+% A testing harness catch-all reaction for printing all messages.
+rcvMsg(XID,Protocol,From,Performative,Content) :-
+	println([Performative,Content]).
+
+rcvMsg(XID,Protocol,From,score,[Match,Team]) :-
+	TH=java.lang.Thread.currentThread(),
+	println([TH]),
+	on_event(score(Match,Team)).
+
+% One of possible outputs:
+% ==========async test 001==========
+% score[Aberdeen v Kilmarnock,Aberdeen]
+% Thread[pool-8-thread-1,5,main]
+% score > Aberdeen v Kilmarnock > Aberdeen > 2
+% score[Aberdeen v Kilmarnock,Kilmarnock]
+% Thread[pool-8-thread-1,5,main]
+% score > Aberdeen v Kilmarnock > Kilmarnock > 3
+% score[Aberdeen v Kilmarnock,Kilmarnock]
+% Thread[pool-8-thread-1,5,main]
+% score > Aberdeen v Kilmarnock > Kilmarnock > 4

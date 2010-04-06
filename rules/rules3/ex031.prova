@@ -1,0 +1,20 @@
+% Resolution of Issue I03-A of Ricardo Amador
+% Since Prova 1.90
+% (a) Variables with the same name but different prefixes are now all in fact different variables.
+% (b) Variables that have partially specified prefixes in the original code are printed in exactly
+%     the same way on output. Internally, this uses VariableTermImpl.toString().
+% (c) Variables that are fully prefixed and are not Java Object or Prova list are printed with the full
+%     type prefix.
+
+:- eval(test3()).
+
+test3() :-
+	println([Integer.X,Double.X,X]," "),
+	types(Integer.X,Double.X|X),
+	println([Integer.X,Double.X,X]," ").
+test3() :-
+	println([java.lang.Integer.X,Double.X,X]," "),
+	types(java.lang.Integer.X,Double.X|X),
+	println([java.lang.Integer.X,Double.X,X]," ").
+
+types(2,3.15,[a],a).

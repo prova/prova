@@ -1,0 +1,21 @@
+% Show how "not" can be used with Java calls.
+
+:- eval(test_not()).
+
+test_not() :-
+	println(["==========test_not=========="]),
+	not(eq('$','œ')),
+	println(["not equal"]).
+test_not() :-
+	S1 = '$',
+	Boolean.FALSE = S1.equals('œ'),
+	println(["not equal"]).
+
+eq(S1,S2) :-
+	S1.equals(S2). 
+
+not([X|Args]) :-
+	derive([X|Args]),
+	!,
+	fail().
+not([X|Args]).

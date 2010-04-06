@@ -1,0 +1,17 @@
+% This test can only be run from ProvaMessagingTest.java as it requires an AtomicLong count passed a global constant.
+% It works like msg003 but reactions are executed concurrently by the pool rather by the default agent thread.
+% For this to happen, the messages must be sent on the "async" protocol.
+
+:- eval(msg004()).
+
+msg004() :-
+	println(["==========Messaging test 004=========="]),
+
+	% This reaction will stay active after receiving the first message so that both messages will be received
+	rcvMult(XID,Protocol,From,inform,a(I)),
+	println(["Received: ",rcvMult(XID,async,From,inform,a(I))],""),
+	$Count.incrementAndGet().
+msg004() :-
+	for([1,20],I),
+	sendMsg(XID,async,0,inform,a(I)),
+	println(["Sent: ",sendMsg(XID,async,0,inform,a(I))],"").

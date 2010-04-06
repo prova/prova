@@ -1,0 +1,14 @@
+happy(X) :-
+ 	sex(X),
+ 	drugs(X),
+ 	rocknroll(X).
+ 
+drugs(stefan).
+rocknroll(erwin).
+sex(thomas).
+drugs(thomas).
+rocknroll(thomas).
+
+sex(olaf).
+drugs(olaf).
+rocknroll(olaf).

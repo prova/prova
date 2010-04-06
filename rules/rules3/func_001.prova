@@ -1,0 +1,40 @@
+% These tests do not explicitly use monads, all map applications are done per-element
+:- eval(consult('functional.prova')).
+
+%%% filter: select even numbers
+:- solve(filter([even,[1,2,3,4,5]],L1)).
+%%% map double to a list of numbers: X*2
+:- solve(map([double,[1,2,3,4,5]],L2)).
+%%% map a function composition: X+X
+%:- solve(map([comp([duplicate,add]),[1,2,3,4,5]],L3)).
+:- solve(map([comp([duplicate,add]),[1,2,3,4,5]],L3)).
+%%% map a function composition of reduced functions: add 1 twice to each number
+:- solve(map([comp([add(1),add(1)]),[1,2,3,4,5]],L4)).
+%%% shows that composition is ordered right-to-left: (X*2*2+2)*2
+:- solve(map([comp([double,double,add(2),double]),[1,2,3,4,5]],L5)).
+%%% shows how compound result provides remaining two arguments to add3: X*2+X*2+10
+:- solve(map([comp([double,duplicate,add3(10)]),[1,2,3,4,5]],L6)).
+%%% shows how compound result must be adapted to the required type (second argument to map is a list: [X*2,X*2]*2
+:- solve(map([comp([double,duplicate,wrap,map(double)]),[1,2,3,4,5]],L7)).
+%%% use foldr to add all numbers to the seed 5: 1+2+3+4+5 + 5
+:- solve(foldr([add,5,[1,2,3,4,5]],L8)).
+%%% use foldr to find the maximum of seed 4 and all elements: max(1,2,3,4,5,4)=5
+:- solve(foldr([max,4,[1,2,3,4,5]],L9)).
+%%% use foldl to divide the seed 64 by all list elements: 64/4/2/4=2.0
+:- solve(foldl([divide,64,[4,2,4]],L10)).
+
+second_degree([A,B,C,X],R) :-
+	R=A*X*X+B*X+C.
+
+:- solve(
+	derive(
+		[[lambda([A,B],second_degree(A,B,1,1))],[3,3],L11]
+	)
+).
+
+:- solve(
+	derive(
+		[[duplicate,lambda([A,B],second_degree(A,B,1,1))],3,L12]
+	)
+).
+

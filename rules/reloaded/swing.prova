@@ -1,0 +1,277 @@
+% This is an example that only runs in Prova Reloaded.
+% Must be run with a non-terminating loop (use the options: -t -1)
+% Click the right mouse button on the button in the Swing pane.  
+% Demonstrate
+%	- how to implement Swing user interface including events via Prova messages and
+%    reaction rules;
+%  - how to use the built-in 'listen' predicate for intercepting action events
+%    from buttons and menus;
+%  - that Prova uses the 'task' protocol thread pool for processing
+%    Prova messages corresponding to Swing events.
+%  - that thread hopping using switch_thread(swing) can be easily done from the Swing reaction rules
+%    to return back to the Swing Event Dispatching thread.
+%    The Green option in the Popup menu takes 2 seconds to execute
+%    because of the included computation.
+%    Try starting the Green computation and immediately choose Red option.
+%    Red will be set but will be replaced by Green as soon as the computation
+%    is finished.
+%  - how to to output the results of asynchronous computations to Label's;
+
+:- eval(swing()).
+
+% Suspend the rule body and possibly switch the thread to the other thread
+%    with name ThreadName.
+% The possible values of ThreadName will be
+%   'task' - in this case, the rule body continues in a 'task' thread pool. 
+%   'swing' - in this case, the rule body continues in the Swing events thread. 
+%   otherwise - it works like yield resuming the body in the main Prova thread.
+
+switch_thread(Protocol) :-
+	sendMsgSync(XID,Protocol,0,switch,[]),
+	rcvMsg(XID,Protocol,From,switch,[]).
+
+% Prolog-style infinite loop.
+repeat().
+repeat() :-
+	repeat().
+
+% Demonstrate how we can switch threads to continue the execution of
+%   the rule body in the separate Asynchronous Rules thread.
+swing() :-
+	switch_thread(async),
+	repeat(),
+	java.lang.Thread.sleep(1000L),
+	Th = java.lang.Thread.currentThread(),
+	println(["Run in a separate thread: ",Th]).
+swing() :-
+	println(["==========swing=========="]),
+
+	F = javax.swing.JFrame("Test Frame"),
+	F.setSize(640,480),
+	Content = F.getContentPane(),
+	Content.setBackground(java.awt.Color.white),
+	BL = javax.swing.BoxLayout(Content,javax.swing.BoxLayout.Y_AXIS),
+	Border = javax.swing.BorderFactory.createEmptyBorder(25,25,25,25),
+	Content.setBorder(Border),
+	Content.setLayout(BL),
+	unescape(
+"This demo shows how to use Prova reaction rules to process Swing events.
+All Swing updates are run on the Swing Event Processing Thread by using the \"swing\" protocol. 
+
+Two asynchronous computations will end up in two labels.
+
+The top button opens a menu to set colour.
+
+Selecting green starts a 2 second long computation
+    that updates the button when it finishes.
+If you change the button color to red or blue before 2 seconds elapse,
+    the button will still become green later.
+
+Hovering over the bottom button calls Prova reactions for mouse moved events."
+	,Esc1),
+
+	TA1 = javax.swing.JTextArea(Esc1),
+	
+	assert(textarea(TA1)),
+	TL1 = javax.swing.JLabel("<async results>"),
+	TL1.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT),
+	assert(label1(TL1)),
+	TL2 = javax.swing.JLabel("<async results>"),
+	TL2.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT),
+	assert(label2(TL2)),
+	Doc1 = TA1.getDocument(),
+	DRE1 = Doc1.getDefaultRootElement(),
+	Line1 = DRE1.getElement(0),
+	Line1S = Line1.getStartOffset(),
+	Line1E = Line1.getEndOffset(),
+	Line1D = Line1E - Line1S,
+	Line1T = TA1.getText(Line1S,Line1D),
+	println([Line1T]),
+	Content.add(TA1),
+	Content.add(TL1),
+	Content.add(TL2),
+	Box1 = javax.swing.Box.createVerticalStrut(12),
+	Content.add(Box1),
+
+	Dimension = java.awt.Dimension(100,40),
+
+	JB1 = javax.swing.JButton("<html><p align=center>Right-click</p><p align=center>me!</p></html>"), 
+	JB1.setActionCommand("Confirm"),
+	JB1.setPreferredSize(Dimension),
+	JB1.setMinimumSize(Dimension),
+	JB1.setMaximumSize(Dimension),
+	JB1.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT),
+	listen(action,JB1),
+	listen(mouse,JB1),
+	Content.add(JB1),
+
+	Box2 = javax.swing.Box.createVerticalStrut(12),
+	Content.add(Box2),
+
+	Mbar = javax.swing.JMenuBar(),
+	F.setJMenuBar(Mbar),
+	File = javax.swing.JMenu("File"),
+	Exit = javax.swing.JMenuItem("Close"),
+	listen(action,Exit),
+	File.add(Exit),
+	Mbar.add(File),
+
+	V = java.util.Vector([un,deux,trois,quatre,cinq,six,sept,huit,neuf,dix]),
+	CB1 = javax.swing.JComboBox( V ),
+	CB1List = CB1.getModel(),
+	assert(french_count(CB1List)),
+	CB1.setEditable(Boolean.TRUE),
+	Content.add("Center",CB1),
+
+	PM1 = javax.swing.JPopupMenu("Color"),
+	Red = javax.swing.JMenuItem("Red"),
+	listen(action,Red),
+   PM1.add(Red),
+	Green = javax.swing.JMenuItem("Green"),
+	listen(action,Green),
+   PM1.add(Green),
+	Blue = javax.swing.JMenuItem("Blue"),
+	listen(action,Blue),
+   PM1.add(Blue),
+	assert(popup(PM1)),
+
+	Box3 = javax.swing.Box.createVerticalStrut(12),
+	Content.add(Box3),
+
+	JB2 = javax.swing.JButton("<html><p align=center>Hover over</p><p align=center>me!</p></html>"), 
+	JB2.setPreferredSize(Dimension),
+	JB2.setMinimumSize(Dimension),
+	JB2.setMaximumSize(Dimension),
+	JB2.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT),
+
+	listen(motion,JB2),
+	Content.add(JB2),
+
+	% Once the window is closed by the user, the whole application will exit
+	F.setDefaultCloseOperation( javax.swing.JFrame.EXIT_ON_CLOSE ),
+	F.show().
+
+% Reaction to incoming swing action messages on buttons.
+rcvMsg(XID,Protocol,From,swing,[action,Cmd,javax.swing.JButton.JB|Extra]) :-
+%	println(["swing action for conversation-id ",XID,": ",javax.swing.JButton.JB,Cmd]),
+	process_button(Cmd).
+
+% Reaction to incoming swing action messages on menu items.
+rcvMsg(XID,Protocol,From,swing,[action,Cmd,javax.swing.JMenuItem.JMI|Extra]) :-
+%	println(["swing action for conversation-id ",XID,": ",javax.swing.JMenuItem.JMI,Cmd]),
+	process_menu(Cmd).
+
+% Reaction to incoming swing change messages (not used in the example).
+rcvMsg(XID,Protocol,From,swing,[change|Extra]) :-
+	println(["swing change for conversation-id ",XID,": "|Extra]).
+
+% Reaction to incoming swing mouse clicked messages.
+rcvMsg(XID,Protocol,From,swing,[mouse,clicked,Src|Extra]) :-
+	process_mouse([clicked,Src|Extra]).
+
+% Reaction to incoming swing mouse pressed messages.
+rcvMsg(XID,Protocol,From,swing,[mouse,pressed,Src|Extra]) :-
+	process_mouse([pressed,Src|Extra]).
+
+% Reaction to incoming swing mouse moved messages.
+rcvMsg(XID,Protocol,From,swing,[motion,moved,Src|Extra]) :-
+	process_motion([moved,Src|Extra]).
+
+process_button("Confirm") :-
+	french_count(CB1List),
+	println([CB1List]),
+	Sel = CB1List.getSelectedItem(),
+	println([Sel]).
+
+process_menu("Close") :-
+	System.exit(0).
+% Popup on the button
+process_menu("Red") :-
+	println(["Red clicked and set."]),
+	selected_component(Comp),
+	Comp.setBackground(java.awt.Color.red).
+process_menu("Green") :-
+	println(["Green clicked."]),
+	selected_component(Comp),
+	% Demonstrate how a long asynchronous computation can be started in the body
+	% of a reaction rule for a Swing UI event.
+	% Note the use of a special style of swing return to intercept the
+	%     completion of the computation in the inline reaction.
+	% The computation itself is NOT run in the Swing events thread, which
+	%     can continue processing user events.
+	println(["Computation submitted."]),
+	spawn(XID,java.lang.Thread,sleep,2000L),
+	println(["Computation started."]),
+	rcvMsg(XID,self,Me,return,Ret),
+	println(["Green set."]),
+	switch_thread(swing),
+	Comp.setBackground(java.awt.Color.green).
+process_menu("Blue") :-
+	println(["Blue clicked and set."]),
+	selected_component(Comp),
+	Comp.setBackground(java.awt.Color.blue).
+
+process_motion([moved,javax.swing.JButton.JB,Event]) :-
+	Comp = Event.getComponent(),
+	X = Event.getX(),
+	Y = Event.getY(),
+	concat(["X:",X,",Y:",Y],Text),
+	javax.swing.JButton.JB.setText(Text).
+
+process_mouse([clicked,javax.swing.JButton.JB,Event]) :-
+	InSwingEventThread = javax.swing.SwingUtilities.isEventDispatchThread(),
+	println(["In Swing events thread: ",InSwingEventThread]),
+	3 = Event.getButton(),
+	Comp = Event.getComponent(),
+	% Remember where the popup occurred
+	retractall(selected_component(_)),
+	assert(selected_component(Comp)),
+	X = Event.getX(),
+	Y = Event.getY(),
+	popup(PM1),
+	PM1.show(Comp,X,Y).
+
+:- eval(test_spawn()).
+
+% The rules below currently are executed in the Prova thread, NOT in
+%    the Swing events thread, which is incorrect, so we SWITCH thread
+%    to the Swing thread by sending a message with performative 'swing'
+%    to self and using an inline reaction to continue
+%    in the Swing events thread.  
+test_spawn() :-
+	println(["==========test spawn=========="]),
+
+	P=ws.prova.examples.Portfolio("IBM"),
+	% P.longcalc(2) is an instance method.
+	% It takes 2 seconds to complete and returns a Boolean.
+	spawn(XID,P,longcalc,2L),
+	% Ret will contain a returned object in a list,
+	%    a Boolean.TRUE in this case.
+	% If a called method was void or returned null,
+	%    Ret would have contained a string 'null'. 
+	rcvMsg(XID,self,Me,return,Ret),
+	label1(TL1),
+	unescape("\ntest_spawn 1 finished.",Text),
+
+	% Switch to the Swing events thread
+	switch_thread(swing),
+	% Now in the Swing events thread, we proceed to Swing calls
+	TL1.setText(Text),
+	println(Ret).
+test_spawn() :-
+	% java.lang.Thread.sleep(2000L) is a static method running for 2 seconds
+	spawn(XID,java.lang.Thread,sleep,2000L),
+	% If the method returns void or returns null, return is instantiated with
+	%    a string constant 'null'
+	rcvMsg(XID,self,Me,return,Ret),
+	println([Ret]),
+	label2(TL2),
+	unescape("\ntest_spawn 2 finished.",Text),
+
+	% Switch to the Swing events thread
+	switch_thread(swing),
+
+	% Now in the Swing events thread, we proceed to Swing calls
+	TL2.setText(Text),
+	println(["========test complete========="]).
+

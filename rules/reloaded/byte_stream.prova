@@ -1,0 +1,27 @@
+% Prova 3.0 version of test038.prova with functional programming style predicate signatures
+% Demonstrate how to
+% - compress and decompress strings
+% - use byte_stream to create a byte stream from String
+% - use byte_stream to a String from byte streams
+%   [NOTE that byte_stream works in either mode depending
+%    on the first argument being a constant String]
+% - use GZIPOutputStream to compress byte streams
+% - use copy_stream to copy streams
+
+:- solve(test_byte_stream(toto)).
+
+test_byte_stream(Result) :-
+	println(["==========byte_stream=========="]),
+	byte_stream(["toto","UTF-8"],BAIS),
+	File=java.io.File.createTempFile("prefix","suffix"),
+	FO=java.io.FileOutputStream(File),
+	ZFO=java.util.zip.GZIPOutputStream(FO),
+	copy_stream(BAIS,ZFO),
+	println(["Compressed file created."]),
+
+	FI=java.io.FileInputStream(File),
+	ZFI=java.util.zip.GZIPInputStream(FI),
+	BAOS=java.io.ByteArrayOutputStream(),
+	copy_stream(ZFI,BAOS),
+	byte_stream([BAOS,"UTF-8"],Result),
+	println(["The original string read from the compressed file: ",Result]).

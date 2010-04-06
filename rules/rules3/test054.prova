@@ -1,0 +1,30 @@
+% Since Prova 2.0 RC2
+% A CUT literal ('!') followed by a goal (':-') was parsed incorrectly
+
+in(1).
+
+set(7,C) :-
+	!.
+
+in(2).
+
+:- solve(in(In)).
+
+on(1).
+
+set(6,C) :-
+	!.
+
+:- solve(on(On)).
+
+:- solve(un(Un)).
+
+un(1) :- !.
+
+% Prints:
+% In=1
+% In=2
+%
+% On=1
+%
+% Un=1

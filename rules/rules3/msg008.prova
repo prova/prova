@@ -1,0 +1,44 @@
+% Prova "reloaded" messaging
+% Demonstrate
+% - Using task and conversation thread pools to distribute computation while avoiding thread synchronisation
+
+:- eval(server()).
+
+:- eval(client()).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% SERVER %%%%%
+%%%%%%%%%%%%%%%%%%
+
+% All requests run in parallel threads from the 'task' thread pool.
+% This happens due to the client specifying 'task' as the protocol (second parameter to sendMsg).
+server() :-
+	println(["==========msg008=========="]),
+	rcvMult(XID,Protocol,From,run,t(I)),
+	I2=I*2,
+	% Response aggregation is done sequentially in the partitioned thread
+	sendMsg(XID,async,From,result,t(I2)).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% CLIENT %%%%%
+%%%%%%%%%%%%%%%%%%
+
+client() :-
+	$N=0,
+	% Initialise XID so that the subsequent responses are all executed on the same thread
+	sendMsg(XID,task,0,noop,[]),
+	element(I,[1,2,3,4]),
+	% Execute on the non-partitoned 'task' thread pool
+	sendMsg(XID,task,0,run,t(I)),
+	% For each response from the server, the remainder of this rule's body
+	%   runs in one and the same "conversation" thread chosen from the partitioned conversation thread pool using XID as key.
+	%   This means that there is no synchronisation required.
+	rcvMsg(XID,async,From,result,t(I2)),
+	N2=$N+1,
+	$N=N2,
+	println([$N]),
+	wrapup($N).
+
+% This only gets executed when all responses have arrived
+wrapup(4) :-
+	println([done]).

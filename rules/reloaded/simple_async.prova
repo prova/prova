@@ -1,0 +1,13 @@
+% For Prova Reloaded
+
+:- eval(simple_async()). 
+
+simple_async() :- 
+	println(["==========simple_async=========="]), 
+
+	for([0,2],I),
+
+	sendMsgSync(XID,async,0,request,a(I)),
+	rcvMsg(XID,async,Me,request,a(I)),
+	TH=java.lang.Thread.currentThread(),
+	println(["<",XID,"> ",I," on ",TH]). 

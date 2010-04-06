@@ -1,0 +1,78 @@
+:- eval(consult('functional.prova')).
+
+% Demonstrate
+%    the Maybe monad,
+%    the use of monadic computations instead of monadic instances as inputs to bind,
+%    the use of fully applied functions in such monadic computations,
+%    show how to use Java types in functions.
+
+% The two examples below pass an explicit monad instance as input to Maybe bind
+% maybe(just(3)) >>= halve_f
+% this returns: X1=[maybe,[just,1]]
+:- solve(
+	derive(
+		[[map(halve_f),join],maybe(just(3)),X1]
+	)
+).
+
+% maybe(nothing()) >>= halve_f
+% this returns: X2=[maybe,[nothing]]
+:- solve(
+	derive(
+		[[map(halve_f),join],maybe(nothing()),X2]
+	)
+).
+
+% In the last three tests, we pass a computation as input.
+% This computation is a generator, i.e., it does not have parameters.
+% () >>= gen_7 >>= halve_f
+% this returns: X3=[maybe,[just,3]]
+:- solve(
+	derive(
+		[[gen_7,map(halve_f),join],[],X3]
+	)
+).
+
+% use a partially applied function as the input computation: 7 >>= gen_f >>= halve_f
+% this returns: X=[maybe,[just,3]]
+:- solve(
+	derive(
+		[[gen_f,map(halve_f),join],7,X4]
+	)
+).
+
+% demonstrate a chain that converges to Nothing: 7 >>= gen_f >>= halve_f >>= halve_f >>= halve_f >>= halve_f
+% this returns: X=[maybe,[nothing]]
+:- solve(
+	derive(
+		[[gen_f,map(halve_f),join,map(halve_f),join,map(halve_f),join,map(halve_f),join],7,X5]
+	)
+).
+/*
+% map for the Maybe monad is an example of an fmap: a->b->Ma->Mb
+map([Fun,maybe(nothing())],maybe(nothing())) :-
+	!.
+map([Fun,maybe(just(A))],maybe(just(B))) :-
+	!,
+	derive(Fun(A,B)).
+
+% an extra rule for using a monadic computation (a generator) as input
+%map2([Fun,Gen],B) :-
+%	derive(Gen([],G)),
+%	map([Fun,G],B).
+
+% join (like concat for the list monad) must always be wrapped in an outer list.
+% this is our implementation detail 
+join(maybe(nothing()),maybe(nothing())) :-
+	!.
+join(maybe(just(X)),X).
+
+gen_f([X],maybe(just(X))).
+
+% generators are parameter-less functions 
+gen_7([],maybe(just(7))).
+
+halve_f(0,maybe(nothing())) :- !.
+halve_f(Number.A,maybe(just(Number.B))) :-
+	Number.B=Number.A/2.
+*/

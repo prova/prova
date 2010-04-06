@@ -1,0 +1,22 @@
+:- solve(length_of(X,3,0)).
+:- solve(append(X,Y,[1,2,3])).
+:- solve(range(X,1,6)).
+
+range(X,X,X) :- !.
+range(X,X,_).      
+range(X,Y,Z) :-
+	Y1=Y+1,
+	range(X,Y1,Z).
+   
+member(X,[X|_]).
+member(X,[_|L]):-
+	member(X,L).
+   
+append([],L,L).
+append([X|L1],L2,[X|L3]):-
+	append(L1, L2, L3).
+
+length_of([], Result, Result) :- !.
+length_of([_|T],Result,Counter):-
+	NewCounter = Counter + 1,
+	length_of(T, Result, NewCounter).

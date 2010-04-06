@@ -1,0 +1,392 @@
+%%% Functional programming utils (result is always the last parameter)
+%%% All functions are predicates with two parameters: Args and Result. 
+
+% Wrap in a list (e.g., as required by the second map argument)
+wrap(X,[X]).
+
+filter([_,[]],[]).
+filter([Test,[A|As]],[A|Bs]) :-
+	derive(Test(A)),
+	!,
+	filter([Test,As],Bs).
+filter([Test,[A|As]],Bs) :-
+	filter([Test,As],Bs).
+
+foldr([_,X,[]],X) :-
+	!.
+foldr([Fun,X,[A|As]],Z) :-
+	!,
+	foldr([Fun,X,As],Z1),
+	derive(Fun([A,Z1],Z)).
+
+foldl([_,X,[]],X) :-
+	!.
+foldl([Fun,X,[A|As]],Z) :-
+	!,
+	derive(Fun([X,A],Z1)),
+	foldl([Fun,Z1,As],Z).
+
+max([X,Y],X) :-
+	X>=Y,
+	!.
+max([X,Y],Y).
+
+%%% Test predicates
+
+even(I) :-
+	0=I mod 2.
+
+sqr(X,R) :-
+	R=X*X.
+
+sqrcps([X,K],RR) :-
+	R=X*X,
+	derive([K,R,RR]).
+
+addcps([A,B,K],RR) :-
+	R=A+B,
+	derive([K,R,RR]).
+
+% Monadic list for an integer range
+range_m([From,To],[list|L]) :-
+	range([From,To],L).
+
+range([From,From],[From]) :- !.
+range([From,To],[From|Ls]) :-
+	From<To,
+	From1=From+1,
+	range([From1,To],Ls).
+
+% prtln: X->X
+prtln(X,X) :-
+	println([X]).
+
+double(X,XM) :-
+	XM=2*X.
+
+add3([A,B,C],Z) :-
+	Z=A+B+C.
+ 
+list(L,[list|L]).
+
+duplicate_m(X,list(X,X)).
+
+duplicate(X,[X,X]).
+
+add([A,B],Z) :-
+	Z=A+B.
+
+sub([A,B],Z) :-
+	Z=A-B.
+
+mult([A,B],Z) :-
+	Z=A*B.
+
+divide([A,B],Z) :-
+	Z=A/B.
+ 
+%%% state transformers %%%
+adds([D,V,S],[VM,S]) :-
+	VM=V+D.            
+
+subs([D,V,S],[VM,S]) :-
+	VM=V-D.            
+
+% Needs to take and ignore the extra state variable 
+add([D,V,S],state([VM,S])) :-
+%println([D,'+',V,'=',S]),
+                VM=V+D.            
+
+mult([D,V,S],state([VM,S])) :-
+	VM=V*D.            
+
+getState(S,state([S,S])).
+
+% Note that putState(V) is still a function (\S -> (V,V))
+putState([V,S],state([V,V])).
+
+% Now changed to keep the state as it was before the function is called
+incValue([V,S],state([VM,S])) :-
+	VM=V+1.
+
+flipcase([C,true],state([CM,false])) :-
+	CM=C.toUpperCase().
+flipcase([C,false],state([CM,true])) :-
+	CM=C.toLowerCase().
+
+@label(new)
+lambda([X,[],A],A) :-
+	!.
+@label(new)
+lambda([X,[[Fun|Args]|Fs],list(A|As)],R) :-
+	!,
+	element(X,[A|As]),
+	derive([Fun,Args,B]),
+	derive([Fs,B,R]).
+@label(new)
+lambda([X,[[Fun|Args]|Fs],[A|As]],R) :-
+	!,
+	element(X,[A|As]),
+	derive([Fun,Args,B]),
+	derive([Fs,B,R]).
+@label(new)
+lambda([X,[[Fun|Args]|Fs],X],R) :-
+	!,
+	derive([Fun,Args,B]),
+	derive([Fs,B,R]).
+@label(newnew)
+lambda([X,[[Fun|Args]|Fs]|X],R) :-
+	!,
+	derive([Fun,Args,B]),
+	derive([Fs,B,R]).
+lambda([X,[Fun,Arg],list(A|As)],B) :-
+	!,
+	element(X,[A|As]),
+	derive([Fun,Arg,B]).
+lambda([X,[Fun|Args],list(A|As)],B) :-
+	!,
+	element(X,[A|As]),
+	derive([Fun,Args,B]).
+lambda([X,[Fun,Arg],[A|As]],B) :-
+	!,
+	element(X,[A|As]),
+	derive([Fun,Arg,B]).
+lambda([X,[Fun|Args],[A|As]],B) :-
+	!,
+	element(X,[A|As]),
+	derive([Fun,Args,B]).
+@label(new)
+lambda([A,[Fun,Arg],A],B) :-
+	!,
+	derive([Fun,Arg,B]).
+@label(newnew)
+lambda([A,[Fun,Arg]|A],B) :-
+	!,
+	derive([Fun,Arg,B]).
+lambda([A,[Fun|Args],A],B) :-
+	!,
+	derive([Fun,Args,B]).
+@label(newnew)
+lambda([X,[Fun|Args]|X],R) :-
+	!,
+	derive([Fun,Args,R]).
+
+%%% map definition for the State monad
+map([lambda(A,Fun),state([A,S])],state([VM,SM])) :-
+	!,
+	derive([[Fun],S,[VM,SM]]).
+map([Fun,state([V,S])],state([VM,SM])) :-
+	!,
+	derive([[Fun(V)],S,[VM,SM]]).
+
+wrap([],[]) :-
+	!.
+%wrap([state|As],[[state|As]]) :-
+%	!.
+wrap([A|As],[A|As]) :-
+	!.
+wrap(A,[A]).
+
+% map on lists is an example of an fmap: a->b->Ma->Mb
+map([_,[]],[]) :-
+	!.
+% map for the Maybe monad is an example of an fmap: a->b->Ma->Mb
+map([Fun,maybe(nothing())],maybe(nothing())) :-
+	!.
+map([Fun,maybe(just(A))],maybe(just(B))) :-
+	!,
+	derive(Fun(A,B)).
+
+% map for the Tree monad is an example of an fmap: a->b->Ma->Mb
+map([Fun,tree()],tree()) :-
+	!.
+map([Fun,tree(leaf(A))],tree(leaf(B))) :-
+	!,
+	map([Fun,A],B).
+map([Fun,[tree|A]],[tree|B]) :-
+	!,
+	map([[map(Fun)],A],B).
+
+map([F,fact(T)|As],R) :-
+	!,
+	map_fact([F,fact(T,G)|As],R).
+
+@label(new)
+map([lambda(A,[Fun|Args]),list(X)],list(B)) :-
+	!,
+	clone(lambda(A,[Fun|Args]),lambda(X,[FunX|ArgXs])),
+	derive([FunX,ArgXs,B]).
+@label(new)
+map([lambda(A,[Fun|Args]),list(X|As)],list(B|Bs)) :-
+	!,
+	clone(lambda(A,[Fun|Args]),lambda(X,[FunX|ArgXs])),
+	derive([FunX,ArgXs,B]),
+	map([lambda(A,[Fun|Args]),[list|As]],[list|Bs]).
+map([lambda(A,[Fun|Args]),[X|As]],[B|Bs]) :-
+	!,
+	clone(lambda(A,[Fun|Args]),lambda(X,[FunX|ArgXs])),
+	derive([FunX,ArgXs,B]),
+	map([lambda(A,[Fun|Args]),As],Bs).
+
+map([comp(Fun),list()],list()) :- !.
+map([comp(Fun),list(A|As)],list(B|Bs)) :-
+	!,
+	clone(Fun,FunX),
+	derive(FunX(A,B)),
+	map([comp(Fun),[list|As]],[list|Bs]).
+map([comp(Fun),[A|As]],[B|Bs]) :-
+	!,
+	clone(Fun,FunX),
+	derive(FunX(A,B)),
+	map([comp(Fun),As],Bs).
+
+map([Fun,list()],list()) :-
+	!.
+@label(experiment)
+map([Fun,list(),M|Ms],[list(),M|Ms]) :-
+	!.
+map([[Fun|Args],list(A)],list(B)) :-
+	!,
+	attach(Args,A,C),
+	derive(Fun(C,B)).
+map([[Fun|Args],list(A|As)],list(B|Bs)) :-
+	!,
+	attach(Args,A,C),
+	derive(Fun(C,B)),
+	map([[Fun|Args],[list|As]],[list|Bs]).
+@label(experiment)
+map([Fun,list(A|As),M|Ms],[list(B|Bs),MX|MXs]) :-
+	!,
+	derive([Fun,[A,M|Ms],[B,M2|M2s]]),
+	map([Fun,[list|As],M2|M2s],[[list|Bs],MX|MXs]).
+@label(check_this)
+map([Fun,list(A|As)],list(B|Bs)) :-
+	!,
+	derive([Fun,A,B]),
+	map([Fun,[list|As]],[list|Bs]).
+
+map_fact([[lambda|Ls],fact(T,G)|As],R) :-
+	!,
+	map_fact_lambda([[lambda|Ls],fact(T,G)|As],R).
+map_fact([[Fun|Args],fact(T,G)],list(B|Bs)) :-
+	match(T,X,G),
+	!,
+	attach(Args,X,C),
+	derive(Fun(C,B)),
+	update(B,G),
+	map_fact([[Fun|Args],fact(T,G)],[list|Bs]).
+map_fact([[Fun|Args],fact(T,G)|As],[list(Y|Ys)|Bs]) :-
+	match(T,X,G),
+	!,
+	attach(Args,[X],C0),
+	attach(C0,As,C),
+	derive(Fun(C,[Y|A2s])),
+	update(Y,G),
+	map_fact([[Fun|Args],fact(T,G)|A2s],[[list|Ys]|Bs]).
+map_fact([Fun,fact(T,G)],list(B|Bs)) :-
+	match(T,X,G),
+	!,
+	derive(Fun(X,B)),
+	update(B,G),
+	map_fact([Fun,fact(T,G)],[list|Bs]).
+map_fact([F,fact(T,G)],list()) :- !.
+map_fact([Fun,fact(T,G)|As],[list(Y|Ys)|Bs]) :-
+	match(T,X,G),
+	!,
+	derive(Fun([X|As],[Y|A2s])),
+	update(Y,G),
+	map_fact([Fun,fact(T,G)|A2s],[[list|Ys]|Bs]).
+map_fact([F,fact(T,G)|As],[list()|As]) :- !.
+
+map_fact_lambda([lambda(A,[Fun|Args]),fact(T,G)],list(B|Bs)) :-
+	match(T,X,G),
+	!,
+	clone(lambda(A,[Fun|Args]),lambda(X,[FunX|ArgXs])),
+	derive([FunX,ArgXs,B]),
+	update(B,G),
+	map_fact([lambda(A,[Fun|Args]),fact(T,G)],[list|Bs]).
+map_fact_lambda([lambda(A,[Fun|Args]),fact(T,G)],list()) :- !.
+map_fact_lambda([lambda(A,[Fun|Args]),fact(T,G)|As],[list(Y|Ys)|Bs]) :-
+	match(T,X,G),
+	!,
+	clone(lambda(A,[Fun|Args]),lambda(X,[FunX|ArgXs])),
+	attach(ArgXs,As,C),
+	derive(FunX(C,[Y|A2s])),
+	update(Y,G),
+	map_fact([lambda(A,[Fun|Args]),fact(T,G)|A2s],[[list|Ys]|Bs]).
+map_fact_lambda([lambda(A,[Fun|Args]),fact(T,G)|As],[list()|As]) :- !.
+
+map([Fun,[A|As]],[B|Bs]) :-
+	!,
+%	derive([Fun,A,B]),
+	map([Fun,A],B),
+	map([Fun,As],Bs).
+map([[Fun|Args],[A|As]],[B|Bs]) :-
+	!,
+	attach(Args,A,C),
+%	derive(Fun(C,B)),
+	map([Fun,C],B),
+	map([[Fun|Args],As],Bs).
+
+% a catch-all, map Fun on a non-monad (a datum): often called from the map rule for lists
+% this is related to the discussion here on shape: http://www-staff.it.uts.edu.au/~cbj/Publications/shapes.html
+map([Fun,A],B) :-
+	!,
+	derive(Fun(A,B)).
+map([[Fun|Args],A],B) :-
+	attach([Args],A,C),
+	derive(Fun(C,B)).
+
+%%% join definition for the State monad
+join(state(X),X) :-
+	!.
+
+% concat is an example of join: M(Ma)->Ma 
+
+join([list()],list()) :-
+	!.
+join([list()|As],R) :-
+	!,
+	join(As,R).
+join(list([list|Xs]|As),Rs) :-
+	!,
+	join([[list|Xs]|As],Rs).
+join([[list|Xs]],[list|Xs]) :-
+	!.
+join([[list|Xs]|As],[list|Rs]) :-
+	!,
+	join(As,[list|R1]),
+	join([Xs,R1],Rs).
+join(list(X|Xs),list(X|Xs)) :- !.
+
+% join (like concat for the list monad) must always be wrapped in an outer list.
+% this is our implementation detail 
+join(maybe(nothing()),maybe(nothing())) :-
+	!.
+join(maybe(just(X)),X) :- !.
+
+% join (like concat for the list monad) must always be wrapped in an outer list.
+% this is our implementation detail 
+join(tree(leaf(X)),[X]).
+join(tree(X),tree(Y)) :-
+	map([join,X],Y).
+
+join([],[]) :-
+	!.
+join([[]|As],R) :-
+	!,
+	join(As,R).
+join([[X|Xs]|As],[X|Rs]) :-
+	!,
+%println([X]),
+	join([Xs|As],Rs).
+join([X|Xs],[X|Xs]).
+
+gen_f(X,maybe(just(X))).
+
+% generators are parameter-less functions 
+gen_7([],maybe(just(7))).
+
+halve_f(0,maybe(nothing())) :- !.
+halve_f(Number.A,maybe(just(Number.B))) :-
+	Number.B=Number.A/2.

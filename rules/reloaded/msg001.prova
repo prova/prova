@@ -1,0 +1,32 @@
+% This test can only be run from ProvaMessagingTest.java as it requires an AtomicLong count passed a global constant.
+ 
+:- eval(msg001()).
+
+msg001() :-
+	println(["==========Messaging test 001=========="]),
+
+	for(I,1,4),
+	sendMsg(XID,self,0,inform,a(I)),
+	println(["Sent: ",sendMsg(XID,self,0,inform,a(I))],"").
+
+rcvMsg(XID,self,From,inform,a(I)) :-
+	println(["Received: ",rcvMsg(XID,self,From,inform,a(I))],""),
+	$Count.incrementAndGet().
+
+for(From,From,From) :- !.
+for(From,From,To) :-
+	From<=To.
+for(I,From,To) :-
+	From2=From+1,
+	for(I,From2,To).
+
+% This outputs:
+% ==========Messaging test 001==========
+% Sent: [sendMsg,prova1,self,0,inform,[a,1]]
+% Sent: [sendMsg,prova2,self,0,inform,[a,2]]
+% Sent: [sendMsg,prova3,self,0,inform,[a,3]]
+% Sent: [sendMsg,prova4,self,0,inform,[a,4]]
+% Received: [rcvMsg,prova1,self,0,inform,[a,1]]
+% Received: [rcvMsg,prova2,self,0,inform,[a,2]]
+% Received: [rcvMsg,prova3,self,0,inform,[a,3]]
+% Received: [rcvMsg,prova4,self,0,inform,[a,4]]

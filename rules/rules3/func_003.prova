@@ -1,0 +1,101 @@
+:- eval(consult('functional.prova')).
+
+gt_m([X,A],list(A)) :-
+	A>X,
+	!.
+gt_m([X,A],list()).
+
+% This returns X0=[list,3,4]
+:- solve(
+	derive(
+		[[map([[gt_m(2)]]),join],list(1,2,3,4),X0]
+	)
+).
+
+% Examples borrowed from: http://www.haskell.org/haskellwiki/Monads_as_containers
+%
+% Demonstrate
+%    concat function on lists,
+%    concrete monadic bind defined as concat(map f m) on lists,
+%    using partial application for map.
+
+% This returns X1=[1,1,2,2,3,3]
+:- solve(join([[1,1],[2,2],[3,3]],X1)).
+
+% Use monadic function duplicate_m
+% This returns X2A=[list,1,1,2,2,3,3]
+:- solve(
+	derive(
+		[[map(duplicate_m),join],list(1,2,3),X2A]
+	)
+).
+
+% This way of dealing with lists is not recommended, use list monad instead as in the previous example
+% This returns X2B=[1,1,2,2,3,3]
+% [1,2,3] >>= duplicate
+:- solve(
+	derive(
+		[[map(duplicate),join],[[1,2,3]],X2B]
+	)
+).
+
+% let's show how bind allows us to do it more than once: % [1,2,3] >>= duplicate_m >>= duplicate_m
+%    this returns X3=[list,1,1,1,1,2,2,2,2,3,3,3,3]
+:- solve(
+	derive(
+		[[map(duplicate_m),join,map(duplicate_m),join],list(1,2,3),X3]
+	)
+).
+
+% Good fun with fractals: ['#'] >>= f >>= f >>= f
+% X4=[list,#, ,#, , , ,#, ,#, , , , , , , , , ,#, ,#, , , ,#, ,#]
+:- solve(
+	derive(
+		[[map(f),join,map(f),join,map(f),join],list('#'),X4]
+	)
+).
+
+% Binary operations on list monads using nested bind.
+% This is equivalent to: [1,2,3] >>= (\x -> map add(x) [1,2])
+% This returns:
+% A=<X2824>, X5=[list,2,3,3,4,4,5]
+:- solve(
+	derive(
+		[[map( lambda(A,[[map(add(A),list(1,2)),join]]) ),join],list(1,2,3),X5]
+	)
+).
+
+% For each element in [1,2,3], find all matches to elements in [1,1,2] 
+% This looks even closer to two nested bind's.
+% The goal returns: X6=[list,1,1,2]
+:- solve(
+	derive(
+		[[map( lambda(A,[[map(match(A),list(1,1,2)),join]]) ),join],list(1,2,3),X6]
+	)
+).
+
+% direct product in Haskell (note that the return leaves the result as M(Ma), list of lists):
+% The goal returns: X=[list,[1,4],[1,5],[2,4],[2,5],[3,4],[3,5]]
+:- solve(
+	derive(
+		[[map( lambda(A,[[map(pair(A),list(4,5)),join]]) ),join],list(1,2,3),X]
+	)
+).
+
+match([A,A],list(A)) :- !.
+match([_,_],list()).
+
+pair([A,B],[A,B]).
+
+% a fractal a->Mb
+f('#',list('#',' ','#')) :- !.
+f(_,list(' ',' ',' ')).
+
+/*
+% example of an a->Mb function 
+duplicate(X,[X,X]).
+
+add([A,B],Z) :-
+	Z=A+B.
+ 
+*/

@@ -1,0 +1,11 @@
+:- solve(test(a,Y0)).
+
+test(X,Y) :-
+	cache(tca(X,Y)).
+
+tca(X,Y) :- cache(tca(X,Z)), a(Z,Y).
+tca(X,X).
+tca(X,d).
+
+a(a,b).
+a(d,e).

@@ -1,0 +1,22 @@
+% Demonstrate assert, asserta, retract, and retractall.
+% asserta is available since Prova 1.7.2.
+
+:- eval(test008()).
+
+test008() :-
+	assert(symmetric(f)),
+	% The fact below will be added higher than the one above
+	asserta(symmetric(g)),
+	symmetric(X),
+	println(["Rule A1: symmetric",X]," "),
+	symmetric(Y),
+	println(["Rule A2: symmetric",Y]," ").
+test008() :-
+ 	retractall(symmetric(g)),
+	symmetric(Z),
+	println(["Rule B: symmetric",Z]," ").
+test008() :-
+ 	retractall(symmetric(_)),
+	% The literal below fails as there are no facts left
+	symmetric(Z),
+	println(["Rule C: symmetric",Z]," ").

@@ -1,0 +1,8 @@
+:-solve(move(4,left,mid,right,Plan)).
+
+move(0,_,_,_,[]):-!. 
+move(N,A,B,C,Plan) :- 
+	NM1=N-1,
+	cache(move(NM1,A,C,B,PlanL)), 
+	cache(move(NM1,B,A,C,PlanR)),
+	attach(PlanL,[[A,C]|PlanR],Plan).

@@ -1,0 +1,43 @@
+% Demonstrates performance enhancements in Prova 1.8 and above.
+% Note the Prova coding style for rules generate_test and reverse_prova that are quite different from those
+%    normally used for writing Prolog code. The main difference is we can use multi-write Java variables as
+%    opposed to write-once Prolog variables. As we can see side effects can be useful. 
+% The code is still rather slow but it is way better than the previous version.
+
+:- eval(performance_001()).
+
+performance_001() :-
+	JavaList = java.util.ArrayList(),
+	generate_test(JavaList,1000),
+	println([JavaList]),
+	run(JavaList).
+
+run(JavaList) :-
+	ReversedJavaList = java.util.ArrayList(),
+	reverse_prova(JavaList,ReversedJavaList),
+	println([ReversedJavaList]).
+
+for(From,From,From) :- !.
+for(From,From,To) :-
+	From<=To.
+for(I,From,To) :-
+	From2=From+1,
+	for(I,From2,To).
+
+generate_test(JavaList,Max) :-
+	for(I,1,Max),
+	JavaList.add(I),
+	fail().
+generate_test(JavaList,Max).
+
+reverse_prova(A,B) :-
+	element(X,A),
+	B.add(0,X),
+	fail().
+reverse_prova(A,B).
+
+reverse_prolog([],A,A) :- !.
+reverse_prolog([X|Xs],A,B) :-
+	println(["*"]),
+	reverse_prolog(Xs,A,[X|B]).
+

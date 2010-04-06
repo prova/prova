@@ -1,0 +1,37 @@
+%%% This example shows how reference variables can be used.
+%%% Note how Tree is gradually built by instantiating free variables
+%%%    representing leaves of the tree with new branches.
+%%% No new copies of the Tree are required.
+
+% Show how a Tree is represented
+%:- solve(instree([7,3,6,1,4,5],Tree)).
+
+% Sort the list provided
+:- solve(sort([7,3,6,1,4,5],L)).
+
+insert_a(Val,t(Val,_,_)):-!.
+insert_a(Val,t(Val1,Tree,_)):-
+	Val<Val1,
+	!,
+	insert_a(Val,Tree).
+insert_a(Val,t(_,_,Tree)):-
+	insert_a(Val,Tree).
+
+instree([],_).
+instree([H|T],Tree):-
+	insert_a(H,Tree),
+	instree(T,Tree).
+
+treemembers(_,T):-
+	free(T),
+	!,
+	fail().
+treemembers(X,t(_,L,_)):-
+	treemembers(X,L).
+treemembers(X,t(X,_,_)).
+treemembers(X,t(_,_,R)):-
+	treemembers(X,R).
+
+sort(L,L1):-
+	instree(L,Tree),
+	findall(X,treemembers(X,Tree),L1).

@@ -1,0 +1,27 @@
+:- eval(test_collections1()).
+
+test_collections1() :-
+	List=java.util.ArrayList(),
+	type(List,TypeList),
+	println([TypeList]),
+	% Note that in Prova 3.0, addAll below unwraps the Prova list into a list of naked objects
+	LX=java.util.ArrayList([1,"2"]),
+	List.addAll(LX),
+	List.add("1"),
+	List.add("2"),
+	println(["List=",List]),
+	Element = List.get(1),
+	println(["Element=",Element]),
+	element(El,List),
+	println(["El=",El]).
+test_collections1() :-
+	% element also works with Prova lists
+	element(ID,[4,5,6]),
+	println([ID]).
+test_collections1() :-
+	% Another form of the element predicate returning both indices and data
+	List=java.util.ArrayList(),
+	LX=java.util.ArrayList([43,"B"]),
+	List.addAll(LX),
+	element(I,Data,List),
+	println([I,"->",Data]).

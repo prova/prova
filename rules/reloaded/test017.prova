@@ -1,0 +1,8 @@
+% Syntax changed in Prova Reloaded
+
+:- solve(test017(Groups)).
+
+test017(Groups) :-
+	Text="A doodle is a doddle",
+	% non-deterministically enumerate regular expression groups
+	capture_enum([Text,"(d?)(dl)"],Groups).

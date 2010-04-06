@@ -1,0 +1,50 @@
+% Demonstrate AND(E1,STOP E2). STOP is a terminator that works differently from NOT.
+%
+% This will print:
+%
+% Suspicious login user3 50.50.50.50 60.60.60.60
+% Pattern detected: [[[user3,async,0,request,[login,user3,60.60.60.60]]]] 
+% Suspicious login user2 30.30.30.30 40.40.40.40
+% Pattern detected: [[[user2,async,0,request,[login,user2,40.40.40.40]]]] 
+
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,request,login(User,IP)),
+	server_1(XID,User,IP).
+
+server_1(XID,User,IP) :-
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,login(User,IP2)) [IP2!=IP],
+	println(["Suspicious login",User,IP,IP2]," ").
+server_1(XID,User,IP) :-
+	@group(g1) @stop
+	rcvMsg(XID,Protocol,From,request,logout(User,IP)),
+	println(["Logout",User,IP]," ").
+server_1(XID,User,IP) :-
+	@and(g1) @timeout(400)
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["Pattern detected: ",Events," "]).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(user1,async,0,request,login(user1,'10.10.10.10')),
+	sendMsg(user3,async,0,request,login(user3,'50.50.50.50')),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(200L),
+	sendMsg(user2,async,0,request,login(user2,'30.30.30.30')),
+	sendMsg(user3,async,0,request,login(user3,'60.60.60.60')),
+	java.lang.Thread.sleep(300L),
+	sendMsg(user1,async,0,request,logout(user1,'10.10.10.10')),
+	sendMsg(user1,async,0,request,login(user1,'20.20.20.20')),
+	sendMsg(user2,async,0,request,login(user2,'40.40.40.40')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

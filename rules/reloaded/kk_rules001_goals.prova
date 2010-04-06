@@ -1,0 +1,2 @@
+:- solve(happy(Person)).
+:- solve(pappy(Person)).

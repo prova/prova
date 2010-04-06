@@ -1,0 +1,171 @@
+% Demonstrate how to
+% - use difference lists for natural language parsing
+% - exploit tail recursion
+
+:- eval(test040()).
+
+test040() :-
+	println(["==========test040=========="]).
+
+sentence(S) :-
+  nounphrase(S,S1),
+  verbphrase(S1,[]).
+
+nounphrase(NP,X):-
+  determiner(NP,S1),
+  nounexpression([d],S1,X).   % Send the information that determiner was found
+nounphrase(NP,X):-
+  nounexpression([],NP,X).
+
+nounexpression([],NE,X):-
+  propernoun(NE,X).
+nounexpression(_,NE,X):-
+  noun(NE,X).
+nounexpression(D,NE,X):-
+  adjective(NE,S1),
+  nounexpression(D,S1,X).
+
+verbphrase(VP,X):-
+  verbt(VP,S1),
+  nounphrase(S1,X).
+verbphrase(VP,X):-
+  verbi(VP,X).
+
+noun([dog|X],X).
+noun([cat|X],X).
+noun([mouse|X],X).
+
+propernoun([tigger|X],X).
+
+verbt([ate|X],X).
+verbt([chases|X],X).
+
+verbi([roars|X],X).
+
+adjective([big|X],X).
+adjective([brown|X],X).
+adjective([lazy|X],X).
+
+determiner([the|X],X).
+determiner([a|X],X).
+
+test040() :-
+	sentence([the,lazy,mouse,ate,a,dog]),
+	println(["OK1"]).
+test040() :-
+	sentence([a,big,brown,cat,chases,a,lazy,brown,dog]),
+	println(["OK2"]).
+test040() :-
+	sentence([a,big,tigger,chases,a,lazy,brown,dog]),
+	% This is unreachable as tigger is proper noun
+	println(["OK3"]).
+test040() :-
+	sentence([big,tigger,chases,a,lazy,brown,dog]),
+	println(["OK4"]).
+test040() :-
+	sentence([tigger,roars]),
+	println(["OK5"]).
+
+%================
+
+command([V], InList):- verb(V, InList,[]).
+
+verb(look, [look|X],X).
+verb(look, [look,around|X],X).
+verb(list_possessions, [inventory|X],X).
+verb(end, [end|X],X).
+verb(end, [quit|X],X).
+verb(end, [good,bye|X],X).
+
+test040() :-
+	command(X,[look]),
+	println([X]).
+test040() :-
+	command(X,[look,around]),
+	println([X]).
+test040() :-
+	command(X,[inventory]),
+	println([X]).
+test040() :-
+	command(X,[good,bye]),
+	println([X]).
+
+%================
+
+command([V,O], InList) :-
+  verb(Object_Type, V, InList,S1),
+  object(Object_Type, O, S1,[]).
+
+verb(place, goto, [go,to|X],X).
+verb(place, goto, [go|X],X).
+verb(place, goto, [move,to|X],X).
+
+verb(place, goto, [X|Y],[X|Y]):- room(X).
+verb(place, goto, [dining,room|Y],[dining,room|Y]).
+
+verb(thing, take, [take|X],X).
+verb(thing, drop, [drop|X],X).
+verb(thing, drop, [put|X],X).
+verb(thing, turn_on, [turn,on|X],X).
+
+object(Type, N, S1,S3) :-
+  det(S1,S2),
+  noun(Type, N, S2,S3).
+object(Type, N, S1,S2) :-
+  noun(Type, N, S1,S2).
+
+det([the|X],X).
+det([a|X],X).
+det([an|X],X).
+
+noun(place, R, [R|X],X):- room(R).
+noun(place, 'dining room', [dining,room|X],X).
+
+noun(thing, T, [T|X],X):- location(T,_).
+noun(thing, T, [T|X],X):- have(T).
+noun(thing, "washing machine", [washing,machine|X],X).
+
+noun(thing, flashlight, [light|X], X):- have(flashlight).
+noun(thing, light, [light|X], X).
+
+room(kitchen).
+room(office).
+room(hall).
+room('dining room').
+room(cellar).
+
+location(desk, office).
+location(apple, kitchen).
+location(flashlight, desk).
+location('washing machine', cellar).
+location(nani, 'washing machine').
+location(broccoli, kitchen).
+location(crackers, kitchen).
+location(computer, office).
+
+test040() :-
+	command(X,[go,to,the,office]),
+	println([X]).
+test040() :-
+	command(X,[go,dining,room]),
+	println([X]).
+test040() :-
+	command(X,[kitchen]),
+	println([X]).
+test040() :-
+	command(X,[take,the,apple]),
+	println([X]).
+test040() :-
+	assert(have(flashlight)),
+	command(X,[turn,on,the,light]),
+	println([X]).
+
+%================
+
+reverse([], Rev, Rev).
+reverse([H|T], Temp, Rev) :-
+  reverse(T, [H|Temp], Rev).
+
+test040() :-
+	reverse([ants,mice,zebras],[],X),
+	println(X," ").

@@ -1,0 +1,59 @@
+% Since Prova 2.0 Reloaded, January 10, 2009
+% Demonstrate
+%   - message passing between parallel threads.
+
+:- eval(async_002()).
+
+async_002() :-
+	println(["==========async test 002=========="]),
+
+	for(I,1,3),
+	switch_thread(),
+	split(I).
+
+split(1) :-
+	TH=java.lang.Thread.currentThread(),
+	println([TH,1]," > "),
+	java.lang.Thread.sleep(1000L),
+	sendMsg(XID,task,0,inter,[1]),
+	rcvMsg(XID,Protocol,From,inter,[3]),
+	$Count.incrementAndGet(),
+	TH2=java.lang.Thread.currentThread(),
+	println([TH,received,3]," > ").
+split(2) :-
+	TH=java.lang.Thread.currentThread(),
+	println([TH,2]," > "),
+	rcvMsg(XID,task,From,inter,[I]),
+	$Count.incrementAndGet(),
+	TH2=java.lang.Thread.currentThread(),
+	println([TH,received,I]," > "),
+	sendMsg(XID,task,0,inter,[2]).
+split(3) :-
+	TH=java.lang.Thread.currentThread(),
+	println([TH,3]," > "),
+	rcvMsg(XID,task,From,inter,[2]),
+	$Count.incrementAndGet(),
+	TH2=java.lang.Thread.currentThread(),
+	println([TH,received,2]," > "),
+	sendMsg(XID,task,0,inter,[3]).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).
+
+for(From,From,From) :- !.
+for(From,From,To) :-
+	From<=To.
+for(I,From,To) :-
+	From2=From+1,
+	for(I,From2,To).
+
+% One of possible outputs:
+% ==========async test 002==========
+% Thread[pool-2-thread-1,5,main] > 1
+% Thread[pool-2-thread-3,5,main] > 3
+% Thread[pool-2-thread-2,5,main] > 2
+% Thread[pool-2-thread-2,5,main] > received > 1
+% Thread[pool-2-thread-3,5,main] > received > 2
+% Thread[pool-2-thread-1,5,main] > received > 3
+

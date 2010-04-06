@@ -1,0 +1,13 @@
+:-eval(test003()).
+
+:- solve(cos(3.141592,Result)).				% [1]
+:- solve(cos(3.141592,Double.Result)).		% [2]
+:- solve(cos(3.141592,String.Result)).		% [3]
+:- solve(cos(3.141592,Integer.Result)).	% [4]
+
+test003() :-
+	println(["==========test003=========="]).
+
+cos(Double.X,Double.Y) :-
+	% Observe the Java call
+	Double.Y=java.lang.Math.cos(Double.X).

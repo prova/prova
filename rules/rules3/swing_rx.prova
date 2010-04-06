@@ -1,0 +1,139 @@
+:- eval(swing()).
+
+switch_thread(Protocol) :-
+	sendMsgSync(XID,Protocol,0,switch,[]),
+	rcvMsg(XID,Protocol,From,switch,[]).
+
+% Prolog-style infinite loop.
+repeat().
+repeat() :-
+	repeat().
+
+swing() :-
+	println(["==========swing=========="]),
+
+	F = javax.swing.JFrame("Test Frame"),
+	F.setSize(640,560),
+	Content = F.getContentPane(),
+	listen(mouse,F),
+	Content.setBackground(java.awt.Color.white),
+	BL = javax.swing.BoxLayout(Content,javax.swing.BoxLayout.Y_AXIS),
+	Border = javax.swing.BorderFactory.createEmptyBorder(25,25,25,25),
+	Content.setBorder(Border),
+	Content.setLayout(BL),
+	unescape(
+"This demo shows how to use Prova reaction groups to detect Swing gestures.
+
+The example follows this discussion of the \"LINQ to events\" framework in .NET 4.0.
+http://themechanicalbride.blogspot.com/2009/07/developing-with-rx-part-1-extension.html
+
+The gesture to detect is achieved by
+    (a) pressing mouse button 1 witin button JB1 and
+    (optionally, dragging and) releasing within the same button JB1.
+    (b) pressing mouse button 1 within button JB1 and
+    dragging and releasing outside of JB1, followed by
+    pressing the button outside both JB1 and JB2
+    and dragging and releasing back in JB1. 
+
+Returning back to JB1 via pressing within JB2 results in detection failure.
+If you press in JB2 but release outside of JB1, the whole pattern needs to be started again.
+
+Detection is displayed for 1 second in the text of JB1."
+	,Esc1),
+
+	TA1 = javax.swing.JTextArea(Esc1),
+	
+	Doc1 = TA1.getDocument(),
+	DRE1 = Doc1.getDefaultRootElement(),
+	Line1 = DRE1.getElement(0),
+	Line1S = Line1.getStartOffset(),
+	Line1E = Line1.getEndOffset(),
+	Line1D = Line1E - Line1S,
+	Line1T = TA1.getText(Line1S,Line1D),
+	println([Line1T]),
+	Content.add(TA1),
+	Box1 = javax.swing.Box.createVerticalStrut(12),
+	Content.add(Box1),
+
+	Dimension = java.awt.Dimension(150,60),
+
+	JB1 = javax.swing.JButton("JB1"), 
+	JB1.setPreferredSize(Dimension),
+	JB1.setMinimumSize(Dimension),
+	JB1.setMaximumSize(Dimension),
+	JB1.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT),
+	listen(mouse,JB1),
+	Content.add(JB1),
+
+	Box2 = javax.swing.Box.createVerticalStrut(12),
+	Content.add(Box2),
+
+	JB2 = javax.swing.JButton("JB2"), 
+	JB2.setPreferredSize(Dimension),
+	JB2.setMinimumSize(Dimension),
+	JB2.setMaximumSize(Dimension),
+	JB2.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT),
+	listen(mouse,JB2),
+	Content.add(JB2),
+
+	Box3 = javax.swing.Box.createVerticalStrut(12),
+	Content.add(Box3),
+
+	% Once the window is closed by the user, the whole application will exit
+	F.setDefaultCloseOperation( javax.swing.JFrame.EXIT_ON_CLOSE ),
+	F.show(),
+	
+	detect_gesture1(JB1,JB2).
+
+detect_gesture1(JB1,JB2) :-
+	% Reaction to incoming swing mouse pressed messages.
+	rcvMult(s,Protocol,From,swing,[mouse,pressed,JB1,Event]) [1=Event.getButton()],
+	println(["Detected mouse press"]),
+
+	detect_drag1(JB1,JB2).
+
+detect_drag1(JB1,JB2) :-
+	@group(g1) @not
+	rcvMsg(s,Protocol,From,swing,[mouse,pressed,Src,Event]) [E2=javax.swing.SwingUtilities.convertMouseEvent(Src,Event,JB2),P2=E2.getPoint(),Boolean.TRUE=JB2.contains(P2)],
+	println(["Detected mouse exited"]),
+	detect_drag2(JB1,JB2).
+detect_drag1(JB1,JB2) :-
+	@group(g1)
+	rcvMsg(s,Protocol,From,swing,[mouse,released,Src,Event]) [E1=javax.swing.SwingUtilities.convertMouseEvent(Src,Event,JB1),P1=E1.getPoint(),Boolean.TRUE=JB1.contains(P1)],
+	println(["Detected mouse released ",P1]).
+detect_drag1(JB1,JB2) :-
+	@group(g1) @not
+	rcvMsg(s,Protocol,From,swing,[mouse,pressed,Src,Event]) [E1=javax.swing.SwingUtilities.convertMouseEvent(Src,Event,JB1),P1=E1.getPoint(),println(["oho",P1]),Boolean.TRUE=JB1.contains(P1)],
+	println(["Detected repeated press"]).
+detect_drag1(JB1,JB2) :-
+	@and(g1)
+	rcvMsg(s,Protocol,From,and,Events),
+	println(["Gesture detected"]),
+	temp_message(JB1,"Success!").
+
+detect_drag2(JB1,JB2) :-
+	@group(g2)
+	rcvMsg(s,Protocol,From,swing,[mouse,released,Src,Event]) [E1=javax.swing.SwingUtilities.convertMouseEvent(Src,Event,JB1),P1=E1.getPoint(),Boolean.TRUE=JB1.contains(P1)].
+detect_drag2(JB1,JB2) :-
+	@group(g2) @not
+	rcvMsg(s,Protocol,From,swing,[mouse,released,Src,Event]).
+detect_drag2(JB1,JB2) :-
+	@and(g2)
+	rcvMsg(s,Protocol,From,and,Events),
+	println(["Gesture failed"]),
+	temp_message(JB1,"Failure!").
+
+temp_message(Comp,Msg) :-
+	switch_thread(swing),
+	Text = Comp.getText(),
+	Comp.setText(Msg),
+
+	switch_thread(task),
+	java.lang.Thread.sleep(1000L),
+
+	switch_thread(swing),
+	Comp.setText(Text).
+
+process_menu("Close") :-
+	System.exit(0).
+

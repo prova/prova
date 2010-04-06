@@ -1,0 +1,22 @@
+:- eval(msg001()).
+
+msg001() :-
+	println(["==========Messaging test 001=========="]),
+
+	for([1,4],I),
+	sendMsg(XID,self,0,inform,a(I)),
+	println(["Sent: ",sendMsg(XID,self,0,inform,a(I))],"").
+
+rcvMsg(XID,self,From,inform,a(I)) :-
+	println(["Received: ",rcvMsg(XID,self,From,inform,a(I))],"").
+
+% This outputs:
+% ==========Messaging test 001==========
+% Sent: [sendMsg,prova1,self,0,inform,[a,1]]
+% Sent: [sendMsg,prova2,self,0,inform,[a,2]]
+% Sent: [sendMsg,prova3,self,0,inform,[a,3]]
+% Sent: [sendMsg,prova4,self,0,inform,[a,4]]
+% Received: [rcvMsg,prova1,self,0,inform,[a,1]]
+% Received: [rcvMsg,prova2,self,0,inform,[a,2]]
+% Received: [rcvMsg,prova3,self,0,inform,[a,3]]
+% Received: [rcvMsg,prova4,self,0,inform,[a,4]]

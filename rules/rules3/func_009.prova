@@ -1,0 +1,240 @@
+:- eval(consult('functional.prova')).
+
+% This returns: V3=9, V2=4, V1=2, C1=13
+:- solve(
+	derive(
+		[[lambda(V1,sqr(V1)),lambda(V2,sqr(3)),lambda(V3,add(V2,V3))],2,C1]
+	)
+).
+
+% Continuation-passsing style (CPS): step 1: replace the first 'sqr'
+% This returns: V3=9, V2=4, V1=2, C2=13
+:- solve(
+	derive(
+		[[lambda(V1,sqrcps(V1,[lambda(V2,sqr(3)),lambda(V3,add(V2,V3))]))],2,C2]
+	)
+).
+
+% Continuation-passsing style (CPS): step 2: replace the second 'sqr'
+% This returns: V3=9, V2=4, V1=2, C3=13
+:- solve(
+	derive(
+		[[lambda(V1,sqrcps(V1,[lambda(V2,sqrcps(3,[lambda(V3,add(V2,V3))]))]))],2,C3]
+	)
+).
+
+% Continuation-passsing style (CPS): step 3: replace the 'add' and pass an extra function 'print' 
+% This prints:
+% Print this: 13
+% and then returns: V3=9, V2=4, V1=2, C3=13
+:- solve(
+	derive(
+		[[lambda(V1,sqrcps(V1,[lambda(V2,sqrcps(3,[lambda(V3,addcps(V2,V3,[print]))]))]))],2,C4]
+	)
+).
+
+:- solve(
+	derive(
+		[[lambda(A,[add(A,4),add(3),mult(A)])],list(1,2,3),ZA]
+	)
+).
+
+:- solve(
+	derive(
+		[[lambda(A,[add(A,4),add(3),add(A)]),add(2)],list(1,2,3),ZB]
+	)
+).
+
+print(V,V) :-
+	println(["Print this: ",V]).
+
+% Demonstrate
+%    the State and List monads defined in terms of map and join,
+%    the use of explicit lambda functions in function compositions and bind pipelines
+
+% This output 3 solutions
+% A=1, X1=9
+% A=2, X1=10
+% A=3, X1=11
+:- solve(
+	derive(
+		[[lambda(A,add(A,4)),lambda(B,add(B,4))],list(1,2,3),X1]
+	)
+).
+% This is totally not like functional programming, we just set the answer and find the intermediate lambda variables.
+% Find which number out of [1,2,3] gives 7 when added 4  
+% This returns: X1A=3
+:- solve(
+	derive(
+		[[lambda(X1A,add(X1A,4))],list(1,2,3),7]
+	)
+).
+% A bind version, this works on the whole list rather outputting solutions one by one
+% a) without lambda
+% X2A=[list,5,6,7]
+:- solve(
+	derive(
+		[[map(add(4)),join],list(1,2,3),X2A]
+	)
+).
+% b) with lambda
+% A=<X928>, X2B=[list,5,6,7]
+:- solve(
+	derive(
+		[[map( lambda(A,add(A,4)) ),join],list(1,2,3),X2B]
+	)
+).
+% This returns:
+% A=<X2824>, X3=[list,5,6,6,7,7,8]
+:- solve(
+	derive(
+		[[map( lambda(A,[[map(add(A),list(4,5)),join]])),join],list(1,2,3),X3]
+	)
+).
+% 1 >>= (\V -> (getState >>= putState))
+% This returns: V=1, X4=[state,[1,1]]
+:- solve(
+	derive(
+		[[lambda(V,getState(V)),map(putState),join],1,X4]
+	)
+).
+% 1 >>= (\V -> (getState >>= incValue))
+% This returns: V=1, X5=[state,[2,1]]
+:- solve(
+	derive(
+		[[lambda(V,getState(V)),map(incValue),join],1,X5]
+	)
+).
+% This example (a) is non-deterministic and (b) shows how raw data (elements of a List) become a State monad on the fly.
+% This returns 3 solutions:
+% B=5, A=1, X6A=[state,[6,5]]
+% B=6, A=2, X6A=[state,[7,6]]
+% B=7, A=3, X6A=[state,[8,7]]
+:- solve(
+	derive(
+		[[lambda(A,add(A,4)),lambda(B,getState(B)),map(incValue),join],list(1,2,3),X6A]
+	)
+).
+% This returns:
+% B=<X4881>, A=<X4882>, X6B=[list,9,10,11]
+:- solve(
+	derive(
+		[[map(lambda(A,add(A,4))),join,map(lambda(B,add(B,4))),join],list(1,2,3),X6B]
+	)
+).
+% 1 >>= (\V -> (getState >>= add 1 >>= add 1))
+% This returns: V=1, X7=[state,[3,1]]
+:- solve(
+	derive(
+		[[getState,map([add(1)]),join,map([add(1)]),join],1,X7]
+	)
+).
+% state([1,1]) >>= (\A -> incValue A) >>= (\B -> incValue B)
+% this returns: B=2, A=1, X8=[state,[3,1]]
+:- solve(
+	derive(
+		[[map(lambda(A,incValue(A))),join,map(lambda(B,incValue(B))),join],state([1,1]),X8]
+	)
+).
+% state([2,2]) >>= (\A -> (incValue A >>= (\B -> (add(A,B))) >>= (\C -> (mult(2,C)))
+% this returns: A=2, B=3, C=5, X9=[state,[10,2]]
+:- solve(
+	derive(
+		[[map(lambda(A,incValue(A))),join,map(lambda(B,add(A,B))),join,map(lambda(C,mult(2,C))),join],state([2,2]),X9]
+	)
+).
+% state(['a',true]) >>= (\x -> flipcase x)
+% this returns: X10=[state,['A',false]]
+:- solve(
+	derive(
+	[[map(flipcase),join],state(['a',true]),X10]
+	)
+).
+% This returns 6 solutions non-deterministically:
+% B=4, A=1, X11=5
+% B=5, A=1, X11=6
+% B=4, A=2, X11=6
+% B=5, A=2, X11=7
+% B=4, A=3, X11=7
+% B=5, A=3, X11=8
+:- solve(
+	derive(
+		[[lambda(A,list(4,5)),lambda(B,add(A,B))],list(1,2,3),X11]
+	)
+).
+% This finds 2 solutions for operands with the sum equal to 7:
+% B=5, A=2
+% B=4, A=3
+% We do it in two different ways:
+:- solve(
+	derive(
+		[[lambda(A,list(4,5)),lambda(B,add(A,B))],list(1,2,3),7]
+	)
+).
+
+% list() is UNIT as () in Haskell
+:- solve(
+	derive(
+		[[lambda(V,list(1,2,3)),lambda(A,list(4,5)),lambda(B,add(A,B))],list(),7]
+	)
+).
+
+% [1,2,3] >>= (\A -> [A,A])
+% A=<10618>, X12=[list,1,1,2,2,3,3]
+:- solve(
+	derive(
+		[[map(lambda(A,list(A,A))),join],list(1,2,3),X12]
+	)
+).
+
+% This returns: X13=[list,14,18,22,26,30]
+:- solve(
+	derive(
+		[[map(comp([double,duplicate,add3(10)]))],list(1,2,3,4,5),X13]
+	)
+).
+
+% FizzBuzz using non-determinism: three ways
+:- solve(
+	derive(
+		[[for,lambda(I,fizzbuzz(3,5,I)),prtln],[1,10],X15]
+%		[[for(1,10),lambda(I,fizzbuzz(3,5,I)),prtln],[],X15]
+%		[[for(1,10),fizzbuzz(3,5),prtln],[],X15]
+	)
+).
+
+% FizzBuzz working on a full monadic list with per element a->b as a composition.
+% The result is also a monadic list. 
+:- solve(
+	derive(
+		[[range_m(1,10),map(comp([fizzbuzz(3,5),prtln]))],[],X16]
+	)
+).
+
+% fizzbuzz: (M1,M2,I)->R
+fizzbuzz([M1,M2,I],R) :-
+	C1 = I mod M1,
+	C2 = I mod M2,
+	fizzbuzz(C1,C2,I,R).
+
+fizzbuzz(0,0,_,fizzbuzz) :- !.
+fizzbuzz(0,_,_,fizz) :- !.
+fizzbuzz(_,0,_,buzz) :- !.
+fizzbuzz(_,_,I,I).
+
+:-solve(mapM(A,X17)).
+
+record([A,S],[yes,S]) :-
+	S.contains(A),
+	!.
+record([A,S],[no,S]) :-
+	S.add(A).
+
+mapM(A,X) :-
+	Set = java.util.HashSet(),
+	derive(
+%		[[map(lambda(A,prtln(A))),join],state([list(1,2,3,1),Set]),X]
+%		[[map(lambda(A,map(record,A))),join],state([list(1,2,3,1),Set]),X]
+		[[map([map(record)]),join],state([list(1,2,3,1),Set]),X]
+	).
+

@@ -1,0 +1,23 @@
+% Demostrate the use of assert and retract
+:- eval(test019()).
+
+test019() :-
+	println(["==========test019=========="]),
+	assert(symmetric(f)),
+	assert(symmetric(g)),
+	assert(symmetric(h)),
+	retract(symmetric(f)),
+	symmetric(X),
+	$Count.incrementAndGet(),
+	println(["Rule A: symmetric= ",X]).
+test019() :-
+	retract(symmetric(g)),
+	symmetric(X),
+	$Count.incrementAndGet(),
+	println(["Rule B: symmetric= ",X]).
+test019() :-
+	retract(symmetric(h)),
+	println(["Rule C: retract below will fail."]),
+	retract(symmetric(_)),
+	$Count.incrementAndGet(),
+	println(["Rule C: this should be never printed."]).

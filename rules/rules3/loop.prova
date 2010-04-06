@@ -1,0 +1,10 @@
+:- solve(test(1,B)).
+
+test(X,Y) :-
+	cache(tca(X,Y)).
+
+tca(X,Y) :- a(X,Y).
+tca(X,Y) :- a(X,Z), println([fff]), cache(tca(Z,Y)).
+
+a(1,2).
+a(2,1).

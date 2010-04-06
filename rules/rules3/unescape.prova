@@ -1,0 +1,11 @@
+:- solve(p(Esc1)).
+
+:- solve(q(Esc1)).
+
+% One solution
+p(Esc1) :-
+	unescape("line1\nline2\nline3",Esc1).
+
+% One solution
+q(Esc1) :-
+	unescape("line1\tline2\tline3",Esc1).

@@ -1,0 +1,53 @@
+% Shows that element/2 and element/3 can use Java typed and list-based patterns to find matching elements.
+% Prova 3.0 code works more correctly than the old Prova.
+
+:- solve(element_matching([Integer.N,X])).
+
+element_matching([Integer.N,X]) :-
+	L = java.util.ArrayList(),
+	L.add([X,2]),
+	L.add([Integer.I,Double.D]),
+	L.add([2.14,Double.D]),
+	L.add([3,"toto"]),
+	element([Integer.N,X],L).
+
+% The "old" Prova returns:
+% <Integer.N>,2
+% <Integer.N>,<java.lang.Double.@@9>
+% 3,toto
+% The correct first solution should be 2,2, so the new Prova returns:
+% N=2, X=2
+% N=java.lang.Integer.<X23>, X=java.lang.Double.<X24>
+% N=3, X=toto
+
+:- solve(element_matching_iterator([Integer.N,X])).
+
+element_matching_iterator([Integer.N,X]) :-
+	L = java.util.ArrayList(),
+	L.add([X,2]),
+	L.add([Integer.I,Double.D]),
+	L.add([2.14,Double.D]),
+	L.add([3,"toto"]),
+	Iter = L.iterator(),
+	element([Integer.N,X],Iter).
+
+% The above code works the same way as when the list is passed to element/2.
+:- solve(element_matching(1,[Integer.N,X])).
+
+% This returns:
+% N=java.lang.Integer.<X43>, X=java.lang.Double.<X44>
+
+:- solve(element_matching(Index,[Integer.N,X])).
+
+element_matching(Index,[Integer.N,X]) :-
+	L = java.util.ArrayList(),
+	L.add([X,2]),
+	L.add([Integer.I,Double.D]),
+	L.add([2.14,Double.D]),
+	L.add([3,"toto"]),
+	element(Index,[Integer.N,X],L).
+
+% This returns:
+% Index=0, N=2, X=2
+% Index=1, N=java.lang.Integer.<X71>, X=java.lang.Double.<X72>
+% Index=3, N=3, X=toto

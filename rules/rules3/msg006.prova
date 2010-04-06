@@ -1,0 +1,23 @@
+% It works like msg004 but introduces the new mechanism of reaction control--in this example, termination.
+% It works by an agent instructing the receiving reaction matching a template to terminate (eof).
+% Message ordering within the same conversation is ensured by conversation-id XID always mapped to the same thread
+% from the thread pool based on partitions. 
+
+:- eval(msg006()).
+
+msg006() :-
+	println(["==========Messaging test 006=========="]),
+
+	% This reaction will stay active after receiving the first message so that both messages will be received
+	rcvMult(XID,Protocol,From,inform,a(I)),
+	println(["Received: ",rcvMult(XID,async,From,inform,a(I))],"").
+msg006() :-
+	sendMsg(XID,async,0,inform,a(1)),
+	println(["Sent: ",sendMsg(XID,async,0,inform,a(1))],""),
+	% Send termination signal
+	% TODO: decide on whether a bound ReactionXID will remove only reactions to that bound ReactionXID or any matching reactions 
+	sendMsg(XID,async,0,eof,[ReactionXID,Protocol,From,inform,a(_)]),
+	println(["Sent: ",sendMsg(XID,async,0,eof,[ReactionXID,Protocol,From,inform,a(_)])],""),
+	% The next message will be ignored as rcvMult will have terminated
+	sendMsg(XID,async,0,inform,a(2)),
+	println(["Sent: ",sendMsg(XID,async,0,inform,a(2))],"").

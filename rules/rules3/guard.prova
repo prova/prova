@@ -1,0 +1,60 @@
+@author(dev1) r1(X):-q(X).
+@author(dev22) r2(X):-q(X).
+@author(dev32) r2(X):-s(X).
+
+q(2).
+
+s(-2).
+
+trusted(dev1).
+trusted(dev22).
+
+% Author dev22 is trusted but dev32 is not, so one solution is found: X1=2  
+p1(X):-
+	@author(A)
+	r2(X) [trusted(A)].
+:-solve(p1(X1)).
+
+a(X):-qq(X).
+a(X):-s(X).
+
+% This example shows how guards can be used to implement a "dynamic CUT".
+% The CUT in the guard is dynamically spliced into the start of the target rule body.
+% As qq(X) has no solutions, the CUT prevents further backtracking to the second rule for a(X):-s(X),
+%    that would have yielded a solution but does not due to that dynamic CUT.
+p2(X):-
+	a(X) [!].
+:-solve(p2(X2)).
+
+% Demonstrate a guarded reaction. The server looks for logins for one user from different IP addresses.
+% The guard on the second reaction filters the expected follow-up message.
+% This will print:
+%    user2 30.30.30.30 40.40.40.40
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,request,login(User,IP)),
+	% Wait for a right follow-up while ignoring anything that does not match
+	@timeout(1000)
+	rcvMsg(XID,Protocol,From,request,login(User,IP2)) [IP2!=IP],
+	% Once the full match has occurred, the above rcvMsg reaction is removed
+	println([User,IP,IP2]," ").
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	sendMsg(XID,user1,0,request,login(user1,'10.10.10.10')),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(500L),
+	sendMsg(XID,user2,0,request,login(user2,'30.30.30.30')),
+	java.lang.Thread.sleep(700L),
+	sendMsg(XID,user1,0,request,login(user1,'20.20.20.20')),
+	sendMsg(XID,user2,0,request,login(user2,'40.40.40.40')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

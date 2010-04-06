@@ -1,0 +1,67 @@
+% Demonstrate detection of reaching the price level from above and staying there for a minimum amount of time.
+% Also only restart pattern processing when the price goes above the specified price level before the timeout. 
+%
+% This will print:
+%
+% Market: market2 price limit reached 1.1
+% Market: market1 price limit reached 1.15
+% Pattern detected: [[[market1,async,0,update,[price,1.4]], [market1,async,0,update,[price,1.15]]]]
+% Market: market2 price limit reached 1.12
+% Pattern detected: [[[market2,async,0,update,[price,2.2]], [market2,async,0,update,[price,1.1]], [market2,async,0,update,[price,1.45]], [market2,async,0,update,[price,1.12]]]]
+%
+%
+% Global constant $Count is used for counting successful detections and passing them back to the Java test
+
+:- eval(server(1.2)). 
+
+server(Limit) :-
+	% Start detection on each new market
+	rcvMult(Market,Protocol,From,create,market(Market)),
+	server_1(Market,Limit).
+
+server_1(Market,Limit) :-
+	@group(g1)
+	rcvMsg(Market,Protocol,From,update,price(Price0)) [Price0>Limit],
+	server_2(Market,Limit).
+server_1(Market,Limit) :-
+	@group(g1) @stop
+	rcvMsg(Market,Protocol,From,destroy,market(Market)).
+server_1(Market,Limit) :-
+	@and(g1)
+	rcvMsg(Market,Protocol,From,and,Events),
+	$Count.incrementAndGet(),
+	println(["Pattern detected: ",Events]).
+
+server_2(Market,Limit) :-
+	@group(g1)
+	rcvMsg(Market,Protocol,From,update,price(Price1)) [Price1<Limit],
+	println(["Market:",Market,"price limit reached",Price1]," "),
+	@group(g1) @not @timeout(1000)
+	rcvMsg(Market,Protocol,From,update,price(Price2)) [Price2>Limit],
+	server_2(Market,Limit).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use market-id as conversation-id (XID) for partitioning so that each market is processed sequentially
+	sendMsg(market2,async,0,create,market(market2)),
+	sendMsg(market1,async,0,create,market(market1)),
+	sendMsg(market1,async,0,update,price(1.4)),
+	sendMsg(market2,async,0,update,price(2.2)),
+	java.lang.Thread.sleep(200L),
+	sendMsg(market2,async,0,update,price(1.1)),
+	java.lang.Thread.sleep(200L),
+	sendMsg(market2,async,0,update,price(1.45)),
+	sendMsg(market1,async,0,update,price(1.15)),
+	java.lang.Thread.sleep(1200L),
+
+	% Second chance for market2
+	sendMsg(market2,async,0,update,price(1.12)),
+	java.lang.Thread.sleep(1200L).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

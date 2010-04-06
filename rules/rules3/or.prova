@@ -1,0 +1,58 @@
+% Demonstrate a guarded reaction and @or groups.
+% There are two ways of dealing with group-id's for @or groups.
+% EITHER the actual dynamic group-id is generated automatically
+%    given the same group name in the current thread (see @or(g1) and @group(g1) below),
+% OR one needs to generate a dynamic group-id directly and pass it to @group and @or as a variable bound at run-time.
+%
+% This will print:
+%
+% Logout user1 10.10.10.10
+% Suspicious login user2 30.30.30.30 40.40.40.40
+% Pattern detected: [[[user2,async,0,request,[login,user2,40.40.40.40]]]] 
+% Pattern detected: [[[user1,async,0,request,[logout,user1,10.10.10.10]]]] 
+
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,request,login(User,IP)),
+	server_1(XID,User,IP).
+
+server_1(XID,User,IP) :-
+	% Wait for a right follow-up while ignoring anything that does not match
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,login(User,IP2)) [IP2!=IP],
+	% Once the full match has occurred, the above rcvMsg reaction is removed
+	%   as well as all active reactions in the @or group
+	println(["Suspicious login",User,IP,IP2]," ").
+server_1(XID,User,IP) :-
+	% Wait for a right follow-up while ignoring anything that does not match
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,logout(User,IP)),
+	% Once the full match has occurred, the above rcvMsg reaction is removed
+	%   as well as all active reactions in the @or group
+	println(["Logout",User,IP]," ").
+server_1(XID,User,IP) :-
+	@or(g1) @timeout(2000)
+	rcvMsg(XID,Protocol,From,or,Events),
+	println(["Pattern detected: ",Events," "]).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(user1,async,0,request,login(user1,'10.10.10.10')),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(500L),
+	sendMsg(user2,async,0,request,login(user2,'30.30.30.30')),
+	java.lang.Thread.sleep(700L),
+	sendMsg(user1,async,0,request,logout(user1,'10.10.10.10')),
+	sendMsg(user1,async,0,request,login(user1,'20.20.20.20')),
+	sendMsg(user2,async,0,request,login(user2,'40.40.40.40')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

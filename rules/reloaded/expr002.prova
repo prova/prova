@@ -1,0 +1,9 @@
+:-solve(expr002(N,3)).
+
+expr002(N,M) :-
+	println(["==========expr002=========="]),
+	N=java.lang.Math.min(1,M)+1.
+expr002(N,M) :-
+	L=java.util.ArrayList(),
+	L.add(2),
+	N=-L.get(0)+L.size().

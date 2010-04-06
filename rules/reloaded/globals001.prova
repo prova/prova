@@ -1,0 +1,14 @@
+% Prova 3.0
+% Demonstrating globals.
+% $A is set initially to 'a' in ProvaGlobalsTest.globals001(). So two solutions here: 1 and 2. 
+
+:- solve(globals(N)).
+
+globals(N) :-
+	data($A,N).
+globals(N) :-
+	$A=b,
+	data($A,N).
+
+data(a,1).
+data(b,2).

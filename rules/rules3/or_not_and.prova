@@ -1,0 +1,78 @@
+% Demonstrate AND(E3,OR(E1,NOT E2)) and inner group timeout.
+%
+% This will print:
+%
+% Logout user1 10.10.10.10
+% got 3:user2
+% Suspicious login user2 30.30.30.30 40.40.40.40
+% OR detected: [[[user2,async,0,request,[login,user2,40.40.40.40]]]] 
+% Pattern detected: [[[user2,async,0,request,[update,user2,30.30.30.30]], [user2,async,0,or,[[[user2,async,0,request,[login,user2,40.40.40.40]]]]]]] 
+% OR detected: [[[not,[user3,async,0,request,[logout,user3,80.80.80.80]]]]] 
+% got 3:user3
+% Pattern detected: [[[user3,async,0,or,[[[not,[user3,async,0,request,[logout,user3,80.80.80.80]]]]]], [user3,async,0,request,[update,user3,80.80.80.80]]]] 
+% OR detected: [[[not,[user2,async,0,request,[logout,user2,40.40.40.40]]]]] 
+% OR detected: [[[not,[user1,async,0,request,[logout,user1,20.20.20.20]]]]] 
+% OR detected: [[[not,[user3,async,0,request,[logout,user3,90.90.90.90]]]]] 
+
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,request,login(User,IP)),
+	server_1(XID,User,IP).
+
+server_1(XID,User,IP) :-
+	% Wait for a right follow-up while ignoring anything that does not match
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,login(User,IP2)) [IP2!=IP],
+	% Once the full match has occurred, the above rcvMsg reaction is removed
+	%   as well as all active reactions in the @or group
+	println(["Suspicious login",User,IP,IP2]," ").
+server_1(XID,User,IP) :-
+	% Wait for a right follow-up while ignoring anything that does not match
+	@group(g1) @not
+	rcvMsg(XID,Protocol,From,request,logout(User,IP)),
+	% Once the full match has occurred, the above rcvMsg reaction is removed
+	%   as well as all active reactions in the @or group
+	println(["Logout",User,IP]," ").
+server_1(XID,User,IP) :-
+	@or(g1) @timeout(600) @group(g2)
+	rcvMsg(XID,Protocol,From,or,Events),
+	println(["OR detected: ",Events," "]).
+server_1(XID,User,IP) :-
+	@or(g1)
+	rcvMsg(XID,Protocol,From,timeout,Events),
+	println(["OR timeout: ",Events," "]).
+server_1(XID,User,IP) :-
+	@group(g2)
+	rcvMsg(XID,Protocol,From,request,update(User,IP)),
+	println(["got 3:",User]).
+server_1(XID,User,IP) :-
+	@and(g2)
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["Pattern detected: ",Events," "]).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(user1,async,0,request,login(user1,'10.10.10.10')),
+	sendMsg(user3,async,0,request,login(user3,'80.80.80.80')),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(200L),
+	sendMsg(user2,async,0,request,login(user2,'30.30.30.30')),
+	java.lang.Thread.sleep(300L),
+	sendMsg(user1,async,0,request,logout(user1,'10.10.10.10')),
+	sendMsg(user1,async,0,request,login(user1,'20.20.20.20')),
+	sendMsg(user2,async,0,request,update(user2,'30.30.30.30')),
+	sendMsg(user2,async,0,request,login(user2,'40.40.40.40')),
+	java.lang.Thread.sleep(300L),
+	sendMsg(user3,async,0,request,update(user3,'80.80.80.80')),
+	sendMsg(user3,async,0,request,login(user3,'90.90.90.90')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

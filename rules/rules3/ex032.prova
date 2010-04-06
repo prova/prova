@@ -1,0 +1,17 @@
+% Since Prova 1.90
+% Show how the variable 'L' is considered as the same list variable.
+% Any variable in a clause by virtue of occurring as a list rest,
+%    is considered as such throughout the whole clause.
+
+:- eval(test_print_strings()).
+
+test_print_strings() :-
+	println(["==========test_print_strings=========="]),
+	a([z|L],L),
+	println([L]).
+
+a([z,s],[s]). 
+
+% Prints:
+% ==========test_rest_vars==========
+% ["s"]

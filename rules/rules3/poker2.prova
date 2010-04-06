@@ -1,0 +1,79 @@
+%%%%%%%%%%%%%%%%%%
+%%%%% SERVER %%%%%
+%%%%%%%%%%%%%%%%%%
+
+:- eval(server()).
+
+server() :-
+	@and(g0)
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["Pattern2 detected: ",Events," "]).
+server() :-
+	println(["==========poker 2=========="]),
+	% Note that pattern instance id IID is unbound here,
+	%    but it will be initialised to a unique id when the initiator event is detected
+	@group(g0)
+	rcvMult(XID,Protocol,From,poker,raise(Position,Round)),
+	println(["Run ",XID,": position ",Position," raises in round ",Round]),
+	branch(XID,Position,Round).
+
+branch(XID,Position,Round) :-
+	@group(g1)
+	rcvMsg(XID,Protocol,From,poker,round(NewRound)),
+	println(["Run ",XID,": Aggressor ",Position," in round ",Round]).
+% Now comes the terminator: when an event is not accepted by the above branches AND
+%   it unifies with an element in the terminator list, THEN
+%   the pattern instance is terminated and removed.
+branch(XID,Position,Round) :-
+	@group(g1) @not
+	rcvMsg(XID,Protocol,From,poker,raise(Position2,Round)),
+	println(["Run ",XID,": terminated pattern instance due to terminator: ",raise(Position2,Round)]).
+branch(XID,Position,Round) :-
+	@and(g1) @group(g0)
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["Pattern detected: ",Events," "]).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% CLIENT %%%%%
+%%%%%%%%%%%%%%%%%%
+
+:- eval(client()).
+
+client() :-
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	sendMsg(user1,async,0,poker,sb(preflop,sb)),
+	sendMsg(user1,async,0,poker,bb(preflop,bb)),
+	sendMsg(user1,async,0,poker,fold(btnm6,preflop)),
+	sendMsg(user1,async,0,poker,fold(btnm5,preflop)),
+	sendMsg(user1,async,0,poker,fold(btnm4,preflop)),
+	sendMsg(user1,async,0,poker,fold(btnm3,preflop)),
+	sendMsg(user1,async,0,poker,fold(btnm2,preflop)),
+	sendMsg(user1,async,0,poker,fold(cutoff,preflop)),
+	sendMsg(user1,async,0,poker,raise(btn,preflop)),
+	sendMsg(user1,async,0,poker,call(sb,preflop)),
+	sendMsg(user1,async,0,poker,call(bb,preflop)),
+	sendMsg(user1,async,0,poker,round(flop)),
+	sendMsg(user1,async,0,poker,raise(btn,flop)),
+	println(["Started first test: ",user1]).
+client() :-
+	sendMsg(user2,async,0,poker,sb(preflop,sb)),
+	sendMsg(user2,async,0,poker,bb(preflop,bb)),
+	sendMsg(user2,async,0,poker,fold(btnm6,preflop)),
+	sendMsg(user2,async,0,poker,fold(btnm5,preflop)),
+	sendMsg(user2,async,0,poker,fold(btnm4,preflop)),
+	sendMsg(user2,async,0,poker,fold(btnm3,preflop)),
+	sendMsg(user2,async,0,poker,raise(btnm2,preflop)),
+	sendMsg(user2,async,0,poker,fold(cutoff,preflop)),
+	sendMsg(user2,async,0,poker,raise(btn,preflop)),
+	sendMsg(user2,async,0,poker,call(sb,preflop)),
+	sendMsg(user2,async,0,poker,call(bb,preflop)),
+	sendMsg(user2,async,0,poker,call(btnm2,preflop)),
+	sendMsg(user2,async,0,poker,round(flop)),
+	sendMsg(user2,async,0,poker,raise(btn,flop)),
+	println(["Started second test: ",user2]).
+
+switch_thread() :-
+	sendMsgSync(user2,task,0,switch,[]),
+	rcvMsg(user2,task,From,switch,[]).

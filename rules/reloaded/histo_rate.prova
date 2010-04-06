@@ -1,0 +1,24 @@
+% Every N matching events, output a map with counts of events according to a histogram built on the values of a field. 
+% This test can only be run from ProvaCommunicatorTest.java as it requires an AtomicLong count passed a global constant.
+
+:- eval(histo_rate(0.0,0.1)).
+
+histo_rate(Min,Step) :-
+	println(["==========Histogram rate test=========="]),
+
+	Counter = ws.prova.eventing.MapCounter(),
+	% This reaction operates indefinitely. When the timer elapses,
+	%   the groupby map Counter is sent as part of the result,
+	%   and the timer is reset back to the second argument of @timer.
+	@group(g1) @timer(25,25,Counter)
+	rcvMsg(XID,self,From,inform,[Payload]) [M=(Payload.get("field")-Min)/Step,IM=M.intValue(),Counter.incrementAt(IM)],
+	println(["Received: ",rcvMsg(XID,self,From,inform,[Payload])],"").
+histo_rate(Min,Step) :-
+	% This reaction is matched each time a new result with the histogram appears.
+	@or(g1)
+	rcvMsg(XID,self,From,or,[Results]),
+	% The first element of the results is the Counter map
+	Counter = Results.get(0),
+	Delta = Counter.totalCount(),
+	$Count.addAndGet(Delta),
+	println(["Pattern detected: ",Results]).

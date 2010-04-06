@@ -1,0 +1,10 @@
+:- solve(reach(X)).
+
+edge(a,b).
+edge(c,d).
+edge(d,c).
+
+reach(a).
+reach(A) :-
+	edge(A,B),
+	cache(reach(B)).

@@ -1,0 +1,54 @@
+% For Prova 3.0
+% Demonstrate the utility predicates "init_join" and "join" that allow parallel streams of processing to be joined.
+% These predicates reside in utils.prova and should be consulted from there.
+
+:- eval(consult("utils.prova")).
+
+:- eval(process_join()).
+
+process_join() :-
+	println(["==========process_join=========="]),
+	% A more or less useless message to signal the start of the conversation. It may do something useful in a real application. 
+	sendMsg(XID,self,0,start,[]),
+	% The result of the above is that we now have the conversation-id XID initialised.
+	% Create a join predicate join_1 with the list of required input patterns in the last argument.
+	init_join(XID,join_1,[c(_),b(_)]),
+	% Create a join predicate join_1 with the list of required input patterns in the last argument.
+	init_join(XID,join_2,[c(_),d(_)]),
+	% This will create two parallel processing streams.
+	% Note that Prova does not run them in separate threads but they are independent and can communicate
+	%    with other agents asynchronously effectively allowing for parallel processing.
+	fork_a_b(XID).
+
+fork_a_b(XID) :-
+	sendMsg(XID,self,0,reply,a(1),corr_a),
+	rcvMsg(XID,self,Me,reply,a(1),corr_a),
+	fork_c_d(XID).
+fork_a_b(XID) :-
+	sendMsg(XID,self,0,reply,b(1),corr_b),
+	rcvMsg(XID,self,Me,reply,b(1),corr_b),
+	% Tell the join join_1 that a new pattern is ready
+	join(Me,XID,join_1,b(1)).
+
+fork_c_d(XID) :-
+	sendMsg(XID,self,0,reply,c(1),corr_c),
+	rcvMsg(XID,self,Me,reply,c(1),corr_c),
+	% Tell the join join_1 that a new pattern is ready
+	join(Me,XID,join_1,c(1)).
+fork_c_d(XID) :-
+	sendMsg(XID,self,0,reply,d(1),corr_d),
+	rcvMsg(XID,self,Me,reply,d(1),corr_d),
+	join(Me,XID,join_2,d(2)).
+
+% The following rule will be invoked by join once all the inputs are assembled.
+join_1(Me,XID,Inputs) :-
+	join(Me,XID,join_2,c(2)),
+	println(["Joined ",join_1," for XID=",XID," with inputs: ",Inputs]).
+
+% The following rule will be invoked by join once all the inputs are assembled.
+join_2(Me,XID,Inputs) :-
+	println(["Joined ",join_2," for XID=",XID," with inputs: ",Inputs]).
+
+% A testing harness for printing all incoming 'reply' messages.
+rcvMsg(XID,Protocol,From,reply,[X|Xs],Extra) :-
+	println(["reply for conversation-id ",XID,": ",[X|Xs],",",Extra]).

@@ -1,0 +1,62 @@
+% Since Prova 2.0
+% Demonstrate
+% - Parallel partitions in in-body reactions
+
+:- eval(server()).
+
+:- eval(client()).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% SERVER %%%%%
+%%%%%%%%%%%%%%%%%%
+
+server() :-
+	println(["==========ex061=========="]),
+	% Since conversation-id XID is unbound here, this reaction cannot be terminated by end_of_transmission 
+	rcvMult(XID,Protocol,From,run,[Y|Ys],id0),
+	println(["Received new message out of many: ",XID]),
+	unique_id(PID1),
+	unique_id(PID2),
+	unique_id(PID3),
+	println([PID1,PID2,PID3],","),
+	branches([PID1,PID2,PID3]).
+
+test(id1) :-
+	println(["Condition id1 being tested."]),
+	!,
+	fail().
+test(id2) :-
+	println(["Condition id2 being tested."]),
+	!.
+
+branches([PID1,PID2,PID3]) :-
+	rcvMsgP([PID1],[PID2],rcvMsg(XID,Protocol,From,run,v(),Correlation),condition(test(Correlation))),
+	$Count.incrementAndGet(),
+	println(["Received v() in branch 1"]).
+branches([PID1,PID2,PID3]) :-
+	rcvMsgP([PID3],[PID2],rcvMsg(XID,Protocol,From,run,v(),id1)),
+	$Count.incrementAndGet(),
+	println(["Received v() in branch 2"]).
+branches([PID1,PID2,PID3]) :-
+	rcvMsgP([PID2],[PID1],rcvMsg(XID,Protocol,From,run,u(),id1)),
+	$Count.incrementAndGet(),
+	println(["Received u() in branch 3"]).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% CLIENT %%%%%
+%%%%%%%%%%%%%%%%%%
+
+client() :-
+	sendMsg(XID,self,0,run,t(),id0),
+	sendMsg(XID,self,0,run,u(),id1),
+	sendMsg(XID,self,0,run,v(),id1),
+	sendMsg(XID,self,0,run,u(),id1),
+	println(["Started first conversation: ",XID]).
+client() :-
+	sendMsg(XID,self,0,run,t(),id0),
+	sendMsg(XID,self,0,run,v(),id1),
+	sendMsg(XID,self,0,run,v(),id2),
+	sendMsg(XID,self,0,run,v(),id2),
+	sendMsg(XID,self,0,run,u(),id1),
+	println(["Started second conversation: ",XID]).
+

@@ -1,0 +1,111 @@
+% Prova "reloaded" messaging
+% Demonstrate the use cycled event processing.
+% Inbound events for 2 different XID are executed concurrently.
+% 3 inbound events for the same XID are processed sequentially so that a new event is executed
+% 		on the same 'conversation' thread when the previous processing is done.
+% Internally each processing step consists of several concurrent processes.
+% Only when all of them are finished, the lock manager unlocks the processing of further events on the same XID.
+
+%%%%%%%%%%%%%%%%%
+%%% REQUESTOR %%%
+%%%%%%%%%%%%%%%%%
+
+rcvMsg(XID,async,From,raw,Payload) :-
+	sendMsg(XID,async,0,lock,[]),
+	rcvMsg(XID,async,From,locked,[]),
+println(["locked:",XID]," "),
+	!,
+	process(XID,Payload).
+
+%%%%%%%%%%%%%%%%%%
+%% LOCK MANAGER %%
+%%%%%%%%%%%%%%%%%%
+
+:- eval(lock_manager_init()).
+
+lock_manager_init() :-
+	$PLock=java.util.concurrent.ConcurrentHashMap(),
+	$PJoin=java.util.concurrent.ConcurrentHashMap().
+
+lock_manager_check(XID) :-
+	false=$PLock.containsKey(XID),
+	!,
+	$PLock.put(XID,1).
+lock_manager_check(XID) :-
+	Lock=$PLock.get(XID),
+	Lock>0,
+	!,
+	fail().
+lock_manager_check(XID) :-
+	$PLock.put(XID,1).
+	
+rcvMsg(XID,async,From,lock,[]) :-
+	lock_manager_check(XID),
+	sendMsg(XID,async,0,locked,[]).
+rcvMsg(XID,async,From,unlock,[]) :-
+	$PLock.put(XID,0),
+	println([unlocked,XID],": "),
+	sendMsg(XID,async,0,locked,[]).
+
+partition_join_init(XID) :-
+	$PJoin.put(XID,0).
+
+partition_join_increment(XID,N2) :-
+	N=$PJoin.get(XID),
+	N2=N+1,
+	$PJoin.put(XID,N2).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% SERVER %%%%%
+%%%%%%%%%%%%%%%%%%
+
+:- eval(server()).
+
+% All requests run in parallel threads from the 'task' thread pool.
+% This happens due to the client specifying 'task' as the protocol (second parameter to sendMsg).
+server() :-
+	println(["==========msg010=========="]),
+	rcvMult(XID,Protocol,From,run,t(A,B,I),I),
+println([XID,A,B,I],"@"),
+	I2=I*2,
+	sendMsg(XID,async,From,result,t(I2),I).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% CLIENT %%%%%
+%%%%%%%%%%%%%%%%%%
+
+:- eval(client()).
+
+client() :-
+	element(I,[1,2]),
+	% For each I, the conversation-id XID is different
+	% Initialise XID so that the subsequent responses are all executed on the same thread
+	sendMsg(XID,task,0,noop,[]),
+	element(J,[1,2,3]),
+	sendMsg(XID,async,0,raw,[I,J]),
+	rcvMsg(XID,async,0,raw_result,Result,J),
+	println(["Result:",I,J,Result]," "),
+	$Count.incrementAndGet().
+
+%%%%%%%%%%%%%%%%%
+%%% PROCESSOR %%%
+%%%%%%%%%%%%%%%%%
+
+process(XID,[I,J]) :-
+	partition_join_init(XID),
+	element(K,[1,2,3,4]),
+	% Execute on the non-partitoned 'task' thread pool
+	sendMsg(XID,task,0,run,t(I,J,K),K),
+	% For each response from the server, the remainder of this rule's body
+	%   runs in one and the same "conversation" thread chosen from the partitioned conversation thread pool using XID as key.
+	%   This means that there is no synchronisation required.
+	rcvMsg(XID,async,From,result,t(K2),K),
+	partition_join_increment(XID,N2),
+	println([I,J,N2,K,K2],">"),
+	wrapup(XID,[I,J],N2).
+
+% This only gets executed when all responses have arrived
+wrapup(XID,[I,J],4) :-
+	sendMsg(XID,async,0,raw_result,[4],J),
+	println([done,[I,J],4]),
+	sendMsg(XID,async,0,unlock,[]).

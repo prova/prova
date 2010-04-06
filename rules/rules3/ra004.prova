@@ -1,0 +1,13 @@
+% This simple example by Ricardo Amador verifies that a bug present in the first
+%    CVS updates leading towards Prova 1.90 is no longer present 
+
+:- eval(y()). 
+
+y() :- x(X), !, println([X]). 
+y() :- println(["no-x"]).
+
+x(line1). 
+x(line2).
+
+% The correct output is:
+% line1

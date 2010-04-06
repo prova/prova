@@ -1,0 +1,9 @@
+% Since Prova 2.0 RC2, May 14, 2008
+
+:- solve(a(A)).
+
+a(A):-
+	A=-2.0.
+
+a(A):-
+	A=-1+2.0e-7.

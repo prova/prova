@@ -1,0 +1,56 @@
+% Demonstrate an @and group with equational constraints on group context variables.
+% During 1500 ms, detect up to 4 unordered pairs of login and logout with matching User and IP.
+% Note that neither User or IP are initially known.
+%
+% This will print:
+%
+% Pattern detected: [[[q1,async,0,request,[logout,user2,30.30.30.30]], [q1,async,0,request,[login,user2,30.30.30.30]]]] 
+% Pattern detected: [[[q1,async,0,request,[login,user1,10.10.10.10]], [q1,async,0,request,[logout,user1,10.10.10.10]]]] 
+% Pattern detected: [[[q1,async,0,request,[logout,user1,10.10.10.10]], [q1,async,0,request,[login,user1,10.10.10.10]]]] 
+% Timeout occurred: [[]] 
+
+:- eval(server()). 
+
+server() :-
+	% This construct is useful for @and groups where a variable should be shared across multiple reactions.
+	server_1().
+
+server_1() :-
+	@group(g1) @count(-1) @vars(User,IP)
+	rcvMsg(q1,Protocol,From,request,login(User,IP)).
+server_1() :-
+	% Order of variables in @vars is not important
+	@group(g1) @count(-1) @vars(IP,User)
+	rcvMsg(q1,Protocol,From,request,logout(User,IP)).
+server_1() :-
+	@and(g1) @count(4) @timeout(1500)
+	rcvMsg(q1,Protocol,From,and,Events),
+	println(["Pattern detected: ",Events," "]).
+server_1() :-
+	@and(g1)
+	rcvMsg(XID,Protocol,From,timeout,Events),
+	println(["Timeout occurred: ",Events," "]).
+	
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Process all messages on the same partition
+	sendMsg(q1,async,0,request,login(user1,'10.10.10.10')),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(500L),
+	sendMsg(q1,async,0,request,logout(user2,'30.30.30.30')),
+	java.lang.Thread.sleep(700L),
+	sendMsg(q1,async,0,request,login(user2,'30.30.30.30')),
+	sendMsg(q1,async,0,request,logout(user1,'10.10.10.10')),
+	sendMsg(q1,async,0,request,login(user1,'20.20.20.20')),
+	sendMsg(q1,async,0,request,login(user1,'10.10.10.10')),
+	java.lang.Thread.sleep(1500L),
+	sendMsg(q1,async,0,request,login(user1,'10.10.10.10')),
+	sendMsg(q1,async,0,request,login(user2,'40.40.40.40')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

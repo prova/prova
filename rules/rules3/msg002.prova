@@ -1,0 +1,18 @@
+:- eval(msg002()).
+
+msg002() :-
+	println(["==========Messaging test 002=========="]),
+
+	% Only one message will be received here as the reaction disappears after the first message is consumed
+	rcvMsg(XID,self,From,inform,a(I)),
+	println(["Received: ",rcvMsg(XID,self,From,inform,a(I))],"").
+msg002() :-
+	for([1,2],I),
+	sendMsg(XID,self,0,inform,a(I)),
+	println(["Sent: ",sendMsg(XID,self,0,inform,a(I))],"").
+
+% This outputs:
+% ==========Messaging test 002==========
+% Sent: [sendMsg,prova1,self,0,inform,[a,1]]
+% Sent: [sendMsg,prova2,self,0,inform,[a,2]]
+% Received: [rcvMsg,prova1,self,0,inform,[a,1]]

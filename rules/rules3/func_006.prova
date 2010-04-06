@@ -1,0 +1,21 @@
+:- eval(consult('functional.prova')).
+
+% Demonstrate
+%    the basics of the Tree monad,
+%    the use of monadic computations instead of monadic instances as inputs to bind,
+%    the use of fully applied functions in such monadic computations.
+
+% This returns: T1=[tree,[tree,[tree,[leaf,4]],[tree,[leaf,8]]],[tree,[leaf,12]]]
+:- solve(
+	derive(
+		[
+		 [map(double),map(double)],
+		 tree(
+			tree(
+				tree(leaf(1)),tree(leaf(2))
+			),
+			tree(leaf(3))
+		 ),
+		 T1]
+	)
+).

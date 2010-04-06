@@ -1,0 +1,14 @@
+:- eval(msg()).
+
+msg() :-
+	println(["==========Communicator messaging test 001=========="]),
+
+	% This reaction is active indefinitely
+	rcvMult(XID,async,From,inform,a(I)),
+	println(["Received: ",rcvMsg(XID,async,From,inform,a(I))],"").
+
+% This outputs:
+% ==========Communicator messaging test 001==========
+% Received: [rcvMsg,prova1,async,0,inform,[a,1]]
+% Received: [rcvMsg,prova1,async,0,inform,[a,2]]
+% ...

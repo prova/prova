@@ -1,0 +1,52 @@
+% Demonstrate OR(E1,E2,STOP E3). STOP is a group terminator that works differently from NOT.
+%
+% This will print:
+%
+% Logout user1 10.10.10.10
+% Update user2 30.30.30.30
+% Pattern detected: [[[user1,async,0,request,[logout,user1,10.10.10.10]]]] 
+
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,request,login(User,IP)),
+	server_1(XID,User,IP).
+
+server_1(XID,User,IP) :-
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,login(User,IP2)) [IP2!=IP],
+	println(["Suspicious login",User,IP,IP2]," ").
+server_1(XID,User,IP) :-
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,logout(User,IP)),
+	println(["Logout",User,IP]," ").
+server_1(XID,User,IP) :-
+	@group(g1) @stop
+	rcvMsg(XID,Protocol,From,request,update(User,IP)),
+	println(["Update",User,IP]," ").
+server_1(XID,User,IP) :-
+	@or(g1) @timeout(1000)
+	rcvMsg(XID,Protocol,From,or,Events),
+	println(["Pattern detected: ",Events," "]).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(user1,async,0,request,login(user1,'10.10.10.10')),
+	java.lang.Thread.sleep(200L),
+	sendMsg(user2,async,0,request,login(user2,'30.30.30.30')),
+	java.lang.Thread.sleep(300L),
+	sendMsg(user1,async,0,request,logout(user1,'10.10.10.10')),
+	sendMsg(user1,async,0,request,login(user1,'20.20.20.20')),
+	% This is a terminator
+	sendMsg(user2,async,0,request,update(user2,'30.30.30.30')),
+	sendMsg(user2,async,0,request,login(user2,'40.40.40.40')).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

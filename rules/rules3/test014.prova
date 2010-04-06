@@ -1,0 +1,9 @@
+:- eval(scripts(".prova")).
+
+scripts(Ext) :-
+	Dir=java.io.File("."),
+	Files1=Dir.list(),
+	Files=java.util.Arrays.asList(Files1),
+	element(File,Files),
+	File.endsWith(Ext),
+	println([File]).

@@ -1,0 +1,5 @@
+:- solve(p(X)).
+
+p(X) :-
+	A=java.util.HashSet(),
+	A.nomethod().

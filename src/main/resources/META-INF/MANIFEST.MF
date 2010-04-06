@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-Version: 3.0.0
+Bundle-Name: Prova compact
+Bundle-ManifestVersion: 2
+Bundle-Description: Prova rule engine compact
+Bundle-SymbolicName: ws.prova.compact
+Import-Package: org.osgi.framework;version="1.3.0"
+Export-Package: ws.prova.api2,ws.prova.parser2

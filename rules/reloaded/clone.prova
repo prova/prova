@@ -1,0 +1,10 @@
+:- solve(test_clone(must_match,add)).
+
+test_clone(B,FunX) :-
+	clone(lambda(A,[add,A,4]),lambda(1,[FunX|ArgXs])),
+	% At this point, A is still a free variable, but FunX is bound to a string 'add' 
+	println([FunX,ArgXs,B]," "),
+	println(lambda(A,[add,A,4])," "),
+	% must_match unifies with a constant A successfully
+	% Not we cannot use A as the head variable, otherwise clone cannot match must_match with 1
+	B = A.

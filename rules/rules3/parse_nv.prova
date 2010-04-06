@@ -1,0 +1,11 @@
+:- solve(test_parse_nv_1(Value1)).
+
+:- solve(test_parse_nv_2(Value2)).
+
+test_parse_nv_1(Value) :-
+	parse_nv([$Text,"(?:(\w+)=(\w+),?)"],[Names,Values]),
+	element(Value,Values).
+
+test_parse_nv_2(Value) :-
+	parse_nv([$Text,"(?:(\w+)=(\w+),?)"],[[N|Ns],[V|Vs]]),
+	element(Value,[V|Vs]).
