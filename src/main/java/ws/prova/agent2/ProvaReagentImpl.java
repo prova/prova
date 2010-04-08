@@ -416,4 +416,9 @@ public class ProvaReagentImpl implements ProvaReagent {
 		return threadId2Index.get(Thread.currentThread().getId()) == threadIndex(partition);
 	}
 
+	@Override
+	public void setGlobalConstant(String name, Object value) {
+		kb.setGlobalConstant(name, value);		
+	}
+
 }

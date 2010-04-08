@@ -55,4 +55,6 @@ public interface ProvaReagent {
 
 	public boolean isInPartitionThread(long partition);
 
+	public void setGlobalConstant(String name, Object value);
+
 }

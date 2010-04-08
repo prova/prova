@@ -11,6 +11,7 @@ import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaPredicate;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.reference2.eventing.ProvaGroup;
+import ws.prova.service.ProvaService;
 
 public interface ProvaMessenger {
 
@@ -48,5 +49,7 @@ public interface ProvaMessenger {
 	void scheduleCleanup(ProvaGroup dynamic, long delay);
 
 	public void stop();
+
+	public void setService(ProvaService service);
 
 }

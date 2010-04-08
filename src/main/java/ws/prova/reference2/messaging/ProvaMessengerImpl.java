@@ -48,6 +48,7 @@ import ws.prova.reference2.eventing.ProvaOrGroupImpl;
 import ws.prova.reference2.eventing.ProvaGroup.EventDetectionStatus;
 import ws.prova.reference2.messaging.where.WhereNode;
 import ws.prova.reference2.messaging.where.WhereTreeVisitor;
+import ws.prova.service.ProvaService;
 import ws.prova.util2.ProvaTimeUtils;
 
 @SuppressWarnings("unused")
@@ -84,6 +85,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	private Map<Long, ProvaGroup> outcomeRuleid2Group = new ConcurrentHashMap<Long, ProvaGroup>();
 
 	private ScheduledThreadPoolExecutor timers;
+
+	private ProvaService service;
 
 	private static ThreadLocal<Map<String, String>> tlStatic2Dynamic = new ThreadLocal<Map<String, String>>();
 
@@ -174,6 +177,10 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				if (esb == null)
 					return false;
 				message = new ProvaESBMessageImpl(dest, termsCopy, esb);
+			} else if ("osgi".equals(protocol)) {
+				if (service == null)
+					return false;
+				message = new ProvaServiceMessageImpl(dest, termsCopy, agent, service);
 			} else {
 				// TODO: Other protocols
 			}
@@ -257,6 +264,12 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 					return false;
 				ProvaDelayedCommand message = new ProvaESBMessageImpl(dest,
 						termsCopy, esb);
+				message.process(prova);
+				return true;
+			} else if ("osgi".equals(protocol)) {
+				if (service == null)
+					return false;
+				ProvaDelayedCommand message = new ProvaServiceMessageImpl(dest, termsCopy, agent, service);
 				message.process(prova);
 				return true;
 			} else {
@@ -1169,6 +1182,11 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	@Override
 	public void stop() {
 		timers.shutdownNow();
+	}
+
+	@Override
+	public void setService(ProvaService service) {
+		this.service = service;
 	}
 
 }

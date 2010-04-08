@@ -36,4 +36,6 @@ public interface ProvaCommunicator {
 
 	public void stop();
 
+	public void setGlobalConstant(String name, Object value);
+
 }

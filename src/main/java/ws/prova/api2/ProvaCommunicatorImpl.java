@@ -12,10 +12,11 @@ import java.util.concurrent.Future;
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.agent2.ProvaReagentImpl;
 import ws.prova.esb2.ProvaAgent;
-import ws.prova.kernel2.ProvaList;
 import ws.prova.exchange.ProvaSolution;
+import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.messaging.ProvaMessenger;
 import ws.prova.parser2.ProvaParsingException;
+import ws.prova.service.ProvaService;
 
 public class ProvaCommunicatorImpl implements ProvaCommunicator {
 
@@ -26,7 +27,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	private ProvaReagent prova;
 
 	private ProvaMessenger messenger;
-
+	
 	/**
 	 * @param agent   A logical name of the Prova agent (must be unique on each machine)
 	 * @param port    An external port used for JADE communications. If <code>port</code> is
@@ -98,6 +99,20 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	public ProvaCommunicatorImpl(String agent, Object rules, boolean async) {
 		prova = new ProvaReagentImpl(agent, null, null, rules, async, null, null);
 		messenger = prova.getMessenger();
+	}
+
+	public ProvaCommunicatorImpl(ProvaService service,
+			String agent, String port, String rules, boolean async, Map<String, Object> globals) {
+		String[] prot;
+		if (port != null) {
+			prot = new String[]{new String("jade")};
+		} else {
+			prot = null;
+		}
+
+		prova = new ProvaReagentImpl(agent, port, prot, rules, async, null, globals);
+		messenger = prova.getMessenger();
+		messenger.setService(service);
 	}
 
 	@Override
@@ -346,6 +361,11 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	@Override
 	public void unconsultSync(String src) {
 		prova.unconsultSync(src);	
+	}
+
+	@Override
+	public void setGlobalConstant(String name, Object value) {
+		prova.setGlobalConstant(name, value);
 	}
 
 }
