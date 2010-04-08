@@ -5,7 +5,7 @@
 	<groupId>ws.prova</groupId>
 	<artifactId>ws.prova.compact</artifactId>
 	<name>prova</name>
-	<version>${artifact_version}</version>
+	<version>3.0.0</version>
 	<url>http://www.prova.ws</url>
 	<licenses>
 		<license>

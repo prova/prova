@@ -35,12 +35,12 @@ public class ProvaServiceImpl implements ProvaService {
 	}
 	
 	@Override
-	public String instance(String rulebase) {
+	public String instance(String agent, String rulebase) {
 		ProvaCommunicator prova = null;
 		String id = null;
 		try {
 			id = UUID.randomUUID().toString();
-			prova = new ProvaCommunicatorImpl(id,null,rulebase,ProvaCommunicatorImpl.SYNC);
+			prova = new ProvaCommunicatorImpl(agent,null,rulebase,ProvaCommunicatorImpl.SYNC);
 			engines.put(id, prova);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -58,7 +58,7 @@ public class ProvaServiceImpl implements ProvaService {
 	@Override
 	public List<ProvaSolution[]> consult(String id, String src, String key) {
 		try {
-			ProvaCommunicator engine = engines.remove(id);
+			ProvaCommunicator engine = engines.get(id);
 			if( engine==null )
 				throw new RuntimeException("No engine instance "+id);
 			List<ProvaSolution[]> resultSets = engine.consultSync(src, key, new Object[]{});

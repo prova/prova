@@ -6,7 +6,7 @@ import ws.prova.exchange.ProvaSolution;
 
 public interface ProvaService {
 
-	public String instance(String rulebase);
+	public String instance(String agent, String rulebase);
 
 	public void release(String id);
 
