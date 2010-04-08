@@ -83,8 +83,8 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 		while( !tabledNodes.empty() ) {			
 			node = (ProvaDerivationNode) tabledNodes.pop();
 			query = node.getQuery();
-			if( log.isInfoEnabled() )
-				log.info(query);
+			if( log.isDebugEnabled() )
+				log.debug(query);
 			ProvaGoal goal = node.getCurrentGoal();
 
 			if( goal == null ) {				
@@ -151,8 +151,8 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
     			boolean result = unification.unify();
     			if( !result )
     				continue;
-    			if( log.isInfoEnabled() )
-    				log.info(">>> ["+unification.getTarget().getMetadata()+']'+unification.getTarget().getSourceCode());
+    			if( log.isDebugEnabled() )
+    				log.debug(">>> ["+unification.getTarget().getMetadata()+']'+unification.getTarget().getSourceCode());
     			ProvaRule newQuery = unification.generateQuery(kb, query, node);
     			if( goal.isSingleClause() ) {
 					node.setCurrentGoal(new ProvaGoalImpl(newQuery));

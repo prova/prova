@@ -233,7 +233,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 				try {
 					ProvaReagentImpl.this.submitSyncInternal(goal);
 				} catch( RuntimeException e ) {
-					System.out.println("Runtime Java exception: "+e.getCause());
+					log.error("Runtime Java exception: "+e);
 				}
 			}
         };
@@ -241,9 +241,8 @@ public class ProvaReagentImpl implements ProvaReagent {
         case MAIN:
         	executor.execute(job);
         	break;
-        case CONVERSATION:
-        	partitionedPool[threadIndex(partition)].execute(job);
-        	break;
+        case TASK:
+        	pool.execute(job);
         case SWING:
 			// All Swing events are queued to the Swing events thread
 			//    (this is to be conforming to the Swing threads rules)
@@ -262,8 +261,9 @@ public class ProvaReagentImpl implements ProvaReagent {
 			} catch (InterruptedException ex) {
 			}
         	break;
-        case TASK:
-        	pool.execute(job);
+        case CONVERSATION:
+        	partitionedPool[threadIndex(partition)].execute(job);
+        	break;
         }
 	}
 

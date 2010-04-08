@@ -1,11 +1,14 @@
 package ws.prova.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
+import org.apache.log4j.Logger;
 
 import ws.prova.api2.ProvaCommunicator;
 import ws.prova.api2.ProvaCommunicatorImpl;
@@ -21,9 +24,13 @@ import ws.prova.service.ProvaService;
  */
 public class ProvaServiceImpl implements ProvaService {
 
+	private final static Logger log = Logger.getLogger("prova");
+
 	private String id;
 	
 	private ConcurrentMap<String,ProvaCommunicator> engines;
+
+	private ConcurrentMap<String, List<String>> topicDestinations = new ConcurrentHashMap<String, List<String>>();
 	
 	@Override
 	public void init() {
@@ -76,11 +83,43 @@ public class ProvaServiceImpl implements ProvaService {
 
 	@Override
 	public void send(String dest, ProvaList terms) {
+		if( "present".equals(((ProvaConstant) terms.getFixed()[3]).getObject()) ) {
+			// Ask the subscriber to start receiving the stream
+			String topic = ((ProvaList) terms.getFixed()[4]).getFixed()[0].toString();
+			if( log.isDebugEnabled() )
+				log.debug("Subscriber "+dest+" to receive stream on "+topic);
+			// Register the mapping
+			registerMapping(topic, dest);
+		} else if( "data".equals(((ProvaConstant) terms.getFixed()[3]).getObject()) ) {
+			// Dispatch a stream to subscribers
+			if( log.isDebugEnabled() )
+				log.debug("Dispatch data on stream "+dest);
+			for( String target : topicDestinations.get(dest) ) {
+				ProvaCommunicator engine = engines.get(target);
+				if( engine==null )
+					log.error("Subscriber "+target+" not present");
+				engine.addMsg(terms);
+				if( log.isDebugEnabled() )
+					log.debug("Sent: "+terms);
+			}
+			return;
+		}
 		ProvaCommunicator engine = engines.get(dest);
 		if( engine==null )
 			throw new RuntimeException("No engine instance "+dest);
-    	((ProvaConstant) terms.getFixed()[1]).setObject("async");
 		engine.addMsg(terms);
+		if( log.isDebugEnabled() )
+			log.debug("Sent: "+terms);
+	}
+
+	private synchronized void registerMapping(String topic, String dest) {
+		List<String> list = topicDestinations.get(topic);
+		if( list==null ) {
+			list = new ArrayList<String>();
+			topicDestinations.put(topic, list);
+		}
+		list.add(dest);
+		
 	}
 
 	@Override

@@ -1,0 +1,20 @@
+% This test can only be run from ProvaServiceTest.java
+
+:- eval(subscriber()).
+
+subscriber() :-
+	println(["==========Service eventing test: subscriber=========="]),
+
+	sendMsg(XID,osgi,broker,subscribe,mult2(X)),
+
+	process(XID).
+
+process(XID) :-
+	rcvMsg(XID,Protocol,broker,present,[Topic]),
+	$Count.incrementAndGet(),
+	println([XID,":subscriber: ready to receive on ",Topic]),
+	sendMsg(XID,osgi,broker,ready,[]),
+
+	rcvMsg(Topic,Protocol,Sender,data,mult2(I)),
+	println([Topic,":subscriber: received data ",mult2(I)]),
+	$Count.incrementAndGet().

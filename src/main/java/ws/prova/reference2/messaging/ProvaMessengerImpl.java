@@ -243,6 +243,20 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			String dest = ((ProvaConstant) destObject).getObject().toString();
 			ProvaList termsCopy = (ProvaList) terms
 					.cloneWithVariables(variables);
+			if ("esb".equals(protocol)) {
+				if (esb == null)
+					return false;
+				ProvaDelayedCommand message = new ProvaESBMessageImpl(dest,
+						termsCopy, esb);
+				message.process(prova);
+				return true;
+			} else if ("osgi".equals(protocol)) {
+				if (service == null)
+					return false;
+				ProvaDelayedCommand message = new ProvaServiceMessageImpl(dest, termsCopy, agent, service);
+				message.process(prova);
+				return true;
+			}
 			ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", termsCopy);
 			ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
 					kb.generateLiteral("fail") });
@@ -258,19 +272,6 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				return true;
 			} else if ("self".equals(protocol) || "0".equals(dest)) {
 				prova.submitAsync(0, goal, ProvaThreadpoolEnum.MAIN);
-				return true;
-			} else if ("esb".equals(protocol)) {
-				if (esb == null)
-					return false;
-				ProvaDelayedCommand message = new ProvaESBMessageImpl(dest,
-						termsCopy, esb);
-				message.process(prova);
-				return true;
-			} else if ("osgi".equals(protocol)) {
-				if (service == null)
-					return false;
-				ProvaDelayedCommand message = new ProvaServiceMessageImpl(dest, termsCopy, agent, service);
-				message.process(prova);
 				return true;
 			} else {
 				// TODO: Other protocols
@@ -982,7 +983,6 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	}
 
 	@Override
-	// TODO: clean this up
 	public void addMsg(ProvaList terms) {
 		ProvaObject[] data = terms.getFixed();
 		ProvaObject lt = data[0];
@@ -992,15 +992,15 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			// Follow up on an existing conversation
 			cid = (String) ((ProvaConstant) lt).getObject();
 		String prot = ((ProvaConstant) data[1]).getObject().toString();
-		// String sender = ((ProvaConstant) data[2]).getObject().toString();
 		ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", terms);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
 				kb.generateLiteral("fail") });
-		ProvaThreadpoolEnum dest = ProvaThreadpoolEnum.TASK;
+		// The CONVERSATION pool is the default (see PROVA-39)
+		ProvaThreadpoolEnum dest = ProvaThreadpoolEnum.CONVERSATION;
 		if ("self".equals(prot))
 			dest = ProvaThreadpoolEnum.MAIN;
-		else if ("async".equals(prot))
-			dest = ProvaThreadpoolEnum.CONVERSATION;
+		else if ("task".equals(prot))
+			dest = ProvaThreadpoolEnum.TASK;
 		prova.submitAsync(partitionKey(cid), goal, dest);
 	}
 

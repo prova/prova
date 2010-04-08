@@ -5,6 +5,6 @@
 receiver() :-
 	println(["==========Service messaging test: receiver=========="]),
 
-	rcvMsg(XID,async,From,inform,a(I)),
+	rcvMsg(XID,Protocol,From,inform,a(I)),
 	println(["Received ",a(I)]),
 	$Count.incrementAndGet().

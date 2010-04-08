@@ -1,0 +1,34 @@
+:- eval(broker()).
+
+broker() :-
+	println(["==========In-engine stream broker=========="]),
+
+	reactor().
+
+reactor() :-
+	rcvMsg(XID,Protocol,Producer,advertise,Stream),
+	println([XID,":broker: advertising ",Producer,"->",Stream]),
+	assert(capability(XID,Producer,Stream)),
+	$Count.incrementAndGet().
+reactor() :-
+	rcvMsg(XID,Protocol,Subscriber,subscribe,Stream),
+	println([XID,":broker: subscribing ",Subscriber,"->",Stream]),
+	matcher(XID,Subscriber,Stream),
+	$Count.incrementAndGet().
+
+matcher(XID,Subscriber,Stream) :-
+	running(Topic,Producer,Stream),
+	% Let the subscriber connect to the active stream
+	!,
+	sendMsg(XID,osgi,Subscriber,present,[Topic]).
+matcher(XID,Subscriber,Stream) :-
+	capability(XIDC,Producer,Stream),
+	% There is a matching producer
+	!,
+	unique_id(Topic),
+	sendMsg(XID,osgi,Subscriber,present,[Topic]),
+	rcvMsg(XID,Protocol,Subscriber,ready,[]),
+	sendMsg(Topic,osgi,Producer,start,Stream),
+	assert(running(Topic,Producer,Stream)).
+matcher(Subscriber,Stream) :-
+	sendMsg(XID,osgi,Subscriber,missing,Stream).

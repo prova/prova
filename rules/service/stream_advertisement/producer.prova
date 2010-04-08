@@ -1,0 +1,19 @@
+% This test can only be run from ProvaServiceTest.java
+
+:- eval(producer()).
+
+producer() :-
+	println(["==========Service eventing test: producer=========="]),
+
+	sendMsg(XID,osgi,broker,advertise,mult2(X)),
+	reactor().
+
+reactor() :-
+	rcvMsg(Topic,Protocol,Broker,start,Stream),
+	println([Topic,":producer: production started ",Stream]),
+	$Count.incrementAndGet(),
+	produce(Topic,Stream).
+
+produce(Topic,Stream) :-
+	% Just send one event for testing purposes, 
+	sendMsg(Topic,osgi,Topic,data,mult2(1)).
