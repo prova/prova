@@ -426,6 +426,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				timeout = goal.lookupMetadata(timeout.toString(), variables);
 			}
 			List<Object> groupsTimer = literal.getMetadata("timer");
+			log.warn(literal);
 			Object timer = null;
 			Object timerReset = null;
 			Object timerObject = null;
@@ -627,8 +628,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 
 				kb.generateRule(headControl,
 						new ProvaLiteral[] { removeLiteral });
-				if (log.isInfoEnabled())
-					log.info("Added end-of-reaction: "
+				if (log.isDebugEnabled())
+					log.debug("Added end-of-reaction: "
 							+ temporalRule.getSourceCode());
 			}
 
@@ -1008,11 +1009,11 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	public synchronized void removeTemporalRule(ProvaPredicate predicate,
 			ProvaPredicate predicate2, long key, boolean recursive,
 			ProvaList reaction, Map<String, List<Object>> metadata) {
-		if (log.isInfoEnabled())
-			log.info("Removing " + reaction + " at " + key + " with "
+		if (log.isDebugEnabled())
+			log.debug("Removing " + reaction + " at " + key + " with "
 					+ metadata);
-		if( reaction==null )
-			log.info("Removing on timeout");
+		if( reaction==null && log.isDebugEnabled() )
+			log.debug("Removing on timeout");
 		ProvaGroup group = ruleid2Group.get(key);
 
 		List<Object> groups = null;
@@ -1036,6 +1037,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 					prova, key, reaction, metadata, ruleid2Group);
 			if (detectionStatus == EventDetectionStatus.complete) {
 				removeGroup(group.getDynamicGroup(), recursive);
+				if( group.isFailed() )
+					return;
 			} else if (detectionStatus == EventDetectionStatus.preserved)
 				return;
 		} else if (metadata != null && metadata.containsKey("count")) {
@@ -1092,6 +1095,11 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			group.stop();
 		}
 
+		if( group!=null && group.isFailed() ) {
+			cleanupGroup(dynamicGroup);
+			return;
+		}
+		
 		List<ProvaDelayedCommand> delayed = ProvaResolutionInferenceEngineImpl.delayedCommands
 				.get();
 		if (delayed == null) {
@@ -1150,9 +1158,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				group.setTemplate(false);
 				group.start(ruleid2Group);
 				dynamic2Group.put(dynamicGroup, group);
-				if (log.isInfoEnabled()) {
-					log.info("Group " + dynamicGroup + " is a template");
-					log.info("Group " + dynamicGroup + " is concrete");
+				if (log.isDebugEnabled()) {
+					log.debug("Group " + dynamicGroup + " is a template/concrete");
 				}
 			}
 			group.addResult((ProvaList) ((ProvaList) fixed[1]).getFixed()[2]);

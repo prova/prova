@@ -7,11 +7,15 @@ public class ProvaTimeUtils {
 	static private final long[] TIME_PERIODS_MULTIPLIERS = {86400*1000L,3600*1000L,60*1000L,1000L,1L};
 	
 	public static long timeIntervalInMilliseconds( final Object o ) {
-		final String text = o.toString();
-		final String s[] = text.split(" ");
-		if( s.length==1 )
-			return Long.parseLong(text);
-		return timeIntervalInMilliseconds(0L, text, s, 0, 0);
+		try {
+			final String text = o.toString();
+			final String s[] = text.split(" ");
+			if( s.length==1 )
+				return Long.parseLong(text);
+			return timeIntervalInMilliseconds(0L, text, s, 0, 0);
+		} catch( Exception e ) {
+			throw new RuntimeException("Incorrect time period format: "+o);
+		}
 	}
 
 	private static long timeIntervalInMilliseconds( final long total, final String text, final String[] s, final int soffset, final int offset ) {
@@ -20,7 +24,7 @@ public class ProvaTimeUtils {
 			for( String t : TIME_PERIODS[i] ) {
 				if( t.equals(s[soffset+1]) ) {
 					long current = total + number*TIME_PERIODS_MULTIPLIERS[i];
-					return i==4 ? current : timeIntervalInMilliseconds(current,text,s,soffset+2,i+1);
+					return i==4 || soffset+2==s.length ? current : timeIntervalInMilliseconds(current,text,s,soffset+2,i+1);
 				}						
 			}
 		}
