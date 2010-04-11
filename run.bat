@@ -1,0 +1,1 @@
+java -jar platform/plugins/org.eclipse.osgi_3.5.2.R35x_v20100126.jar -console

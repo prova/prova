@@ -29,4 +29,6 @@ public interface ProvaList extends ProvaObject {
 
 	public ProvaObject cloneWithVariables(List<ProvaVariable> variables, int offset);
 
+	public ProvaList copyWithVariables(List<ProvaVariable> variables);
+
 }

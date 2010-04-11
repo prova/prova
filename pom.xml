@@ -83,10 +83,9 @@
 			<testResource>
 				<directory>rules</directory>
 			</testResource>
-			<!--
-				<testResource> <directory>src/main/resources</directory>
-				</testResource>
-			-->
+			<testResource>
+				<directory>src/main/resources</directory>
+			</testResource>
 		</testResources>
 		<resources>
 			<resource>

@@ -1,0 +1,50 @@
+:- eval(broker()).
+
+broker() :-
+	println(["==========In-engine stream broker=========="]),
+
+	reactor().
+
+reactor() :-
+	rcvMult(XID,Protocol,Producer,advertise,Stream),
+	println(["broker[",XID,"]: advertising ",Producer,"->",Stream]),
+	assert(capability(XID,Producer,Stream)),
+	$Count.incrementAndGet().
+reactor() :-
+	rcvMult(XID,Protocol,Subscriber,subscribe,Stream),
+	println(["broker[",XID,"]: subscribing ",Subscriber,"->",Stream]),
+	$Count.incrementAndGet(),
+	matcher(XID,Subscriber,Stream).
+
+matcher(XID,Subscriber,Stream) :-
+	running(Topic,Producer,Stream),
+	!,
+	% Grant the subscriber a lease and recommend 500 ms timeout before it renews the lease
+	sendMsg(XID,osgi,Subscriber,present,[Topic,'1 sec']),
+	waitLease(XID,Subscriber,Topic).
+matcher(XID,Subscriber,Stream) :-
+	capability(XIDC,Producer,Stream),
+	% There is a matching producer
+	!,
+	unique_id(Topic),
+	% Grant the subscriber a lease and recommend 500 ms timeout before it renews the lease
+	sendMsg(XID,osgi,Subscriber,present,[Topic,500]),
+	rcvMsg(XID,Protocol,Subscriber,ready,[]),
+	sendMsgSync(Topic,osgi,Producer,start,Stream),
+	assert(running(Topic,Producer,Stream)),
+	waitLease(XID,Subscriber,Topic).
+matcher(XID,Subscriber,Stream) :-
+	sendMsg(XID,osgi,Subscriber,unavailable,[]).
+
+% Watch for lease expiration
+waitLease(XID,Subscriber,Topic) :-
+	@group(lease) @not @timeout('1 sec')
+	rcvMsg(XID,Protocol,Subscriber,renew,[]),
+	println(["broker[",XID,"]: received a lease renewal request from ",Subscriber," for ",Topic]),
+	% A renewal request arrived in time, the reaction group fails, so restart the timeout
+	waitLease(XID,Subscriber,Topic).
+waitLease(XID,Subscriber,Topic) :-
+	@and(lease)
+	rcvMsg(XID,Protocol,Self,and,_),
+	% The timeout expired so stop let the subscriber know
+	sendMsg(XID,osgi,Subscriber,stop,lease_expired(Topic)).

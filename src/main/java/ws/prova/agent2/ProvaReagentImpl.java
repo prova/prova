@@ -243,6 +243,7 @@ public class ProvaReagentImpl implements ProvaReagent {
         	break;
         case TASK:
         	pool.execute(job);
+        	break;
         case SWING:
 			// All Swing events are queued to the Swing events thread
 			//    (this is to be conforming to the Swing threads rules)
@@ -263,7 +264,6 @@ public class ProvaReagentImpl implements ProvaReagent {
         	break;
         case CONVERSATION:
         	partitionedPool[threadIndex(partition)].execute(job);
-        	break;
         }
 	}
 

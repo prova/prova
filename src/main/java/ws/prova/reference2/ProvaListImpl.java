@@ -122,26 +122,8 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 		return new ProvaListImpl(newFixed,tail);
 	}
 
-//	@Override
-//	public ProvaList clone() {
-//		if( ground )
-//			return this;
-//		final int fixedLength = fixed.length;
-//		ProvaObject[] newFixed = new ProvaObject[fixedLength];
-//		for( int i=0; i<fixedLength; i++ ) {
-//			newFixed[i] = fixed[i].clone();
-//		}
-//		ProvaObject newTail = null;
-//		if( tail!=null ) {
-//			newTail = tail.cloneWithVariables(variables);
-//		}
-//		return new ProvaListImpl( newFixed, newTail );
-//	}
-
 	@Override
-	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
-		if( ground )
-			return this;
+	public ProvaList copyWithVariables(List<ProvaVariable> variables) {
 		final int fixedLength = fixed.length;
 		ProvaObject[] newFixed = new ProvaObject[fixedLength];
 		for( int i=0; i<fixedLength; i++ ) {
@@ -152,6 +134,13 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 			newTail = tail.cloneWithVariables(variables);
 		}
 		return new ProvaListImpl( newFixed, newTail );
+	}
+
+	@Override
+	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
+		if( ground )
+			return this;
+		return copyWithVariables(variables);
 	}
 
 	@Override

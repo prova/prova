@@ -6,15 +6,15 @@ broker() :-
 	reactor().
 
 reactor() :-
-	rcvMsg(XID,Protocol,Producer,advertise,Stream),
+	rcvMult(XID,Protocol,Producer,advertise,Stream),
 	println([XID,":broker: advertising ",Producer,"->",Stream]),
 	assert(capability(XID,Producer,Stream)),
 	$Count.incrementAndGet().
 reactor() :-
-	rcvMsg(XID,Protocol,Subscriber,subscribe,Stream),
+	rcvMult(XID,Protocol,Subscriber,subscribe,Stream),
 	println([XID,":broker: subscribing ",Subscriber,"->",Stream]),
-	matcher(XID,Subscriber,Stream),
-	$Count.incrementAndGet().
+	$Count.incrementAndGet(),
+	matcher(XID,Subscriber,Stream).
 
 matcher(XID,Subscriber,Stream) :-
 	running(Topic,Producer,Stream),
@@ -30,5 +30,5 @@ matcher(XID,Subscriber,Stream) :-
 	rcvMsg(XID,Protocol,Subscriber,ready,[]),
 	sendMsg(Topic,osgi,Producer,start,Stream),
 	assert(running(Topic,Producer,Stream)).
-matcher(Subscriber,Stream) :-
-	sendMsg(XID,osgi,Subscriber,missing,Stream).
+matcher(XID,Subscriber,Stream) :-
+	sendMsg(XID,osgi,Subscriber,unavailable,[]).

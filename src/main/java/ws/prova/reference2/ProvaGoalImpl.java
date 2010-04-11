@@ -267,7 +267,7 @@ public class ProvaGoalImpl implements ProvaGoal {
 			return reference;
 		for( ProvaList p : meta ) {
 			ProvaList pair = (ProvaList) p.cloneWithVariables(variables);
-			String name = (String) ((ProvaConstant) pair.getFixed()[0]).getObject();
+			String name = pair.getFixed()[0].toString();
 			if( name.equals(reference) ) {
 				final ProvaObject data = pair.getFixed()[1];
 				return data instanceof ProvaConstant ? ((ProvaConstant) data).getObject() : ProvaVariableImpl.create(name, data);

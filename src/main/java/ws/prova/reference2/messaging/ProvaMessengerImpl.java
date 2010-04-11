@@ -157,23 +157,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				return false;
 			String dest = ((ProvaConstant) data[2]).getObject().toString();
 			ProvaList termsCopy = (ProvaList) terms
-					.cloneWithVariables(variables);
-			ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", termsCopy);
-			ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
-					kb.generateLiteral("fail") });
-			if ("async".equals(protocol)) {
-				message = new ProvaMessageImpl(partitionKey(cid), goal,
-						ProvaThreadpoolEnum.CONVERSATION);
-			} else if ("task".equals(protocol)) {
-				message = new ProvaMessageImpl(0, goal,
-						ProvaThreadpoolEnum.TASK);
-			} else if ("swing".equals(protocol)) {
-				message = new ProvaMessageImpl(0, goal,
-						ProvaThreadpoolEnum.SWING);
-			} else if ("self".equals(protocol) || "0".equals(dest)) {
-				message = new ProvaMessageImpl(0, goal,
-						ProvaThreadpoolEnum.MAIN);
-			} else if ("esb".equals(protocol)) {
+			.cloneWithVariables(variables);
+			if ("esb".equals(protocol)) {
 				if (esb == null)
 					return false;
 				message = new ProvaESBMessageImpl(dest, termsCopy, esb);
@@ -182,7 +167,22 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 					return false;
 				message = new ProvaServiceMessageImpl(dest, termsCopy, agent, service);
 			} else {
-				// TODO: Other protocols
+				ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", termsCopy);
+				ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
+						kb.generateLiteral("fail") });
+				if ("async".equals(protocol)) {
+					message = new ProvaMessageImpl(partitionKey(cid), goal,
+							ProvaThreadpoolEnum.CONVERSATION);
+				} else if ("task".equals(protocol)) {
+					message = new ProvaMessageImpl(0, goal,
+							ProvaThreadpoolEnum.TASK);
+				} else if ("swing".equals(protocol)) {
+					message = new ProvaMessageImpl(0, goal,
+							ProvaThreadpoolEnum.SWING);
+				} else if ("self".equals(protocol) || "0".equals(dest)) {
+					message = new ProvaMessageImpl(0, goal,
+							ProvaThreadpoolEnum.MAIN);
+				}
 			}
 		} catch (Exception e) {
 			// TODO: throw something when Prova exception handling is back
@@ -242,7 +242,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				return false;
 			String dest = ((ProvaConstant) destObject).getObject().toString();
 			ProvaList termsCopy = (ProvaList) terms
-					.cloneWithVariables(variables);
+					.copyWithVariables(variables);
 			if ("esb".equals(protocol)) {
 				if (esb == null)
 					return false;

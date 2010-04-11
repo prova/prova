@@ -2,6 +2,7 @@ package ws.prova.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -24,7 +25,7 @@ import ws.prova.service.ProvaService;
  */
 public class ProvaServiceImpl implements ProvaService {
 
-	private final static Logger log = Logger.getLogger("prova");
+	private final static Logger log = Logger.getLogger("service");
 
 	private String id;
 	
@@ -83,14 +84,15 @@ public class ProvaServiceImpl implements ProvaService {
 
 	@Override
 	public void send(String dest, ProvaList terms) {
-		if( "present".equals(((ProvaConstant) terms.getFixed()[3]).getObject()) ) {
+		final Object verb = ((ProvaConstant) terms.getFixed()[3]).getObject();
+		if( "present".equals(verb) ) {
 			// Ask the subscriber to start receiving the stream
 			String topic = ((ProvaList) terms.getFixed()[4]).getFixed()[0].toString();
 			if( log.isDebugEnabled() )
 				log.debug("Subscriber "+dest+" to receive stream on "+topic);
 			// Register the mapping
 			registerMapping(topic, dest);
-		} else if( "data".equals(((ProvaConstant) terms.getFixed()[3]).getObject()) ) {
+		} else if( "data".equals(verb) ) {
 			// Dispatch a stream to subscribers
 			if( log.isDebugEnabled() )
 				log.debug("Dispatch data on stream "+dest);
@@ -100,16 +102,23 @@ public class ProvaServiceImpl implements ProvaService {
 					log.error("Subscriber "+target+" not present");
 				engine.addMsg(terms);
 				if( log.isDebugEnabled() )
-					log.debug("Sent: "+terms);
+					log.debug("Sent: "+terms+" to "+target);
 			}
 			return;
+		} else if( "unregister".equals(verb) ) {
+			// Purge the subscription
+			String topic = ((ProvaList) terms.getFixed()[4]).getFixed()[0].toString();
+			unregisterMapping(topic, dest);
+			// This message will be forwarded to the subscriber informing them of lease expiration
 		}
+//		else if( "renew".equals(verb) )
+//			log.info(terms);
 		ProvaCommunicator engine = engines.get(dest);
 		if( engine==null )
 			throw new RuntimeException("No engine instance "+dest);
 		engine.addMsg(terms);
 		if( log.isDebugEnabled() )
-			log.debug("Sent: "+terms);
+			log.debug("Sent: "+terms+" to "+dest);
 	}
 
 	private synchronized void registerMapping(String topic, String dest) {
@@ -119,7 +128,18 @@ public class ProvaServiceImpl implements ProvaService {
 			topicDestinations.put(topic, list);
 		}
 		list.add(dest);
-		
+	}
+
+	private synchronized void unregisterMapping(String topic, String dest) {
+		List<String> list = topicDestinations.get(topic);
+		if( list==null )
+			return;
+		for( Iterator<String> iter = list.iterator(); iter.hasNext(); ) {
+			if( dest.equals(iter.next()) ) {
+				iter.remove();
+				return;
+			}
+		}		
 	}
 
 	@Override

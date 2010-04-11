@@ -11,6 +11,7 @@ import ws.prova.agent2.ProvaReagent;
 import ws.prova.eventing.ProvaEventsAccumulator;
 import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaList;
+import ws.prova.reference2.ProvaListImpl;
 import ws.prova.reference2.messaging.RemoveList;
 
 public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
@@ -98,18 +99,19 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 					this.lastReaction = reaction;
 					return EventDetectionStatus.preserved;
 				}
+				if( this.lastReaction==null )
+					this.lastReaction = (ProvaList) resultRemoveEntry.getReaction().shallowCopy(); 
+				if( log.isDebugEnabled() ) {
+					log.debug("resultRemoveEntry.getReaction(): "+resultRemoveEntry.getReaction());
+					log.debug("Set last reaction to: "+this.lastReaction);
+				}
+				this.results.clear();
 				if( timerList.size()>2 ) {
 					ProvaEventsAccumulator acc = (ProvaEventsAccumulator) timerList.get(2);
-					if( this.lastReaction==null )
-						this.lastReaction = (ProvaList) resultRemoveEntry.getReaction().shallowCopy(); 
-					if( log.isInfoEnabled() ) {
-						log.info("resultRemoveEntry.getReaction(): "+resultRemoveEntry.getReaction());
-						log.info("Set last reaction to: "+this.lastReaction);
-					}
-					this.results.clear();
 					this.results.add(acc.clone());
 					acc.clear();
-				}
+				} else
+					this.results.add(ProvaListImpl.emptyRList);
 				this.sendGroupResults(results, kb, prova);
 				if( countMax>0 && numEmitted==countMax )
 					return EventDetectionStatus.complete;

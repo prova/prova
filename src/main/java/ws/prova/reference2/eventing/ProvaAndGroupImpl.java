@@ -197,14 +197,14 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 			// Under timeout OR negated reaction not under timeout
 			this.failed = reaction!=null || !not;
 			if( this.failed ) {
-				if( log.isInfoEnabled() )
-					log.info("@and not complete"+results);
+				if( log.isDebugEnabled() )
+					log.debug("@and not complete"+results);
 				return EventDetectionStatus.complete;
 			}
 			if( !dynamicContext && isAndComplete(ruleid2Group) ) {
 				// @and is complete (but may be extended by subsequent reactions in a sequence)
-				if( log.isInfoEnabled() )
-					log.info("@and complete"+results);
+				if( log.isDebugEnabled() )
+					log.debug("@and complete"+results);
 				this.failed = false;
 			} else
 				this.failed = true;

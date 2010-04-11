@@ -1,0 +1,42 @@
+% This test can only be run from ProvaServiceTest.java
+
+:- eval(subscriber()).
+
+subscriber() :-
+	println(["==========Service eventing test: subscriber=========="]),
+
+	sendMsg(XID,osgi,broker,subscribe,mult2(X)),
+
+	process(XID).
+
+process(XID) :-
+	rcvMsg(XID,Protocol,broker,present,[Topic,RenewTimeout]),
+	$Count.incrementAndGet(),
+	println(["subscriber[",XID,"]: ready to receive on ",Topic]),
+	sendMsgSync(XID,osgi,broker,ready,[]),
+	receive(XID,Topic,RenewTimeout).
+process(XID) :-
+	rcvMsg(XID,Protocol,broker,unavailable,[]),
+	println([XID,":subscriber: subscription failed"]),
+	$Count.incrementAndGet().
+
+receive(XID,Topic,RenewTimeout) :-
+	@group(receive) @size(-1)
+	rcvMsg(Topic,Protocol,Sender,data,mult2(I)),
+	println(["subscriber[",Topic,"]: received data ",mult2(I)]),
+	$Count.incrementAndGet().
+receive(XID,Topic,RenewTimeout) :-
+	@group(receive) @stop
+	rcvMsg(XID,Protocol,broker,stop,[Reason]),
+	% The lease is revoked by broker with Reason (for example, the stream producer failed)
+	println(["subscriber[",XID,"]: stream ",Topic," stopped due to ",Reason]).
+receive(XID,Topic,RenewTimeout) :-
+	@group(receive) @timer(RenewTimeout)
+	rcvMsg(XID,Protocol,Self,noop,_).
+receive(XID,Topic,RenewTimeout) :-
+	% This reaction is called each time the timer expires
+	@or(receive)
+	rcvMsg(XID,Protocol,Self,or,_),
+	% The timeout expired so send a request to renew the lease
+	println(["subscriber[",XID,"]: send subscription renew request for ",Topic]),
+	sendMsg(XID,osgi,broker,renew,[]).
