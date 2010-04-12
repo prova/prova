@@ -5,23 +5,23 @@
 producer() :-
 	println(["==========Service eventing test: producer=========="]),
 
-	sendMsg(XID,osgi,broker,advertise,mult2(X)),
+	sendMsg(XID,osgi,broker,advertise,basestream1),
 	reactor().
 
 reactor() :-
 	rcvMsg(Topic,Protocol,Broker,start,Stream),
-	println(["producer[",Topic,"]: production started ",Stream]),
+	println([Topic,":producer: production started ",Stream]),
 	$Count.incrementAndGet(),
 	produce(Topic,Stream).
 
 produce(Topic,Stream) :-
 	% Send all the test messages from a separate thread
 	switch_thread(),
-	sendMsg(Topic,osgi,Topic,data,mult2(1)),
+	sendMsg(Topic,osgi,Topic,data,basestream1(1)),
 	% Wait synchronously, could have waited asynchronously instead
 	java.lang.Thread.sleep(2000L),
 	% The second event will be received by producer as it renews the lease every 1/2 second (see subscriber.prova)
-	sendMsg(Topic,osgi,Topic,data,mult2(1)).
+	sendMsg(Topic,osgi,Topic,data,basestream1(2)).
 
 switch_thread() :-
 	sendMsgSync(XID,task,0,switch,[]),

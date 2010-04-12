@@ -5,7 +5,7 @@
 subscriber2() :-
 	println(["==========Service eventing test: subscriber2=========="]),
 
-	sendMsg(XID,osgi,broker,subscribe,mult3(X)),
+	sendMsg(XID,osgi,broker,subscribe,nonexisting1),
 
 	process(XID).
 
@@ -15,8 +15,8 @@ process(XID) :-
 	println([XID,":subscriber: ready to receive on ",Topic]),
 	sendMsgSync(XID,osgi,broker,ready,[]),
 
-	rcvMsg(Topic,Protocol,Sender,data,mult2(I)),
-	println([Topic,":subscriber: received data ",mult2(I)]),
+	rcvMsg(Topic,Protocol,Sender,data,Data),
+	println([Topic,":subscriber: received data ",Data]),
 	$Count.incrementAndGet().
 process(XID) :-
 	rcvMsg(XID,Protocol,broker,unavailable,[]),

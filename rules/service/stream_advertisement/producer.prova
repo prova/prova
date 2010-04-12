@@ -5,7 +5,7 @@
 producer() :-
 	println(["==========Service eventing test: producer=========="]),
 
-	sendMsg(XID,osgi,broker,advertise,mult2(X)),
+	sendMsg(XID,osgi,broker,advertise,basestream1),
 	reactor().
 
 reactor() :-
@@ -16,4 +16,4 @@ reactor() :-
 
 produce(Topic,Stream) :-
 	% Just send one event for testing purposes, 
-	sendMsg(Topic,osgi,Topic,data,mult2(1)).
+	sendMsg(Topic,osgi,Topic,data,basestream1(1)).

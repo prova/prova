@@ -426,7 +426,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				timeout = goal.lookupMetadata(timeout.toString(), variables);
 			}
 			List<Object> groupsTimer = literal.getMetadata("timer");
-			log.warn(literal);
+			if( log.isDebugEnabled() )
+				log.debug("Added reaction: "+literal);
 			Object timer = null;
 			Object timerReset = null;
 			Object timerObject = null;

@@ -6,21 +6,22 @@ broker() :-
 	reactor().
 
 reactor() :-
-	rcvMult(XID,Protocol,Producer,advertise,Stream),
-	println(["broker[",XID,"]: advertising ",Producer,"->",Stream]),
+	rcvMsg(XID,Protocol,Producer,advertise,Stream),
+	println([XID,":broker: advertising ",Producer,"->",Stream]),
 	assert(capability(XID,Producer,Stream)),
 	$Count.incrementAndGet().
 reactor() :-
-	rcvMult(XID,Protocol,Subscriber,subscribe,Stream),
-	println(["broker[",XID,"]: subscribing ",Subscriber,"->",Stream]),
+	rcvMsg(XID,Protocol,Subscriber,subscribe,Stream),
+	println([XID,":broker: subscribing ",Subscriber,"->",Stream]),
 	$Count.incrementAndGet(),
 	matcher(XID,Subscriber,Stream).
 
 matcher(XID,Subscriber,Stream) :-
 	running(Topic,Producer,Stream),
+	% Let the subscriber connect to the active stream
 	!,
 	% Grant the subscriber a lease and recommend 500 ms timeout before it renews the lease
-	sendMsg(XID,osgi,Subscriber,present,[Topic,'1 sec']),
+	sendMsg(XID,osgi,Subscriber,present,[Topic,'500 ms']),
 	waitLease(XID,Subscriber,Topic).
 matcher(XID,Subscriber,Stream) :-
 	capability(XIDC,Producer,Stream),
@@ -28,13 +29,13 @@ matcher(XID,Subscriber,Stream) :-
 	!,
 	unique_id(Topic),
 	% Grant the subscriber a lease and recommend 500 ms timeout before it renews the lease
-	sendMsg(XID,osgi,Subscriber,present,[Topic,500]),
+	sendMsg(XID,osgi,Subscriber,present,[Topic,'500 ms']),
 	rcvMsg(XID,Protocol,Subscriber,ready,[]),
-	sendMsgSync(Topic,osgi,Producer,start,Stream),
+	sendMsg(Topic,osgi,Producer,start,Stream),
 	assert(running(Topic,Producer,Stream)),
 	waitLease(XID,Subscriber,Topic).
-matcher(XID,Subscriber,Stream) :-
-	sendMsg(XID,osgi,Subscriber,unavailable,[]).
+matcher(Subscriber,Stream) :-
+	sendMsg(XID,osgi,Subscriber,missing,Stream).
 
 % Watch for lease expiration
 waitLease(XID,Subscriber,Topic) :-
@@ -46,5 +47,5 @@ waitLease(XID,Subscriber,Topic) :-
 waitLease(XID,Subscriber,Topic) :-
 	@and(lease)
 	rcvMsg(XID,Protocol,Self,and,_),
-	% The timeout expired so stop let the subscriber know
+	% The timeout expired so let the subscriber know
 	sendMsg(XID,osgi,Subscriber,stop,lease_expired(Topic)).
