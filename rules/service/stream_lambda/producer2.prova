@@ -1,0 +1,58 @@
+% This test can only be run from ProvaServiceTest.java
+
+:- eval(producer2()).
+
+producer2() :-
+	println(["==========Service eventing test: producer2=========="]),
+
+	sendMsg(XID,osgi,broker,advertise,func(in(Stream),[lambda|F])),
+	reactor().
+
+reactor() :-
+	rcvMsg(XID,Protocol,Broker,wireup,Stream),
+	println(["producer2[",XID,"]: received a wireup request for ",Stream]),
+
+	sendMsg(XIDI,osgi,broker,subscribe,Stream),
+	process(XIDI,InnerTopic,RenewTimeout,XID),
+
+	rcvMsg(Topic,Protocol,Broker,start,func(in(Stream),[lambda|F])),
+
+	sendMsgSync(XIDI,osgi,broker,ready,[]),
+	println(["producer2[",Topic,"]: production started ",func(in(Stream),[lambda|F])]),
+	$Count.incrementAndGet(),
+	receive(XIDI,InnerTopic,RenewTimeout,Topic,func(in(Stream),[lambda|F])).
+
+process(XIDI,InnerTopic,RenewTimeout,XID) :-
+	rcvMsg(XIDI,Protocol,broker,present,[InnerTopic,RenewTimeout]),
+	$Count.incrementAndGet(),
+	println(["producer2[",XIDI,"]: ready to receive on ",InnerTopic]),
+	sendMsgSync(XID,osgi,broker,wired,[]).
+process(XIDI,InnerTopic,RenewTimeout,XID) :-
+	rcvMsg(XIDI,Protocol,broker,unavailable,[]),
+	println([XIDI,":subscriber: subscription failed"]),
+	sendMsgSync(XID,osgi,broker,not_wired,[]),
+	$Count.incrementAndGet(),
+	fail().
+
+receive(XID,InnerTopic,RenewTimeout,Topic,func(in(Stream),[lambda|F])) :-
+	@group(receive) @size(-1)
+	rcvMsg(InnerTopic,Protocol,Sender,data,basestream1(I)),
+	println(["producer2[",Topic,"]: received data ",basestream1(I)]),
+	map([[lambda|F],[I]],[IM]),
+	sendMsg(Topic,osgi,Topic,data,func(IM)),
+	$Count.incrementAndGet().
+receive(XID,InnerTopic,RenewTimeout,Topic,func(in(Stream),[lambda|F])) :-
+	@group(receive) @stop
+	rcvMsg(XID,Protocol,broker,stop,[Reason]),
+	% The lease is revoked by broker with Reason (for example, the stream producer failed)
+	println(["subscriber[",XID,"]: stream ",InnerTopic," stopped due to ",Reason]).
+receive(XID,InnerTopic,RenewTimeout,Topic,func(in(Stream),[lambda|F])) :-
+	@group(receive) @timer(RenewTimeout)
+	rcvMsg(XID,Protocol,Self,noop,_).
+receive(XID,InnerTopic,RenewTimeout,Topic,func(in(Stream),[lambda|F])) :-
+	% This reaction is called each time the timer expires
+	@or(receive)
+	rcvMsg(XID,Protocol,Self,or,_),
+	% The timeout expired so send a request to renew the lease
+	println(["producer2[",XID,"]: to send subscription renew request for ",InnerTopic]),
+	sendMsg(XID,osgi,broker,renew,[]).

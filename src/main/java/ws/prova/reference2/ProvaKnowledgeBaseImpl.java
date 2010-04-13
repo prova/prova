@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaBuiltin;
 import ws.prova.kernel2.ProvaConstant;
+import ws.prova.kernel2.ProvaDerivationNode;
 import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaLiteral;
@@ -241,10 +242,10 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 				if( rule.getHead()==null ) {
 					ProvaResolutionInferenceEngine engine = new ProvaResolutionInferenceEngineImpl(this, rule);
 					engine.setReagent(prova);
-					engine.run();
+					ProvaDerivationNode node = engine.run();
 					ProvaSolution[] goalResults = resultSet.getSolutions().toArray(noSolutions);
 					// The second literal in the body is not fail() when it is a solve (not eval)
-					if( goalResults.length==0 && rule.getBody().length==2 && rule.getBody()[1].getPredicate().getArity()!=0 )
+					if( node!=null && goalResults.length==0 && rule.getBody().length==2 && rule.getBody()[1].getPredicate().getArity()!=0 )
 						this.getPrintWriter().println("no");
 					results.add(goalResults);
 					resultSet.getSolutions().clear();
@@ -272,10 +273,10 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 				if( rule.getHead()==null ) {
 					ProvaResolutionInferenceEngine engine = new ProvaResolutionInferenceEngineImpl(this, rule);
 					engine.setReagent(prova);
-					engine.run();
+					ProvaDerivationNode node = engine.run();
 					ProvaSolution[] goalResults = resultSet.getSolutions().toArray(noSolutions);
 					// The second literal in the body is not fail() when it is a solve (not eval)
-					if( goalResults.length==0 && rule.getBody().length==2 && rule.getBody()[1].getPredicate().getArity()!=0 )
+					if( node!=null && goalResults.length==0 && rule.getBody().length==2 && rule.getBody()[1].getPredicate().getArity()!=0 )
 						this.getPrintWriter().println("no");
 					results.add(goalResults);
 					resultSet.getSolutions().clear();

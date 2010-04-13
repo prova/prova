@@ -3,6 +3,7 @@ package ws.prova.api2;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaList;
@@ -37,5 +38,7 @@ public interface ProvaCommunicator {
 	public void stop();
 
 	public void setGlobalConstant(String name, Object value);
+
+	public void addMsg(String xid, String agent, String verb, Map<String, Object> payload);
 
 }

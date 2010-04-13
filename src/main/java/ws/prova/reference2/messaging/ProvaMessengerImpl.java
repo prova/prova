@@ -143,7 +143,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			String cid = "";
 			if (lt instanceof ProvaConstant) {
 				// Follow up on an existing conversation
-				cid = (String) ((ProvaConstant) lt).getObject();
+				cid = lt.toString();
 			} else if (lt instanceof ProvaVariable) {
 				// Generate a unique conversation-id
 				cid = generateCid();
@@ -223,7 +223,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			String cid = "";
 			if (lt instanceof ProvaConstant) {
 				// Follow up on an existing conversation
-				cid = (String) ((ProvaConstant) lt).getObject();
+				cid = lt.toString();
 			} else if (lt instanceof ProvaVariable) {
 				// Generate a unique conversation-id
 				cid = generateCid();
@@ -1004,6 +1004,28 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 		else if ("task".equals(prot))
 			dest = ProvaThreadpoolEnum.TASK;
 		prova.submitAsync(partitionKey(cid), goal, dest);
+	}
+
+	@Override
+	public void addMsg(String xid, String agent, String verb, Map<String, Object> payload) {
+		String prot = payload.get("protocol").toString();
+		ProvaList terms = ProvaListImpl.create( new ProvaObject[] {
+			ProvaConstantImpl.create(xid),
+			ProvaConstantImpl.create("osgi"),
+			ProvaConstantImpl.create(agent),
+			ProvaConstantImpl.create(verb),
+			ProvaConstantImpl.create(payload)
+		});
+		ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", terms);
+		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
+				kb.generateLiteral("fail") });
+		// The CONVERSATION pool is the default (see PROVA-39)
+		ProvaThreadpoolEnum dest = ProvaThreadpoolEnum.CONVERSATION;
+		if ("self".equals(prot))
+			dest = ProvaThreadpoolEnum.MAIN;
+		else if ("task".equals(prot))
+			dest = ProvaThreadpoolEnum.TASK;
+		prova.submitAsync(partitionKey(xid), goal, dest);
 	}
 
 	@Override

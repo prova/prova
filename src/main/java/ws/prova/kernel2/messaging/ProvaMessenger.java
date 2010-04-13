@@ -52,4 +52,6 @@ public interface ProvaMessenger {
 
 	public void setService(ProvaService service);
 
+	public void addMsg(String xid, String dest, String agent, Map<String, Object> payload);
+
 }

@@ -217,4 +217,54 @@ public class ProvaServiceTest {
 		}
 	}
 
+	/**
+	 * Test passing lambda functions to nested producers
+	 */
+	@Test
+	public void stream_lambda() {
+		final String producer_rulebase = "rules/service/stream_lambda/producer.prova";
+		final String producer2_rulebase = "rules/service/stream_lambda/producer2.prova";
+		final String subscriber_rulebase = "rules/service/stream_lambda/subscriber.prova";
+		final String broker_rulebase = "rules/service/stream_lambda/broker.prova";
+		final String functional_rulebase = "rules/reloaded/functional.prova";
+		
+		ProvaService service = new ProvaServiceImpl();
+		service.init();
+		org.junit.Assert.assertNotNull(service);
+
+		String broker = service.instance("broker", "");
+		org.junit.Assert.assertNotNull(broker);
+
+		String producer = service.instance("producer", "");
+		org.junit.Assert.assertNotNull(producer);
+
+		String producer2 = service.instance("producer2", "");
+		org.junit.Assert.assertNotNull(producer2);
+
+		String subscriber = service.instance("subscriber", "");
+		org.junit.Assert.assertNotNull(producer);
+
+		service.consult(broker, broker_rulebase, "broker1");
+		AtomicInteger count = new AtomicInteger();
+		service.setGlobalConstant(broker, "$Count", count);
+		
+		service.consult(producer, producer_rulebase, "producer1");
+		service.setGlobalConstant(producer, "$Count", count);
+
+		service.consult(producer2, functional_rulebase, "functional");
+		service.consult(producer2, producer2_rulebase, "producer2");
+		service.setGlobalConstant(producer2, "$Count", count);
+
+		service.consult(subscriber, subscriber_rulebase, "subscriber1");
+		service.setGlobalConstant(subscriber, "$Count", count);
+
+		try {
+			synchronized(this) {
+				wait(3000);
+				org.junit.Assert.assertEquals(12,count.get());
+			}
+		} catch (Exception e) {
+		}
+	}
+
 }

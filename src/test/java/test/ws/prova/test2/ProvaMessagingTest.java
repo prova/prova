@@ -30,6 +30,24 @@ public class ProvaMessagingTest {
 	}
 	
 	@Test
+	public void parallel_001() {
+		final String rulebase = "rules/reloaded/parallel.prova";
+
+		AtomicInteger count = new AtomicInteger();
+		Map<String,Object> globals = new HashMap<String,Object>();
+		globals.put("$Count", count);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+
+		try {
+			synchronized(this) {
+				wait(200);
+				org.junit.Assert.assertEquals(1,count.get());
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	@Test
 	public void complex_fipa_exchange() {
 		final String rulebase = "rules/reloaded/test023.prova";
 		
@@ -44,8 +62,6 @@ public class ProvaMessagingTest {
 				org.junit.Assert.assertEquals(8,count.get());
 			}
 		} catch (Exception e) {
-		} finally {
-			prova.shutdown();
 		}
 	}
 

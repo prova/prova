@@ -84,10 +84,13 @@
 				<directory>rules</directory>
 			</testResource>
 			<testResource>
-				<directory>src/main/resources</directory>
+				<directory>src/test/resources</directory>
 			</testResource>
 		</testResources>
 		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
 			<resource>
 				<directory>META-INF</directory>
 				<targetPath>META-INF</targetPath>

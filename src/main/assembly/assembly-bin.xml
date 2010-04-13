@@ -45,7 +45,6 @@
 	<fileSets>
 		<fileSet>
 			<directory>rules/rules3</directory>
-			<lineEnding>dos</lineEnding>
 			<fileMode>0644</fileMode>
 			<outputDirectory>/rules</outputDirectory>
 		</fileSet>
@@ -57,7 +56,6 @@
 			<outputDirectory>/bin</outputDirectory>
 			<destName>prova3.bat</destName>
 			<fileMode>0755</fileMode>
-			<lineEnding>dos</lineEnding>
 			<filtered />
 		</file>
 		<file>

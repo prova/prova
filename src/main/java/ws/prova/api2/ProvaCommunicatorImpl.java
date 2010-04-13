@@ -359,6 +359,11 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	}
 
 	@Override
+	public void addMsg(String xid, String agent, String verb, Map<String, Object> payload) {
+		messenger.addMsg(xid, agent, verb, payload);
+	}
+
+	@Override
 	public void unconsultSync(String src) {
 		prova.unconsultSync(src);	
 	}

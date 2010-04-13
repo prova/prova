@@ -150,4 +150,50 @@ public class ProvaServiceImpl implements ProvaService {
 		engine.setGlobalConstant(name, value);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void send(String xid, String dest, String agent, String verb, Object content) {
+		if( content instanceof ProvaList ) {
+			send(dest, (ProvaList) content);
+			return;
+		}
+		if( !(content instanceof Map<?, ?>) )
+			throw new IllegalArgumentException();
+		Map<String, Object> payload = (Map<String, Object>) content;
+		if( "present".equals(verb) ) {
+			// Ask the subscriber to start receiving the stream
+			String topic = payload.get("topic").toString();
+			if( log.isDebugEnabled() )
+				log.debug("Subscriber "+dest+" to receive stream on "+topic);
+			// Register the mapping
+			registerMapping(topic, dest);
+		} else if( "data".equals(verb) ) {
+			// Dispatch a stream to subscribers
+			if( log.isDebugEnabled() )
+				log.debug("Dispatch data on stream "+dest);
+			for( String target : topicDestinations.get(dest) ) {
+				ProvaCommunicator engine = engines.get(target);
+				if( engine==null )
+					log.error("Subscriber "+target+" not present");
+				engine.addMsg(xid, agent, verb, payload);
+				if( log.isDebugEnabled() )
+					log.debug("Sent: "+payload+" to "+target);
+			}
+			return;
+		} else if( "unregister".equals(verb) ) {
+			// Purge the subscription
+			String topic = payload.get("topic").toString();
+			unregisterMapping(topic, dest);
+			// This message will be forwarded to the subscriber informing them of lease expiration
+		}
+//		else if( "renew".equals(verb) )
+//			log.info(terms);
+		ProvaCommunicator engine = engines.get(dest);
+		if( engine==null )
+			throw new RuntimeException("No engine instance "+dest);
+		engine.addMsg(xid, agent, verb, payload);
+		if( log.isDebugEnabled() )
+			log.debug("Sent: "+payload+" to "+dest);
+	}
+
 }
