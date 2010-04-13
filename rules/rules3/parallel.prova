@@ -1,0 +1,16 @@
+:- eval(run(1000)).
+
+run(Max) :-
+	println(["==========Parallel test 001=========="]),
+
+	for([1,Max],I),
+	sendMsgSync(I,async,0,compute,I),
+	rcvMsg(I,async,Self,compute,I),
+	I2=I*2,
+	sendMsg(I,self,0,result,I2).
+run(Max) :-
+	L=java.util.ArrayList(),
+	rcvMult(I,self,Self,result,R),
+	L.add(R),
+	Max=L.size(),
+	println([L]).
