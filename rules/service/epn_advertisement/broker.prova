@@ -1,0 +1,58 @@
+:- eval(broker()).
+
+broker() :-
+	println(["==========EPN stream broker=========="]),
+
+	reactor().
+
+reactor() :-
+	rcvMult(XID,Protocol,Producer,advertise,Payload),
+	Stream=Payload.get("stream"),
+	println([XID,":broker: advertising ",Producer,"->",Stream]),
+	assert(capability(XID,Producer,Stream)).
+reactor() :-
+	rcvMult(XID,Protocol,Subscriber,subscribe,Payload),
+	Stream=Payload.get("stream"),
+	println([XID,":broker: subscribing ",Subscriber,"->",Stream]).
+
+matcher(XID,Subscriber,Stream) :-
+	running(Topic,Producer,Stream),
+	!,
+	% Grant the subscriber a lease and recommend 500 ms timeout before it renews the lease
+	sendMsg(XID,osgi,Subscriber,present,[Topic,'500 ms']),
+	waitLease(XID,Subscriber,Topic).
+matcher(XID,Subscriber,Stream) :-
+	capability(XIDC,Producer,Stream),
+	% There is a matching producer
+	!,
+	wireup(XIDC,Producer,Stream),
+	unique_id(Topic),
+	% Grant the subscriber a lease and recommend 500 ms timeout before it renews the lease
+	sendMsg(XID,osgi,Subscriber,present,[Topic,'500 ms']),
+	rcvMsg(XID,Protocol,Subscriber,ready,[]),
+	sendMsgSync(Topic,osgi,Producer,start,Stream),
+	assert(running(Topic,Producer,Stream)),
+	waitLease(XID,Subscriber,Topic).
+matcher(XID,Subscriber,Stream) :-
+	sendMsg(XID,osgi,Subscriber,unavailable,[]).
+
+% Watch for lease expiration
+waitLease(XID,Subscriber,Topic) :-
+	@group(lease) @not @timeout('1 sec')
+	rcvMsg(XID,Protocol,Subscriber,renew,[]),
+	println(["broker[",XID,"]: received a lease renewal request from ",Subscriber," for ",Topic]),
+	% A renewal request arrived in time, the reaction group fails, so restart the timeout
+	waitLease(XID,Subscriber,Topic).
+waitLease(XID,Subscriber,Topic) :-
+	@and(lease)
+	rcvMsg(XID,Protocol,Self,and,_),
+	% The timeout expired so stop let the subscriber know
+	sendMsg(XID,osgi,Subscriber,stop,lease_expired(Topic)).
+
+wireup(XIDC,Producer,Stream(in(Nested)|Xs)) :-
+	!,
+	println(["broker[",XIDC,"]: send a wireup request to ",Producer," for ",Nested]),
+	sendMsgSync(XID,osgi,Producer,wireup,Nested),
+	rcvMsg(XID,Protocol,Producer,wired,[]),
+	println(["broker[",XID,"]: received a wired confirmation from ",Producer," for ",Nested]).
+wireup(XIDC,Producer,Stream).

@@ -284,6 +284,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 				c.immediateCleanup(ruleid2Group,dynamic2Group);
 		}
 		dynamic2Group.remove(dynamicGroup);
+		if( log.isDebugEnabled() )
+			log.debug("Group removed: "+dynamicGroup);
 	}
 
 	@Override

@@ -1008,7 +1008,6 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 
 	@Override
 	public void addMsg(String xid, String agent, String verb, Map<String, Object> payload) {
-		String prot = payload.get("protocol").toString();
 		ProvaList terms = ProvaListImpl.create( new ProvaObject[] {
 			ProvaConstantImpl.create(xid),
 			ProvaConstantImpl.create("osgi"),
@@ -1021,10 +1020,6 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				kb.generateLiteral("fail") });
 		// The CONVERSATION pool is the default (see PROVA-39)
 		ProvaThreadpoolEnum dest = ProvaThreadpoolEnum.CONVERSATION;
-		if ("self".equals(prot))
-			dest = ProvaThreadpoolEnum.MAIN;
-		else if ("task".equals(prot))
-			dest = ProvaThreadpoolEnum.TASK;
 		prova.submitAsync(partitionKey(xid), goal, dest);
 	}
 
@@ -1032,7 +1027,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	public synchronized void removeTemporalRule(ProvaPredicate predicate,
 			ProvaPredicate predicate2, long key, boolean recursive,
 			ProvaList reaction, Map<String, List<Object>> metadata) {
-		if (log.isDebugEnabled())
+		if (log.isDebugEnabled() && key==13 && reaction!=null )
 			log.debug("Removing " + reaction + " at " + key + " with "
 					+ metadata);
 		if( reaction==null && log.isDebugEnabled() )
@@ -1060,8 +1055,6 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 					prova, key, reaction, metadata, ruleid2Group);
 			if (detectionStatus == EventDetectionStatus.complete) {
 				removeGroup(group.getDynamicGroup(), recursive);
-				if( group.isFailed() )
-					return;
 			} else if (detectionStatus == EventDetectionStatus.preserved)
 				return;
 		} else if (metadata != null && metadata.containsKey("count")) {
@@ -1118,11 +1111,6 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			group.stop();
 		}
 
-		if( group!=null && group.isFailed() ) {
-			cleanupGroup(dynamicGroup);
-			return;
-		}
-		
 		List<ProvaDelayedCommand> delayed = ProvaResolutionInferenceEngineImpl.delayedCommands
 				.get();
 		if (delayed == null) {
@@ -1201,7 +1189,10 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			if (gg == null) {
 				d2g.put(dynamicGroup, group);
 			}
+		} else if (log.isDebugEnabled()) {
+			log.debug("Group " + dynamicGroup + " is missing");
 		}
+
 	}
 
 	public static void cleanupThreadlocals() {
