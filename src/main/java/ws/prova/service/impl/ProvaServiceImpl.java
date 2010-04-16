@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.io.BufferedReader;
 
 import org.apache.log4j.Logger;
 
@@ -76,6 +77,19 @@ public class ProvaServiceImpl implements ProvaService {
 			if( engine==null )
 				throw new RuntimeException("No engine instance "+agent);
 			List<ProvaSolution[]> resultSets = engine.consultSync(src, key, new Object[]{});
+			return resultSets;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public List<ProvaSolution[]> consult(String agent, BufferedReader in, String key) {
+		try {
+			ProvaCommunicator engine = engines.get(agent);
+			if( engine==null )
+				throw new RuntimeException("No engine instance "+agent);
+			List<ProvaSolution[]> resultSets = engine.consultSync(in, key, new Object[]{});
 			return resultSets;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
