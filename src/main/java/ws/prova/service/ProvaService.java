@@ -1,5 +1,6 @@
 package ws.prova.service;
 
+import java.io.BufferedReader;
 import java.util.List;
 
 import ws.prova.exchange.ProvaSolution;
@@ -22,5 +23,8 @@ public interface ProvaService {
 	public void setGlobalConstant(String agent, String name, Object value);
 
 	public void send(String xid, String dest, String agent, String verb, Object payload);
+
+	public List<ProvaSolution[]> consult(String agent, BufferedReader in,
+			String key);
 	
 }
