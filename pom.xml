@@ -98,10 +98,6 @@
 				<directory>META-INF</directory>
 				<targetPath>META-INF</targetPath>
 			</resource>
-			<resource>
-				<directory>rules</directory>
-				<targetPath>rules</targetPath>
-			</resource>
 		</resources>
 		<plugins>
 			<plugin>
