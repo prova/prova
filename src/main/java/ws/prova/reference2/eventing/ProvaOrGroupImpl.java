@@ -58,8 +58,8 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 			if( size==-1 )
 				return EventDetectionStatus.preserved;
 			sizeList.set(0,Integer.toString(--size));
-			if( log.isInfoEnabled() )
-				log.info(size);
+			if( log.isDebugEnabled() )
+				log.debug(size);
 			if( size!=0 )
 				return EventDetectionStatus.preserved;
 			else if( sizeList.size()>1 ) {
@@ -118,8 +118,8 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 				this.results = new ArrayList<Object>();
 				timerList.set(0,timerList.get(1));
 				this.lastReaction = null;
-				if( log.isInfoEnabled() )
-					log.info("resultRemoveEntry.getReaction(): "+resultRemoveEntry.getReaction());
+				if( log.isDebugEnabled() )
+					log.debug("resultRemoveEntry.getReaction(): "+resultRemoveEntry.getReaction());
 				return EventDetectionStatus.preserved;
 			}
 		} else {
@@ -133,8 +133,8 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 			}
 		}
 		if( metadata!=null && metadata.containsKey("not") ) {
-			if( log.isInfoEnabled() )
-				log.info("@or not complete"+results);
+			if( log.isDebugEnabled() )
+				log.debug("@or not complete"+results);
 			return EventDetectionStatus.preserved;
 		}
 		
@@ -184,8 +184,8 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 						r.getP2().getClauseSet().removeClauses(ruleidToStop);
 					}
 				}
-				if( log.isInfoEnabled() )
-					log.info("@or stop(id) complete");
+				if( log.isDebugEnabled() )
+					log.debug("@or stop(id) complete");
 				if( isControlChannel )					
 					return EventDetectionStatus.preserved;
 				else
@@ -194,12 +194,12 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 			failed = true;
 			if( future!=null )
 				future.cancel(true);
-			if( log.isInfoEnabled() )
-				log.info("@or terminated by @stop");
+			if( log.isDebugEnabled() )
+				log.debug("@or terminated by @stop");
 		} else if( !isControlChannel ) {
-			if( log.isInfoEnabled() ) {
-				log.info("@or complete"+results);
-				log.info("Set lastReaction to "+lastReaction);
+			if( log.isDebugEnabled() ) {
+				log.debug("@or complete"+results);
+				log.debug("Set lastReaction to "+lastReaction);
 			}
 			this.lastReaction = reaction;
 		}

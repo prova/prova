@@ -17,6 +17,7 @@ import ws.prova.api2.ProvaCommunicatorImpl;
 import ws.prova.exchange.ProvaSolution;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaList;
+import ws.prova.service.EPService;
 import ws.prova.service.ProvaService;
 
 /**
@@ -33,6 +34,8 @@ public class ProvaServiceImpl implements ProvaService {
 	private ConcurrentMap<String,ProvaCommunicator> engines;
 
 	private ConcurrentMap<String, List<String>> topicDestinations = new ConcurrentHashMap<String, List<String>>();
+
+	private ConcurrentMap<String, EPService> callbacks = new ConcurrentHashMap<String, EPService>();
 	
 	@Override
 	public void init() {
@@ -164,15 +167,30 @@ public class ProvaServiceImpl implements ProvaService {
 		engine.setGlobalConstant(name, value);
 	}
 	
+	@Override
+	public void send(String xid, String dest, String agent, String verb, Object payload) {
+		EPService callback = callbacks.get(dest);
+		if( callback!=null && callback!=this )
+			callback.send(xid, dest, agent, verb, payload, this);
+		else
+			send(xid, dest, agent, verb, payload, this);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void send(String xid, String dest, String agent, String verb, Object content) {
+	public void send(String xid, String dest, String agent, String verb, Object content, EPService callback) {
 		if( content instanceof ProvaList ) {
 			send(dest, (ProvaList) content);
 			return;
 		}
 		if( !(content instanceof Map<?, ?>) )
 			throw new IllegalArgumentException();
+		if( callback!=this ) {
+			EPService callback0 = callbacks.get(agent);
+			if( callback0==null ) {
+				callbacks.put(agent, callback);
+			}
+		}
 		Map<String, Object> payload = (Map<String, Object>) content;
 		if( "present".equals(verb) ) {
 			// Ask the subscriber to start receiving the stream

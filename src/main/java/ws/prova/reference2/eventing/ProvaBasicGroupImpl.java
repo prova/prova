@@ -205,8 +205,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 	@Override
 	public void stop() {
 		for( Entry<Long, RemoveList> e : removeMap.entrySet() ) {
-			if( log.isInfoEnabled() )
-				log.info(e);
+			if( log.isDebugEnabled() )
+				log.debug(e);
 			RemoveList r = e.getValue();
 			long k = r.getRuleid();
 			r.getP1().getClauseSet().removeClauses(k,1);
@@ -261,8 +261,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		}
 		dynamic2Group.remove(dynamicGroup);
 		if( lastReaction==null ) {
-			if( log.isInfoEnabled() )
-				log.info("Group failed");
+			if( log.isDebugEnabled() )
+				log.debug("Group failed");
 			if( parent!=null )
 				parent.childFailed(this,ruleid2Group,dynamic2Group);
 		}
@@ -299,8 +299,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 			if( results.size()==0 )
 				return false;
 			// TODO: Is it always timeout here?
-			if( log.isInfoEnabled() )
-				log.info("Timeout group results: "+results);
+			if( log.isDebugEnabled() )
+				log.debug("Timeout group results: "+results);
 			// TODO: Need to deal with the case when there are no results
 			content = ProvaListImpl.create(new ProvaObject[] {ProvaConstantImpl.create(results)});
 			final Object last = results.get(results.size()-1);
@@ -312,11 +312,12 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 			if( numEmitted!=0 )
 				results.clear();
 		} else {
-			if( log.isInfoEnabled() )
-				log.info("Group results: "+results);
+			if( log.isDebugEnabled() )
+				log.debug("Group results: "+results);
 			content = ProvaListImpl.create(new ProvaObject[] {ProvaConstantImpl.create(results)});
 			if( lastReaction==null ) {
-				log.info("Empty results");
+				if( log.isDebugEnabled() )
+					log.debug("Empty results");
 				lastReaction = resultRemoveEntry.getReaction();
 				lastReaction.getFixed()[1] = ProvaConstantImpl.create("async");
 				lastReaction.getFixed()[2] = ProvaConstantImpl.create(0);
@@ -342,8 +343,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 			meta.put("group", Arrays.asList(new Object[] {dynamicGroup}));
 		lit.addMetadata(meta);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] {lit,kb.generateLiteral("fail")}).cloneRule();
-		if( log.isInfoEnabled() )
-			log.info("Sent group results: "+goal);
+		if( log.isDebugEnabled() )
+			log.debug("Sent group results: "+goal);
 		if( cid.equals("0") )
 			prova.submitAsync(0,goal,ProvaThreadpoolEnum.MAIN);
 		else
