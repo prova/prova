@@ -51,6 +51,8 @@ tokens {
 	GUARD;
 	ATERM;
 	EXPR;
+	PROVA_MAP;
+	KEY_VALUE;
 }
 
 @header {
@@ -144,11 +146,19 @@ left_term
 		prova_list;
 
 right_term 
-	:	(MINUS? (constant | variable)) | number | prova_list;
+	:	(MINUS? (constant | variable)) | number | prova_list | prova_map;
 
+prova_map	
+	:	'{' key_value? (',' key_value)* '}' -> ^(PROVA_MAP key_value*)
+	;
+
+key_value
+	:	string ':' term -> ^(KEY_VALUE string term)	
+	;
+	
 terms 	:	NEWLINE* term (NEWLINE* ',' NEWLINE* term)* -> ^(TERM term+);
 
-term	:	left_term | func_term;
+term	:	left_term | func_term | prova_map;
 
 func_term
 	:	func args;

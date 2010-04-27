@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g 2009-10-11 18:00:07
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g 2010-04-27 13:06:28
 
        package ws.prova.parser;
 
@@ -16,12 +16,12 @@ import org.antlr.runtime.tree.*;
 
 public class Prova2Parser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DOT", "PLUS", "MINUS", "MULT", "DIV", "COMMA", "IF", "CUT", "OPEN", "CLOSE", "BAR", "BRA", "KET", "EQUAL", "NOT_EQUAL1", "NOT_EQUAL2", "LT", "GT", "LE", "GE", "CLAUSE", "RULEBASE", "STATEMENT", "QUERY", "LITERAL", "METADATA", "RELATION", "SEMANTIC_ATTACHMENT", "ARITHMETIC_RELATION", "PREDICATE", "TERM", "INSTANCE_JAVA_CALL", "STATIC_JAVA_CALL", "LIST_BODY", "PROVA_LIST", "ARGS", "TYPED_VARIABLE", "USWORD", "QUALIFIED_JAVA_CLASS", "ANNOTATION", "REM", "DOLLARWORD", "GUARD", "ATERM", "EXPR", "NEWLINE", "LCWORD", "UCWORD", "INT_LITERAL", "LONG_LITERAL", "STRING1", "STRING2", "EXPONENT", "DIGIT", "LC", "UC", "WORD", "DOLLAR", "UNDERSCORE", "ML_COMMENT", "WS", "CLEAN_STRING", "CHAR_ESC", "'@'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DOT", "PLUS", "MINUS", "MULT", "DIV", "COMMA", "IF", "CUT", "OPEN", "CLOSE", "BAR", "BRA", "KET", "EQUAL", "NOT_EQUAL1", "NOT_EQUAL2", "LT", "GT", "LE", "GE", "CLAUSE", "RULEBASE", "STATEMENT", "QUERY", "LITERAL", "METADATA", "RELATION", "SEMANTIC_ATTACHMENT", "ARITHMETIC_RELATION", "PREDICATE", "TERM", "INSTANCE_JAVA_CALL", "STATIC_JAVA_CALL", "LIST_BODY", "PROVA_LIST", "ARGS", "TYPED_VARIABLE", "USWORD", "QUALIFIED_JAVA_CLASS", "ANNOTATION", "REM", "DOLLARWORD", "GUARD", "ATERM", "EXPR", "PROVA_MAP", "KEY_VALUE", "NEWLINE", "LCWORD", "UCWORD", "INT_LITERAL", "LONG_LITERAL", "STRING1", "STRING2", "EXPONENT", "DIGIT", "LC", "UC", "WORD", "DOLLAR", "UNDERSCORE", "ML_COMMENT", "WS", "CLEAN_STRING", "CHAR_ESC", "'@'", "'{'", "'}'", "':'"
     };
-    public static final int DOLLAR=61;
+    public static final int DOLLAR=63;
     public static final int TERM=34;
-    public static final int EXPONENT=56;
-    public static final int T__67=67;
+    public static final int T__69=69;
+    public static final int EXPONENT=58;
     public static final int LT=20;
     public static final int TYPED_VARIABLE=40;
     public static final int RULEBASE=25;
@@ -30,47 +30,52 @@ public class Prova2Parser extends Parser {
     public static final int PREDICATE=33;
     public static final int STATEMENT=26;
     public static final int IF=10;
-    public static final int WORD=60;
-    public static final int ML_COMMENT=63;
+    public static final int WORD=62;
+    public static final int ML_COMMENT=65;
     public static final int EXPR=48;
     public static final int COMMA=9;
-    public static final int STRING2=55;
-    public static final int STRING1=54;
+    public static final int STRING2=57;
+    public static final int STRING1=56;
     public static final int EQUAL=17;
     public static final int ARGS=39;
-    public static final int UC=59;
+    public static final int UC=61;
     public static final int PLUS=5;
-    public static final int DIGIT=57;
+    public static final int DIGIT=59;
     public static final int CLAUSE=24;
     public static final int DOT=4;
+    public static final int PROVA_MAP=49;
     public static final int ATERM=47;
     public static final int DOLLARWORD=45;
     public static final int GE=23;
-    public static final int INT_LITERAL=52;
+    public static final int INT_LITERAL=54;
     public static final int SEMANTIC_ATTACHMENT=31;
-    public static final int CHAR_ESC=66;
+    public static final int KEY_VALUE=50;
+    public static final int CHAR_ESC=68;
     public static final int KET=16;
     public static final int RELATION=30;
     public static final int STATIC_JAVA_CALL=36;
-    public static final int UNDERSCORE=62;
+    public static final int UNDERSCORE=64;
     public static final int LITERAL=28;
     public static final int USWORD=41;
     public static final int REM=44;
     public static final int MULT=7;
     public static final int MINUS=6;
-    public static final int LONG_LITERAL=53;
+    public static final int LONG_LITERAL=55;
     public static final int PROVA_LIST=38;
-    public static final int LCWORD=50;
+    public static final int LCWORD=52;
     public static final int CUT=11;
     public static final int OPEN=12;
     public static final int QUALIFIED_JAVA_CLASS=42;
-    public static final int WS=64;
-    public static final int NEWLINE=49;
+    public static final int WS=66;
+    public static final int T__71=71;
+    public static final int T__72=72;
+    public static final int NEWLINE=51;
     public static final int CLOSE=13;
-    public static final int UCWORD=51;
+    public static final int T__70=70;
+    public static final int UCWORD=53;
     public static final int LIST_BODY=37;
-    public static final int CLEAN_STRING=65;
-    public static final int LC=58;
+    public static final int CLEAN_STRING=67;
+    public static final int LC=60;
     public static final int GT=21;
     public static final int QUERY=27;
     public static final int GUARD=46;
@@ -106,7 +111,7 @@ public class Prova2Parser extends Parser {
     }
 
     public String[] getTokenNames() { return Prova2Parser.tokenNames; }
-    public String getGrammarFileName() { return "C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g"; }
+    public String getGrammarFileName() { return "D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g"; }
 
 
         private ProvaErrorReporter errorReporter = null;
@@ -127,7 +132,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "rulebase"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:1: rulebase : ( statement )* ( NEWLINE )* EOF -> ^( RULEBASE ( statement )* ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:86:1: rulebase : ( statement )* ( NEWLINE )* EOF -> ^( RULEBASE ( statement )* ) ;
     public final Prova2Parser.rulebase_return rulebase() throws RecognitionException {
         Prova2Parser.rulebase_return retval = new Prova2Parser.rulebase_return();
         retval.start = input.LT(1);
@@ -145,19 +150,19 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_EOF=new RewriteRuleTokenStream(adaptor,"token EOF");
         RewriteRuleSubtreeStream stream_statement=new RewriteRuleSubtreeStream(adaptor,"rule statement");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:102:2: ( ( statement )* ( NEWLINE )* EOF -> ^( RULEBASE ( statement )* ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:102:4: ( statement )* ( NEWLINE )* EOF
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:2: ( ( statement )* ( NEWLINE )* EOF -> ^( RULEBASE ( statement )* ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:4: ( statement )* ( NEWLINE )* EOF
             {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:102:4: ( statement )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:4: ( statement )*
             loop1:
             do {
                 int alt1=2;
                 alt1 = dfa1.predict(input);
                 switch (alt1) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:102:4: statement
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:4: statement
             	    {
-            	    pushFollow(FOLLOW_statement_in_rulebase327);
+            	    pushFollow(FOLLOW_statement_in_rulebase335);
             	    statement1=statement();
 
             	    state._fsp--;
@@ -172,7 +177,7 @@ public class Prova2Parser extends Parser {
                 }
             } while (true);
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:102:15: ( NEWLINE )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:15: ( NEWLINE )*
             loop2:
             do {
                 int alt2=2;
@@ -185,9 +190,9 @@ public class Prova2Parser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:102:15: NEWLINE
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:15: NEWLINE
             	    {
-            	    NEWLINE2=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rulebase330);  
+            	    NEWLINE2=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rulebase338);  
             	    stream_NEWLINE.add(NEWLINE2);
 
 
@@ -199,7 +204,7 @@ public class Prova2Parser extends Parser {
                 }
             } while (true);
 
-            EOF3=(Token)match(input,EOF,FOLLOW_EOF_in_rulebase333);  
+            EOF3=(Token)match(input,EOF,FOLLOW_EOF_in_rulebase341);  
             stream_EOF.add(EOF3);
 
 
@@ -215,14 +220,14 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 102:27: -> ^( RULEBASE ( statement )* )
+            // 87:27: -> ^( RULEBASE ( statement )* )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:102:30: ^( RULEBASE ( statement )* )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:30: ^( RULEBASE ( statement )* )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(RULEBASE, "RULEBASE"), root_1);
 
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:102:41: ( statement )*
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:41: ( statement )*
                 while ( stream_statement.hasNext() ) {
                     adaptor.addChild(root_1, stream_statement.nextTree());
 
@@ -261,7 +266,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "statement"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:104:1: statement : ( NEWLINE )* stat end_of_statement -> ^( STATEMENT stat ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:89:1: statement : ( NEWLINE )* stat end_of_statement -> ^( STATEMENT stat ) ;
     public final Prova2Parser.statement_return statement() throws RecognitionException {
         Prova2Parser.statement_return retval = new Prova2Parser.statement_return();
         retval.start = input.LT(1);
@@ -279,10 +284,10 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_end_of_statement=new RewriteRuleSubtreeStream(adaptor,"rule end_of_statement");
         RewriteRuleSubtreeStream stream_stat=new RewriteRuleSubtreeStream(adaptor,"rule stat");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:105:2: ( ( NEWLINE )* stat end_of_statement -> ^( STATEMENT stat ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:105:4: ( NEWLINE )* stat end_of_statement
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:90:2: ( ( NEWLINE )* stat end_of_statement -> ^( STATEMENT stat ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:90:4: ( NEWLINE )* stat end_of_statement
             {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:105:4: ( NEWLINE )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:90:4: ( NEWLINE )*
             loop3:
             do {
                 int alt3=2;
@@ -295,9 +300,9 @@ public class Prova2Parser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:105:4: NEWLINE
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:90:4: NEWLINE
             	    {
-            	    NEWLINE4=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_statement351);  
+            	    NEWLINE4=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_statement359);  
             	    stream_NEWLINE.add(NEWLINE4);
 
 
@@ -309,13 +314,13 @@ public class Prova2Parser extends Parser {
                 }
             } while (true);
 
-            pushFollow(FOLLOW_stat_in_statement354);
+            pushFollow(FOLLOW_stat_in_statement362);
             stat5=stat();
 
             state._fsp--;
 
             stream_stat.add(stat5.getTree());
-            pushFollow(FOLLOW_end_of_statement_in_statement356);
+            pushFollow(FOLLOW_end_of_statement_in_statement364);
             end_of_statement6=end_of_statement();
 
             state._fsp--;
@@ -334,9 +339,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 105:35: -> ^( STATEMENT stat )
+            // 90:35: -> ^( STATEMENT stat )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:105:38: ^( STATEMENT stat )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:90:38: ^( STATEMENT stat )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(STATEMENT, "STATEMENT"), root_1);
@@ -375,7 +380,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "end_of_statement"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:107:1: end_of_statement : ( NEWLINE )* DOT ( NEWLINE | EOF ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:92:1: end_of_statement : ( NEWLINE )* DOT ( NEWLINE | EOF ) ;
     public final Prova2Parser.end_of_statement_return end_of_statement() throws RecognitionException {
         Prova2Parser.end_of_statement_return retval = new Prova2Parser.end_of_statement_return();
         retval.start = input.LT(1);
@@ -391,12 +396,12 @@ public class Prova2Parser extends Parser {
         ProvaAST set9_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:2: ( ( NEWLINE )* DOT ( NEWLINE | EOF ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:4: ( NEWLINE )* DOT ( NEWLINE | EOF )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:93:2: ( ( NEWLINE )* DOT ( NEWLINE | EOF ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:93:4: ( NEWLINE )* DOT ( NEWLINE | EOF )
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:4: ( NEWLINE )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:93:4: ( NEWLINE )*
             loop4:
             do {
                 int alt4=2;
@@ -409,9 +414,9 @@ public class Prova2Parser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:4: NEWLINE
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:93:4: NEWLINE
             	    {
-            	    NEWLINE7=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_end_of_statement373); 
+            	    NEWLINE7=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_end_of_statement381); 
             	    NEWLINE7_tree = (ProvaAST)adaptor.create(NEWLINE7);
             	    adaptor.addChild(root_0, NEWLINE7_tree);
 
@@ -424,7 +429,7 @@ public class Prova2Parser extends Parser {
                 }
             } while (true);
 
-            DOT8=(Token)match(input,DOT,FOLLOW_DOT_in_end_of_statement376); 
+            DOT8=(Token)match(input,DOT,FOLLOW_DOT_in_end_of_statement384); 
             DOT8_tree = (ProvaAST)adaptor.create(DOT8);
             adaptor.addChild(root_0, DOT8_tree);
 
@@ -466,7 +471,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "stat"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:1: stat : ( clause | query );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:95:1: stat : ( clause | query );
     public final Prova2Parser.stat_return stat() throws RecognitionException {
         Prova2Parser.stat_return retval = new Prova2Parser.stat_return();
         retval.start = input.LT(1);
@@ -480,11 +485,11 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:7: ( clause | query )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:95:7: ( clause | query )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
-            if ( ((LA5_0>=LCWORD && LA5_0<=UCWORD)||(LA5_0>=STRING1 && LA5_0<=STRING2)||LA5_0==67) ) {
+            if ( ((LA5_0>=LCWORD && LA5_0<=UCWORD)||(LA5_0>=STRING1 && LA5_0<=STRING2)||LA5_0==69) ) {
                 alt5=1;
             }
             else if ( (LA5_0==IF) ) {
@@ -498,11 +503,11 @@ public class Prova2Parser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:9: clause
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:95:9: clause
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_clause_in_stat395);
+                    pushFollow(FOLLOW_clause_in_stat403);
                     clause10=clause();
 
                     state._fsp--;
@@ -512,11 +517,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:5: query
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:96:5: query
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_query_in_stat401);
+                    pushFollow(FOLLOW_query_in_stat409);
                     query11=query();
 
                     state._fsp--;
@@ -551,7 +556,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "query"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:1: query : IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')' -> ^( QUERY query_predicate relation ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:1: query : IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')' -> ^( QUERY query_predicate relation ) ;
     public final Prova2Parser.query_return query() throws RecognitionException {
         Prova2Parser.query_return retval = new Prova2Parser.query_return();
         retval.start = input.LT(1);
@@ -584,13 +589,13 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_query_predicate=new RewriteRuleSubtreeStream(adaptor,"rule query_predicate");
         RewriteRuleSubtreeStream stream_relation=new RewriteRuleSubtreeStream(adaptor,"rule relation");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:8: ( IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')' -> ^( QUERY query_predicate relation ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:10: IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')'
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:8: ( IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')' -> ^( QUERY query_predicate relation ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:10: IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')'
             {
-            IF12=(Token)match(input,IF,FOLLOW_IF_in_query410);  
+            IF12=(Token)match(input,IF,FOLLOW_IF_in_query418);  
             stream_IF.add(IF12);
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:13: ( NEWLINE )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:13: ( NEWLINE )*
             loop6:
             do {
                 int alt6=2;
@@ -603,9 +608,9 @@ public class Prova2Parser extends Parser {
 
                 switch (alt6) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:13: NEWLINE
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:13: NEWLINE
             	    {
-            	    NEWLINE13=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query412);  
+            	    NEWLINE13=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query420);  
             	    stream_NEWLINE.add(NEWLINE13);
 
 
@@ -617,13 +622,13 @@ public class Prova2Parser extends Parser {
                 }
             } while (true);
 
-            pushFollow(FOLLOW_query_predicate_in_query415);
+            pushFollow(FOLLOW_query_predicate_in_query423);
             query_predicate14=query_predicate();
 
             state._fsp--;
 
             stream_query_predicate.add(query_predicate14.getTree());
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:38: ( NEWLINE )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:38: ( NEWLINE )*
             loop7:
             do {
                 int alt7=2;
@@ -636,9 +641,9 @@ public class Prova2Parser extends Parser {
 
                 switch (alt7) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:38: NEWLINE
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:38: NEWLINE
             	    {
-            	    NEWLINE15=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query417);  
+            	    NEWLINE15=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query425);  
             	    stream_NEWLINE.add(NEWLINE15);
 
 
@@ -650,10 +655,10 @@ public class Prova2Parser extends Parser {
                 }
             } while (true);
 
-            char_literal16=(Token)match(input,OPEN,FOLLOW_OPEN_in_query420);  
+            char_literal16=(Token)match(input,OPEN,FOLLOW_OPEN_in_query428);  
             stream_OPEN.add(char_literal16);
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:51: ( NEWLINE )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:51: ( NEWLINE )*
             loop8:
             do {
                 int alt8=2;
@@ -666,9 +671,9 @@ public class Prova2Parser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:51: NEWLINE
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:51: NEWLINE
             	    {
-            	    NEWLINE17=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query422);  
+            	    NEWLINE17=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query430);  
             	    stream_NEWLINE.add(NEWLINE17);
 
 
@@ -680,13 +685,13 @@ public class Prova2Parser extends Parser {
                 }
             } while (true);
 
-            pushFollow(FOLLOW_relation_in_query425);
+            pushFollow(FOLLOW_relation_in_query433);
             relation18=relation();
 
             state._fsp--;
 
             stream_relation.add(relation18.getTree());
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:69: ( NEWLINE )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:69: ( NEWLINE )*
             loop9:
             do {
                 int alt9=2;
@@ -699,9 +704,9 @@ public class Prova2Parser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:69: NEWLINE
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:69: NEWLINE
             	    {
-            	    NEWLINE19=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query427);  
+            	    NEWLINE19=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query435);  
             	    stream_NEWLINE.add(NEWLINE19);
 
 
@@ -713,13 +718,13 @@ public class Prova2Parser extends Parser {
                 }
             } while (true);
 
-            char_literal20=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_query430);  
+            char_literal20=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_query438);  
             stream_CLOSE.add(char_literal20);
 
 
 
             // AST REWRITE
-            // elements: relation, query_predicate
+            // elements: query_predicate, relation
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -729,9 +734,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 113:82: -> ^( QUERY query_predicate relation )
+            // 98:82: -> ^( QUERY query_predicate relation )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:85: ^( QUERY query_predicate relation )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:85: ^( QUERY query_predicate relation )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(QUERY, "QUERY"), root_1);
@@ -771,7 +776,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "query_predicate"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:1: query_predicate : constant ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:100:1: query_predicate : constant ;
     public final Prova2Parser.query_predicate_return query_predicate() throws RecognitionException {
         Prova2Parser.query_predicate_return retval = new Prova2Parser.query_predicate_return();
         retval.start = input.LT(1);
@@ -783,12 +788,12 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:116:2: ( constant )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:116:4: constant
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:2: ( constant )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:4: constant
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            pushFollow(FOLLOW_constant_in_query_predicate450);
+            pushFollow(FOLLOW_constant_in_query_predicate458);
             constant21=constant();
 
             state._fsp--;
@@ -821,7 +826,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "clause"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:1: clause : ( metadata )? relation ( IF literals )? -> ^( CLAUSE ( metadata )? relation ( literals )? ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:1: clause : ( metadata )? relation ( IF literals )? -> ^( CLAUSE ( metadata )? relation ( literals )? ) ;
     public final Prova2Parser.clause_return clause() throws RecognitionException {
         Prova2Parser.clause_return retval = new Prova2Parser.clause_return();
         retval.start = input.LT(1);
@@ -842,21 +847,21 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_relation=new RewriteRuleSubtreeStream(adaptor,"rule relation");
         RewriteRuleSubtreeStream stream_metadata=new RewriteRuleSubtreeStream(adaptor,"rule metadata");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:9: ( ( metadata )? relation ( IF literals )? -> ^( CLAUSE ( metadata )? relation ( literals )? ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:11: ( metadata )? relation ( IF literals )?
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:9: ( ( metadata )? relation ( IF literals )? -> ^( CLAUSE ( metadata )? relation ( literals )? ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:11: ( metadata )? relation ( IF literals )?
             {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:11: ( metadata )?
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:11: ( metadata )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
-            if ( (LA10_0==67) ) {
+            if ( (LA10_0==69) ) {
                 alt10=1;
             }
             switch (alt10) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:11: metadata
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:11: metadata
                     {
-                    pushFollow(FOLLOW_metadata_in_clause459);
+                    pushFollow(FOLLOW_metadata_in_clause467);
                     metadata22=metadata();
 
                     state._fsp--;
@@ -868,13 +873,13 @@ public class Prova2Parser extends Parser {
 
             }
 
-            pushFollow(FOLLOW_relation_in_clause462);
+            pushFollow(FOLLOW_relation_in_clause470);
             relation23=relation();
 
             state._fsp--;
 
             stream_relation.add(relation23.getTree());
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:30: ( IF literals )?
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:30: ( IF literals )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -883,12 +888,12 @@ public class Prova2Parser extends Parser {
             }
             switch (alt11) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:31: IF literals
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:31: IF literals
                     {
-                    IF24=(Token)match(input,IF,FOLLOW_IF_in_clause465);  
+                    IF24=(Token)match(input,IF,FOLLOW_IF_in_clause473);  
                     stream_IF.add(IF24);
 
-                    pushFollow(FOLLOW_literals_in_clause467);
+                    pushFollow(FOLLOW_literals_in_clause475);
                     literals25=literals();
 
                     state._fsp--;
@@ -903,7 +908,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: literals, relation, metadata
+            // elements: metadata, literals, relation
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -913,21 +918,21 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 118:45: -> ^( CLAUSE ( metadata )? relation ( literals )? )
+            // 103:45: -> ^( CLAUSE ( metadata )? relation ( literals )? )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:48: ^( CLAUSE ( metadata )? relation ( literals )? )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:48: ^( CLAUSE ( metadata )? relation ( literals )? )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(CLAUSE, "CLAUSE"), root_1);
 
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:57: ( metadata )?
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:57: ( metadata )?
                 if ( stream_metadata.hasNext() ) {
                     adaptor.addChild(root_1, stream_metadata.nextTree());
 
                 }
                 stream_metadata.reset();
                 adaptor.addChild(root_1, stream_relation.nextTree());
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:76: ( literals )?
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:76: ( literals )?
                 if ( stream_literals.hasNext() ) {
                     adaptor.addChild(root_1, stream_literals.nextTree());
 
@@ -966,7 +971,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "metadata"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:1: metadata : ( annotation ( NEWLINE )* )+ -> ^( METADATA ( annotation )+ ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:105:1: metadata : ( annotation ( NEWLINE )* )+ -> ^( METADATA ( annotation )+ ) ;
     public final Prova2Parser.metadata_return metadata() throws RecognitionException {
         Prova2Parser.metadata_return retval = new Prova2Parser.metadata_return();
         retval.start = input.LT(1);
@@ -981,32 +986,32 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_NEWLINE=new RewriteRuleTokenStream(adaptor,"token NEWLINE");
         RewriteRuleSubtreeStream stream_annotation=new RewriteRuleSubtreeStream(adaptor,"rule annotation");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:2: ( ( annotation ( NEWLINE )* )+ -> ^( METADATA ( annotation )+ ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:4: ( annotation ( NEWLINE )* )+
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:2: ( ( annotation ( NEWLINE )* )+ -> ^( METADATA ( annotation )+ ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:4: ( annotation ( NEWLINE )* )+
             {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:4: ( annotation ( NEWLINE )* )+
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:4: ( annotation ( NEWLINE )* )+
             int cnt13=0;
             loop13:
             do {
                 int alt13=2;
                 int LA13_0 = input.LA(1);
 
-                if ( (LA13_0==67) ) {
+                if ( (LA13_0==69) ) {
                     alt13=1;
                 }
 
 
                 switch (alt13) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:5: annotation ( NEWLINE )*
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:5: annotation ( NEWLINE )*
             	    {
-            	    pushFollow(FOLLOW_annotation_in_metadata493);
+            	    pushFollow(FOLLOW_annotation_in_metadata501);
             	    annotation26=annotation();
 
             	    state._fsp--;
 
             	    stream_annotation.add(annotation26.getTree());
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:16: ( NEWLINE )*
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:16: ( NEWLINE )*
             	    loop12:
             	    do {
             	        int alt12=2;
@@ -1019,9 +1024,9 @@ public class Prova2Parser extends Parser {
 
             	        switch (alt12) {
             	    	case 1 :
-            	    	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:16: NEWLINE
+            	    	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:16: NEWLINE
             	    	    {
-            	    	    NEWLINE27=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_metadata495);  
+            	    	    NEWLINE27=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_metadata503);  
             	    	    stream_NEWLINE.add(NEWLINE27);
 
 
@@ -1059,9 +1064,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 121:27: -> ^( METADATA ( annotation )+ )
+            // 106:27: -> ^( METADATA ( annotation )+ )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:30: ^( METADATA ( annotation )+ )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:30: ^( METADATA ( annotation )+ )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(METADATA, "METADATA"), root_1);
@@ -1107,7 +1112,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "annotation"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:1: annotation : '@' LCWORD ( '(' value ( COMMA value )* ')' )? -> ^( ANNOTATION LCWORD ( value )* ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:109:1: annotation : '@' LCWORD ( '(' value ( COMMA value )* ')' )? -> ^( ANNOTATION LCWORD ( value )* ) ;
     public final Prova2Parser.annotation_return annotation() throws RecognitionException {
         Prova2Parser.annotation_return retval = new Prova2Parser.annotation_return();
         retval.start = input.LT(1);
@@ -1129,23 +1134,23 @@ public class Prova2Parser extends Parser {
         ProvaAST char_literal30_tree=null;
         ProvaAST COMMA32_tree=null;
         ProvaAST char_literal34_tree=null;
-        RewriteRuleTokenStream stream_67=new RewriteRuleTokenStream(adaptor,"token 67");
         RewriteRuleTokenStream stream_OPEN=new RewriteRuleTokenStream(adaptor,"token OPEN");
+        RewriteRuleTokenStream stream_69=new RewriteRuleTokenStream(adaptor,"token 69");
         RewriteRuleTokenStream stream_CLOSE=new RewriteRuleTokenStream(adaptor,"token CLOSE");
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleTokenStream stream_LCWORD=new RewriteRuleTokenStream(adaptor,"token LCWORD");
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:2: ( '@' LCWORD ( '(' value ( COMMA value )* ')' )? -> ^( ANNOTATION LCWORD ( value )* ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:4: '@' LCWORD ( '(' value ( COMMA value )* ')' )?
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:2: ( '@' LCWORD ( '(' value ( COMMA value )* ')' )? -> ^( ANNOTATION LCWORD ( value )* ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:4: '@' LCWORD ( '(' value ( COMMA value )* ')' )?
             {
-            char_literal28=(Token)match(input,67,FOLLOW_67_in_annotation517);  
-            stream_67.add(char_literal28);
+            char_literal28=(Token)match(input,69,FOLLOW_69_in_annotation525);  
+            stream_69.add(char_literal28);
 
-            LCWORD29=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_annotation519);  
+            LCWORD29=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_annotation527);  
             stream_LCWORD.add(LCWORD29);
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:15: ( '(' value ( COMMA value )* ')' )?
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:15: ( '(' value ( COMMA value )* ')' )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -1154,18 +1159,18 @@ public class Prova2Parser extends Parser {
             }
             switch (alt15) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:16: '(' value ( COMMA value )* ')'
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:16: '(' value ( COMMA value )* ')'
                     {
-                    char_literal30=(Token)match(input,OPEN,FOLLOW_OPEN_in_annotation522);  
+                    char_literal30=(Token)match(input,OPEN,FOLLOW_OPEN_in_annotation530);  
                     stream_OPEN.add(char_literal30);
 
-                    pushFollow(FOLLOW_value_in_annotation524);
+                    pushFollow(FOLLOW_value_in_annotation532);
                     value31=value();
 
                     state._fsp--;
 
                     stream_value.add(value31.getTree());
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:26: ( COMMA value )*
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:26: ( COMMA value )*
                     loop14:
                     do {
                         int alt14=2;
@@ -1178,12 +1183,12 @@ public class Prova2Parser extends Parser {
 
                         switch (alt14) {
                     	case 1 :
-                    	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:27: COMMA value
+                    	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:27: COMMA value
                     	    {
-                    	    COMMA32=(Token)match(input,COMMA,FOLLOW_COMMA_in_annotation527);  
+                    	    COMMA32=(Token)match(input,COMMA,FOLLOW_COMMA_in_annotation535);  
                     	    stream_COMMA.add(COMMA32);
 
-                    	    pushFollow(FOLLOW_value_in_annotation529);
+                    	    pushFollow(FOLLOW_value_in_annotation537);
                     	    value33=value();
 
                     	    state._fsp--;
@@ -1198,7 +1203,7 @@ public class Prova2Parser extends Parser {
                         }
                     } while (true);
 
-                    char_literal34=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_annotation533);  
+                    char_literal34=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_annotation541);  
                     stream_CLOSE.add(char_literal34);
 
 
@@ -1220,15 +1225,15 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 125:47: -> ^( ANNOTATION LCWORD ( value )* )
+            // 110:47: -> ^( ANNOTATION LCWORD ( value )* )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:50: ^( ANNOTATION LCWORD ( value )* )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:50: ^( ANNOTATION LCWORD ( value )* )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(ANNOTATION, "ANNOTATION"), root_1);
 
                 adaptor.addChild(root_1, stream_LCWORD.nextNode());
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:70: ( value )*
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:70: ( value )*
                 while ( stream_value.hasNext() ) {
                     adaptor.addChild(root_1, stream_value.nextTree());
 
@@ -1267,7 +1272,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "value"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:128:1: value : ( LCWORD | UCWORD | string | number );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:113:1: value : ( LCWORD | UCWORD | string | number );
     public final Prova2Parser.value_return value() throws RecognitionException {
         Prova2Parser.value_return retval = new Prova2Parser.value_return();
         retval.start = input.LT(1);
@@ -1285,7 +1290,7 @@ public class Prova2Parser extends Parser {
         ProvaAST UCWORD36_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:129:2: ( LCWORD | UCWORD | string | number )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:114:2: ( LCWORD | UCWORD | string | number )
             int alt16=4;
             switch ( input.LA(1) ) {
             case LCWORD:
@@ -1320,11 +1325,11 @@ public class Prova2Parser extends Parser {
 
             switch (alt16) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:129:4: LCWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:114:4: LCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    LCWORD35=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_value558); 
+                    LCWORD35=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_value566); 
                     LCWORD35_tree = (ProvaAST)adaptor.create(LCWORD35);
                     adaptor.addChild(root_0, LCWORD35_tree);
 
@@ -1332,11 +1337,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:129:13: UCWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:114:13: UCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    UCWORD36=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_value562); 
+                    UCWORD36=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_value570); 
                     UCWORD36_tree = (ProvaAST)adaptor.create(UCWORD36);
                     adaptor.addChild(root_0, UCWORD36_tree);
 
@@ -1344,11 +1349,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:129:22: string
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:114:22: string
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_string_in_value566);
+                    pushFollow(FOLLOW_string_in_value574);
                     string37=string();
 
                     state._fsp--;
@@ -1358,11 +1363,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:129:31: number
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:114:31: number
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_number_in_value570);
+                    pushFollow(FOLLOW_number_in_value578);
                     number38=number();
 
                     state._fsp--;
@@ -1397,7 +1402,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "literals"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:132:1: literals : literal ( COMMA literal )* -> ^( LITERAL ( literal )+ ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:117:1: literals : literal ( COMMA literal )* -> ^( LITERAL ( literal )+ ) ;
     public final Prova2Parser.literals_return literals() throws RecognitionException {
         Prova2Parser.literals_return retval = new Prova2Parser.literals_return();
         retval.start = input.LT(1);
@@ -1414,16 +1419,16 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleSubtreeStream stream_literal=new RewriteRuleSubtreeStream(adaptor,"rule literal");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:132:11: ( literal ( COMMA literal )* -> ^( LITERAL ( literal )+ ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:132:13: literal ( COMMA literal )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:117:11: ( literal ( COMMA literal )* -> ^( LITERAL ( literal )+ ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:117:13: literal ( COMMA literal )*
             {
-            pushFollow(FOLLOW_literal_in_literals580);
+            pushFollow(FOLLOW_literal_in_literals588);
             literal39=literal();
 
             state._fsp--;
 
             stream_literal.add(literal39.getTree());
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:132:21: ( COMMA literal )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:117:21: ( COMMA literal )*
             loop17:
             do {
                 int alt17=2;
@@ -1436,12 +1441,12 @@ public class Prova2Parser extends Parser {
 
                 switch (alt17) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:132:22: COMMA literal
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:117:22: COMMA literal
             	    {
-            	    COMMA40=(Token)match(input,COMMA,FOLLOW_COMMA_in_literals583);  
+            	    COMMA40=(Token)match(input,COMMA,FOLLOW_COMMA_in_literals591);  
             	    stream_COMMA.add(COMMA40);
 
-            	    pushFollow(FOLLOW_literal_in_literals585);
+            	    pushFollow(FOLLOW_literal_in_literals593);
             	    literal41=literal();
 
             	    state._fsp--;
@@ -1469,9 +1474,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 132:38: -> ^( LITERAL ( literal )+ )
+            // 117:38: -> ^( LITERAL ( literal )+ )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:132:41: ^( LITERAL ( literal )+ )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:117:41: ^( LITERAL ( literal )+ )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(LITERAL, "LITERAL"), root_1);
@@ -1517,7 +1522,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "literal"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:1: literal : ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:1: literal : ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) );
     public final Prova2Parser.literal_return literal() throws RecognitionException {
         Prova2Parser.literal_return retval = new Prova2Parser.literal_return();
         retval.start = input.LT(1);
@@ -1548,14 +1553,14 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_cut=new RewriteRuleSubtreeStream(adaptor,"rule cut");
         RewriteRuleSubtreeStream stream_metadata=new RewriteRuleSubtreeStream(adaptor,"rule metadata");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:10: ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:10: ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) )
             int alt25=3;
             alt25 = dfa25.predict(input);
             switch (alt25) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:12: ( NEWLINE )* (m= metadata )? r= relation (g= guard )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:12: ( NEWLINE )* (m= metadata )? r= relation (g= guard )?
                     {
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:12: ( NEWLINE )*
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:12: ( NEWLINE )*
                     loop18:
                     do {
                         int alt18=2;
@@ -1568,9 +1573,9 @@ public class Prova2Parser extends Parser {
 
                         switch (alt18) {
                     	case 1 :
-                    	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:12: NEWLINE
+                    	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:12: NEWLINE
                     	    {
-                    	    NEWLINE42=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_literal605);  
+                    	    NEWLINE42=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_literal613);  
                     	    stream_NEWLINE.add(NEWLINE42);
 
 
@@ -1582,18 +1587,18 @@ public class Prova2Parser extends Parser {
                         }
                     } while (true);
 
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:22: (m= metadata )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:22: (m= metadata )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
-                    if ( (LA19_0==67) ) {
+                    if ( (LA19_0==69) ) {
                         alt19=1;
                     }
                     switch (alt19) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:22: m= metadata
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:22: m= metadata
                             {
-                            pushFollow(FOLLOW_metadata_in_literal610);
+                            pushFollow(FOLLOW_metadata_in_literal618);
                             m=metadata();
 
                             state._fsp--;
@@ -1605,13 +1610,13 @@ public class Prova2Parser extends Parser {
 
                     }
 
-                    pushFollow(FOLLOW_relation_in_literal615);
+                    pushFollow(FOLLOW_relation_in_literal623);
                     r=relation();
 
                     state._fsp--;
 
                     stream_relation.add(r.getTree());
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:45: (g= guard )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:45: (g= guard )?
                     int alt20=2;
                     int LA20_0 = input.LA(1);
 
@@ -1620,9 +1625,9 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt20) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:45: g= guard
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:45: g= guard
                             {
-                            pushFollow(FOLLOW_guard_in_literal619);
+                            pushFollow(FOLLOW_guard_in_literal627);
                             g=guard();
 
                             state._fsp--;
@@ -1637,7 +1642,7 @@ public class Prova2Parser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: relation, metadata, guard
+                    // elements: relation, guard, metadata
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1647,21 +1652,21 @@ public class Prova2Parser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (ProvaAST)adaptor.nil();
-                    // 134:53: -> ^( RELATION ( metadata )? relation ( guard )? )
+                    // 119:53: -> ^( RELATION ( metadata )? relation ( guard )? )
                     {
-                        // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:56: ^( RELATION ( metadata )? relation ( guard )? )
+                        // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:56: ^( RELATION ( metadata )? relation ( guard )? )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(RELATION, "RELATION"), root_1);
 
-                        // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:67: ( metadata )?
+                        // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:67: ( metadata )?
                         if ( stream_metadata.hasNext() ) {
                             adaptor.addChild(root_1, stream_metadata.nextTree());
 
                         }
                         stream_metadata.reset();
                         adaptor.addChild(root_1, stream_relation.nextTree());
-                        // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:86: ( guard )?
+                        // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:86: ( guard )?
                         if ( stream_guard.hasNext() ) {
                             adaptor.addChild(root_1, stream_guard.nextTree());
 
@@ -1677,9 +1682,9 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:6: ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:6: ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )?
                     {
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:6: ( NEWLINE )*
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:6: ( NEWLINE )*
                     loop21:
                     do {
                         int alt21=2;
@@ -1692,9 +1697,9 @@ public class Prova2Parser extends Parser {
 
                         switch (alt21) {
                     	case 1 :
-                    	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:6: NEWLINE
+                    	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:6: NEWLINE
                     	    {
-                    	    NEWLINE43=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_literal641);  
+                    	    NEWLINE43=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_literal649);  
                     	    stream_NEWLINE.add(NEWLINE43);
 
 
@@ -1706,18 +1711,18 @@ public class Prova2Parser extends Parser {
                         }
                     } while (true);
 
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:16: (m= metadata )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:16: (m= metadata )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
-                    if ( (LA22_0==67) ) {
+                    if ( (LA22_0==69) ) {
                         alt22=1;
                     }
                     switch (alt22) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:16: m= metadata
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:16: m= metadata
                             {
-                            pushFollow(FOLLOW_metadata_in_literal646);
+                            pushFollow(FOLLOW_metadata_in_literal654);
                             m=metadata();
 
                             state._fsp--;
@@ -1729,13 +1734,13 @@ public class Prova2Parser extends Parser {
 
                     }
 
-                    pushFollow(FOLLOW_semantic_attachment_in_literal649);
+                    pushFollow(FOLLOW_semantic_attachment_in_literal657);
                     semantic_attachment44=semantic_attachment();
 
                     state._fsp--;
 
                     stream_semantic_attachment.add(semantic_attachment44.getTree());
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:48: (g= guard )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:48: (g= guard )?
                     int alt23=2;
                     int LA23_0 = input.LA(1);
 
@@ -1744,9 +1749,9 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt23) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:48: g= guard
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:48: g= guard
                             {
-                            pushFollow(FOLLOW_guard_in_literal653);
+                            pushFollow(FOLLOW_guard_in_literal661);
                             g=guard();
 
                             state._fsp--;
@@ -1761,7 +1766,7 @@ public class Prova2Parser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: metadata, guard, semantic_attachment
+                    // elements: semantic_attachment, metadata, guard
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1771,21 +1776,21 @@ public class Prova2Parser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (ProvaAST)adaptor.nil();
-                    // 135:56: -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? )
+                    // 120:56: -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? )
                     {
-                        // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:59: ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? )
+                        // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:59: ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(SEMANTIC_ATTACHMENT, "SEMANTIC_ATTACHMENT"), root_1);
 
-                        // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:81: ( metadata )?
+                        // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:81: ( metadata )?
                         if ( stream_metadata.hasNext() ) {
                             adaptor.addChild(root_1, stream_metadata.nextTree());
 
                         }
                         stream_metadata.reset();
                         adaptor.addChild(root_1, stream_semantic_attachment.nextTree());
-                        // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:111: ( guard )?
+                        // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:120:111: ( guard )?
                         if ( stream_guard.hasNext() ) {
                             adaptor.addChild(root_1, stream_guard.nextTree());
 
@@ -1801,9 +1806,9 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:136:6: ( NEWLINE )* cut
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:6: ( NEWLINE )* cut
                     {
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:136:6: ( NEWLINE )*
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:6: ( NEWLINE )*
                     loop24:
                     do {
                         int alt24=2;
@@ -1816,9 +1821,9 @@ public class Prova2Parser extends Parser {
 
                         switch (alt24) {
                     	case 1 :
-                    	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:136:6: NEWLINE
+                    	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:6: NEWLINE
                     	    {
-                    	    NEWLINE45=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_literal675);  
+                    	    NEWLINE45=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_literal683);  
                     	    stream_NEWLINE.add(NEWLINE45);
 
 
@@ -1830,7 +1835,7 @@ public class Prova2Parser extends Parser {
                         }
                     } while (true);
 
-                    pushFollow(FOLLOW_cut_in_literal678);
+                    pushFollow(FOLLOW_cut_in_literal686);
                     cut46=cut();
 
                     state._fsp--;
@@ -1849,9 +1854,9 @@ public class Prova2Parser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (ProvaAST)adaptor.nil();
-                    // 136:19: -> ^( CUT cut )
+                    // 121:19: -> ^( CUT cut )
                     {
-                        // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:136:22: ^( CUT cut )
+                        // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:121:22: ^( CUT cut )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(CUT, "CUT"), root_1);
@@ -1892,7 +1897,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "cut"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:138:1: cut : CUT ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:123:1: cut : CUT ;
     public final Prova2Parser.cut_return cut() throws RecognitionException {
         Prova2Parser.cut_return retval = new Prova2Parser.cut_return();
         retval.start = input.LT(1);
@@ -1904,12 +1909,12 @@ public class Prova2Parser extends Parser {
         ProvaAST CUT47_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:138:5: ( CUT )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:138:7: CUT
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:123:5: ( CUT )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:123:7: CUT
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            CUT47=(Token)match(input,CUT,FOLLOW_CUT_in_cut694); 
+            CUT47=(Token)match(input,CUT,FOLLOW_CUT_in_cut702); 
             CUT47_tree = (ProvaAST)adaptor.create(CUT47);
             adaptor.addChild(root_0, CUT47_tree);
 
@@ -1940,7 +1945,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "binary_operator"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:140:1: binary_operator : ( not_equal | LT | GT | LE | GE );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:1: binary_operator : ( not_equal | LT | GT | LE | GE );
     public final Prova2Parser.binary_operator_return binary_operator() throws RecognitionException {
         Prova2Parser.binary_operator_return retval = new Prova2Parser.binary_operator_return();
         retval.start = input.LT(1);
@@ -1960,7 +1965,7 @@ public class Prova2Parser extends Parser {
         ProvaAST GE52_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:141:2: ( not_equal | LT | GT | LE | GE )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:2: ( not_equal | LT | GT | LE | GE )
             int alt26=5;
             switch ( input.LA(1) ) {
             case NOT_EQUAL1:
@@ -1998,11 +2003,11 @@ public class Prova2Parser extends Parser {
 
             switch (alt26) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:141:4: not_equal
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:4: not_equal
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_not_equal_in_binary_operator703);
+                    pushFollow(FOLLOW_not_equal_in_binary_operator711);
                     not_equal48=not_equal();
 
                     state._fsp--;
@@ -2012,11 +2017,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:141:16: LT
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:16: LT
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    LT49=(Token)match(input,LT,FOLLOW_LT_in_binary_operator707); 
+                    LT49=(Token)match(input,LT,FOLLOW_LT_in_binary_operator715); 
                     LT49_tree = (ProvaAST)adaptor.create(LT49);
                     adaptor.addChild(root_0, LT49_tree);
 
@@ -2024,11 +2029,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:141:21: GT
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:21: GT
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    GT50=(Token)match(input,GT,FOLLOW_GT_in_binary_operator711); 
+                    GT50=(Token)match(input,GT,FOLLOW_GT_in_binary_operator719); 
                     GT50_tree = (ProvaAST)adaptor.create(GT50);
                     adaptor.addChild(root_0, GT50_tree);
 
@@ -2036,11 +2041,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:141:26: LE
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:26: LE
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    LE51=(Token)match(input,LE,FOLLOW_LE_in_binary_operator715); 
+                    LE51=(Token)match(input,LE,FOLLOW_LE_in_binary_operator723); 
                     LE51_tree = (ProvaAST)adaptor.create(LE51);
                     adaptor.addChild(root_0, LE51_tree);
 
@@ -2048,11 +2053,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 5 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:141:31: GE
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:31: GE
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    GE52=(Token)match(input,GE,FOLLOW_GE_in_binary_operator719); 
+                    GE52=(Token)match(input,GE,FOLLOW_GE_in_binary_operator727); 
                     GE52_tree = (ProvaAST)adaptor.create(GE52);
                     adaptor.addChild(root_0, GE52_tree);
 
@@ -2085,7 +2090,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "relation"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:144:1: relation : predicate '(' list_body ')' -> ^( PREDICATE predicate list_body ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:129:1: relation : predicate '(' list_body ')' -> ^( PREDICATE predicate list_body ) ;
     public final Prova2Parser.relation_return relation() throws RecognitionException {
         Prova2Parser.relation_return retval = new Prova2Parser.relation_return();
         retval.start = input.LT(1);
@@ -2106,31 +2111,31 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_predicate=new RewriteRuleSubtreeStream(adaptor,"rule predicate");
         RewriteRuleSubtreeStream stream_list_body=new RewriteRuleSubtreeStream(adaptor,"rule list_body");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:2: ( predicate '(' list_body ')' -> ^( PREDICATE predicate list_body ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:4: predicate '(' list_body ')'
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:130:2: ( predicate '(' list_body ')' -> ^( PREDICATE predicate list_body ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:130:4: predicate '(' list_body ')'
             {
-            pushFollow(FOLLOW_predicate_in_relation731);
+            pushFollow(FOLLOW_predicate_in_relation739);
             predicate53=predicate();
 
             state._fsp--;
 
             stream_predicate.add(predicate53.getTree());
-            char_literal54=(Token)match(input,OPEN,FOLLOW_OPEN_in_relation733);  
+            char_literal54=(Token)match(input,OPEN,FOLLOW_OPEN_in_relation741);  
             stream_OPEN.add(char_literal54);
 
-            pushFollow(FOLLOW_list_body_in_relation735);
+            pushFollow(FOLLOW_list_body_in_relation743);
             list_body55=list_body();
 
             state._fsp--;
 
             stream_list_body.add(list_body55.getTree());
-            char_literal56=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_relation737);  
+            char_literal56=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_relation745);  
             stream_CLOSE.add(char_literal56);
 
 
 
             // AST REWRITE
-            // elements: list_body, predicate
+            // elements: predicate, list_body
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2140,9 +2145,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 145:32: -> ^( PREDICATE predicate list_body )
+            // 130:32: -> ^( PREDICATE predicate list_body )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:35: ^( PREDICATE predicate list_body )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:130:35: ^( PREDICATE predicate list_body )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(PREDICATE, "PREDICATE"), root_1);
@@ -2182,7 +2187,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "guard"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:147:1: guard : '[' literals ']' -> ^( GUARD literals ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:132:1: guard : '[' literals ']' -> ^( GUARD literals ) ;
     public final Prova2Parser.guard_return guard() throws RecognitionException {
         Prova2Parser.guard_return retval = new Prova2Parser.guard_return();
         retval.start = input.LT(1);
@@ -2200,19 +2205,19 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_KET=new RewriteRuleTokenStream(adaptor,"token KET");
         RewriteRuleSubtreeStream stream_literals=new RewriteRuleSubtreeStream(adaptor,"rule literals");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:2: ( '[' literals ']' -> ^( GUARD literals ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:4: '[' literals ']'
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:133:2: ( '[' literals ']' -> ^( GUARD literals ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:133:4: '[' literals ']'
             {
-            char_literal57=(Token)match(input,BRA,FOLLOW_BRA_in_guard756);  
+            char_literal57=(Token)match(input,BRA,FOLLOW_BRA_in_guard764);  
             stream_BRA.add(char_literal57);
 
-            pushFollow(FOLLOW_literals_in_guard758);
+            pushFollow(FOLLOW_literals_in_guard766);
             literals58=literals();
 
             state._fsp--;
 
             stream_literals.add(literals58.getTree());
-            char_literal59=(Token)match(input,KET,FOLLOW_KET_in_guard760);  
+            char_literal59=(Token)match(input,KET,FOLLOW_KET_in_guard768);  
             stream_KET.add(char_literal59);
 
 
@@ -2228,9 +2233,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 148:21: -> ^( GUARD literals )
+            // 133:21: -> ^( GUARD literals )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:24: ^( GUARD literals )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:133:24: ^( GUARD literals )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(GUARD, "GUARD"), root_1);
@@ -2269,7 +2274,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "list_body"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:151:1: list_body : ( terms ( '|' list_tail )? )? ( NEWLINE )* -> ^( LIST_BODY ( terms ( list_tail )? )? ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:136:1: list_body : ( terms ( '|' list_tail )? )? ( NEWLINE )* -> ^( LIST_BODY ( terms ( list_tail )? )? ) ;
     public final Prova2Parser.list_body_return list_body() throws RecognitionException {
         Prova2Parser.list_body_return retval = new Prova2Parser.list_body_return();
         retval.start = input.LT(1);
@@ -2290,23 +2295,23 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_terms=new RewriteRuleSubtreeStream(adaptor,"rule terms");
         RewriteRuleSubtreeStream stream_list_tail=new RewriteRuleSubtreeStream(adaptor,"rule list_tail");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:3: ( ( terms ( '|' list_tail )? )? ( NEWLINE )* -> ^( LIST_BODY ( terms ( list_tail )? )? ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:5: ( terms ( '|' list_tail )? )? ( NEWLINE )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:3: ( ( terms ( '|' list_tail )? )? ( NEWLINE )* -> ^( LIST_BODY ( terms ( list_tail )? )? ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:5: ( terms ( '|' list_tail )? )? ( NEWLINE )*
             {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:5: ( terms ( '|' list_tail )? )?
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:5: ( terms ( '|' list_tail )? )?
             int alt28=2;
             alt28 = dfa28.predict(input);
             switch (alt28) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:6: terms ( '|' list_tail )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:6: terms ( '|' list_tail )?
                     {
-                    pushFollow(FOLLOW_terms_in_list_body781);
+                    pushFollow(FOLLOW_terms_in_list_body789);
                     terms60=terms();
 
                     state._fsp--;
 
                     stream_terms.add(terms60.getTree());
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:12: ( '|' list_tail )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:12: ( '|' list_tail )?
                     int alt27=2;
                     int LA27_0 = input.LA(1);
 
@@ -2315,12 +2320,12 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt27) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:13: '|' list_tail
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:13: '|' list_tail
                             {
-                            char_literal61=(Token)match(input,BAR,FOLLOW_BAR_in_list_body784);  
+                            char_literal61=(Token)match(input,BAR,FOLLOW_BAR_in_list_body792);  
                             stream_BAR.add(char_literal61);
 
-                            pushFollow(FOLLOW_list_tail_in_list_body786);
+                            pushFollow(FOLLOW_list_tail_in_list_body794);
                             list_tail62=list_tail();
 
                             state._fsp--;
@@ -2338,7 +2343,7 @@ public class Prova2Parser extends Parser {
 
             }
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:31: ( NEWLINE )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:31: ( NEWLINE )*
             loop29:
             do {
                 int alt29=2;
@@ -2351,9 +2356,9 @@ public class Prova2Parser extends Parser {
 
                 switch (alt29) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:31: NEWLINE
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:31: NEWLINE
             	    {
-            	    NEWLINE63=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_list_body792);  
+            	    NEWLINE63=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_list_body800);  
             	    stream_NEWLINE.add(NEWLINE63);
 
 
@@ -2368,7 +2373,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: list_tail, terms
+            // elements: terms, list_tail
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2378,17 +2383,17 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 152:40: -> ^( LIST_BODY ( terms ( list_tail )? )? )
+            // 137:40: -> ^( LIST_BODY ( terms ( list_tail )? )? )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:43: ^( LIST_BODY ( terms ( list_tail )? )? )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:43: ^( LIST_BODY ( terms ( list_tail )? )? )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(LIST_BODY, "LIST_BODY"), root_1);
 
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:55: ( terms ( list_tail )? )?
-                if ( stream_list_tail.hasNext()||stream_terms.hasNext() ) {
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:55: ( terms ( list_tail )? )?
+                if ( stream_terms.hasNext()||stream_list_tail.hasNext() ) {
                     adaptor.addChild(root_1, stream_terms.nextTree());
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:62: ( list_tail )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:62: ( list_tail )?
                     if ( stream_list_tail.hasNext() ) {
                         adaptor.addChild(root_1, stream_list_tail.nextTree());
 
@@ -2396,8 +2401,8 @@ public class Prova2Parser extends Parser {
                     stream_list_tail.reset();
 
                 }
-                stream_list_tail.reset();
                 stream_terms.reset();
+                stream_list_tail.reset();
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -2431,7 +2436,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "list_tail"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:154:1: list_tail : ( variable | prova_list );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:139:1: list_tail : ( variable | prova_list );
     public final Prova2Parser.list_tail_return list_tail() throws RecognitionException {
         Prova2Parser.list_tail_return retval = new Prova2Parser.list_tail_return();
         retval.start = input.LT(1);
@@ -2445,7 +2450,7 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:155:2: ( variable | prova_list )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:140:2: ( variable | prova_list )
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -2463,11 +2468,11 @@ public class Prova2Parser extends Parser {
             }
             switch (alt30) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:155:4: variable
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:140:4: variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_variable_in_list_tail817);
+                    pushFollow(FOLLOW_variable_in_list_tail825);
                     variable64=variable();
 
                     state._fsp--;
@@ -2477,11 +2482,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:155:15: prova_list
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:140:15: prova_list
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_prova_list_in_list_tail821);
+                    pushFollow(FOLLOW_prova_list_in_list_tail829);
                     prova_list65=prova_list();
 
                     state._fsp--;
@@ -2516,7 +2521,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "left_term"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:1: left_term : ( constant | variable | number | prova_list );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:1: left_term : ( constant | variable | number | prova_list );
     public final Prova2Parser.left_term_return left_term() throws RecognitionException {
         Prova2Parser.left_term_return retval = new Prova2Parser.left_term_return();
         retval.start = input.LT(1);
@@ -2534,16 +2539,16 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:158:2: ( constant | variable | number | prova_list )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:143:2: ( constant | variable | number | prova_list )
             int alt31=4;
             alt31 = dfa31.predict(input);
             switch (alt31) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:158:4: constant
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:143:4: constant
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_constant_in_left_term831);
+                    pushFollow(FOLLOW_constant_in_left_term839);
                     constant66=constant();
 
                     state._fsp--;
@@ -2553,11 +2558,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:3: variable
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:144:3: variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_variable_in_left_term838);
+                    pushFollow(FOLLOW_variable_in_left_term846);
                     variable67=variable();
 
                     state._fsp--;
@@ -2567,11 +2572,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:3: number
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:3: number
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_number_in_left_term844);
+                    pushFollow(FOLLOW_number_in_left_term852);
                     number68=number();
 
                     state._fsp--;
@@ -2581,11 +2586,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:161:3: prova_list
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:146:3: prova_list
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_prova_list_in_left_term850);
+                    pushFollow(FOLLOW_prova_list_in_left_term858);
                     prova_list69=prova_list();
 
                     state._fsp--;
@@ -2620,7 +2625,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "right_term"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:163:1: right_term : ( ( ( MINUS )? ( constant | variable ) ) | number | prova_list );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:1: right_term : ( ( ( MINUS )? ( constant | variable ) ) | number | prova_list | prova_map );
     public final Prova2Parser.right_term_return right_term() throws RecognitionException {
         Prova2Parser.right_term_return retval = new Prova2Parser.right_term_return();
         retval.start = input.LT(1);
@@ -2636,12 +2641,14 @@ public class Prova2Parser extends Parser {
 
         Prova2Parser.prova_list_return prova_list74 = null;
 
+        Prova2Parser.prova_map_return prova_map75 = null;
+
 
         ProvaAST MINUS70_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:2: ( ( ( MINUS )? ( constant | variable ) ) | number | prova_list )
-            int alt34=3;
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:2: ( ( ( MINUS )? ( constant | variable ) ) | number | prova_list | prova_map )
+            int alt34=4;
             switch ( input.LA(1) ) {
             case MINUS:
                 {
@@ -2682,6 +2689,11 @@ public class Prova2Parser extends Parser {
                 alt34=3;
                 }
                 break;
+            case 70:
+                {
+                alt34=4;
+                }
+                break;
             default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 34, 0, input);
@@ -2691,14 +2703,14 @@ public class Prova2Parser extends Parser {
 
             switch (alt34) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:4: ( ( MINUS )? ( constant | variable ) )
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:4: ( ( MINUS )? ( constant | variable ) )
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:4: ( ( MINUS )? ( constant | variable ) )
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:5: ( MINUS )? ( constant | variable )
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:4: ( ( MINUS )? ( constant | variable ) )
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:5: ( MINUS )? ( constant | variable )
                     {
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:5: ( MINUS )?
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:5: ( MINUS )?
                     int alt32=2;
                     int LA32_0 = input.LA(1);
 
@@ -2707,9 +2719,9 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt32) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:5: MINUS
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:5: MINUS
                             {
-                            MINUS70=(Token)match(input,MINUS,FOLLOW_MINUS_in_right_term861); 
+                            MINUS70=(Token)match(input,MINUS,FOLLOW_MINUS_in_right_term869); 
                             MINUS70_tree = (ProvaAST)adaptor.create(MINUS70);
                             adaptor.addChild(root_0, MINUS70_tree);
 
@@ -2719,14 +2731,14 @@ public class Prova2Parser extends Parser {
 
                     }
 
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:12: ( constant | variable )
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:12: ( constant | variable )
                     int alt33=2;
                     alt33 = dfa33.predict(input);
                     switch (alt33) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:13: constant
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:13: constant
                             {
-                            pushFollow(FOLLOW_constant_in_right_term865);
+                            pushFollow(FOLLOW_constant_in_right_term873);
                             constant71=constant();
 
                             state._fsp--;
@@ -2736,9 +2748,9 @@ public class Prova2Parser extends Parser {
                             }
                             break;
                         case 2 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:24: variable
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:24: variable
                             {
-                            pushFollow(FOLLOW_variable_in_right_term869);
+                            pushFollow(FOLLOW_variable_in_right_term877);
                             variable72=variable();
 
                             state._fsp--;
@@ -2757,11 +2769,11 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:37: number
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:37: number
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_number_in_right_term875);
+                    pushFollow(FOLLOW_number_in_right_term883);
                     number73=number();
 
                     state._fsp--;
@@ -2771,16 +2783,30 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:46: prova_list
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:46: prova_list
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_prova_list_in_right_term879);
+                    pushFollow(FOLLOW_prova_list_in_right_term887);
                     prova_list74=prova_list();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, prova_list74.getTree());
+
+                    }
+                    break;
+                case 4 :
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:149:59: prova_map
+                    {
+                    root_0 = (ProvaAST)adaptor.nil();
+
+                    pushFollow(FOLLOW_prova_map_in_right_term891);
+                    prova_map75=prova_map();
+
+                    state._fsp--;
+
+                    adaptor.addChild(root_0, prova_map75.getTree());
 
                     }
                     break;
@@ -2804,150 +2830,388 @@ public class Prova2Parser extends Parser {
     }
     // $ANTLR end "right_term"
 
+    public static class prova_map_return extends ParserRuleReturnScope {
+        ProvaAST tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "prova_map"
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:151:1: prova_map : '{' ( key_value )? ( ',' key_value )* '}' -> ^( PROVA_MAP ( key_value )* ) ;
+    public final Prova2Parser.prova_map_return prova_map() throws RecognitionException {
+        Prova2Parser.prova_map_return retval = new Prova2Parser.prova_map_return();
+        retval.start = input.LT(1);
+
+        ProvaAST root_0 = null;
+
+        Token char_literal76=null;
+        Token char_literal78=null;
+        Token char_literal80=null;
+        Prova2Parser.key_value_return key_value77 = null;
+
+        Prova2Parser.key_value_return key_value79 = null;
+
+
+        ProvaAST char_literal76_tree=null;
+        ProvaAST char_literal78_tree=null;
+        ProvaAST char_literal80_tree=null;
+        RewriteRuleTokenStream stream_70=new RewriteRuleTokenStream(adaptor,"token 70");
+        RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
+        RewriteRuleTokenStream stream_71=new RewriteRuleTokenStream(adaptor,"token 71");
+        RewriteRuleSubtreeStream stream_key_value=new RewriteRuleSubtreeStream(adaptor,"rule key_value");
+        try {
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:2: ( '{' ( key_value )? ( ',' key_value )* '}' -> ^( PROVA_MAP ( key_value )* ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:4: '{' ( key_value )? ( ',' key_value )* '}'
+            {
+            char_literal76=(Token)match(input,70,FOLLOW_70_in_prova_map901);  
+            stream_70.add(char_literal76);
+
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:8: ( key_value )?
+            int alt35=2;
+            int LA35_0 = input.LA(1);
+
+            if ( ((LA35_0>=STRING1 && LA35_0<=STRING2)) ) {
+                alt35=1;
+            }
+            switch (alt35) {
+                case 1 :
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:8: key_value
+                    {
+                    pushFollow(FOLLOW_key_value_in_prova_map903);
+                    key_value77=key_value();
+
+                    state._fsp--;
+
+                    stream_key_value.add(key_value77.getTree());
+
+                    }
+                    break;
+
+            }
+
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:19: ( ',' key_value )*
+            loop36:
+            do {
+                int alt36=2;
+                int LA36_0 = input.LA(1);
+
+                if ( (LA36_0==COMMA) ) {
+                    alt36=1;
+                }
+
+
+                switch (alt36) {
+            	case 1 :
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:20: ',' key_value
+            	    {
+            	    char_literal78=(Token)match(input,COMMA,FOLLOW_COMMA_in_prova_map907);  
+            	    stream_COMMA.add(char_literal78);
+
+            	    pushFollow(FOLLOW_key_value_in_prova_map909);
+            	    key_value79=key_value();
+
+            	    state._fsp--;
+
+            	    stream_key_value.add(key_value79.getTree());
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop36;
+                }
+            } while (true);
+
+            char_literal80=(Token)match(input,71,FOLLOW_71_in_prova_map913);  
+            stream_71.add(char_literal80);
+
+
+
+            // AST REWRITE
+            // elements: key_value
+            // token labels: 
+            // rule labels: retval
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+            root_0 = (ProvaAST)adaptor.nil();
+            // 152:40: -> ^( PROVA_MAP ( key_value )* )
+            {
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:43: ^( PROVA_MAP ( key_value )* )
+                {
+                ProvaAST root_1 = (ProvaAST)adaptor.nil();
+                root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(PROVA_MAP, "PROVA_MAP"), root_1);
+
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:55: ( key_value )*
+                while ( stream_key_value.hasNext() ) {
+                    adaptor.addChild(root_1, stream_key_value.nextTree());
+
+                }
+                stream_key_value.reset();
+
+                adaptor.addChild(root_0, root_1);
+                }
+
+            }
+
+            retval.tree = root_0;
+            }
+
+            retval.stop = input.LT(-1);
+
+            retval.tree = (ProvaAST)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (ProvaAST)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+        }
+        return retval;
+    }
+    // $ANTLR end "prova_map"
+
+    public static class key_value_return extends ParserRuleReturnScope {
+        ProvaAST tree;
+        public Object getTree() { return tree; }
+    };
+
+    // $ANTLR start "key_value"
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:155:1: key_value : string ':' term -> ^( KEY_VALUE string term ) ;
+    public final Prova2Parser.key_value_return key_value() throws RecognitionException {
+        Prova2Parser.key_value_return retval = new Prova2Parser.key_value_return();
+        retval.start = input.LT(1);
+
+        ProvaAST root_0 = null;
+
+        Token char_literal82=null;
+        Prova2Parser.string_return string81 = null;
+
+        Prova2Parser.term_return term83 = null;
+
+
+        ProvaAST char_literal82_tree=null;
+        RewriteRuleTokenStream stream_72=new RewriteRuleTokenStream(adaptor,"token 72");
+        RewriteRuleSubtreeStream stream_term=new RewriteRuleSubtreeStream(adaptor,"rule term");
+        RewriteRuleSubtreeStream stream_string=new RewriteRuleSubtreeStream(adaptor,"rule string");
+        try {
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:156:2: ( string ':' term -> ^( KEY_VALUE string term ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:156:4: string ':' term
+            {
+            pushFollow(FOLLOW_string_in_key_value933);
+            string81=string();
+
+            state._fsp--;
+
+            stream_string.add(string81.getTree());
+            char_literal82=(Token)match(input,72,FOLLOW_72_in_key_value935);  
+            stream_72.add(char_literal82);
+
+            pushFollow(FOLLOW_term_in_key_value937);
+            term83=term();
+
+            state._fsp--;
+
+            stream_term.add(term83.getTree());
+
+
+            // AST REWRITE
+            // elements: string, term
+            // token labels: 
+            // rule labels: retval
+            // token list labels: 
+            // rule list labels: 
+            // wildcard labels: 
+            retval.tree = root_0;
+            RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+            root_0 = (ProvaAST)adaptor.nil();
+            // 156:20: -> ^( KEY_VALUE string term )
+            {
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:156:23: ^( KEY_VALUE string term )
+                {
+                ProvaAST root_1 = (ProvaAST)adaptor.nil();
+                root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(KEY_VALUE, "KEY_VALUE"), root_1);
+
+                adaptor.addChild(root_1, stream_string.nextTree());
+                adaptor.addChild(root_1, stream_term.nextTree());
+
+                adaptor.addChild(root_0, root_1);
+                }
+
+            }
+
+            retval.tree = root_0;
+            }
+
+            retval.stop = input.LT(-1);
+
+            retval.tree = (ProvaAST)adaptor.rulePostProcessing(root_0);
+            adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+    	retval.tree = (ProvaAST)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+
+        }
+        finally {
+        }
+        return retval;
+    }
+    // $ANTLR end "key_value"
+
     public static class terms_return extends ParserRuleReturnScope {
         ProvaAST tree;
         public Object getTree() { return tree; }
     };
 
     // $ANTLR start "terms"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:1: terms : ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )* -> ^( TERM ( term )+ ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:1: terms : ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )* -> ^( TERM ( term )+ ) ;
     public final Prova2Parser.terms_return terms() throws RecognitionException {
         Prova2Parser.terms_return retval = new Prova2Parser.terms_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token NEWLINE75=null;
-        Token NEWLINE77=null;
-        Token char_literal78=null;
-        Token NEWLINE79=null;
-        Prova2Parser.term_return term76 = null;
+        Token NEWLINE84=null;
+        Token NEWLINE86=null;
+        Token char_literal87=null;
+        Token NEWLINE88=null;
+        Prova2Parser.term_return term85 = null;
 
-        Prova2Parser.term_return term80 = null;
+        Prova2Parser.term_return term89 = null;
 
 
-        ProvaAST NEWLINE75_tree=null;
-        ProvaAST NEWLINE77_tree=null;
-        ProvaAST char_literal78_tree=null;
-        ProvaAST NEWLINE79_tree=null;
+        ProvaAST NEWLINE84_tree=null;
+        ProvaAST NEWLINE86_tree=null;
+        ProvaAST char_literal87_tree=null;
+        ProvaAST NEWLINE88_tree=null;
         RewriteRuleTokenStream stream_NEWLINE=new RewriteRuleTokenStream(adaptor,"token NEWLINE");
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleSubtreeStream stream_term=new RewriteRuleSubtreeStream(adaptor,"rule term");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:8: ( ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )* -> ^( TERM ( term )+ ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:10: ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )*
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:8: ( ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )* -> ^( TERM ( term )+ ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:10: ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )*
             {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:10: ( NEWLINE )*
-            loop35:
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:10: ( NEWLINE )*
+            loop37:
             do {
-                int alt35=2;
-                int LA35_0 = input.LA(1);
+                int alt37=2;
+                int LA37_0 = input.LA(1);
 
-                if ( (LA35_0==NEWLINE) ) {
-                    alt35=1;
+                if ( (LA37_0==NEWLINE) ) {
+                    alt37=1;
                 }
 
 
-                switch (alt35) {
+                switch (alt37) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:10: NEWLINE
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:10: NEWLINE
             	    {
-            	    NEWLINE75=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_terms888);  
-            	    stream_NEWLINE.add(NEWLINE75);
+            	    NEWLINE84=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_terms960);  
+            	    stream_NEWLINE.add(NEWLINE84);
 
 
             	    }
             	    break;
 
             	default :
-            	    break loop35;
+            	    break loop37;
                 }
             } while (true);
 
-            pushFollow(FOLLOW_term_in_terms891);
-            term76=term();
+            pushFollow(FOLLOW_term_in_terms963);
+            term85=term();
 
             state._fsp--;
 
-            stream_term.add(term76.getTree());
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:24: ( ( NEWLINE )* ',' ( NEWLINE )* term )*
-            loop38:
+            stream_term.add(term85.getTree());
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:24: ( ( NEWLINE )* ',' ( NEWLINE )* term )*
+            loop40:
             do {
-                int alt38=2;
-                alt38 = dfa38.predict(input);
-                switch (alt38) {
+                int alt40=2;
+                alt40 = dfa40.predict(input);
+                switch (alt40) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:25: ( NEWLINE )* ',' ( NEWLINE )* term
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:25: ( NEWLINE )* ',' ( NEWLINE )* term
             	    {
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:25: ( NEWLINE )*
-            	    loop36:
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:25: ( NEWLINE )*
+            	    loop38:
             	    do {
-            	        int alt36=2;
-            	        int LA36_0 = input.LA(1);
+            	        int alt38=2;
+            	        int LA38_0 = input.LA(1);
 
-            	        if ( (LA36_0==NEWLINE) ) {
-            	            alt36=1;
+            	        if ( (LA38_0==NEWLINE) ) {
+            	            alt38=1;
             	        }
 
 
-            	        switch (alt36) {
+            	        switch (alt38) {
             	    	case 1 :
-            	    	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:25: NEWLINE
+            	    	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:25: NEWLINE
             	    	    {
-            	    	    NEWLINE77=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_terms894);  
-            	    	    stream_NEWLINE.add(NEWLINE77);
+            	    	    NEWLINE86=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_terms966);  
+            	    	    stream_NEWLINE.add(NEWLINE86);
 
 
             	    	    }
             	    	    break;
 
             	    	default :
-            	    	    break loop36;
+            	    	    break loop38;
             	        }
             	    } while (true);
 
-            	    char_literal78=(Token)match(input,COMMA,FOLLOW_COMMA_in_terms897);  
-            	    stream_COMMA.add(char_literal78);
+            	    char_literal87=(Token)match(input,COMMA,FOLLOW_COMMA_in_terms969);  
+            	    stream_COMMA.add(char_literal87);
 
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:38: ( NEWLINE )*
-            	    loop37:
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:38: ( NEWLINE )*
+            	    loop39:
             	    do {
-            	        int alt37=2;
-            	        int LA37_0 = input.LA(1);
+            	        int alt39=2;
+            	        int LA39_0 = input.LA(1);
 
-            	        if ( (LA37_0==NEWLINE) ) {
-            	            alt37=1;
+            	        if ( (LA39_0==NEWLINE) ) {
+            	            alt39=1;
             	        }
 
 
-            	        switch (alt37) {
+            	        switch (alt39) {
             	    	case 1 :
-            	    	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:38: NEWLINE
+            	    	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:38: NEWLINE
             	    	    {
-            	    	    NEWLINE79=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_terms899);  
-            	    	    stream_NEWLINE.add(NEWLINE79);
+            	    	    NEWLINE88=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_terms971);  
+            	    	    stream_NEWLINE.add(NEWLINE88);
 
 
             	    	    }
             	    	    break;
 
             	    	default :
-            	    	    break loop37;
+            	    	    break loop39;
             	        }
             	    } while (true);
 
-            	    pushFollow(FOLLOW_term_in_terms902);
-            	    term80=term();
+            	    pushFollow(FOLLOW_term_in_terms974);
+            	    term89=term();
 
             	    state._fsp--;
 
-            	    stream_term.add(term80.getTree());
+            	    stream_term.add(term89.getTree());
 
             	    }
             	    break;
 
             	default :
-            	    break loop38;
+            	    break loop40;
                 }
             } while (true);
 
@@ -2964,9 +3228,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 166:54: -> ^( TERM ( term )+ )
+            // 159:54: -> ^( TERM ( term )+ )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:57: ^( TERM ( term )+ )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:57: ^( TERM ( term )+ )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(TERM, "TERM"), root_1);
@@ -3012,49 +3276,65 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "term"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:168:1: term : ( left_term | func_term );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:161:1: term : ( left_term | func_term | prova_map );
     public final Prova2Parser.term_return term() throws RecognitionException {
         Prova2Parser.term_return retval = new Prova2Parser.term_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Prova2Parser.left_term_return left_term81 = null;
+        Prova2Parser.left_term_return left_term90 = null;
 
-        Prova2Parser.func_term_return func_term82 = null;
+        Prova2Parser.func_term_return func_term91 = null;
+
+        Prova2Parser.prova_map_return prova_map92 = null;
 
 
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:168:6: ( left_term | func_term )
-            int alt39=2;
-            alt39 = dfa39.predict(input);
-            switch (alt39) {
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:161:6: ( left_term | func_term | prova_map )
+            int alt41=3;
+            alt41 = dfa41.predict(input);
+            switch (alt41) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:168:8: left_term
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:161:8: left_term
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_left_term_in_term921);
-                    left_term81=left_term();
+                    pushFollow(FOLLOW_left_term_in_term993);
+                    left_term90=left_term();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, left_term81.getTree());
+                    adaptor.addChild(root_0, left_term90.getTree());
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:168:20: func_term
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:161:20: func_term
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_func_term_in_term925);
-                    func_term82=func_term();
+                    pushFollow(FOLLOW_func_term_in_term997);
+                    func_term91=func_term();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, func_term82.getTree());
+                    adaptor.addChild(root_0, func_term91.getTree());
+
+                    }
+                    break;
+                case 3 :
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:161:32: prova_map
+                    {
+                    root_0 = (ProvaAST)adaptor.nil();
+
+                    pushFollow(FOLLOW_prova_map_in_term1001);
+                    prova_map92=prova_map();
+
+                    state._fsp--;
+
+                    adaptor.addChild(root_0, prova_map92.getTree());
 
                     }
                     break;
@@ -3084,37 +3364,37 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "func_term"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:170:1: func_term : func args ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:163:1: func_term : func args ;
     public final Prova2Parser.func_term_return func_term() throws RecognitionException {
         Prova2Parser.func_term_return retval = new Prova2Parser.func_term_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Prova2Parser.func_return func83 = null;
+        Prova2Parser.func_return func93 = null;
 
-        Prova2Parser.args_return args84 = null;
+        Prova2Parser.args_return args94 = null;
 
 
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:171:2: ( func args )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:171:4: func args
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:2: ( func args )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:4: func args
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            pushFollow(FOLLOW_func_in_func_term934);
-            func83=func();
+            pushFollow(FOLLOW_func_in_func_term1010);
+            func93=func();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, func83.getTree());
-            pushFollow(FOLLOW_args_in_func_term936);
-            args84=args();
+            adaptor.addChild(root_0, func93.getTree());
+            pushFollow(FOLLOW_args_in_func_term1012);
+            args94=args();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, args84.getTree());
+            adaptor.addChild(root_0, args94.getTree());
 
             }
 
@@ -3142,68 +3422,68 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "qualified_java_class"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:173:1: qualified_java_class : ( ( LCWORD DOT )+ UCWORD ) -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:166:1: qualified_java_class : ( ( LCWORD DOT )+ UCWORD ) -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD ) ;
     public final Prova2Parser.qualified_java_class_return qualified_java_class() throws RecognitionException {
         Prova2Parser.qualified_java_class_return retval = new Prova2Parser.qualified_java_class_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token LCWORD85=null;
-        Token DOT86=null;
-        Token UCWORD87=null;
+        Token LCWORD95=null;
+        Token DOT96=null;
+        Token UCWORD97=null;
 
-        ProvaAST LCWORD85_tree=null;
-        ProvaAST DOT86_tree=null;
-        ProvaAST UCWORD87_tree=null;
+        ProvaAST LCWORD95_tree=null;
+        ProvaAST DOT96_tree=null;
+        ProvaAST UCWORD97_tree=null;
         RewriteRuleTokenStream stream_DOT=new RewriteRuleTokenStream(adaptor,"token DOT");
         RewriteRuleTokenStream stream_UCWORD=new RewriteRuleTokenStream(adaptor,"token UCWORD");
         RewriteRuleTokenStream stream_LCWORD=new RewriteRuleTokenStream(adaptor,"token LCWORD");
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:174:2: ( ( ( LCWORD DOT )+ UCWORD ) -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:174:4: ( ( LCWORD DOT )+ UCWORD )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:2: ( ( ( LCWORD DOT )+ UCWORD ) -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:4: ( ( LCWORD DOT )+ UCWORD )
             {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:174:4: ( ( LCWORD DOT )+ UCWORD )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:174:5: ( LCWORD DOT )+ UCWORD
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:4: ( ( LCWORD DOT )+ UCWORD )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:5: ( LCWORD DOT )+ UCWORD
             {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:174:5: ( LCWORD DOT )+
-            int cnt40=0;
-            loop40:
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:5: ( LCWORD DOT )+
+            int cnt42=0;
+            loop42:
             do {
-                int alt40=2;
-                int LA40_0 = input.LA(1);
+                int alt42=2;
+                int LA42_0 = input.LA(1);
 
-                if ( (LA40_0==LCWORD) ) {
-                    alt40=1;
+                if ( (LA42_0==LCWORD) ) {
+                    alt42=1;
                 }
 
 
-                switch (alt40) {
+                switch (alt42) {
             	case 1 :
-            	    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:174:6: LCWORD DOT
+            	    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:6: LCWORD DOT
             	    {
-            	    LCWORD85=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_qualified_java_class949);  
-            	    stream_LCWORD.add(LCWORD85);
+            	    LCWORD95=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_qualified_java_class1025);  
+            	    stream_LCWORD.add(LCWORD95);
 
-            	    DOT86=(Token)match(input,DOT,FOLLOW_DOT_in_qualified_java_class951);  
-            	    stream_DOT.add(DOT86);
+            	    DOT96=(Token)match(input,DOT,FOLLOW_DOT_in_qualified_java_class1027);  
+            	    stream_DOT.add(DOT96);
 
 
             	    }
             	    break;
 
             	default :
-            	    if ( cnt40 >= 1 ) break loop40;
+            	    if ( cnt42 >= 1 ) break loop42;
                         EarlyExitException eee =
-                            new EarlyExitException(40, input);
+                            new EarlyExitException(42, input);
                         throw eee;
                 }
-                cnt40++;
+                cnt42++;
             } while (true);
 
-            UCWORD87=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_qualified_java_class955);  
-            stream_UCWORD.add(UCWORD87);
+            UCWORD97=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_qualified_java_class1031);  
+            stream_UCWORD.add(UCWORD97);
 
 
             }
@@ -3211,7 +3491,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: LCWORD, DOT, UCWORD
+            // elements: DOT, LCWORD, UCWORD
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3221,23 +3501,23 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 174:27: -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD )
+            // 167:27: -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:174:30: ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:30: ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(QUALIFIED_JAVA_CLASS, "QUALIFIED_JAVA_CLASS"), root_1);
 
-                if ( !(stream_LCWORD.hasNext()||stream_DOT.hasNext()) ) {
+                if ( !(stream_DOT.hasNext()||stream_LCWORD.hasNext()) ) {
                     throw new RewriteEarlyExitException();
                 }
-                while ( stream_LCWORD.hasNext()||stream_DOT.hasNext() ) {
+                while ( stream_DOT.hasNext()||stream_LCWORD.hasNext() ) {
                     adaptor.addChild(root_1, stream_LCWORD.nextNode());
                     adaptor.addChild(root_1, stream_DOT.nextNode());
 
                 }
-                stream_LCWORD.reset();
                 stream_DOT.reset();
+                stream_LCWORD.reset();
                 adaptor.addChild(root_1, stream_UCWORD.nextNode());
 
                 adaptor.addChild(root_0, root_1);
@@ -3272,38 +3552,38 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "prova_list"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:177:1: prova_list : '[' list_body ']' -> ^( PROVA_LIST list_body ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:170:1: prova_list : '[' list_body ']' -> ^( PROVA_LIST list_body ) ;
     public final Prova2Parser.prova_list_return prova_list() throws RecognitionException {
         Prova2Parser.prova_list_return retval = new Prova2Parser.prova_list_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token char_literal88=null;
-        Token char_literal90=null;
-        Prova2Parser.list_body_return list_body89 = null;
+        Token char_literal98=null;
+        Token char_literal100=null;
+        Prova2Parser.list_body_return list_body99 = null;
 
 
-        ProvaAST char_literal88_tree=null;
-        ProvaAST char_literal90_tree=null;
+        ProvaAST char_literal98_tree=null;
+        ProvaAST char_literal100_tree=null;
         RewriteRuleTokenStream stream_BRA=new RewriteRuleTokenStream(adaptor,"token BRA");
         RewriteRuleTokenStream stream_KET=new RewriteRuleTokenStream(adaptor,"token KET");
         RewriteRuleSubtreeStream stream_list_body=new RewriteRuleSubtreeStream(adaptor,"rule list_body");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:178:2: ( '[' list_body ']' -> ^( PROVA_LIST list_body ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:178:4: '[' list_body ']'
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:171:2: ( '[' list_body ']' -> ^( PROVA_LIST list_body ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:171:4: '[' list_body ']'
             {
-            char_literal88=(Token)match(input,BRA,FOLLOW_BRA_in_prova_list983);  
-            stream_BRA.add(char_literal88);
+            char_literal98=(Token)match(input,BRA,FOLLOW_BRA_in_prova_list1059);  
+            stream_BRA.add(char_literal98);
 
-            pushFollow(FOLLOW_list_body_in_prova_list985);
-            list_body89=list_body();
+            pushFollow(FOLLOW_list_body_in_prova_list1061);
+            list_body99=list_body();
 
             state._fsp--;
 
-            stream_list_body.add(list_body89.getTree());
-            char_literal90=(Token)match(input,KET,FOLLOW_KET_in_prova_list987);  
-            stream_KET.add(char_literal90);
+            stream_list_body.add(list_body99.getTree());
+            char_literal100=(Token)match(input,KET,FOLLOW_KET_in_prova_list1063);  
+            stream_KET.add(char_literal100);
 
 
 
@@ -3318,9 +3598,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 178:22: -> ^( PROVA_LIST list_body )
+            // 171:22: -> ^( PROVA_LIST list_body )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:178:25: ^( PROVA_LIST list_body )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:171:25: ^( PROVA_LIST list_body )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(PROVA_LIST, "PROVA_LIST"), root_1);
@@ -3359,38 +3639,38 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "args"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:180:1: args : '(' list_body ')' -> ^( ARGS list_body ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:173:1: args : '(' list_body ')' -> ^( ARGS list_body ) ;
     public final Prova2Parser.args_return args() throws RecognitionException {
         Prova2Parser.args_return retval = new Prova2Parser.args_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token char_literal91=null;
-        Token char_literal93=null;
-        Prova2Parser.list_body_return list_body92 = null;
+        Token char_literal101=null;
+        Token char_literal103=null;
+        Prova2Parser.list_body_return list_body102 = null;
 
 
-        ProvaAST char_literal91_tree=null;
-        ProvaAST char_literal93_tree=null;
+        ProvaAST char_literal101_tree=null;
+        ProvaAST char_literal103_tree=null;
         RewriteRuleTokenStream stream_OPEN=new RewriteRuleTokenStream(adaptor,"token OPEN");
         RewriteRuleTokenStream stream_CLOSE=new RewriteRuleTokenStream(adaptor,"token CLOSE");
         RewriteRuleSubtreeStream stream_list_body=new RewriteRuleSubtreeStream(adaptor,"rule list_body");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:180:7: ( '(' list_body ')' -> ^( ARGS list_body ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:180:9: '(' list_body ')'
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:173:7: ( '(' list_body ')' -> ^( ARGS list_body ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:173:9: '(' list_body ')'
             {
-            char_literal91=(Token)match(input,OPEN,FOLLOW_OPEN_in_args1004);  
-            stream_OPEN.add(char_literal91);
+            char_literal101=(Token)match(input,OPEN,FOLLOW_OPEN_in_args1080);  
+            stream_OPEN.add(char_literal101);
 
-            pushFollow(FOLLOW_list_body_in_args1006);
-            list_body92=list_body();
+            pushFollow(FOLLOW_list_body_in_args1082);
+            list_body102=list_body();
 
             state._fsp--;
 
-            stream_list_body.add(list_body92.getTree());
-            char_literal93=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_args1008);  
-            stream_CLOSE.add(char_literal93);
+            stream_list_body.add(list_body102.getTree());
+            char_literal103=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_args1084);  
+            stream_CLOSE.add(char_literal103);
 
 
 
@@ -3405,9 +3685,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 180:27: -> ^( ARGS list_body )
+            // 173:27: -> ^( ARGS list_body )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:180:30: ^( ARGS list_body )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:173:30: ^( ARGS list_body )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(ARGS, "ARGS"), root_1);
@@ -3446,49 +3726,49 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "semantic_attachment"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:182:1: semantic_attachment : ( predicate_java_call | binary_operation );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:1: semantic_attachment : ( predicate_java_call | binary_operation );
     public final Prova2Parser.semantic_attachment_return semantic_attachment() throws RecognitionException {
         Prova2Parser.semantic_attachment_return retval = new Prova2Parser.semantic_attachment_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Prova2Parser.predicate_java_call_return predicate_java_call94 = null;
+        Prova2Parser.predicate_java_call_return predicate_java_call104 = null;
 
-        Prova2Parser.binary_operation_return binary_operation95 = null;
+        Prova2Parser.binary_operation_return binary_operation105 = null;
 
 
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:183:2: ( predicate_java_call | binary_operation )
-            int alt41=2;
-            alt41 = dfa41.predict(input);
-            switch (alt41) {
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:176:2: ( predicate_java_call | binary_operation )
+            int alt43=2;
+            alt43 = dfa43.predict(input);
+            switch (alt43) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:183:4: predicate_java_call
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:176:4: predicate_java_call
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_predicate_java_call_in_semantic_attachment1026);
-                    predicate_java_call94=predicate_java_call();
+                    pushFollow(FOLLOW_predicate_java_call_in_semantic_attachment1102);
+                    predicate_java_call104=predicate_java_call();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, predicate_java_call94.getTree());
+                    adaptor.addChild(root_0, predicate_java_call104.getTree());
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:183:26: binary_operation
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:176:26: binary_operation
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_binary_operation_in_semantic_attachment1030);
-                    binary_operation95=binary_operation();
+                    pushFollow(FOLLOW_binary_operation_in_semantic_attachment1106);
+                    binary_operation105=binary_operation();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, binary_operation95.getTree());
+                    adaptor.addChild(root_0, binary_operation105.getTree());
 
                     }
                     break;
@@ -3518,107 +3798,107 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "binary_operation"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:185:1: binary_operation : left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:178:1: binary_operation : left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr ) ;
     public final Prova2Parser.binary_operation_return binary_operation() throws RecognitionException {
         Prova2Parser.binary_operation_return retval = new Prova2Parser.binary_operation_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token EQUAL97=null;
-        Prova2Parser.left_term_return left_term96 = null;
+        Token EQUAL107=null;
+        Prova2Parser.left_term_return left_term106 = null;
 
-        Prova2Parser.constructor_java_call_return constructor_java_call98 = null;
+        Prova2Parser.constructor_java_call_return constructor_java_call108 = null;
 
-        Prova2Parser.prova_list_return prova_list99 = null;
+        Prova2Parser.prova_list_return prova_list109 = null;
 
-        Prova2Parser.constant_return constant100 = null;
+        Prova2Parser.constant_return constant110 = null;
 
-        Prova2Parser.expr_return expr101 = null;
+        Prova2Parser.expr_return expr111 = null;
 
-        Prova2Parser.not_equal_return not_equal102 = null;
+        Prova2Parser.not_equal_return not_equal112 = null;
 
-        Prova2Parser.constant_return constant103 = null;
+        Prova2Parser.constant_return constant113 = null;
 
-        Prova2Parser.binary_operator_return binary_operator104 = null;
+        Prova2Parser.binary_operator_return binary_operator114 = null;
 
-        Prova2Parser.expr_return expr105 = null;
+        Prova2Parser.expr_return expr115 = null;
 
 
-        ProvaAST EQUAL97_tree=null;
+        ProvaAST EQUAL107_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:186:2: ( left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:186:4: left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:179:2: ( left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:179:4: left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            pushFollow(FOLLOW_left_term_in_binary_operation1039);
-            left_term96=left_term();
+            pushFollow(FOLLOW_left_term_in_binary_operation1115);
+            left_term106=left_term();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, left_term96.getTree());
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:187:3: ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )
-            int alt43=3;
-            alt43 = dfa43.predict(input);
-            switch (alt43) {
+            adaptor.addChild(root_0, left_term106.getTree());
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:180:3: ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )
+            int alt45=3;
+            alt45 = dfa45.predict(input);
+            switch (alt45) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:187:5: EQUAL ( constructor_java_call | prova_list | constant | expr )
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:180:5: EQUAL ( constructor_java_call | prova_list | constant | expr )
                     {
-                    EQUAL97=(Token)match(input,EQUAL,FOLLOW_EQUAL_in_binary_operation1045); 
-                    EQUAL97_tree = (ProvaAST)adaptor.create(EQUAL97);
-                    adaptor.addChild(root_0, EQUAL97_tree);
+                    EQUAL107=(Token)match(input,EQUAL,FOLLOW_EQUAL_in_binary_operation1121); 
+                    EQUAL107_tree = (ProvaAST)adaptor.create(EQUAL107);
+                    adaptor.addChild(root_0, EQUAL107_tree);
 
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:188:4: ( constructor_java_call | prova_list | constant | expr )
-                    int alt42=4;
-                    alt42 = dfa42.predict(input);
-                    switch (alt42) {
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:181:4: ( constructor_java_call | prova_list | constant | expr )
+                    int alt44=4;
+                    alt44 = dfa44.predict(input);
+                    switch (alt44) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:189:4: constructor_java_call
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:182:4: constructor_java_call
                             {
-                            pushFollow(FOLLOW_constructor_java_call_in_binary_operation1055);
-                            constructor_java_call98=constructor_java_call();
+                            pushFollow(FOLLOW_constructor_java_call_in_binary_operation1131);
+                            constructor_java_call108=constructor_java_call();
 
                             state._fsp--;
 
-                            adaptor.addChild(root_0, constructor_java_call98.getTree());
+                            adaptor.addChild(root_0, constructor_java_call108.getTree());
 
                             }
                             break;
                         case 2 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:190:6: prova_list
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:183:6: prova_list
                             {
-                            pushFollow(FOLLOW_prova_list_in_binary_operation1062);
-                            prova_list99=prova_list();
+                            pushFollow(FOLLOW_prova_list_in_binary_operation1138);
+                            prova_list109=prova_list();
 
                             state._fsp--;
 
-                            adaptor.addChild(root_0, prova_list99.getTree());
+                            adaptor.addChild(root_0, prova_list109.getTree());
 
                             }
                             break;
                         case 3 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:191:6: constant
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:184:6: constant
                             {
-                            pushFollow(FOLLOW_constant_in_binary_operation1069);
-                            constant100=constant();
+                            pushFollow(FOLLOW_constant_in_binary_operation1145);
+                            constant110=constant();
 
                             state._fsp--;
 
-                            adaptor.addChild(root_0, constant100.getTree());
+                            adaptor.addChild(root_0, constant110.getTree());
 
                             }
                             break;
                         case 4 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:192:6: expr
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:185:6: expr
                             {
-                            pushFollow(FOLLOW_expr_in_binary_operation1076);
-                            expr101=expr();
+                            pushFollow(FOLLOW_expr_in_binary_operation1152);
+                            expr111=expr();
 
                             state._fsp--;
 
-                            adaptor.addChild(root_0, expr101.getTree());
+                            adaptor.addChild(root_0, expr111.getTree());
 
                             }
                             break;
@@ -3629,38 +3909,38 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:194:5: not_equal constant
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:187:5: not_equal constant
                     {
-                    pushFollow(FOLLOW_not_equal_in_binary_operation1087);
-                    not_equal102=not_equal();
+                    pushFollow(FOLLOW_not_equal_in_binary_operation1163);
+                    not_equal112=not_equal();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, not_equal102.getTree());
-                    pushFollow(FOLLOW_constant_in_binary_operation1089);
-                    constant103=constant();
+                    adaptor.addChild(root_0, not_equal112.getTree());
+                    pushFollow(FOLLOW_constant_in_binary_operation1165);
+                    constant113=constant();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, constant103.getTree());
+                    adaptor.addChild(root_0, constant113.getTree());
 
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:195:5: binary_operator expr
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:188:5: binary_operator expr
                     {
-                    pushFollow(FOLLOW_binary_operator_in_binary_operation1095);
-                    binary_operator104=binary_operator();
+                    pushFollow(FOLLOW_binary_operator_in_binary_operation1171);
+                    binary_operator114=binary_operator();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, binary_operator104.getTree());
-                    pushFollow(FOLLOW_expr_in_binary_operation1097);
-                    expr105=expr();
+                    adaptor.addChild(root_0, binary_operator114.getTree());
+                    pushFollow(FOLLOW_expr_in_binary_operation1173);
+                    expr115=expr();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, expr105.getTree());
+                    adaptor.addChild(root_0, expr115.getTree());
 
                     }
                     break;
@@ -3694,48 +3974,48 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "expr"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:198:1: expr : aterm ( ( PLUS | MINUS ) expr )? ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:191:1: expr : aterm ( ( PLUS | MINUS ) expr )? ;
     public final Prova2Parser.expr_return expr() throws RecognitionException {
         Prova2Parser.expr_return retval = new Prova2Parser.expr_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token set107=null;
-        Prova2Parser.aterm_return aterm106 = null;
+        Token set117=null;
+        Prova2Parser.aterm_return aterm116 = null;
 
-        Prova2Parser.expr_return expr108 = null;
+        Prova2Parser.expr_return expr118 = null;
 
 
-        ProvaAST set107_tree=null;
+        ProvaAST set117_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:198:6: ( aterm ( ( PLUS | MINUS ) expr )? )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:198:8: aterm ( ( PLUS | MINUS ) expr )?
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:191:6: ( aterm ( ( PLUS | MINUS ) expr )? )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:191:8: aterm ( ( PLUS | MINUS ) expr )?
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            pushFollow(FOLLOW_aterm_in_expr1109);
-            aterm106=aterm();
+            pushFollow(FOLLOW_aterm_in_expr1185);
+            aterm116=aterm();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, aterm106.getTree());
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:198:14: ( ( PLUS | MINUS ) expr )?
-            int alt44=2;
-            int LA44_0 = input.LA(1);
+            adaptor.addChild(root_0, aterm116.getTree());
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:191:14: ( ( PLUS | MINUS ) expr )?
+            int alt46=2;
+            int LA46_0 = input.LA(1);
 
-            if ( ((LA44_0>=PLUS && LA44_0<=MINUS)) ) {
-                alt44=1;
+            if ( ((LA46_0>=PLUS && LA46_0<=MINUS)) ) {
+                alt46=1;
             }
-            switch (alt44) {
+            switch (alt46) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:198:15: ( PLUS | MINUS ) expr
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:191:15: ( PLUS | MINUS ) expr
                     {
-                    set107=(Token)input.LT(1);
+                    set117=(Token)input.LT(1);
                     if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
                         input.consume();
-                        adaptor.addChild(root_0, (ProvaAST)adaptor.create(set107));
+                        adaptor.addChild(root_0, (ProvaAST)adaptor.create(set117));
                         state.errorRecovery=false;
                     }
                     else {
@@ -3743,12 +4023,12 @@ public class Prova2Parser extends Parser {
                         throw mse;
                     }
 
-                    pushFollow(FOLLOW_expr_in_expr1120);
-                    expr108=expr();
+                    pushFollow(FOLLOW_expr_in_expr1196);
+                    expr118=expr();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, expr108.getTree());
+                    adaptor.addChild(root_0, expr118.getTree());
 
                     }
                     break;
@@ -3782,62 +4062,62 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "aterm"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:1: aterm : ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )? ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:1: aterm : ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )? ;
     public final Prova2Parser.aterm_return aterm() throws RecognitionException {
         Prova2Parser.aterm_return retval = new Prova2Parser.aterm_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token MINUS109=null;
-        Token MINUS112=null;
-        Token OPEN114=null;
-        Token CLOSE116=null;
-        Token set117=null;
-        Prova2Parser.variable_return variable110 = null;
+        Token MINUS119=null;
+        Token MINUS122=null;
+        Token OPEN124=null;
+        Token CLOSE126=null;
+        Token set127=null;
+        Prova2Parser.variable_return variable120 = null;
 
-        Prova2Parser.number_return number111 = null;
+        Prova2Parser.number_return number121 = null;
 
-        Prova2Parser.predicate_java_call_return predicate_java_call113 = null;
+        Prova2Parser.predicate_java_call_return predicate_java_call123 = null;
 
-        Prova2Parser.expr_return expr115 = null;
+        Prova2Parser.expr_return expr125 = null;
 
-        Prova2Parser.aterm_return aterm118 = null;
+        Prova2Parser.aterm_return aterm128 = null;
 
 
-        ProvaAST MINUS109_tree=null;
-        ProvaAST MINUS112_tree=null;
-        ProvaAST OPEN114_tree=null;
-        ProvaAST CLOSE116_tree=null;
-        ProvaAST set117_tree=null;
+        ProvaAST MINUS119_tree=null;
+        ProvaAST MINUS122_tree=null;
+        ProvaAST OPEN124_tree=null;
+        ProvaAST CLOSE126_tree=null;
+        ProvaAST set127_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:7: ( ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )? )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )?
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:7: ( ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )? )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )?
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE )
-            int alt47=4;
-            alt47 = dfa47.predict(input);
-            switch (alt47) {
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE )
+            int alt49=4;
+            alt49 = dfa49.predict(input);
+            switch (alt49) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:10: ( MINUS )? variable
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:10: ( MINUS )? variable
                     {
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:10: ( MINUS )?
-                    int alt45=2;
-                    int LA45_0 = input.LA(1);
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:10: ( MINUS )?
+                    int alt47=2;
+                    int LA47_0 = input.LA(1);
 
-                    if ( (LA45_0==MINUS) ) {
-                        alt45=1;
+                    if ( (LA47_0==MINUS) ) {
+                        alt47=1;
                     }
-                    switch (alt45) {
+                    switch (alt47) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:10: MINUS
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:10: MINUS
                             {
-                            MINUS109=(Token)match(input,MINUS,FOLLOW_MINUS_in_aterm1132); 
-                            MINUS109_tree = (ProvaAST)adaptor.create(MINUS109);
-                            adaptor.addChild(root_0, MINUS109_tree);
+                            MINUS119=(Token)match(input,MINUS,FOLLOW_MINUS_in_aterm1208); 
+                            MINUS119_tree = (ProvaAST)adaptor.create(MINUS119);
+                            adaptor.addChild(root_0, MINUS119_tree);
 
 
                             }
@@ -3845,44 +4125,44 @@ public class Prova2Parser extends Parser {
 
                     }
 
-                    pushFollow(FOLLOW_variable_in_aterm1135);
-                    variable110=variable();
+                    pushFollow(FOLLOW_variable_in_aterm1211);
+                    variable120=variable();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, variable110.getTree());
+                    adaptor.addChild(root_0, variable120.getTree());
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:28: number
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:28: number
                     {
-                    pushFollow(FOLLOW_number_in_aterm1139);
-                    number111=number();
+                    pushFollow(FOLLOW_number_in_aterm1215);
+                    number121=number();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, number111.getTree());
+                    adaptor.addChild(root_0, number121.getTree());
 
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:37: ( MINUS )? predicate_java_call
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:37: ( MINUS )? predicate_java_call
                     {
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:37: ( MINUS )?
-                    int alt46=2;
-                    int LA46_0 = input.LA(1);
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:37: ( MINUS )?
+                    int alt48=2;
+                    int LA48_0 = input.LA(1);
 
-                    if ( (LA46_0==MINUS) ) {
-                        alt46=1;
+                    if ( (LA48_0==MINUS) ) {
+                        alt48=1;
                     }
-                    switch (alt46) {
+                    switch (alt48) {
                         case 1 :
-                            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:37: MINUS
+                            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:37: MINUS
                             {
-                            MINUS112=(Token)match(input,MINUS,FOLLOW_MINUS_in_aterm1143); 
-                            MINUS112_tree = (ProvaAST)adaptor.create(MINUS112);
-                            adaptor.addChild(root_0, MINUS112_tree);
+                            MINUS122=(Token)match(input,MINUS,FOLLOW_MINUS_in_aterm1219); 
+                            MINUS122_tree = (ProvaAST)adaptor.create(MINUS122);
+                            adaptor.addChild(root_0, MINUS122_tree);
 
 
                             }
@@ -3890,31 +4170,31 @@ public class Prova2Parser extends Parser {
 
                     }
 
-                    pushFollow(FOLLOW_predicate_java_call_in_aterm1146);
-                    predicate_java_call113=predicate_java_call();
+                    pushFollow(FOLLOW_predicate_java_call_in_aterm1222);
+                    predicate_java_call123=predicate_java_call();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, predicate_java_call113.getTree());
+                    adaptor.addChild(root_0, predicate_java_call123.getTree());
 
                     }
                     break;
                 case 4 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:66: OPEN expr CLOSE
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:66: OPEN expr CLOSE
                     {
-                    OPEN114=(Token)match(input,OPEN,FOLLOW_OPEN_in_aterm1150); 
-                    OPEN114_tree = (ProvaAST)adaptor.create(OPEN114);
-                    adaptor.addChild(root_0, OPEN114_tree);
+                    OPEN124=(Token)match(input,OPEN,FOLLOW_OPEN_in_aterm1226); 
+                    OPEN124_tree = (ProvaAST)adaptor.create(OPEN124);
+                    adaptor.addChild(root_0, OPEN124_tree);
 
-                    pushFollow(FOLLOW_expr_in_aterm1152);
-                    expr115=expr();
+                    pushFollow(FOLLOW_expr_in_aterm1228);
+                    expr125=expr();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, expr115.getTree());
-                    CLOSE116=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_aterm1154); 
-                    CLOSE116_tree = (ProvaAST)adaptor.create(CLOSE116);
-                    adaptor.addChild(root_0, CLOSE116_tree);
+                    adaptor.addChild(root_0, expr125.getTree());
+                    CLOSE126=(Token)match(input,CLOSE,FOLLOW_CLOSE_in_aterm1230); 
+                    CLOSE126_tree = (ProvaAST)adaptor.create(CLOSE126);
+                    adaptor.addChild(root_0, CLOSE126_tree);
 
 
                     }
@@ -3922,21 +4202,21 @@ public class Prova2Parser extends Parser {
 
             }
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:83: ( ( MULT | DIV | REM ) aterm )?
-            int alt48=2;
-            int LA48_0 = input.LA(1);
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:83: ( ( MULT | DIV | REM ) aterm )?
+            int alt50=2;
+            int LA50_0 = input.LA(1);
 
-            if ( ((LA48_0>=MULT && LA48_0<=DIV)||LA48_0==REM) ) {
-                alt48=1;
+            if ( ((LA50_0>=MULT && LA50_0<=DIV)||LA50_0==REM) ) {
+                alt50=1;
             }
-            switch (alt48) {
+            switch (alt50) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:84: ( MULT | DIV | REM ) aterm
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:84: ( MULT | DIV | REM ) aterm
                     {
-                    set117=(Token)input.LT(1);
+                    set127=(Token)input.LT(1);
                     if ( (input.LA(1)>=MULT && input.LA(1)<=DIV)||input.LA(1)==REM ) {
                         input.consume();
-                        adaptor.addChild(root_0, (ProvaAST)adaptor.create(set117));
+                        adaptor.addChild(root_0, (ProvaAST)adaptor.create(set127));
                         state.errorRecovery=false;
                     }
                     else {
@@ -3944,12 +4224,12 @@ public class Prova2Parser extends Parser {
                         throw mse;
                     }
 
-                    pushFollow(FOLLOW_aterm_in_aterm1172);
-                    aterm118=aterm();
+                    pushFollow(FOLLOW_aterm_in_aterm1248);
+                    aterm128=aterm();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, aterm118.getTree());
+                    adaptor.addChild(root_0, aterm128.getTree());
 
                     }
                     break;
@@ -3983,62 +4263,62 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "constructor_java_call"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:202:1: constructor_java_call : ( qualified_java_class | UCWORD ) args ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:195:1: constructor_java_call : ( qualified_java_class | UCWORD ) args ;
     public final Prova2Parser.constructor_java_call_return constructor_java_call() throws RecognitionException {
         Prova2Parser.constructor_java_call_return retval = new Prova2Parser.constructor_java_call_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token UCWORD120=null;
-        Prova2Parser.qualified_java_class_return qualified_java_class119 = null;
+        Token UCWORD130=null;
+        Prova2Parser.qualified_java_class_return qualified_java_class129 = null;
 
-        Prova2Parser.args_return args121 = null;
+        Prova2Parser.args_return args131 = null;
 
 
-        ProvaAST UCWORD120_tree=null;
+        ProvaAST UCWORD130_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:203:2: ( ( qualified_java_class | UCWORD ) args )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:203:4: ( qualified_java_class | UCWORD ) args
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:196:2: ( ( qualified_java_class | UCWORD ) args )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:196:4: ( qualified_java_class | UCWORD ) args
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:203:4: ( qualified_java_class | UCWORD )
-            int alt49=2;
-            int LA49_0 = input.LA(1);
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:196:4: ( qualified_java_class | UCWORD )
+            int alt51=2;
+            int LA51_0 = input.LA(1);
 
-            if ( (LA49_0==LCWORD) ) {
-                alt49=1;
+            if ( (LA51_0==LCWORD) ) {
+                alt51=1;
             }
-            else if ( (LA49_0==UCWORD) ) {
-                alt49=2;
+            else if ( (LA51_0==UCWORD) ) {
+                alt51=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 49, 0, input);
+                    new NoViableAltException("", 51, 0, input);
 
                 throw nvae;
             }
-            switch (alt49) {
+            switch (alt51) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:203:5: qualified_java_class
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:196:5: qualified_java_class
                     {
-                    pushFollow(FOLLOW_qualified_java_class_in_constructor_java_call1184);
-                    qualified_java_class119=qualified_java_class();
+                    pushFollow(FOLLOW_qualified_java_class_in_constructor_java_call1260);
+                    qualified_java_class129=qualified_java_class();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, qualified_java_class119.getTree());
+                    adaptor.addChild(root_0, qualified_java_class129.getTree());
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:203:28: UCWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:196:28: UCWORD
                     {
-                    UCWORD120=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_constructor_java_call1188); 
-                    UCWORD120_tree = (ProvaAST)adaptor.create(UCWORD120);
-                    adaptor.addChild(root_0, UCWORD120_tree);
+                    UCWORD130=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_constructor_java_call1264); 
+                    UCWORD130_tree = (ProvaAST)adaptor.create(UCWORD130);
+                    adaptor.addChild(root_0, UCWORD130_tree);
 
 
                     }
@@ -4046,12 +4326,12 @@ public class Prova2Parser extends Parser {
 
             }
 
-            pushFollow(FOLLOW_args_in_constructor_java_call1191);
-            args121=args();
+            pushFollow(FOLLOW_args_in_constructor_java_call1267);
+            args131=args();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, args121.getTree());
+            adaptor.addChild(root_0, args131.getTree());
 
             }
 
@@ -4079,49 +4359,49 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "predicate_java_call"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:206:1: predicate_java_call : ( static_java_call | instance_java_call );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:1: predicate_java_call : ( static_java_call | instance_java_call );
     public final Prova2Parser.predicate_java_call_return predicate_java_call() throws RecognitionException {
         Prova2Parser.predicate_java_call_return retval = new Prova2Parser.predicate_java_call_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Prova2Parser.static_java_call_return static_java_call122 = null;
+        Prova2Parser.static_java_call_return static_java_call132 = null;
 
-        Prova2Parser.instance_java_call_return instance_java_call123 = null;
+        Prova2Parser.instance_java_call_return instance_java_call133 = null;
 
 
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:207:2: ( static_java_call | instance_java_call )
-            int alt50=2;
-            alt50 = dfa50.predict(input);
-            switch (alt50) {
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:2: ( static_java_call | instance_java_call )
+            int alt52=2;
+            alt52 = dfa52.predict(input);
+            switch (alt52) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:207:4: static_java_call
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:4: static_java_call
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_static_java_call_in_predicate_java_call1202);
-                    static_java_call122=static_java_call();
+                    pushFollow(FOLLOW_static_java_call_in_predicate_java_call1278);
+                    static_java_call132=static_java_call();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, static_java_call122.getTree());
+                    adaptor.addChild(root_0, static_java_call132.getTree());
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:207:23: instance_java_call
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:200:23: instance_java_call
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_instance_java_call_in_predicate_java_call1206);
-                    instance_java_call123=instance_java_call();
+                    pushFollow(FOLLOW_instance_java_call_in_predicate_java_call1282);
+                    instance_java_call133=instance_java_call();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, instance_java_call123.getTree());
+                    adaptor.addChild(root_0, instance_java_call133.getTree());
 
                     }
                     break;
@@ -4151,36 +4431,36 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "instance_java_call"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:210:1: instance_java_call : instance_call args -> ^( INSTANCE_JAVA_CALL instance_call args ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:203:1: instance_java_call : instance_call args -> ^( INSTANCE_JAVA_CALL instance_call args ) ;
     public final Prova2Parser.instance_java_call_return instance_java_call() throws RecognitionException {
         Prova2Parser.instance_java_call_return retval = new Prova2Parser.instance_java_call_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Prova2Parser.instance_call_return instance_call124 = null;
+        Prova2Parser.instance_call_return instance_call134 = null;
 
-        Prova2Parser.args_return args125 = null;
+        Prova2Parser.args_return args135 = null;
 
 
         RewriteRuleSubtreeStream stream_instance_call=new RewriteRuleSubtreeStream(adaptor,"rule instance_call");
         RewriteRuleSubtreeStream stream_args=new RewriteRuleSubtreeStream(adaptor,"rule args");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:211:2: ( instance_call args -> ^( INSTANCE_JAVA_CALL instance_call args ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:211:4: instance_call args
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:2: ( instance_call args -> ^( INSTANCE_JAVA_CALL instance_call args ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:4: instance_call args
             {
-            pushFollow(FOLLOW_instance_call_in_instance_java_call1217);
-            instance_call124=instance_call();
+            pushFollow(FOLLOW_instance_call_in_instance_java_call1293);
+            instance_call134=instance_call();
 
             state._fsp--;
 
-            stream_instance_call.add(instance_call124.getTree());
-            pushFollow(FOLLOW_args_in_instance_java_call1219);
-            args125=args();
+            stream_instance_call.add(instance_call134.getTree());
+            pushFollow(FOLLOW_args_in_instance_java_call1295);
+            args135=args();
 
             state._fsp--;
 
-            stream_args.add(args125.getTree());
+            stream_args.add(args135.getTree());
 
 
             // AST REWRITE
@@ -4194,9 +4474,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 211:23: -> ^( INSTANCE_JAVA_CALL instance_call args )
+            // 204:23: -> ^( INSTANCE_JAVA_CALL instance_call args )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:211:26: ^( INSTANCE_JAVA_CALL instance_call args )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:26: ^( INSTANCE_JAVA_CALL instance_call args )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(INSTANCE_JAVA_CALL, "INSTANCE_JAVA_CALL"), root_1);
@@ -4236,36 +4516,36 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "static_java_call"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:214:1: static_java_call : static_call args -> ^( STATIC_JAVA_CALL static_call args ) ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:207:1: static_java_call : static_call args -> ^( STATIC_JAVA_CALL static_call args ) ;
     public final Prova2Parser.static_java_call_return static_java_call() throws RecognitionException {
         Prova2Parser.static_java_call_return retval = new Prova2Parser.static_java_call_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Prova2Parser.static_call_return static_call126 = null;
+        Prova2Parser.static_call_return static_call136 = null;
 
-        Prova2Parser.args_return args127 = null;
+        Prova2Parser.args_return args137 = null;
 
 
         RewriteRuleSubtreeStream stream_static_call=new RewriteRuleSubtreeStream(adaptor,"rule static_call");
         RewriteRuleSubtreeStream stream_args=new RewriteRuleSubtreeStream(adaptor,"rule args");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:215:2: ( static_call args -> ^( STATIC_JAVA_CALL static_call args ) )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:215:4: static_call args
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:208:2: ( static_call args -> ^( STATIC_JAVA_CALL static_call args ) )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:208:4: static_call args
             {
-            pushFollow(FOLLOW_static_call_in_static_java_call1240);
-            static_call126=static_call();
+            pushFollow(FOLLOW_static_call_in_static_java_call1316);
+            static_call136=static_call();
 
             state._fsp--;
 
-            stream_static_call.add(static_call126.getTree());
-            pushFollow(FOLLOW_args_in_static_java_call1242);
-            args127=args();
+            stream_static_call.add(static_call136.getTree());
+            pushFollow(FOLLOW_args_in_static_java_call1318);
+            args137=args();
 
             state._fsp--;
 
-            stream_args.add(args127.getTree());
+            stream_args.add(args137.getTree());
 
 
             // AST REWRITE
@@ -4279,9 +4559,9 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 215:21: -> ^( STATIC_JAVA_CALL static_call args )
+            // 208:21: -> ^( STATIC_JAVA_CALL static_call args )
             {
-                // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:215:24: ^( STATIC_JAVA_CALL static_call args )
+                // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:208:24: ^( STATIC_JAVA_CALL static_call args )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(STATIC_JAVA_CALL, "STATIC_JAVA_CALL"), root_1);
@@ -4321,26 +4601,26 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "method"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:218:1: method : LCWORD ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:211:1: method : LCWORD ;
     public final Prova2Parser.method_return method() throws RecognitionException {
         Prova2Parser.method_return retval = new Prova2Parser.method_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token LCWORD128=null;
+        Token LCWORD138=null;
 
-        ProvaAST LCWORD128_tree=null;
+        ProvaAST LCWORD138_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:218:9: ( LCWORD )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:218:11: LCWORD
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:211:9: ( LCWORD )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:211:11: LCWORD
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            LCWORD128=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_method1263); 
-            LCWORD128_tree = (ProvaAST)adaptor.create(LCWORD128);
-            adaptor.addChild(root_0, LCWORD128_tree);
+            LCWORD138=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_method1339); 
+            LCWORD138_tree = (ProvaAST)adaptor.create(LCWORD138);
+            adaptor.addChild(root_0, LCWORD138_tree);
 
 
             }
@@ -4369,40 +4649,40 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "func"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:220:1: func : ( LCWORD | UCWORD | string | typed_variable );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:213:1: func : ( LCWORD | UCWORD | string | typed_variable );
     public final Prova2Parser.func_return func() throws RecognitionException {
         Prova2Parser.func_return retval = new Prova2Parser.func_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token LCWORD129=null;
-        Token UCWORD130=null;
-        Prova2Parser.string_return string131 = null;
+        Token LCWORD139=null;
+        Token UCWORD140=null;
+        Prova2Parser.string_return string141 = null;
 
-        Prova2Parser.typed_variable_return typed_variable132 = null;
+        Prova2Parser.typed_variable_return typed_variable142 = null;
 
 
-        ProvaAST LCWORD129_tree=null;
-        ProvaAST UCWORD130_tree=null;
+        ProvaAST LCWORD139_tree=null;
+        ProvaAST UCWORD140_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:220:6: ( LCWORD | UCWORD | string | typed_variable )
-            int alt51=4;
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:213:6: ( LCWORD | UCWORD | string | typed_variable )
+            int alt53=4;
             switch ( input.LA(1) ) {
             case LCWORD:
                 {
-                int LA51_1 = input.LA(2);
+                int LA53_1 = input.LA(2);
 
-                if ( (LA51_1==DOT) ) {
-                    alt51=4;
+                if ( (LA53_1==DOT) ) {
+                    alt53=4;
                 }
-                else if ( (LA51_1==OPEN) ) {
-                    alt51=1;
+                else if ( (LA53_1==OPEN) ) {
+                    alt53=1;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 51, 1, input);
+                        new NoViableAltException("", 53, 1, input);
 
                     throw nvae;
                 }
@@ -4410,17 +4690,17 @@ public class Prova2Parser extends Parser {
                 break;
             case UCWORD:
                 {
-                int LA51_2 = input.LA(2);
+                int LA53_2 = input.LA(2);
 
-                if ( (LA51_2==DOT) ) {
-                    alt51=4;
+                if ( (LA53_2==DOT) ) {
+                    alt53=4;
                 }
-                else if ( (LA51_2==OPEN) ) {
-                    alt51=2;
+                else if ( (LA53_2==OPEN) ) {
+                    alt53=2;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 51, 2, input);
+                        new NoViableAltException("", 53, 2, input);
 
                     throw nvae;
                 }
@@ -4429,66 +4709,66 @@ public class Prova2Parser extends Parser {
             case STRING1:
             case STRING2:
                 {
-                alt51=3;
+                alt53=3;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 51, 0, input);
+                    new NoViableAltException("", 53, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt51) {
+            switch (alt53) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:220:8: LCWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:213:8: LCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    LCWORD129=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_func1271); 
-                    LCWORD129_tree = (ProvaAST)adaptor.create(LCWORD129);
-                    adaptor.addChild(root_0, LCWORD129_tree);
+                    LCWORD139=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_func1347); 
+                    LCWORD139_tree = (ProvaAST)adaptor.create(LCWORD139);
+                    adaptor.addChild(root_0, LCWORD139_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:220:17: UCWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:213:17: UCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    UCWORD130=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_func1275); 
-                    UCWORD130_tree = (ProvaAST)adaptor.create(UCWORD130);
-                    adaptor.addChild(root_0, UCWORD130_tree);
+                    UCWORD140=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_func1351); 
+                    UCWORD140_tree = (ProvaAST)adaptor.create(UCWORD140);
+                    adaptor.addChild(root_0, UCWORD140_tree);
 
 
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:220:26: string
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:213:26: string
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_string_in_func1279);
-                    string131=string();
+                    pushFollow(FOLLOW_string_in_func1355);
+                    string141=string();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, string131.getTree());
+                    adaptor.addChild(root_0, string141.getTree());
 
                     }
                     break;
                 case 4 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:220:35: typed_variable
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:213:35: typed_variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_typed_variable_in_func1283);
-                    typed_variable132=typed_variable();
+                    pushFollow(FOLLOW_typed_variable_in_func1359);
+                    typed_variable142=typed_variable();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, typed_variable132.getTree());
+                    adaptor.addChild(root_0, typed_variable142.getTree());
 
                     }
                     break;
@@ -4518,84 +4798,84 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "predicate"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:222:1: predicate : ( LCWORD | UCWORD | string );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:215:1: predicate : ( LCWORD | UCWORD | string );
     public final Prova2Parser.predicate_return predicate() throws RecognitionException {
         Prova2Parser.predicate_return retval = new Prova2Parser.predicate_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token LCWORD133=null;
-        Token UCWORD134=null;
-        Prova2Parser.string_return string135 = null;
+        Token LCWORD143=null;
+        Token UCWORD144=null;
+        Prova2Parser.string_return string145 = null;
 
 
-        ProvaAST LCWORD133_tree=null;
-        ProvaAST UCWORD134_tree=null;
+        ProvaAST LCWORD143_tree=null;
+        ProvaAST UCWORD144_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:223:2: ( LCWORD | UCWORD | string )
-            int alt52=3;
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:2: ( LCWORD | UCWORD | string )
+            int alt54=3;
             switch ( input.LA(1) ) {
             case LCWORD:
                 {
-                alt52=1;
+                alt54=1;
                 }
                 break;
             case UCWORD:
                 {
-                alt52=2;
+                alt54=2;
                 }
                 break;
             case STRING1:
             case STRING2:
                 {
-                alt52=3;
+                alt54=3;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 52, 0, input);
+                    new NoViableAltException("", 54, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt52) {
+            switch (alt54) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:223:4: LCWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:4: LCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    LCWORD133=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_predicate1293); 
-                    LCWORD133_tree = (ProvaAST)adaptor.create(LCWORD133);
-                    adaptor.addChild(root_0, LCWORD133_tree);
+                    LCWORD143=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_predicate1369); 
+                    LCWORD143_tree = (ProvaAST)adaptor.create(LCWORD143);
+                    adaptor.addChild(root_0, LCWORD143_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:223:13: UCWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:13: UCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    UCWORD134=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_predicate1297); 
-                    UCWORD134_tree = (ProvaAST)adaptor.create(UCWORD134);
-                    adaptor.addChild(root_0, UCWORD134_tree);
+                    UCWORD144=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_predicate1373); 
+                    UCWORD144_tree = (ProvaAST)adaptor.create(UCWORD144);
+                    adaptor.addChild(root_0, UCWORD144_tree);
 
 
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:223:22: string
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:22: string
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_string_in_predicate1301);
-                    string135=string();
+                    pushFollow(FOLLOW_string_in_predicate1377);
+                    string145=string();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, string135.getTree());
+                    adaptor.addChild(root_0, string145.getTree());
 
                     }
                     break;
@@ -4625,52 +4905,52 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "variable"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:225:1: variable : ( UCWORD | USWORD | typed_variable | DOLLARWORD );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:218:1: variable : ( UCWORD | USWORD | typed_variable | DOLLARWORD );
     public final Prova2Parser.variable_return variable() throws RecognitionException {
         Prova2Parser.variable_return retval = new Prova2Parser.variable_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token UCWORD136=null;
-        Token USWORD137=null;
-        Token DOLLARWORD139=null;
-        Prova2Parser.typed_variable_return typed_variable138 = null;
+        Token UCWORD146=null;
+        Token USWORD147=null;
+        Token DOLLARWORD149=null;
+        Prova2Parser.typed_variable_return typed_variable148 = null;
 
 
-        ProvaAST UCWORD136_tree=null;
-        ProvaAST USWORD137_tree=null;
-        ProvaAST DOLLARWORD139_tree=null;
+        ProvaAST UCWORD146_tree=null;
+        ProvaAST USWORD147_tree=null;
+        ProvaAST DOLLARWORD149_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:225:9: ( UCWORD | USWORD | typed_variable | DOLLARWORD )
-            int alt53=4;
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:218:9: ( UCWORD | USWORD | typed_variable | DOLLARWORD )
+            int alt55=4;
             switch ( input.LA(1) ) {
             case UCWORD:
                 {
-                int LA53_1 = input.LA(2);
+                int LA55_1 = input.LA(2);
 
-                if ( (LA53_1==DOT) ) {
+                if ( (LA55_1==DOT) ) {
                     switch ( input.LA(3) ) {
                     case EOF:
                     case NEWLINE:
                         {
-                        alt53=1;
+                        alt55=1;
                         }
                         break;
                     case LCWORD:
                         {
-                        int LA53_7 = input.LA(4);
+                        int LA55_7 = input.LA(4);
 
-                        if ( (LA53_7==OPEN) ) {
-                            alt53=1;
+                        if ( (LA55_7==EOF||(LA55_7>=DOT && LA55_7<=COMMA)||(LA55_7>=CLOSE && LA55_7<=GE)||LA55_7==REM||LA55_7==NEWLINE||LA55_7==71) ) {
+                            alt55=3;
                         }
-                        else if ( (LA53_7==EOF||(LA53_7>=DOT && LA53_7<=COMMA)||(LA53_7>=CLOSE && LA53_7<=GE)||LA53_7==REM||LA53_7==NEWLINE) ) {
-                            alt53=3;
+                        else if ( (LA55_7==OPEN) ) {
+                            alt55=1;
                         }
                         else {
                             NoViableAltException nvae =
-                                new NoViableAltException("", 53, 7, input);
+                                new NoViableAltException("", 55, 7, input);
 
                             throw nvae;
                         }
@@ -4678,23 +4958,23 @@ public class Prova2Parser extends Parser {
                         break;
                     case UCWORD:
                         {
-                        alt53=3;
+                        alt55=3;
                         }
                         break;
                     default:
                         NoViableAltException nvae =
-                            new NoViableAltException("", 53, 5, input);
+                            new NoViableAltException("", 55, 5, input);
 
                         throw nvae;
                     }
 
                 }
-                else if ( (LA53_1==EOF||(LA53_1>=PLUS && LA53_1<=COMMA)||(LA53_1>=CLOSE && LA53_1<=GE)||LA53_1==REM||LA53_1==NEWLINE) ) {
-                    alt53=1;
+                else if ( (LA55_1==EOF||(LA55_1>=PLUS && LA55_1<=COMMA)||(LA55_1>=CLOSE && LA55_1<=GE)||LA55_1==REM||LA55_1==NEWLINE||LA55_1==71) ) {
+                    alt55=1;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 53, 1, input);
+                        new NoViableAltException("", 55, 1, input);
 
                     throw nvae;
                 }
@@ -4702,73 +4982,73 @@ public class Prova2Parser extends Parser {
                 break;
             case USWORD:
                 {
-                alt53=2;
+                alt55=2;
                 }
                 break;
             case LCWORD:
                 {
-                alt53=3;
+                alt55=3;
                 }
                 break;
             case DOLLARWORD:
                 {
-                alt53=4;
+                alt55=4;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 53, 0, input);
+                    new NoViableAltException("", 55, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt53) {
+            switch (alt55) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:225:11: UCWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:218:11: UCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    UCWORD136=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_variable1308); 
-                    UCWORD136_tree = (ProvaAST)adaptor.create(UCWORD136);
-                    adaptor.addChild(root_0, UCWORD136_tree);
+                    UCWORD146=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_variable1384); 
+                    UCWORD146_tree = (ProvaAST)adaptor.create(UCWORD146);
+                    adaptor.addChild(root_0, UCWORD146_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:225:20: USWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:218:20: USWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    USWORD137=(Token)match(input,USWORD,FOLLOW_USWORD_in_variable1312); 
-                    USWORD137_tree = (ProvaAST)adaptor.create(USWORD137);
-                    adaptor.addChild(root_0, USWORD137_tree);
+                    USWORD147=(Token)match(input,USWORD,FOLLOW_USWORD_in_variable1388); 
+                    USWORD147_tree = (ProvaAST)adaptor.create(USWORD147);
+                    adaptor.addChild(root_0, USWORD147_tree);
 
 
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:225:29: typed_variable
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:218:29: typed_variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_typed_variable_in_variable1316);
-                    typed_variable138=typed_variable();
+                    pushFollow(FOLLOW_typed_variable_in_variable1392);
+                    typed_variable148=typed_variable();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, typed_variable138.getTree());
+                    adaptor.addChild(root_0, typed_variable148.getTree());
 
                     }
                     break;
                 case 4 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:225:46: DOLLARWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:218:46: DOLLARWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    DOLLARWORD139=(Token)match(input,DOLLARWORD,FOLLOW_DOLLARWORD_in_variable1320); 
-                    DOLLARWORD139_tree = (ProvaAST)adaptor.create(DOLLARWORD139);
-                    adaptor.addChild(root_0, DOLLARWORD139_tree);
+                    DOLLARWORD149=(Token)match(input,DOLLARWORD,FOLLOW_DOLLARWORD_in_variable1396); 
+                    DOLLARWORD149_tree = (ProvaAST)adaptor.create(DOLLARWORD149);
+                    adaptor.addChild(root_0, DOLLARWORD149_tree);
 
 
                     }
@@ -4799,62 +5079,62 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "variable_or_number"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:227:1: variable_or_number : ( variable | number );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:220:1: variable_or_number : ( variable | number );
     public final Prova2Parser.variable_or_number_return variable_or_number() throws RecognitionException {
         Prova2Parser.variable_or_number_return retval = new Prova2Parser.variable_or_number_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Prova2Parser.variable_return variable140 = null;
+        Prova2Parser.variable_return variable150 = null;
 
-        Prova2Parser.number_return number141 = null;
+        Prova2Parser.number_return number151 = null;
 
 
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:228:2: ( variable | number )
-            int alt54=2;
-            int LA54_0 = input.LA(1);
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:2: ( variable | number )
+            int alt56=2;
+            int LA56_0 = input.LA(1);
 
-            if ( (LA54_0==USWORD||LA54_0==DOLLARWORD||(LA54_0>=LCWORD && LA54_0<=UCWORD)) ) {
-                alt54=1;
+            if ( (LA56_0==USWORD||LA56_0==DOLLARWORD||(LA56_0>=LCWORD && LA56_0<=UCWORD)) ) {
+                alt56=1;
             }
-            else if ( (LA54_0==MINUS||(LA54_0>=INT_LITERAL && LA54_0<=LONG_LITERAL)) ) {
-                alt54=2;
+            else if ( (LA56_0==MINUS||(LA56_0>=INT_LITERAL && LA56_0<=LONG_LITERAL)) ) {
+                alt56=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 54, 0, input);
+                    new NoViableAltException("", 56, 0, input);
 
                 throw nvae;
             }
-            switch (alt54) {
+            switch (alt56) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:228:4: variable
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:4: variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_variable_in_variable_or_number1330);
-                    variable140=variable();
+                    pushFollow(FOLLOW_variable_in_variable_or_number1406);
+                    variable150=variable();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, variable140.getTree());
+                    adaptor.addChild(root_0, variable150.getTree());
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:228:15: number
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:15: number
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_number_in_variable_or_number1334);
-                    number141=number();
+                    pushFollow(FOLLOW_number_in_variable_or_number1410);
+                    number151=number();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, number141.getTree());
+                    adaptor.addChild(root_0, number151.getTree());
 
                     }
                     break;
@@ -4884,27 +5164,27 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "word"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:230:1: word : ( LCWORD | UCWORD );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:223:1: word : ( LCWORD | UCWORD );
     public final Prova2Parser.word_return word() throws RecognitionException {
         Prova2Parser.word_return retval = new Prova2Parser.word_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token set142=null;
+        Token set152=null;
 
-        ProvaAST set142_tree=null;
+        ProvaAST set152_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:230:6: ( LCWORD | UCWORD )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:223:6: ( LCWORD | UCWORD )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            set142=(Token)input.LT(1);
+            set152=(Token)input.LT(1);
             if ( (input.LA(1)>=LCWORD && input.LA(1)<=UCWORD) ) {
                 input.consume();
-                adaptor.addChild(root_0, (ProvaAST)adaptor.create(set142));
+                adaptor.addChild(root_0, (ProvaAST)adaptor.create(set152));
                 state.errorRecovery=false;
             }
             else {
@@ -4939,66 +5219,66 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "typed_variable"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:235:1: typed_variable : ( qualified_java_class DOT word -> ^( TYPED_VARIABLE qualified_java_class word ) | UCWORD DOT word -> ^( TYPED_VARIABLE UCWORD word ) );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:228:1: typed_variable : ( qualified_java_class DOT word -> ^( TYPED_VARIABLE qualified_java_class word ) | UCWORD DOT word -> ^( TYPED_VARIABLE UCWORD word ) );
     public final Prova2Parser.typed_variable_return typed_variable() throws RecognitionException {
         Prova2Parser.typed_variable_return retval = new Prova2Parser.typed_variable_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token DOT144=null;
-        Token UCWORD146=null;
-        Token DOT147=null;
-        Prova2Parser.qualified_java_class_return qualified_java_class143 = null;
+        Token DOT154=null;
+        Token UCWORD156=null;
+        Token DOT157=null;
+        Prova2Parser.qualified_java_class_return qualified_java_class153 = null;
 
-        Prova2Parser.word_return word145 = null;
+        Prova2Parser.word_return word155 = null;
 
-        Prova2Parser.word_return word148 = null;
+        Prova2Parser.word_return word158 = null;
 
 
-        ProvaAST DOT144_tree=null;
-        ProvaAST UCWORD146_tree=null;
-        ProvaAST DOT147_tree=null;
+        ProvaAST DOT154_tree=null;
+        ProvaAST UCWORD156_tree=null;
+        ProvaAST DOT157_tree=null;
         RewriteRuleTokenStream stream_DOT=new RewriteRuleTokenStream(adaptor,"token DOT");
         RewriteRuleTokenStream stream_UCWORD=new RewriteRuleTokenStream(adaptor,"token UCWORD");
         RewriteRuleSubtreeStream stream_qualified_java_class=new RewriteRuleSubtreeStream(adaptor,"rule qualified_java_class");
         RewriteRuleSubtreeStream stream_word=new RewriteRuleSubtreeStream(adaptor,"rule word");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:236:2: ( qualified_java_class DOT word -> ^( TYPED_VARIABLE qualified_java_class word ) | UCWORD DOT word -> ^( TYPED_VARIABLE UCWORD word ) )
-            int alt55=2;
-            int LA55_0 = input.LA(1);
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:229:2: ( qualified_java_class DOT word -> ^( TYPED_VARIABLE qualified_java_class word ) | UCWORD DOT word -> ^( TYPED_VARIABLE UCWORD word ) )
+            int alt57=2;
+            int LA57_0 = input.LA(1);
 
-            if ( (LA55_0==LCWORD) ) {
-                alt55=1;
+            if ( (LA57_0==LCWORD) ) {
+                alt57=1;
             }
-            else if ( (LA55_0==UCWORD) ) {
-                alt55=2;
+            else if ( (LA57_0==UCWORD) ) {
+                alt57=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 55, 0, input);
+                    new NoViableAltException("", 57, 0, input);
 
                 throw nvae;
             }
-            switch (alt55) {
+            switch (alt57) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:237:3: qualified_java_class DOT word
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:230:3: qualified_java_class DOT word
                     {
-                    pushFollow(FOLLOW_qualified_java_class_in_typed_variable1361);
-                    qualified_java_class143=qualified_java_class();
+                    pushFollow(FOLLOW_qualified_java_class_in_typed_variable1437);
+                    qualified_java_class153=qualified_java_class();
 
                     state._fsp--;
 
-                    stream_qualified_java_class.add(qualified_java_class143.getTree());
-                    DOT144=(Token)match(input,DOT,FOLLOW_DOT_in_typed_variable1363);  
-                    stream_DOT.add(DOT144);
+                    stream_qualified_java_class.add(qualified_java_class153.getTree());
+                    DOT154=(Token)match(input,DOT,FOLLOW_DOT_in_typed_variable1439);  
+                    stream_DOT.add(DOT154);
 
-                    pushFollow(FOLLOW_word_in_typed_variable1365);
-                    word145=word();
+                    pushFollow(FOLLOW_word_in_typed_variable1441);
+                    word155=word();
 
                     state._fsp--;
 
-                    stream_word.add(word145.getTree());
+                    stream_word.add(word155.getTree());
 
 
                     // AST REWRITE
@@ -5012,9 +5292,9 @@ public class Prova2Parser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (ProvaAST)adaptor.nil();
-                    // 237:33: -> ^( TYPED_VARIABLE qualified_java_class word )
+                    // 230:33: -> ^( TYPED_VARIABLE qualified_java_class word )
                     {
-                        // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:237:36: ^( TYPED_VARIABLE qualified_java_class word )
+                        // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:230:36: ^( TYPED_VARIABLE qualified_java_class word )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(TYPED_VARIABLE, "TYPED_VARIABLE"), root_1);
@@ -5031,24 +5311,24 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:238:5: UCWORD DOT word
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:231:5: UCWORD DOT word
                     {
-                    UCWORD146=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_typed_variable1381);  
-                    stream_UCWORD.add(UCWORD146);
+                    UCWORD156=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_typed_variable1457);  
+                    stream_UCWORD.add(UCWORD156);
 
-                    DOT147=(Token)match(input,DOT,FOLLOW_DOT_in_typed_variable1383);  
-                    stream_DOT.add(DOT147);
+                    DOT157=(Token)match(input,DOT,FOLLOW_DOT_in_typed_variable1459);  
+                    stream_DOT.add(DOT157);
 
-                    pushFollow(FOLLOW_word_in_typed_variable1385);
-                    word148=word();
+                    pushFollow(FOLLOW_word_in_typed_variable1461);
+                    word158=word();
 
                     state._fsp--;
 
-                    stream_word.add(word148.getTree());
+                    stream_word.add(word158.getTree());
 
 
                     // AST REWRITE
-                    // elements: UCWORD, word
+                    // elements: word, UCWORD
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5058,9 +5338,9 @@ public class Prova2Parser extends Parser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (ProvaAST)adaptor.nil();
-                    // 238:21: -> ^( TYPED_VARIABLE UCWORD word )
+                    // 231:21: -> ^( TYPED_VARIABLE UCWORD word )
                     {
-                        // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:238:24: ^( TYPED_VARIABLE UCWORD word )
+                        // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:231:24: ^( TYPED_VARIABLE UCWORD word )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(TYPED_VARIABLE, "TYPED_VARIABLE"), root_1);
@@ -5102,43 +5382,43 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "instance_call"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:243:1: instance_call : variable DOT LCWORD -> variable LCWORD ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:236:1: instance_call : variable DOT LCWORD -> variable LCWORD ;
     public final Prova2Parser.instance_call_return instance_call() throws RecognitionException {
         Prova2Parser.instance_call_return retval = new Prova2Parser.instance_call_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token DOT150=null;
-        Token LCWORD151=null;
-        Prova2Parser.variable_return variable149 = null;
+        Token DOT160=null;
+        Token LCWORD161=null;
+        Prova2Parser.variable_return variable159 = null;
 
 
-        ProvaAST DOT150_tree=null;
-        ProvaAST LCWORD151_tree=null;
+        ProvaAST DOT160_tree=null;
+        ProvaAST LCWORD161_tree=null;
         RewriteRuleTokenStream stream_DOT=new RewriteRuleTokenStream(adaptor,"token DOT");
         RewriteRuleTokenStream stream_LCWORD=new RewriteRuleTokenStream(adaptor,"token LCWORD");
         RewriteRuleSubtreeStream stream_variable=new RewriteRuleSubtreeStream(adaptor,"rule variable");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:244:2: ( variable DOT LCWORD -> variable LCWORD )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:244:4: variable DOT LCWORD
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:237:2: ( variable DOT LCWORD -> variable LCWORD )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:237:4: variable DOT LCWORD
             {
-            pushFollow(FOLLOW_variable_in_instance_call1407);
-            variable149=variable();
+            pushFollow(FOLLOW_variable_in_instance_call1483);
+            variable159=variable();
 
             state._fsp--;
 
-            stream_variable.add(variable149.getTree());
-            DOT150=(Token)match(input,DOT,FOLLOW_DOT_in_instance_call1409);  
-            stream_DOT.add(DOT150);
+            stream_variable.add(variable159.getTree());
+            DOT160=(Token)match(input,DOT,FOLLOW_DOT_in_instance_call1485);  
+            stream_DOT.add(DOT160);
 
-            LCWORD151=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_instance_call1411);  
-            stream_LCWORD.add(LCWORD151);
+            LCWORD161=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_instance_call1487);  
+            stream_LCWORD.add(LCWORD161);
 
 
 
             // AST REWRITE
-            // elements: variable, LCWORD
+            // elements: LCWORD, variable
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5148,7 +5428,7 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 244:24: -> variable LCWORD
+            // 237:24: -> variable LCWORD
             {
                 adaptor.addChild(root_0, stream_variable.nextTree());
                 adaptor.addChild(root_0, stream_LCWORD.nextNode());
@@ -5182,41 +5462,41 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "static_call"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:247:1: static_call : ( qualified_java_class DOT LCWORD ) -> qualified_java_class LCWORD ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:240:1: static_call : ( qualified_java_class DOT LCWORD ) -> qualified_java_class LCWORD ;
     public final Prova2Parser.static_call_return static_call() throws RecognitionException {
         Prova2Parser.static_call_return retval = new Prova2Parser.static_call_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token DOT153=null;
-        Token LCWORD154=null;
-        Prova2Parser.qualified_java_class_return qualified_java_class152 = null;
+        Token DOT163=null;
+        Token LCWORD164=null;
+        Prova2Parser.qualified_java_class_return qualified_java_class162 = null;
 
 
-        ProvaAST DOT153_tree=null;
-        ProvaAST LCWORD154_tree=null;
+        ProvaAST DOT163_tree=null;
+        ProvaAST LCWORD164_tree=null;
         RewriteRuleTokenStream stream_DOT=new RewriteRuleTokenStream(adaptor,"token DOT");
         RewriteRuleTokenStream stream_LCWORD=new RewriteRuleTokenStream(adaptor,"token LCWORD");
         RewriteRuleSubtreeStream stream_qualified_java_class=new RewriteRuleSubtreeStream(adaptor,"rule qualified_java_class");
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:248:2: ( ( qualified_java_class DOT LCWORD ) -> qualified_java_class LCWORD )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:248:4: ( qualified_java_class DOT LCWORD )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:241:2: ( ( qualified_java_class DOT LCWORD ) -> qualified_java_class LCWORD )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:241:4: ( qualified_java_class DOT LCWORD )
             {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:248:4: ( qualified_java_class DOT LCWORD )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:248:5: qualified_java_class DOT LCWORD
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:241:4: ( qualified_java_class DOT LCWORD )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:241:5: qualified_java_class DOT LCWORD
             {
-            pushFollow(FOLLOW_qualified_java_class_in_static_call1429);
-            qualified_java_class152=qualified_java_class();
+            pushFollow(FOLLOW_qualified_java_class_in_static_call1505);
+            qualified_java_class162=qualified_java_class();
 
             state._fsp--;
 
-            stream_qualified_java_class.add(qualified_java_class152.getTree());
-            DOT153=(Token)match(input,DOT,FOLLOW_DOT_in_static_call1431);  
-            stream_DOT.add(DOT153);
+            stream_qualified_java_class.add(qualified_java_class162.getTree());
+            DOT163=(Token)match(input,DOT,FOLLOW_DOT_in_static_call1507);  
+            stream_DOT.add(DOT163);
 
-            LCWORD154=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_static_call1433);  
-            stream_LCWORD.add(LCWORD154);
+            LCWORD164=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_static_call1509);  
+            stream_LCWORD.add(LCWORD164);
 
 
             }
@@ -5234,7 +5514,7 @@ public class Prova2Parser extends Parser {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (ProvaAST)adaptor.nil();
-            // 248:38: -> qualified_java_class LCWORD
+            // 241:38: -> qualified_java_class LCWORD
             {
                 adaptor.addChild(root_0, stream_qualified_java_class.nextTree());
                 adaptor.addChild(root_0, stream_LCWORD.nextNode());
@@ -5268,100 +5548,100 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "pos_number"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:251:1: pos_number : ( INT_LITERAL | LONG_LITERAL | float_literal );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:244:1: pos_number : ( INT_LITERAL | LONG_LITERAL | float_literal );
     public final Prova2Parser.pos_number_return pos_number() throws RecognitionException {
         Prova2Parser.pos_number_return retval = new Prova2Parser.pos_number_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token INT_LITERAL155=null;
-        Token LONG_LITERAL156=null;
-        Prova2Parser.float_literal_return float_literal157 = null;
+        Token INT_LITERAL165=null;
+        Token LONG_LITERAL166=null;
+        Prova2Parser.float_literal_return float_literal167 = null;
 
 
-        ProvaAST INT_LITERAL155_tree=null;
-        ProvaAST LONG_LITERAL156_tree=null;
+        ProvaAST INT_LITERAL165_tree=null;
+        ProvaAST LONG_LITERAL166_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:251:12: ( INT_LITERAL | LONG_LITERAL | float_literal )
-            int alt56=3;
-            int LA56_0 = input.LA(1);
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:244:12: ( INT_LITERAL | LONG_LITERAL | float_literal )
+            int alt58=3;
+            int LA58_0 = input.LA(1);
 
-            if ( (LA56_0==INT_LITERAL) ) {
-                int LA56_1 = input.LA(2);
+            if ( (LA58_0==INT_LITERAL) ) {
+                int LA58_1 = input.LA(2);
 
-                if ( (LA56_1==DOT) ) {
-                    int LA56_3 = input.LA(3);
+                if ( (LA58_1==DOT) ) {
+                    int LA58_3 = input.LA(3);
 
-                    if ( (LA56_3==INT_LITERAL) ) {
-                        alt56=3;
+                    if ( (LA58_3==INT_LITERAL) ) {
+                        alt58=3;
                     }
-                    else if ( (LA56_3==EOF||LA56_3==NEWLINE) ) {
-                        alt56=1;
+                    else if ( (LA58_3==EOF||LA58_3==NEWLINE) ) {
+                        alt58=1;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 56, 3, input);
+                            new NoViableAltException("", 58, 3, input);
 
                         throw nvae;
                     }
                 }
-                else if ( (LA56_1==EOF||(LA56_1>=PLUS && LA56_1<=COMMA)||(LA56_1>=CLOSE && LA56_1<=GE)||LA56_1==REM||LA56_1==NEWLINE) ) {
-                    alt56=1;
+                else if ( (LA58_1==EOF||(LA58_1>=PLUS && LA58_1<=COMMA)||(LA58_1>=CLOSE && LA58_1<=GE)||LA58_1==REM||LA58_1==NEWLINE||LA58_1==71) ) {
+                    alt58=1;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 56, 1, input);
+                        new NoViableAltException("", 58, 1, input);
 
                     throw nvae;
                 }
             }
-            else if ( (LA56_0==LONG_LITERAL) ) {
-                alt56=2;
+            else if ( (LA58_0==LONG_LITERAL) ) {
+                alt58=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 56, 0, input);
+                    new NoViableAltException("", 58, 0, input);
 
                 throw nvae;
             }
-            switch (alt56) {
+            switch (alt58) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:251:14: INT_LITERAL
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:244:14: INT_LITERAL
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    INT_LITERAL155=(Token)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_pos_number1449); 
-                    INT_LITERAL155_tree = (ProvaAST)adaptor.create(INT_LITERAL155);
-                    adaptor.addChild(root_0, INT_LITERAL155_tree);
+                    INT_LITERAL165=(Token)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_pos_number1525); 
+                    INT_LITERAL165_tree = (ProvaAST)adaptor.create(INT_LITERAL165);
+                    adaptor.addChild(root_0, INT_LITERAL165_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:251:28: LONG_LITERAL
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:244:28: LONG_LITERAL
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    LONG_LITERAL156=(Token)match(input,LONG_LITERAL,FOLLOW_LONG_LITERAL_in_pos_number1453); 
-                    LONG_LITERAL156_tree = (ProvaAST)adaptor.create(LONG_LITERAL156);
-                    adaptor.addChild(root_0, LONG_LITERAL156_tree);
+                    LONG_LITERAL166=(Token)match(input,LONG_LITERAL,FOLLOW_LONG_LITERAL_in_pos_number1529); 
+                    LONG_LITERAL166_tree = (ProvaAST)adaptor.create(LONG_LITERAL166);
+                    adaptor.addChild(root_0, LONG_LITERAL166_tree);
 
 
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:251:43: float_literal
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:244:43: float_literal
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_float_literal_in_pos_number1457);
-                    float_literal157=float_literal();
+                    pushFollow(FOLLOW_float_literal_in_pos_number1533);
+                    float_literal167=float_literal();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, float_literal157.getTree());
+                    adaptor.addChild(root_0, float_literal167.getTree());
 
                     }
                     break;
@@ -5391,39 +5671,39 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "number"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:253:1: number : ( '-' )? pos_number ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:246:1: number : ( '-' )? pos_number ;
     public final Prova2Parser.number_return number() throws RecognitionException {
         Prova2Parser.number_return retval = new Prova2Parser.number_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token char_literal158=null;
-        Prova2Parser.pos_number_return pos_number159 = null;
+        Token char_literal168=null;
+        Prova2Parser.pos_number_return pos_number169 = null;
 
 
-        ProvaAST char_literal158_tree=null;
+        ProvaAST char_literal168_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:254:2: ( ( '-' )? pos_number )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:254:4: ( '-' )? pos_number
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:247:2: ( ( '-' )? pos_number )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:247:4: ( '-' )? pos_number
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:254:4: ( '-' )?
-            int alt57=2;
-            int LA57_0 = input.LA(1);
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:247:4: ( '-' )?
+            int alt59=2;
+            int LA59_0 = input.LA(1);
 
-            if ( (LA57_0==MINUS) ) {
-                alt57=1;
+            if ( (LA59_0==MINUS) ) {
+                alt59=1;
             }
-            switch (alt57) {
+            switch (alt59) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:254:5: '-'
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:247:5: '-'
                     {
-                    char_literal158=(Token)match(input,MINUS,FOLLOW_MINUS_in_number1468); 
-                    char_literal158_tree = (ProvaAST)adaptor.create(char_literal158);
-                    adaptor.addChild(root_0, char_literal158_tree);
+                    char_literal168=(Token)match(input,MINUS,FOLLOW_MINUS_in_number1544); 
+                    char_literal168_tree = (ProvaAST)adaptor.create(char_literal168);
+                    adaptor.addChild(root_0, char_literal168_tree);
 
 
                     }
@@ -5431,12 +5711,12 @@ public class Prova2Parser extends Parser {
 
             }
 
-            pushFollow(FOLLOW_pos_number_in_number1472);
-            pos_number159=pos_number();
+            pushFollow(FOLLOW_pos_number_in_number1548);
+            pos_number169=pos_number();
 
             state._fsp--;
 
-            adaptor.addChild(root_0, pos_number159.getTree());
+            adaptor.addChild(root_0, pos_number169.getTree());
 
             }
 
@@ -5464,102 +5744,102 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "constant"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:256:1: constant : ( LCWORD | string | qualified_java_class );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:1: constant : ( LCWORD | string | qualified_java_class );
     public final Prova2Parser.constant_return constant() throws RecognitionException {
         Prova2Parser.constant_return retval = new Prova2Parser.constant_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token LCWORD160=null;
-        Prova2Parser.string_return string161 = null;
+        Token LCWORD170=null;
+        Prova2Parser.string_return string171 = null;
 
-        Prova2Parser.qualified_java_class_return qualified_java_class162 = null;
+        Prova2Parser.qualified_java_class_return qualified_java_class172 = null;
 
 
-        ProvaAST LCWORD160_tree=null;
+        ProvaAST LCWORD170_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:256:10: ( LCWORD | string | qualified_java_class )
-            int alt58=3;
-            int LA58_0 = input.LA(1);
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:10: ( LCWORD | string | qualified_java_class )
+            int alt60=3;
+            int LA60_0 = input.LA(1);
 
-            if ( (LA58_0==LCWORD) ) {
-                int LA58_1 = input.LA(2);
+            if ( (LA60_0==LCWORD) ) {
+                int LA60_1 = input.LA(2);
 
-                if ( (LA58_1==DOT) ) {
-                    int LA58_3 = input.LA(3);
+                if ( (LA60_1==DOT) ) {
+                    int LA60_3 = input.LA(3);
 
-                    if ( (LA58_3==EOF||LA58_3==NEWLINE) ) {
-                        alt58=1;
+                    if ( (LA60_3==EOF||LA60_3==NEWLINE) ) {
+                        alt60=1;
                     }
-                    else if ( ((LA58_3>=LCWORD && LA58_3<=UCWORD)) ) {
-                        alt58=3;
+                    else if ( ((LA60_3>=LCWORD && LA60_3<=UCWORD)) ) {
+                        alt60=3;
                     }
                     else {
                         NoViableAltException nvae =
-                            new NoViableAltException("", 58, 3, input);
+                            new NoViableAltException("", 60, 3, input);
 
                         throw nvae;
                     }
                 }
-                else if ( (LA58_1==EOF||LA58_1==COMMA||(LA58_1>=OPEN && LA58_1<=GE)||LA58_1==NEWLINE) ) {
-                    alt58=1;
+                else if ( (LA60_1==EOF||LA60_1==COMMA||(LA60_1>=OPEN && LA60_1<=GE)||LA60_1==NEWLINE||LA60_1==71) ) {
+                    alt60=1;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 58, 1, input);
+                        new NoViableAltException("", 60, 1, input);
 
                     throw nvae;
                 }
             }
-            else if ( ((LA58_0>=STRING1 && LA58_0<=STRING2)) ) {
-                alt58=2;
+            else if ( ((LA60_0>=STRING1 && LA60_0<=STRING2)) ) {
+                alt60=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 58, 0, input);
+                    new NoViableAltException("", 60, 0, input);
 
                 throw nvae;
             }
-            switch (alt58) {
+            switch (alt60) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:257:2: LCWORD
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:250:2: LCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    LCWORD160=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_constant1481); 
-                    LCWORD160_tree = (ProvaAST)adaptor.create(LCWORD160);
-                    adaptor.addChild(root_0, LCWORD160_tree);
+                    LCWORD170=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_constant1557); 
+                    LCWORD170_tree = (ProvaAST)adaptor.create(LCWORD170);
+                    adaptor.addChild(root_0, LCWORD170_tree);
 
 
                     }
                     break;
                 case 2 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:257:11: string
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:250:11: string
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_string_in_constant1485);
-                    string161=string();
+                    pushFollow(FOLLOW_string_in_constant1561);
+                    string171=string();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, string161.getTree());
+                    adaptor.addChild(root_0, string171.getTree());
 
                     }
                     break;
                 case 3 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:257:20: qualified_java_class
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:250:20: qualified_java_class
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    pushFollow(FOLLOW_qualified_java_class_in_constant1489);
-                    qualified_java_class162=qualified_java_class();
+                    pushFollow(FOLLOW_qualified_java_class_in_constant1565);
+                    qualified_java_class172=qualified_java_class();
 
                     state._fsp--;
 
-                    adaptor.addChild(root_0, qualified_java_class162.getTree());
+                    adaptor.addChild(root_0, qualified_java_class172.getTree());
 
                     }
                     break;
@@ -5589,27 +5869,27 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "string"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:259:1: string : ( STRING1 | STRING2 );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:1: string : ( STRING1 | STRING2 );
     public final Prova2Parser.string_return string() throws RecognitionException {
         Prova2Parser.string_return retval = new Prova2Parser.string_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token set163=null;
+        Token set173=null;
 
-        ProvaAST set163_tree=null;
+        ProvaAST set173_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:259:8: ( STRING1 | STRING2 )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:8: ( STRING1 | STRING2 )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            set163=(Token)input.LT(1);
+            set173=(Token)input.LT(1);
             if ( (input.LA(1)>=STRING1 && input.LA(1)<=STRING2) ) {
                 input.consume();
-                adaptor.addChild(root_0, (ProvaAST)adaptor.create(set163));
+                adaptor.addChild(root_0, (ProvaAST)adaptor.create(set173));
                 state.errorRecovery=false;
             }
             else {
@@ -5644,27 +5924,27 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "not_equal"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:261:1: not_equal : ( NOT_EQUAL1 | NOT_EQUAL2 );
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:254:1: not_equal : ( NOT_EQUAL1 | NOT_EQUAL2 );
     public final Prova2Parser.not_equal_return not_equal() throws RecognitionException {
         Prova2Parser.not_equal_return retval = new Prova2Parser.not_equal_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token set164=null;
+        Token set174=null;
 
-        ProvaAST set164_tree=null;
+        ProvaAST set174_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:262:2: ( NOT_EQUAL1 | NOT_EQUAL2 )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:255:2: ( NOT_EQUAL1 | NOT_EQUAL2 )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            set164=(Token)input.LT(1);
+            set174=(Token)input.LT(1);
             if ( (input.LA(1)>=NOT_EQUAL1 && input.LA(1)<=NOT_EQUAL2) ) {
                 input.consume();
-                adaptor.addChild(root_0, (ProvaAST)adaptor.create(set164));
+                adaptor.addChild(root_0, (ProvaAST)adaptor.create(set174));
                 state.errorRecovery=false;
             }
             else {
@@ -5699,55 +5979,55 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "float_literal"
-    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:265:1: float_literal : INT_LITERAL DOT INT_LITERAL ( EXPONENT )? ;
+    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:258:1: float_literal : INT_LITERAL DOT INT_LITERAL ( EXPONENT )? ;
     public final Prova2Parser.float_literal_return float_literal() throws RecognitionException {
         Prova2Parser.float_literal_return retval = new Prova2Parser.float_literal_return();
         retval.start = input.LT(1);
 
         ProvaAST root_0 = null;
 
-        Token INT_LITERAL165=null;
-        Token DOT166=null;
-        Token INT_LITERAL167=null;
-        Token EXPONENT168=null;
+        Token INT_LITERAL175=null;
+        Token DOT176=null;
+        Token INT_LITERAL177=null;
+        Token EXPONENT178=null;
 
-        ProvaAST INT_LITERAL165_tree=null;
-        ProvaAST DOT166_tree=null;
-        ProvaAST INT_LITERAL167_tree=null;
-        ProvaAST EXPONENT168_tree=null;
+        ProvaAST INT_LITERAL175_tree=null;
+        ProvaAST DOT176_tree=null;
+        ProvaAST INT_LITERAL177_tree=null;
+        ProvaAST EXPONENT178_tree=null;
 
         try {
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:265:16: ( INT_LITERAL DOT INT_LITERAL ( EXPONENT )? )
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:265:18: INT_LITERAL DOT INT_LITERAL ( EXPONENT )?
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:258:16: ( INT_LITERAL DOT INT_LITERAL ( EXPONENT )? )
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:258:18: INT_LITERAL DOT INT_LITERAL ( EXPONENT )?
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            INT_LITERAL165=(Token)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1525); 
-            INT_LITERAL165_tree = (ProvaAST)adaptor.create(INT_LITERAL165);
-            adaptor.addChild(root_0, INT_LITERAL165_tree);
+            INT_LITERAL175=(Token)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1601); 
+            INT_LITERAL175_tree = (ProvaAST)adaptor.create(INT_LITERAL175);
+            adaptor.addChild(root_0, INT_LITERAL175_tree);
 
-            DOT166=(Token)match(input,DOT,FOLLOW_DOT_in_float_literal1527); 
-            DOT166_tree = (ProvaAST)adaptor.create(DOT166);
-            adaptor.addChild(root_0, DOT166_tree);
+            DOT176=(Token)match(input,DOT,FOLLOW_DOT_in_float_literal1603); 
+            DOT176_tree = (ProvaAST)adaptor.create(DOT176);
+            adaptor.addChild(root_0, DOT176_tree);
 
-            INT_LITERAL167=(Token)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1529); 
-            INT_LITERAL167_tree = (ProvaAST)adaptor.create(INT_LITERAL167);
-            adaptor.addChild(root_0, INT_LITERAL167_tree);
+            INT_LITERAL177=(Token)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1605); 
+            INT_LITERAL177_tree = (ProvaAST)adaptor.create(INT_LITERAL177);
+            adaptor.addChild(root_0, INT_LITERAL177_tree);
 
-            // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:265:46: ( EXPONENT )?
-            int alt59=2;
-            int LA59_0 = input.LA(1);
+            // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:258:46: ( EXPONENT )?
+            int alt61=2;
+            int LA61_0 = input.LA(1);
 
-            if ( (LA59_0==EXPONENT) ) {
-                alt59=1;
+            if ( (LA61_0==EXPONENT) ) {
+                alt61=1;
             }
-            switch (alt59) {
+            switch (alt61) {
                 case 1 :
-                    // C:\\workspace35\\prova-2.0-trunk\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:265:46: EXPONENT
+                    // D:\\workspace\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:258:46: EXPONENT
                     {
-                    EXPONENT168=(Token)match(input,EXPONENT,FOLLOW_EXPONENT_in_float_literal1531); 
-                    EXPONENT168_tree = (ProvaAST)adaptor.create(EXPONENT168);
-                    adaptor.addChild(root_0, EXPONENT168_tree);
+                    EXPONENT178=(Token)match(input,EXPONENT,FOLLOW_EXPONENT_in_float_literal1607); 
+                    EXPONENT178_tree = (ProvaAST)adaptor.create(EXPONENT178);
+                    adaptor.addChild(root_0, EXPONENT178_tree);
 
 
                     }
@@ -5784,13 +6064,13 @@ public class Prova2Parser extends Parser {
     protected DFA28 dfa28 = new DFA28(this);
     protected DFA31 dfa31 = new DFA31(this);
     protected DFA33 dfa33 = new DFA33(this);
-    protected DFA38 dfa38 = new DFA38(this);
-    protected DFA39 dfa39 = new DFA39(this);
+    protected DFA40 dfa40 = new DFA40(this);
     protected DFA41 dfa41 = new DFA41(this);
     protected DFA43 dfa43 = new DFA43(this);
-    protected DFA42 dfa42 = new DFA42(this);
-    protected DFA47 dfa47 = new DFA47(this);
-    protected DFA50 dfa50 = new DFA50(this);
+    protected DFA45 dfa45 = new DFA45(this);
+    protected DFA44 dfa44 = new DFA44(this);
+    protected DFA49 dfa49 = new DFA49(this);
+    protected DFA52 dfa52 = new DFA52(this);
     static final String DFA1_eotS =
         "\4\uffff";
     static final String DFA1_eofS =
@@ -5798,14 +6078,14 @@ public class Prova2Parser extends Parser {
     static final String DFA1_minS =
         "\2\12\2\uffff";
     static final String DFA1_maxS =
-        "\2\103\2\uffff";
+        "\2\105\2\uffff";
     static final String DFA1_acceptS =
         "\2\uffff\1\2\1\1";
     static final String DFA1_specialS =
         "\4\uffff}>";
     static final String[] DFA1_transitionS = {
-            "\1\3\46\uffff\1\1\2\3\2\uffff\2\3\13\uffff\1\3",
-            "\1\3\46\uffff\1\1\2\3\2\uffff\2\3\13\uffff\1\3",
+            "\1\3\50\uffff\1\1\2\3\2\uffff\2\3\13\uffff\1\3",
+            "\1\3\50\uffff\1\1\2\3\2\uffff\2\3\13\uffff\1\3",
             "",
             ""
     };
@@ -5840,7 +6120,7 @@ public class Prova2Parser extends Parser {
             this.transition = DFA1_transition;
         }
         public String getDescription() {
-            return "()* loopback of 102:4: ( statement )*";
+            return "()* loopback of 87:4: ( statement )*";
         }
     }
     static final String DFA25_eotS =
@@ -5848,19 +6128,19 @@ public class Prova2Parser extends Parser {
     static final String DFA25_eofS =
         "\40\uffff";
     static final String DFA25_minS =
-        "\2\6\1\62\2\4\1\14\2\uffff\1\6\1\uffff\2\6\3\11\1\64\1\4\1\11\2"+
-        "\6\1\64\3\11\1\64\1\4\2\11\1\64\3\11";
+        "\2\6\1\64\2\4\1\14\2\uffff\1\6\1\uffff\2\6\3\11\1\66\1\4\1\11\2"+
+        "\6\1\66\3\11\1\66\1\4\2\11\1\66\3\11";
     static final String DFA25_maxS =
-        "\2\103\1\62\3\27\2\uffff\1\103\1\uffff\1\67\1\103\3\15\1\65\2\15"+
-        "\1\67\1\103\1\64\3\15\1\65\2\15\1\70\1\64\1\15\1\70\1\15";
+        "\2\105\1\64\3\27\2\uffff\1\105\1\uffff\1\71\1\105\3\15\1\67\2\15"+
+        "\1\71\1\105\1\66\3\15\1\67\2\15\1\72\1\66\1\15\1\72\1\15";
     static final String DFA25_acceptS =
         "\6\uffff\1\2\1\3\1\uffff\1\1\26\uffff";
     static final String DFA25_specialS =
         "\40\uffff}>";
     static final String[] DFA25_transitionS = {
-            "\1\6\4\uffff\1\7\3\uffff\1\6\31\uffff\1\6\3\uffff\1\6\3\uffff"+
+            "\1\6\4\uffff\1\7\3\uffff\1\6\31\uffff\1\6\3\uffff\1\6\5\uffff"+
             "\1\1\1\3\1\4\2\6\2\5\13\uffff\1\2",
-            "\1\6\4\uffff\1\7\3\uffff\1\6\31\uffff\1\6\3\uffff\1\6\3\uffff"+
+            "\1\6\4\uffff\1\7\3\uffff\1\6\31\uffff\1\6\3\uffff\1\6\5\uffff"+
             "\1\1\1\3\1\4\2\6\2\5\13\uffff\1\2",
             "\1\10",
             "\1\6\7\uffff\1\11\4\uffff\7\6",
@@ -5868,11 +6148,11 @@ public class Prova2Parser extends Parser {
             "\1\11\4\uffff\7\6",
             "",
             "",
-            "\1\6\5\uffff\1\12\2\uffff\1\6\31\uffff\1\6\3\uffff\1\6\3\uffff"+
+            "\1\6\5\uffff\1\12\2\uffff\1\6\31\uffff\1\6\3\uffff\1\6\5\uffff"+
             "\1\13\1\3\1\4\2\6\2\5\13\uffff\1\2",
             "",
-            "\1\17\53\uffff\1\14\1\15\1\20\1\21\2\16",
-            "\1\6\10\uffff\1\6\31\uffff\1\6\3\uffff\1\6\3\uffff\1\13\1"+
+            "\1\17\55\uffff\1\14\1\15\1\20\1\21\2\16",
+            "\1\6\10\uffff\1\6\31\uffff\1\6\3\uffff\1\6\5\uffff\1\13\1"+
             "\3\1\4\2\6\2\5\13\uffff\1\2",
             "\1\22\3\uffff\1\23",
             "\1\22\3\uffff\1\23",
@@ -5880,8 +6160,8 @@ public class Prova2Parser extends Parser {
             "\1\20\1\21",
             "\1\24\4\uffff\1\22\3\uffff\1\23",
             "\1\22\3\uffff\1\23",
-            "\1\30\53\uffff\1\25\1\26\1\31\1\32\2\27",
-            "\1\6\10\uffff\1\6\31\uffff\1\6\3\uffff\1\6\3\uffff\1\13\1"+
+            "\1\30\55\uffff\1\25\1\26\1\31\1\32\2\27",
+            "\1\6\10\uffff\1\6\31\uffff\1\6\3\uffff\1\6\5\uffff\1\13\1"+
             "\3\1\4\2\6\2\5\13\uffff\1\2",
             "\1\33",
             "\1\22\3\uffff\1\23",
@@ -5890,10 +6170,10 @@ public class Prova2Parser extends Parser {
             "\1\31\1\32",
             "\1\34\4\uffff\1\22\3\uffff\1\23",
             "\1\22\3\uffff\1\23",
-            "\1\22\3\uffff\1\23\52\uffff\1\35",
+            "\1\22\3\uffff\1\23\54\uffff\1\35",
             "\1\36",
             "\1\22\3\uffff\1\23",
-            "\1\22\3\uffff\1\23\52\uffff\1\37",
+            "\1\22\3\uffff\1\23\54\uffff\1\37",
             "\1\22\3\uffff\1\23"
     };
 
@@ -5927,7 +6207,7 @@ public class Prova2Parser extends Parser {
             this.transition = DFA25_transition;
         }
         public String getDescription() {
-            return "134:1: literal : ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) );";
+            return "119:1: literal : ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) );";
         }
     }
     static final String DFA28_eotS =
@@ -5937,16 +6217,16 @@ public class Prova2Parser extends Parser {
     static final String DFA28_minS =
         "\2\6\2\uffff";
     static final String DFA28_maxS =
-        "\2\67\2\uffff";
+        "\2\106\2\uffff";
     static final String DFA28_acceptS =
         "\2\uffff\1\1\1\2";
     static final String DFA28_specialS =
         "\4\uffff}>";
     static final String[] DFA28_transitionS = {
-            "\1\2\6\uffff\1\3\1\uffff\1\2\1\3\30\uffff\1\2\3\uffff\1\2\3"+
-            "\uffff\1\1\6\2",
+            "\1\2\6\uffff\1\3\1\uffff\1\2\1\3\30\uffff\1\2\3\uffff\1\2\5"+
+            "\uffff\1\1\6\2\14\uffff\1\2",
             "\1\2\6\uffff\1\3\1\uffff\1\2\1\3\30\uffff\1\2\3\uffff\1\2"+
-            "\3\uffff\1\1\6\2",
+            "\5\uffff\1\1\6\2\14\uffff\1\2",
             "",
             ""
     };
@@ -5981,7 +6261,7 @@ public class Prova2Parser extends Parser {
             this.transition = DFA28_transition;
         }
         public String getDescription() {
-            return "152:5: ( terms ( '|' list_tail )? )?";
+            return "137:5: ( terms ( '|' list_tail )? )?";
         }
     }
     static final String DFA31_eotS =
@@ -5989,23 +6269,25 @@ public class Prova2Parser extends Parser {
     static final String DFA31_eofS =
         "\11\uffff";
     static final String DFA31_minS =
-        "\1\6\1\4\4\uffff\1\62\2\4";
+        "\1\6\1\4\4\uffff\1\64\2\4";
     static final String DFA31_maxS =
-        "\1\67\1\61\4\uffff\1\63\1\61\1\4";
+        "\1\71\1\107\4\uffff\1\65\1\107\1\4";
     static final String DFA31_acceptS =
         "\2\uffff\1\1\1\2\1\3\1\4\3\uffff";
     static final String DFA31_specialS =
         "\11\uffff}>";
     static final String[] DFA31_transitionS = {
-            "\1\4\10\uffff\1\5\31\uffff\1\3\3\uffff\1\3\4\uffff\1\1\1\3"+
+            "\1\4\10\uffff\1\5\31\uffff\1\3\3\uffff\1\3\6\uffff\1\1\1\3"+
             "\2\4\2\2",
-            "\1\6\4\uffff\1\2\3\uffff\2\2\1\uffff\10\2\31\uffff\1\2",
+            "\1\6\4\uffff\1\2\3\uffff\2\2\1\uffff\10\2\33\uffff\1\2\23"+
+            "\uffff\1\2",
             "",
             "",
             "",
             "",
             "\1\10\1\7",
-            "\1\3\4\uffff\1\2\3\uffff\2\2\1\uffff\10\2\31\uffff\1\2",
+            "\1\3\4\uffff\1\2\3\uffff\2\2\1\uffff\10\2\33\uffff\1\2\23"+
+            "\uffff\1\2",
             "\1\6"
     };
 
@@ -6039,7 +6321,7 @@ public class Prova2Parser extends Parser {
             this.transition = DFA31_transition;
         }
         public String getDescription() {
-            return "157:1: left_term : ( constant | variable | number | prova_list );";
+            return "142:1: left_term : ( constant | variable | number | prova_list );";
         }
     }
     static final String DFA33_eotS =
@@ -6047,15 +6329,15 @@ public class Prova2Parser extends Parser {
     static final String DFA33_eofS =
         "\1\uffff\1\2\3\uffff\1\2\1\uffff";
     static final String DFA33_minS =
-        "\1\51\1\4\2\uffff\1\62\2\4";
+        "\1\51\1\4\2\uffff\1\64\2\4";
     static final String DFA33_maxS =
-        "\1\67\1\4\2\uffff\1\63\2\4";
+        "\1\71\1\4\2\uffff\1\65\2\4";
     static final String DFA33_acceptS =
         "\2\uffff\1\1\1\2\3\uffff";
     static final String DFA33_specialS =
         "\7\uffff}>";
     static final String[] DFA33_transitionS = {
-            "\1\3\3\uffff\1\3\4\uffff\1\1\1\3\2\uffff\2\2",
+            "\1\3\3\uffff\1\3\6\uffff\1\1\1\3\2\uffff\2\2",
             "\1\4",
             "",
             "",
@@ -6094,153 +6376,92 @@ public class Prova2Parser extends Parser {
             this.transition = DFA33_transition;
         }
         public String getDescription() {
-            return "164:12: ( constant | variable )";
+            return "149:12: ( constant | variable )";
         }
     }
-    static final String DFA38_eotS =
+    static final String DFA40_eotS =
         "\4\uffff";
-    static final String DFA38_eofS =
+    static final String DFA40_eofS =
         "\4\uffff";
-    static final String DFA38_minS =
+    static final String DFA40_minS =
         "\1\11\1\uffff\1\11\1\uffff";
-    static final String DFA38_maxS =
-        "\1\61\1\uffff\1\61\1\uffff";
-    static final String DFA38_acceptS =
+    static final String DFA40_maxS =
+        "\1\63\1\uffff\1\63\1\uffff";
+    static final String DFA40_acceptS =
         "\1\uffff\1\2\1\uffff\1\1";
-    static final String DFA38_specialS =
+    static final String DFA40_specialS =
         "\4\uffff}>";
-    static final String[] DFA38_transitionS = {
-            "\1\3\3\uffff\2\1\1\uffff\1\1\40\uffff\1\2",
+    static final String[] DFA40_transitionS = {
+            "\1\3\3\uffff\2\1\1\uffff\1\1\42\uffff\1\2",
             "",
-            "\1\3\3\uffff\1\1\2\uffff\1\1\40\uffff\1\2",
+            "\1\3\3\uffff\1\1\2\uffff\1\1\42\uffff\1\2",
             ""
     };
 
-    static final short[] DFA38_eot = DFA.unpackEncodedString(DFA38_eotS);
-    static final short[] DFA38_eof = DFA.unpackEncodedString(DFA38_eofS);
-    static final char[] DFA38_min = DFA.unpackEncodedStringToUnsignedChars(DFA38_minS);
-    static final char[] DFA38_max = DFA.unpackEncodedStringToUnsignedChars(DFA38_maxS);
-    static final short[] DFA38_accept = DFA.unpackEncodedString(DFA38_acceptS);
-    static final short[] DFA38_special = DFA.unpackEncodedString(DFA38_specialS);
-    static final short[][] DFA38_transition;
+    static final short[] DFA40_eot = DFA.unpackEncodedString(DFA40_eotS);
+    static final short[] DFA40_eof = DFA.unpackEncodedString(DFA40_eofS);
+    static final char[] DFA40_min = DFA.unpackEncodedStringToUnsignedChars(DFA40_minS);
+    static final char[] DFA40_max = DFA.unpackEncodedStringToUnsignedChars(DFA40_maxS);
+    static final short[] DFA40_accept = DFA.unpackEncodedString(DFA40_acceptS);
+    static final short[] DFA40_special = DFA.unpackEncodedString(DFA40_specialS);
+    static final short[][] DFA40_transition;
 
     static {
-        int numStates = DFA38_transitionS.length;
-        DFA38_transition = new short[numStates][];
+        int numStates = DFA40_transitionS.length;
+        DFA40_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA38_transition[i] = DFA.unpackEncodedString(DFA38_transitionS[i]);
+            DFA40_transition[i] = DFA.unpackEncodedString(DFA40_transitionS[i]);
         }
     }
 
-    class DFA38 extends DFA {
+    class DFA40 extends DFA {
 
-        public DFA38(BaseRecognizer recognizer) {
+        public DFA40(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 38;
-            this.eot = DFA38_eot;
-            this.eof = DFA38_eof;
-            this.min = DFA38_min;
-            this.max = DFA38_max;
-            this.accept = DFA38_accept;
-            this.special = DFA38_special;
-            this.transition = DFA38_transition;
+            this.decisionNumber = 40;
+            this.eot = DFA40_eot;
+            this.eof = DFA40_eof;
+            this.min = DFA40_min;
+            this.max = DFA40_max;
+            this.accept = DFA40_accept;
+            this.special = DFA40_special;
+            this.transition = DFA40_transition;
         }
         public String getDescription() {
-            return "()* loopback of 166:24: ( ( NEWLINE )* ',' ( NEWLINE )* term )*";
-        }
-    }
-    static final String DFA39_eotS =
-        "\15\uffff";
-    static final String DFA39_eofS =
-        "\15\uffff";
-    static final String DFA39_minS =
-        "\1\6\1\4\1\11\1\4\1\uffff\1\62\1\uffff\1\62\2\4\1\11\1\62\1\11";
-    static final String DFA39_maxS =
-        "\1\67\3\61\1\uffff\1\63\1\uffff\1\63\1\61\1\4\1\61\1\63\1\61";
-    static final String DFA39_acceptS =
-        "\4\uffff\1\1\1\uffff\1\2\6\uffff";
-    static final String DFA39_specialS =
-        "\15\uffff}>";
-    static final String[] DFA39_transitionS = {
-            "\1\4\10\uffff\1\4\31\uffff\1\4\3\uffff\1\4\4\uffff\1\1\1\3"+
-            "\2\4\2\2",
-            "\1\5\4\uffff\1\4\2\uffff\1\6\2\4\1\uffff\1\4\40\uffff\1\4",
-            "\1\4\2\uffff\1\6\2\4\1\uffff\1\4\40\uffff\1\4",
-            "\1\7\4\uffff\1\4\2\uffff\1\6\2\4\1\uffff\1\4\40\uffff\1\4",
-            "",
-            "\1\11\1\10",
-            "",
-            "\2\12",
-            "\1\13\4\uffff\1\4\3\uffff\2\4\1\uffff\1\4\40\uffff\1\4",
-            "\1\5",
-            "\1\4\2\uffff\1\6\2\4\1\uffff\1\4\40\uffff\1\4",
-            "\2\14",
-            "\1\4\2\uffff\1\6\2\4\1\uffff\1\4\40\uffff\1\4"
-    };
-
-    static final short[] DFA39_eot = DFA.unpackEncodedString(DFA39_eotS);
-    static final short[] DFA39_eof = DFA.unpackEncodedString(DFA39_eofS);
-    static final char[] DFA39_min = DFA.unpackEncodedStringToUnsignedChars(DFA39_minS);
-    static final char[] DFA39_max = DFA.unpackEncodedStringToUnsignedChars(DFA39_maxS);
-    static final short[] DFA39_accept = DFA.unpackEncodedString(DFA39_acceptS);
-    static final short[] DFA39_special = DFA.unpackEncodedString(DFA39_specialS);
-    static final short[][] DFA39_transition;
-
-    static {
-        int numStates = DFA39_transitionS.length;
-        DFA39_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA39_transition[i] = DFA.unpackEncodedString(DFA39_transitionS[i]);
-        }
-    }
-
-    class DFA39 extends DFA {
-
-        public DFA39(BaseRecognizer recognizer) {
-            this.recognizer = recognizer;
-            this.decisionNumber = 39;
-            this.eot = DFA39_eot;
-            this.eof = DFA39_eof;
-            this.min = DFA39_min;
-            this.max = DFA39_max;
-            this.accept = DFA39_accept;
-            this.special = DFA39_special;
-            this.transition = DFA39_transition;
-        }
-        public String getDescription() {
-            return "168:1: term : ( left_term | func_term );";
+            return "()* loopback of 159:24: ( ( NEWLINE )* ',' ( NEWLINE )* term )*";
         }
     }
     static final String DFA41_eotS =
-        "\20\uffff";
+        "\16\uffff";
     static final String DFA41_eofS =
-        "\20\uffff";
+        "\16\uffff";
     static final String DFA41_minS =
-        "\1\6\4\4\1\uffff\2\62\1\uffff\4\4\1\62\2\4";
+        "\1\6\1\4\1\11\1\4\2\uffff\1\64\1\uffff\1\64\2\4\1\11\1\64\1\11";
     static final String DFA41_maxS =
-        "\1\67\4\27\1\uffff\2\63\1\uffff\1\27\1\4\2\27\1\63\2\27";
+        "\1\106\3\107\2\uffff\1\65\1\uffff\1\65\1\107\1\4\1\107\1\65\1\107";
     static final String DFA41_acceptS =
-        "\5\uffff\1\2\2\uffff\1\1\7\uffff";
+        "\4\uffff\1\1\1\3\1\uffff\1\2\6\uffff";
     static final String DFA41_specialS =
-        "\20\uffff}>";
+        "\16\uffff}>";
     static final String[] DFA41_transitionS = {
-            "\1\5\10\uffff\1\5\31\uffff\1\3\3\uffff\1\4\4\uffff\1\1\1\2"+
-            "\4\5",
-            "\1\6\14\uffff\7\5",
-            "\1\7\14\uffff\7\5",
-            "\1\10\14\uffff\7\5",
-            "\1\10\14\uffff\7\5",
+            "\1\4\10\uffff\1\4\31\uffff\1\4\3\uffff\1\4\6\uffff\1\1\1\3"+
+            "\2\4\2\2\14\uffff\1\5",
+            "\1\6\4\uffff\1\4\2\uffff\1\7\2\4\1\uffff\1\4\42\uffff\1\4"+
+            "\23\uffff\1\4",
+            "\1\4\2\uffff\1\7\2\4\1\uffff\1\4\42\uffff\1\4\23\uffff\1\4",
+            "\1\10\4\uffff\1\4\2\uffff\1\7\2\4\1\uffff\1\4\42\uffff\1\4"+
+            "\23\uffff\1\4",
+            "",
             "",
             "\1\12\1\11",
-            "\1\13\1\14",
             "",
-            "\1\15\14\uffff\7\5",
+            "\2\13",
+            "\1\14\4\uffff\1\4\3\uffff\2\4\1\uffff\1\4\42\uffff\1\4\23"+
+            "\uffff\1\4",
             "\1\6",
-            "\1\10\7\uffff\1\10\4\uffff\7\5",
-            "\1\10\14\uffff\7\5",
-            "\1\16\1\17",
-            "\1\10\7\uffff\1\10\4\uffff\7\5",
-            "\1\10\14\uffff\7\5"
+            "\1\4\2\uffff\1\7\2\4\1\uffff\1\4\42\uffff\1\4\23\uffff\1\4",
+            "\2\15",
+            "\1\4\2\uffff\1\7\2\4\1\uffff\1\4\42\uffff\1\4\23\uffff\1\4"
     };
 
     static final short[] DFA41_eot = DFA.unpackEncodedString(DFA41_eotS);
@@ -6273,34 +6494,39 @@ public class Prova2Parser extends Parser {
             this.transition = DFA41_transition;
         }
         public String getDescription() {
-            return "182:1: semantic_attachment : ( predicate_java_call | binary_operation );";
+            return "161:1: term : ( left_term | func_term | prova_map );";
         }
     }
     static final String DFA43_eotS =
-        "\13\uffff";
+        "\20\uffff";
     static final String DFA43_eofS =
-        "\6\uffff\1\5\2\uffff\1\5\1\uffff";
+        "\20\uffff";
     static final String DFA43_minS =
-        "\1\21\1\uffff\1\6\1\uffff\1\4\1\uffff\1\61\2\4\1\61\1\62";
+        "\1\6\4\4\1\uffff\2\64\1\uffff\4\4\1\64\2\4";
     static final String DFA43_maxS =
-        "\1\27\1\uffff\1\67\1\uffff\1\61\1\uffff\1\63\1\61\1\4\2\63";
+        "\1\71\4\27\1\uffff\2\65\1\uffff\1\27\1\4\2\27\1\65\2\27";
     static final String DFA43_acceptS =
-        "\1\uffff\1\1\1\uffff\1\3\1\uffff\1\2\5\uffff";
+        "\5\uffff\1\2\2\uffff\1\1\7\uffff";
     static final String DFA43_specialS =
-        "\13\uffff}>";
+        "\20\uffff}>";
     static final String[] DFA43_transitionS = {
-            "\1\1\2\2\4\3",
+            "\1\5\10\uffff\1\5\31\uffff\1\3\3\uffff\1\4\6\uffff\1\1\1\2"+
+            "\4\5",
+            "\1\6\14\uffff\7\5",
+            "\1\7\14\uffff\7\5",
+            "\1\10\14\uffff\7\5",
+            "\1\10\14\uffff\7\5",
             "",
-            "\1\3\5\uffff\1\3\34\uffff\1\3\3\uffff\1\3\4\uffff\1\4\3\3"+
-            "\2\5",
+            "\1\12\1\11",
+            "\1\13\1\14",
             "",
-            "\1\6\4\uffff\1\5\5\uffff\2\5\40\uffff\1\5",
-            "",
-            "\1\5\1\10\1\7",
-            "\1\11\4\uffff\1\5\5\uffff\2\5\40\uffff\1\5",
-            "\1\12",
-            "\1\5\2\3",
-            "\1\10\1\7"
+            "\1\15\14\uffff\7\5",
+            "\1\6",
+            "\1\10\7\uffff\1\10\4\uffff\7\5",
+            "\1\10\14\uffff\7\5",
+            "\1\16\1\17",
+            "\1\10\7\uffff\1\10\4\uffff\7\5",
+            "\1\10\14\uffff\7\5"
     };
 
     static final short[] DFA43_eot = DFA.unpackEncodedString(DFA43_eotS);
@@ -6333,94 +6559,154 @@ public class Prova2Parser extends Parser {
             this.transition = DFA43_transition;
         }
         public String getDescription() {
-            return "187:3: ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )";
+            return "175:1: semantic_attachment : ( predicate_java_call | binary_operation );";
         }
     }
-    static final String DFA42_eotS =
+    static final String DFA45_eotS =
+        "\13\uffff";
+    static final String DFA45_eofS =
+        "\6\uffff\1\5\2\uffff\1\5\1\uffff";
+    static final String DFA45_minS =
+        "\1\21\1\uffff\1\6\1\uffff\1\4\1\uffff\1\63\2\4\1\63\1\64";
+    static final String DFA45_maxS =
+        "\1\27\1\uffff\1\71\1\uffff\1\63\1\uffff\1\65\1\63\1\4\2\65";
+    static final String DFA45_acceptS =
+        "\1\uffff\1\1\1\uffff\1\3\1\uffff\1\2\5\uffff";
+    static final String DFA45_specialS =
+        "\13\uffff}>";
+    static final String[] DFA45_transitionS = {
+            "\1\1\2\2\4\3",
+            "",
+            "\1\3\5\uffff\1\3\34\uffff\1\3\3\uffff\1\3\6\uffff\1\4\3\3"+
+            "\2\5",
+            "",
+            "\1\6\4\uffff\1\5\5\uffff\2\5\42\uffff\1\5",
+            "",
+            "\1\5\1\10\1\7",
+            "\1\11\4\uffff\1\5\5\uffff\2\5\42\uffff\1\5",
+            "\1\12",
+            "\1\5\2\3",
+            "\1\10\1\7"
+    };
+
+    static final short[] DFA45_eot = DFA.unpackEncodedString(DFA45_eotS);
+    static final short[] DFA45_eof = DFA.unpackEncodedString(DFA45_eofS);
+    static final char[] DFA45_min = DFA.unpackEncodedStringToUnsignedChars(DFA45_minS);
+    static final char[] DFA45_max = DFA.unpackEncodedStringToUnsignedChars(DFA45_maxS);
+    static final short[] DFA45_accept = DFA.unpackEncodedString(DFA45_acceptS);
+    static final short[] DFA45_special = DFA.unpackEncodedString(DFA45_specialS);
+    static final short[][] DFA45_transition;
+
+    static {
+        int numStates = DFA45_transitionS.length;
+        DFA45_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA45_transition[i] = DFA.unpackEncodedString(DFA45_transitionS[i]);
+        }
+    }
+
+    class DFA45 extends DFA {
+
+        public DFA45(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 45;
+            this.eot = DFA45_eot;
+            this.eof = DFA45_eof;
+            this.min = DFA45_min;
+            this.max = DFA45_max;
+            this.accept = DFA45_accept;
+            this.special = DFA45_special;
+            this.transition = DFA45_transition;
+        }
+        public String getDescription() {
+            return "180:3: ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )";
+        }
+    }
+    static final String DFA44_eotS =
         "\14\uffff";
-    static final String DFA42_eofS =
+    static final String DFA44_eofS =
         "\6\uffff\1\4\3\uffff\1\4\1\uffff";
-    static final String DFA42_minS =
-        "\1\6\2\4\3\uffff\1\61\1\uffff\2\4\1\61\1\62";
-    static final String DFA42_maxS =
-        "\1\67\2\61\3\uffff\1\63\1\uffff\1\61\1\4\2\63";
-    static final String DFA42_acceptS =
+    static final String DFA44_minS =
+        "\1\6\2\4\3\uffff\1\63\1\uffff\2\4\1\63\1\64";
+    static final String DFA44_maxS =
+        "\1\71\2\63\3\uffff\1\65\1\uffff\1\63\1\4\2\65";
+    static final String DFA44_acceptS =
         "\3\uffff\1\2\1\3\1\4\1\uffff\1\1\4\uffff";
-    static final String DFA42_specialS =
+    static final String DFA44_specialS =
         "\14\uffff}>";
-    static final String[] DFA42_transitionS = {
-            "\1\5\5\uffff\1\5\2\uffff\1\3\31\uffff\1\5\3\uffff\1\5\4\uffff"+
+    static final String[] DFA44_transitionS = {
+            "\1\5\5\uffff\1\5\2\uffff\1\3\31\uffff\1\5\3\uffff\1\5\6\uffff"+
             "\1\1\1\2\2\5\2\4",
-            "\1\6\4\uffff\1\4\5\uffff\2\4\40\uffff\1\4",
-            "\6\5\2\uffff\1\7\2\uffff\2\5\33\uffff\1\5\4\uffff\1\5",
+            "\1\6\4\uffff\1\4\5\uffff\2\4\42\uffff\1\4",
+            "\6\5\2\uffff\1\7\2\uffff\2\5\33\uffff\1\5\6\uffff\1\5",
             "",
             "",
             "",
             "\1\4\1\11\1\10",
             "",
-            "\1\12\4\uffff\1\4\2\uffff\1\7\2\uffff\2\4\40\uffff\1\4",
+            "\1\12\4\uffff\1\4\2\uffff\1\7\2\uffff\2\4\42\uffff\1\4",
             "\1\13",
             "\1\4\2\5",
             "\1\11\1\10"
     };
 
-    static final short[] DFA42_eot = DFA.unpackEncodedString(DFA42_eotS);
-    static final short[] DFA42_eof = DFA.unpackEncodedString(DFA42_eofS);
-    static final char[] DFA42_min = DFA.unpackEncodedStringToUnsignedChars(DFA42_minS);
-    static final char[] DFA42_max = DFA.unpackEncodedStringToUnsignedChars(DFA42_maxS);
-    static final short[] DFA42_accept = DFA.unpackEncodedString(DFA42_acceptS);
-    static final short[] DFA42_special = DFA.unpackEncodedString(DFA42_specialS);
-    static final short[][] DFA42_transition;
+    static final short[] DFA44_eot = DFA.unpackEncodedString(DFA44_eotS);
+    static final short[] DFA44_eof = DFA.unpackEncodedString(DFA44_eofS);
+    static final char[] DFA44_min = DFA.unpackEncodedStringToUnsignedChars(DFA44_minS);
+    static final char[] DFA44_max = DFA.unpackEncodedStringToUnsignedChars(DFA44_maxS);
+    static final short[] DFA44_accept = DFA.unpackEncodedString(DFA44_acceptS);
+    static final short[] DFA44_special = DFA.unpackEncodedString(DFA44_specialS);
+    static final short[][] DFA44_transition;
 
     static {
-        int numStates = DFA42_transitionS.length;
-        DFA42_transition = new short[numStates][];
+        int numStates = DFA44_transitionS.length;
+        DFA44_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA42_transition[i] = DFA.unpackEncodedString(DFA42_transitionS[i]);
+            DFA44_transition[i] = DFA.unpackEncodedString(DFA44_transitionS[i]);
         }
     }
 
-    class DFA42 extends DFA {
+    class DFA44 extends DFA {
 
-        public DFA42(BaseRecognizer recognizer) {
+        public DFA44(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 42;
-            this.eot = DFA42_eot;
-            this.eof = DFA42_eof;
-            this.min = DFA42_min;
-            this.max = DFA42_max;
-            this.accept = DFA42_accept;
-            this.special = DFA42_special;
-            this.transition = DFA42_transition;
+            this.decisionNumber = 44;
+            this.eot = DFA44_eot;
+            this.eof = DFA44_eof;
+            this.min = DFA44_min;
+            this.max = DFA44_max;
+            this.accept = DFA44_accept;
+            this.special = DFA44_special;
+            this.transition = DFA44_transition;
         }
         public String getDescription() {
-            return "188:4: ( constructor_java_call | prova_list | constant | expr )";
+            return "181:4: ( constructor_java_call | prova_list | constant | expr )";
         }
     }
-    static final String DFA47_eotS =
+    static final String DFA49_eotS =
         "\23\uffff";
-    static final String DFA47_eofS =
+    static final String DFA49_eofS =
         "\10\uffff\1\11\1\uffff\1\11\10\uffff";
-    static final String DFA47_minS =
-        "\1\6\1\51\4\4\2\uffff\1\61\1\uffff\1\61\1\62\2\4\1\uffff\1\4\1"+
-        "\62\2\4";
-    static final String DFA47_maxS =
-        "\2\65\2\61\1\4\1\61\2\uffff\1\63\1\uffff\1\62\1\63\2\61\1\uffff"+
-        "\1\4\1\63\2\61";
-    static final String DFA47_acceptS =
+    static final String DFA49_minS =
+        "\1\6\1\51\4\4\2\uffff\1\63\1\uffff\1\63\1\64\2\4\1\uffff\1\4\1"+
+        "\64\2\4";
+    static final String DFA49_maxS =
+        "\2\67\2\63\1\4\1\63\2\uffff\1\65\1\uffff\1\64\1\65\2\63\1\uffff"+
+        "\1\4\1\65\2\63";
+    static final String DFA49_acceptS =
         "\6\uffff\1\2\1\4\1\uffff\1\1\4\uffff\1\3\4\uffff";
-    static final String DFA47_specialS =
+    static final String DFA49_specialS =
         "\23\uffff}>";
-    static final String[] DFA47_transitionS = {
-            "\1\1\5\uffff\1\7\34\uffff\1\3\3\uffff\1\5\4\uffff\1\4\1\2\2"+
+    static final String[] DFA49_transitionS = {
+            "\1\1\5\uffff\1\7\34\uffff\1\3\3\uffff\1\5\6\uffff\1\4\1\2\2"+
             "\6",
-            "\1\3\3\uffff\1\5\4\uffff\1\4\1\2\2\6",
-            "\1\10\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\4\uffff"+
+            "\1\3\3\uffff\1\5\6\uffff\1\4\1\2\2\6",
+            "\1\10\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\6\uffff"+
             "\1\11",
-            "\1\12\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\4\uffff"+
+            "\1\12\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\6\uffff"+
             "\1\11",
             "\1\13",
-            "\1\12\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\4\uffff"+
+            "\1\12\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\6\uffff"+
             "\1\11",
             "",
             "",
@@ -6428,66 +6714,66 @@ public class Prova2Parser extends Parser {
             "",
             "\1\11\1\16",
             "\1\4\1\17",
-            "\1\12\5\11\2\uffff\1\16\1\11\1\uffff\2\11\33\uffff\1\11\4"+
+            "\1\12\5\11\2\uffff\1\16\1\11\1\uffff\2\11\33\uffff\1\11\6"+
             "\uffff\1\11",
-            "\1\12\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\4\uffff"+
+            "\1\12\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\6\uffff"+
             "\1\11",
             "",
             "\1\20",
             "\1\21\1\22",
-            "\1\12\5\11\2\uffff\1\16\1\11\1\uffff\2\11\33\uffff\1\11\4"+
+            "\1\12\5\11\2\uffff\1\16\1\11\1\uffff\2\11\33\uffff\1\11\6"+
             "\uffff\1\11",
-            "\1\12\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\4\uffff"+
+            "\1\12\5\11\3\uffff\1\11\1\uffff\2\11\33\uffff\1\11\6\uffff"+
             "\1\11"
     };
 
-    static final short[] DFA47_eot = DFA.unpackEncodedString(DFA47_eotS);
-    static final short[] DFA47_eof = DFA.unpackEncodedString(DFA47_eofS);
-    static final char[] DFA47_min = DFA.unpackEncodedStringToUnsignedChars(DFA47_minS);
-    static final char[] DFA47_max = DFA.unpackEncodedStringToUnsignedChars(DFA47_maxS);
-    static final short[] DFA47_accept = DFA.unpackEncodedString(DFA47_acceptS);
-    static final short[] DFA47_special = DFA.unpackEncodedString(DFA47_specialS);
-    static final short[][] DFA47_transition;
+    static final short[] DFA49_eot = DFA.unpackEncodedString(DFA49_eotS);
+    static final short[] DFA49_eof = DFA.unpackEncodedString(DFA49_eofS);
+    static final char[] DFA49_min = DFA.unpackEncodedStringToUnsignedChars(DFA49_minS);
+    static final char[] DFA49_max = DFA.unpackEncodedStringToUnsignedChars(DFA49_maxS);
+    static final short[] DFA49_accept = DFA.unpackEncodedString(DFA49_acceptS);
+    static final short[] DFA49_special = DFA.unpackEncodedString(DFA49_specialS);
+    static final short[][] DFA49_transition;
 
     static {
-        int numStates = DFA47_transitionS.length;
-        DFA47_transition = new short[numStates][];
+        int numStates = DFA49_transitionS.length;
+        DFA49_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA47_transition[i] = DFA.unpackEncodedString(DFA47_transitionS[i]);
+            DFA49_transition[i] = DFA.unpackEncodedString(DFA49_transitionS[i]);
         }
     }
 
-    class DFA47 extends DFA {
+    class DFA49 extends DFA {
 
-        public DFA47(BaseRecognizer recognizer) {
+        public DFA49(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 47;
-            this.eot = DFA47_eot;
-            this.eof = DFA47_eof;
-            this.min = DFA47_min;
-            this.max = DFA47_max;
-            this.accept = DFA47_accept;
-            this.special = DFA47_special;
-            this.transition = DFA47_transition;
+            this.decisionNumber = 49;
+            this.eot = DFA49_eot;
+            this.eof = DFA49_eof;
+            this.min = DFA49_min;
+            this.max = DFA49_max;
+            this.accept = DFA49_accept;
+            this.special = DFA49_special;
+            this.transition = DFA49_transition;
         }
         public String getDescription() {
-            return "200:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE )";
+            return "193:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE )";
         }
     }
-    static final String DFA50_eotS =
+    static final String DFA52_eotS =
         "\10\uffff";
-    static final String DFA50_eofS =
+    static final String DFA52_eofS =
         "\10\uffff";
-    static final String DFA50_minS =
-        "\1\51\1\4\1\uffff\1\62\1\4\1\62\1\4\1\uffff";
-    static final String DFA50_maxS =
-        "\1\63\1\4\1\uffff\1\63\1\4\1\63\1\14\1\uffff";
-    static final String DFA50_acceptS =
+    static final String DFA52_minS =
+        "\1\51\1\4\1\uffff\1\64\1\4\1\64\1\4\1\uffff";
+    static final String DFA52_maxS =
+        "\1\65\1\4\1\uffff\1\65\1\4\1\65\1\14\1\uffff";
+    static final String DFA52_acceptS =
         "\2\uffff\1\2\4\uffff\1\1";
-    static final String DFA50_specialS =
+    static final String DFA52_specialS =
         "\10\uffff}>";
-    static final String[] DFA50_transitionS = {
-            "\1\2\3\uffff\1\2\4\uffff\1\1\1\2",
+    static final String[] DFA52_transitionS = {
+            "\1\2\3\uffff\1\2\6\uffff\1\1\1\2",
             "\1\3",
             "",
             "\1\1\1\4",
@@ -6497,213 +6783,223 @@ public class Prova2Parser extends Parser {
             ""
     };
 
-    static final short[] DFA50_eot = DFA.unpackEncodedString(DFA50_eotS);
-    static final short[] DFA50_eof = DFA.unpackEncodedString(DFA50_eofS);
-    static final char[] DFA50_min = DFA.unpackEncodedStringToUnsignedChars(DFA50_minS);
-    static final char[] DFA50_max = DFA.unpackEncodedStringToUnsignedChars(DFA50_maxS);
-    static final short[] DFA50_accept = DFA.unpackEncodedString(DFA50_acceptS);
-    static final short[] DFA50_special = DFA.unpackEncodedString(DFA50_specialS);
-    static final short[][] DFA50_transition;
+    static final short[] DFA52_eot = DFA.unpackEncodedString(DFA52_eotS);
+    static final short[] DFA52_eof = DFA.unpackEncodedString(DFA52_eofS);
+    static final char[] DFA52_min = DFA.unpackEncodedStringToUnsignedChars(DFA52_minS);
+    static final char[] DFA52_max = DFA.unpackEncodedStringToUnsignedChars(DFA52_maxS);
+    static final short[] DFA52_accept = DFA.unpackEncodedString(DFA52_acceptS);
+    static final short[] DFA52_special = DFA.unpackEncodedString(DFA52_specialS);
+    static final short[][] DFA52_transition;
 
     static {
-        int numStates = DFA50_transitionS.length;
-        DFA50_transition = new short[numStates][];
+        int numStates = DFA52_transitionS.length;
+        DFA52_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA50_transition[i] = DFA.unpackEncodedString(DFA50_transitionS[i]);
+            DFA52_transition[i] = DFA.unpackEncodedString(DFA52_transitionS[i]);
         }
     }
 
-    class DFA50 extends DFA {
+    class DFA52 extends DFA {
 
-        public DFA50(BaseRecognizer recognizer) {
+        public DFA52(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 50;
-            this.eot = DFA50_eot;
-            this.eof = DFA50_eof;
-            this.min = DFA50_min;
-            this.max = DFA50_max;
-            this.accept = DFA50_accept;
-            this.special = DFA50_special;
-            this.transition = DFA50_transition;
+            this.decisionNumber = 52;
+            this.eot = DFA52_eot;
+            this.eof = DFA52_eof;
+            this.min = DFA52_min;
+            this.max = DFA52_max;
+            this.accept = DFA52_accept;
+            this.special = DFA52_special;
+            this.transition = DFA52_transition;
         }
         public String getDescription() {
-            return "206:1: predicate_java_call : ( static_java_call | instance_java_call );";
+            return "199:1: predicate_java_call : ( static_java_call | instance_java_call );";
         }
     }
  
 
-    public static final BitSet FOLLOW_statement_in_rulebase327 = new BitSet(new long[]{0x00CE000000000400L,0x0000000000000008L});
-    public static final BitSet FOLLOW_NEWLINE_in_rulebase330 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_EOF_in_rulebase333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_statement351 = new BitSet(new long[]{0x00CE000000000400L,0x0000000000000008L});
-    public static final BitSet FOLLOW_stat_in_statement354 = new BitSet(new long[]{0x0002000000000010L});
-    public static final BitSet FOLLOW_end_of_statement_in_statement356 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_end_of_statement373 = new BitSet(new long[]{0x0002000000000010L});
-    public static final BitSet FOLLOW_DOT_in_end_of_statement376 = new BitSet(new long[]{0x0002000000000000L});
-    public static final BitSet FOLLOW_set_in_end_of_statement378 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_clause_in_stat395 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_query_in_stat401 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IF_in_query410 = new BitSet(new long[]{0x00CE000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_NEWLINE_in_query412 = new BitSet(new long[]{0x00CE000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_query_predicate_in_query415 = new BitSet(new long[]{0x0002000000001000L});
-    public static final BitSet FOLLOW_NEWLINE_in_query417 = new BitSet(new long[]{0x0002000000001000L});
-    public static final BitSet FOLLOW_OPEN_in_query420 = new BitSet(new long[]{0x00CE000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_NEWLINE_in_query422 = new BitSet(new long[]{0x00CE000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_relation_in_query425 = new BitSet(new long[]{0x0002000000002000L});
-    public static final BitSet FOLLOW_NEWLINE_in_query427 = new BitSet(new long[]{0x0002000000002000L});
-    public static final BitSet FOLLOW_CLOSE_in_query430 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_constant_in_query_predicate450 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_metadata_in_clause459 = new BitSet(new long[]{0x00CC000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_relation_in_clause462 = new BitSet(new long[]{0x0000000000000402L});
-    public static final BitSet FOLLOW_IF_in_clause465 = new BitSet(new long[]{0x00FE220000008840L,0x0000000000000008L});
-    public static final BitSet FOLLOW_literals_in_clause467 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_annotation_in_metadata493 = new BitSet(new long[]{0x0002000000000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_NEWLINE_in_metadata495 = new BitSet(new long[]{0x0002000000000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_67_in_annotation517 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_LCWORD_in_annotation519 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_OPEN_in_annotation522 = new BitSet(new long[]{0x00FC000000000040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_value_in_annotation524 = new BitSet(new long[]{0x0000000000002200L});
-    public static final BitSet FOLLOW_COMMA_in_annotation527 = new BitSet(new long[]{0x00FC000000000040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_value_in_annotation529 = new BitSet(new long[]{0x0000000000002200L});
-    public static final BitSet FOLLOW_CLOSE_in_annotation533 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCWORD_in_value558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UCWORD_in_value562 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_string_in_value566 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_number_in_value570 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_literal_in_literals580 = new BitSet(new long[]{0x0000000000000202L});
-    public static final BitSet FOLLOW_COMMA_in_literals583 = new BitSet(new long[]{0x00FE220000008840L,0x0000000000000008L});
-    public static final BitSet FOLLOW_literal_in_literals585 = new BitSet(new long[]{0x0000000000000202L});
-    public static final BitSet FOLLOW_NEWLINE_in_literal605 = new BitSet(new long[]{0x00CE000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_metadata_in_literal610 = new BitSet(new long[]{0x00CC000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_relation_in_literal615 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_guard_in_literal619 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_literal641 = new BitSet(new long[]{0x00FE220000008040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_metadata_in_literal646 = new BitSet(new long[]{0x00FE220000008040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_semantic_attachment_in_literal649 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_guard_in_literal653 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_literal675 = new BitSet(new long[]{0x00FE220000008840L,0x0000000000000008L});
-    public static final BitSet FOLLOW_cut_in_literal678 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CUT_in_cut694 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_not_equal_in_binary_operator703 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LT_in_binary_operator707 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GT_in_binary_operator711 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LE_in_binary_operator715 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GE_in_binary_operator719 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_predicate_in_relation731 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_OPEN_in_relation733 = new BitSet(new long[]{0x00FE22000000A040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_list_body_in_relation735 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_CLOSE_in_relation737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BRA_in_guard756 = new BitSet(new long[]{0x00FE220000008840L,0x0000000000000008L});
-    public static final BitSet FOLLOW_literals_in_guard758 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_KET_in_guard760 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_terms_in_list_body781 = new BitSet(new long[]{0x0002000000004002L});
-    public static final BitSet FOLLOW_BAR_in_list_body784 = new BitSet(new long[]{0x00FE220000008040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_list_tail_in_list_body786 = new BitSet(new long[]{0x0002000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_list_body792 = new BitSet(new long[]{0x0002000000000002L});
-    public static final BitSet FOLLOW_variable_in_list_tail817 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_prova_list_in_list_tail821 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_constant_in_left_term831 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variable_in_left_term838 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_number_in_left_term844 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_prova_list_in_left_term850 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_right_term861 = new BitSet(new long[]{0x00CE220000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_constant_in_right_term865 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variable_in_right_term869 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_number_in_right_term875 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_prova_list_in_right_term879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_terms888 = new BitSet(new long[]{0x00FE220000008040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_term_in_terms891 = new BitSet(new long[]{0x0002000000000202L});
-    public static final BitSet FOLLOW_NEWLINE_in_terms894 = new BitSet(new long[]{0x0002000000000200L});
-    public static final BitSet FOLLOW_COMMA_in_terms897 = new BitSet(new long[]{0x00FE220000008040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_NEWLINE_in_terms899 = new BitSet(new long[]{0x00FE220000008040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_term_in_terms902 = new BitSet(new long[]{0x0002000000000202L});
-    public static final BitSet FOLLOW_left_term_in_term921 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_func_term_in_term925 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_func_in_func_term934 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_args_in_func_term936 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCWORD_in_qualified_java_class949 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DOT_in_qualified_java_class951 = new BitSet(new long[]{0x000C000000000000L});
-    public static final BitSet FOLLOW_UCWORD_in_qualified_java_class955 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BRA_in_prova_list983 = new BitSet(new long[]{0x00FE220000018040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_list_body_in_prova_list985 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_KET_in_prova_list987 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OPEN_in_args1004 = new BitSet(new long[]{0x00FE22000000A040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_list_body_in_args1006 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_CLOSE_in_args1008 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_predicate_java_call_in_semantic_attachment1026 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_binary_operation_in_semantic_attachment1030 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_left_term_in_binary_operation1039 = new BitSet(new long[]{0x0000000000FE0000L});
-    public static final BitSet FOLLOW_EQUAL_in_binary_operation1045 = new BitSet(new long[]{0x00FE220000009040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_constructor_java_call_in_binary_operation1055 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_prova_list_in_binary_operation1062 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_constant_in_binary_operation1069 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expr_in_binary_operation1076 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_not_equal_in_binary_operation1087 = new BitSet(new long[]{0x00CE000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_constant_in_binary_operation1089 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_binary_operator_in_binary_operation1095 = new BitSet(new long[]{0x00FE220000009040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_expr_in_binary_operation1097 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_aterm_in_expr1109 = new BitSet(new long[]{0x0000000000000062L});
-    public static final BitSet FOLLOW_set_in_expr1112 = new BitSet(new long[]{0x00FE220000009040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_expr_in_expr1120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_aterm1132 = new BitSet(new long[]{0x00CE220000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_variable_in_aterm1135 = new BitSet(new long[]{0x0000100000000182L});
-    public static final BitSet FOLLOW_number_in_aterm1139 = new BitSet(new long[]{0x0000100000000182L});
-    public static final BitSet FOLLOW_MINUS_in_aterm1143 = new BitSet(new long[]{0x00CE220000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_predicate_java_call_in_aterm1146 = new BitSet(new long[]{0x0000100000000182L});
-    public static final BitSet FOLLOW_OPEN_in_aterm1150 = new BitSet(new long[]{0x00FE220000009040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_expr_in_aterm1152 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_CLOSE_in_aterm1154 = new BitSet(new long[]{0x0000100000000182L});
-    public static final BitSet FOLLOW_set_in_aterm1158 = new BitSet(new long[]{0x00FE220000009040L,0x0000000000000008L});
-    public static final BitSet FOLLOW_aterm_in_aterm1172 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qualified_java_class_in_constructor_java_call1184 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_UCWORD_in_constructor_java_call1188 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_args_in_constructor_java_call1191 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_static_java_call_in_predicate_java_call1202 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_instance_java_call_in_predicate_java_call1206 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_instance_call_in_instance_java_call1217 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_args_in_instance_java_call1219 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_static_call_in_static_java_call1240 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_args_in_static_java_call1242 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCWORD_in_method1263 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCWORD_in_func1271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UCWORD_in_func1275 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_string_in_func1279 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_typed_variable_in_func1283 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCWORD_in_predicate1293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UCWORD_in_predicate1297 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_string_in_predicate1301 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UCWORD_in_variable1308 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_USWORD_in_variable1312 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_typed_variable_in_variable1316 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOLLARWORD_in_variable1320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variable_in_variable_or_number1330 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_number_in_variable_or_number1334 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_statement_in_rulebase335 = new BitSet(new long[]{0x0338000000000400L,0x0000000000000020L});
+    public static final BitSet FOLLOW_NEWLINE_in_rulebase338 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_EOF_in_rulebase341 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_statement359 = new BitSet(new long[]{0x0338000000000400L,0x0000000000000020L});
+    public static final BitSet FOLLOW_stat_in_statement362 = new BitSet(new long[]{0x0008000000000010L});
+    public static final BitSet FOLLOW_end_of_statement_in_statement364 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_end_of_statement381 = new BitSet(new long[]{0x0008000000000010L});
+    public static final BitSet FOLLOW_DOT_in_end_of_statement384 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_set_in_end_of_statement386 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_clause_in_stat403 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_query_in_stat409 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IF_in_query418 = new BitSet(new long[]{0x0338000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_NEWLINE_in_query420 = new BitSet(new long[]{0x0338000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_query_predicate_in_query423 = new BitSet(new long[]{0x0008000000001000L});
+    public static final BitSet FOLLOW_NEWLINE_in_query425 = new BitSet(new long[]{0x0008000000001000L});
+    public static final BitSet FOLLOW_OPEN_in_query428 = new BitSet(new long[]{0x0338000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_NEWLINE_in_query430 = new BitSet(new long[]{0x0338000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_relation_in_query433 = new BitSet(new long[]{0x0008000000002000L});
+    public static final BitSet FOLLOW_NEWLINE_in_query435 = new BitSet(new long[]{0x0008000000002000L});
+    public static final BitSet FOLLOW_CLOSE_in_query438 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_constant_in_query_predicate458 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_metadata_in_clause467 = new BitSet(new long[]{0x0330000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_relation_in_clause470 = new BitSet(new long[]{0x0000000000000402L});
+    public static final BitSet FOLLOW_IF_in_clause473 = new BitSet(new long[]{0x03F8220000008840L,0x0000000000000020L});
+    public static final BitSet FOLLOW_literals_in_clause475 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_annotation_in_metadata501 = new BitSet(new long[]{0x0008000000000002L,0x0000000000000020L});
+    public static final BitSet FOLLOW_NEWLINE_in_metadata503 = new BitSet(new long[]{0x0008000000000002L,0x0000000000000020L});
+    public static final BitSet FOLLOW_69_in_annotation525 = new BitSet(new long[]{0x0010000000000000L});
+    public static final BitSet FOLLOW_LCWORD_in_annotation527 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_OPEN_in_annotation530 = new BitSet(new long[]{0x03F0000000000040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_value_in_annotation532 = new BitSet(new long[]{0x0000000000002200L});
+    public static final BitSet FOLLOW_COMMA_in_annotation535 = new BitSet(new long[]{0x03F0000000000040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_value_in_annotation537 = new BitSet(new long[]{0x0000000000002200L});
+    public static final BitSet FOLLOW_CLOSE_in_annotation541 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCWORD_in_value566 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UCWORD_in_value570 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_string_in_value574 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_number_in_value578 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_literal_in_literals588 = new BitSet(new long[]{0x0000000000000202L});
+    public static final BitSet FOLLOW_COMMA_in_literals591 = new BitSet(new long[]{0x03F8220000008840L,0x0000000000000020L});
+    public static final BitSet FOLLOW_literal_in_literals593 = new BitSet(new long[]{0x0000000000000202L});
+    public static final BitSet FOLLOW_NEWLINE_in_literal613 = new BitSet(new long[]{0x0338000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_metadata_in_literal618 = new BitSet(new long[]{0x0330000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_relation_in_literal623 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_guard_in_literal627 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_literal649 = new BitSet(new long[]{0x03F8220000008040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_metadata_in_literal654 = new BitSet(new long[]{0x03F8220000008040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_semantic_attachment_in_literal657 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_guard_in_literal661 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_literal683 = new BitSet(new long[]{0x03F8220000008840L,0x0000000000000020L});
+    public static final BitSet FOLLOW_cut_in_literal686 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CUT_in_cut702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_not_equal_in_binary_operator711 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LT_in_binary_operator715 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GT_in_binary_operator719 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LE_in_binary_operator723 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GE_in_binary_operator727 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_predicate_in_relation739 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_OPEN_in_relation741 = new BitSet(new long[]{0x03F822000000A040L,0x0000000000000060L});
+    public static final BitSet FOLLOW_list_body_in_relation743 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_CLOSE_in_relation745 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BRA_in_guard764 = new BitSet(new long[]{0x03F8220000008840L,0x0000000000000020L});
+    public static final BitSet FOLLOW_literals_in_guard766 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_KET_in_guard768 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_terms_in_list_body789 = new BitSet(new long[]{0x0008000000004002L});
+    public static final BitSet FOLLOW_BAR_in_list_body792 = new BitSet(new long[]{0x03F8220000008040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_list_tail_in_list_body794 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_list_body800 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_variable_in_list_tail825 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_prova_list_in_list_tail829 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_constant_in_left_term839 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variable_in_left_term846 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_number_in_left_term852 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_prova_list_in_left_term858 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_right_term869 = new BitSet(new long[]{0x0338220000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_constant_in_right_term873 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variable_in_right_term877 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_number_in_right_term883 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_prova_list_in_right_term887 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_prova_map_in_right_term891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_70_in_prova_map901 = new BitSet(new long[]{0x0330000000000200L,0x00000000000000A0L});
+    public static final BitSet FOLLOW_key_value_in_prova_map903 = new BitSet(new long[]{0x0000000000000200L,0x0000000000000080L});
+    public static final BitSet FOLLOW_COMMA_in_prova_map907 = new BitSet(new long[]{0x0330000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_key_value_in_prova_map909 = new BitSet(new long[]{0x0000000000000200L,0x0000000000000080L});
+    public static final BitSet FOLLOW_71_in_prova_map913 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_string_in_key_value933 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_72_in_key_value935 = new BitSet(new long[]{0x03F8220000008040L,0x0000000000000060L});
+    public static final BitSet FOLLOW_term_in_key_value937 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_terms960 = new BitSet(new long[]{0x03F8220000008040L,0x0000000000000060L});
+    public static final BitSet FOLLOW_term_in_terms963 = new BitSet(new long[]{0x0008000000000202L});
+    public static final BitSet FOLLOW_NEWLINE_in_terms966 = new BitSet(new long[]{0x0008000000000200L});
+    public static final BitSet FOLLOW_COMMA_in_terms969 = new BitSet(new long[]{0x03F8220000008040L,0x0000000000000060L});
+    public static final BitSet FOLLOW_NEWLINE_in_terms971 = new BitSet(new long[]{0x03F8220000008040L,0x0000000000000060L});
+    public static final BitSet FOLLOW_term_in_terms974 = new BitSet(new long[]{0x0008000000000202L});
+    public static final BitSet FOLLOW_left_term_in_term993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_func_term_in_term997 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_prova_map_in_term1001 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_func_in_func_term1010 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_args_in_func_term1012 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCWORD_in_qualified_java_class1025 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DOT_in_qualified_java_class1027 = new BitSet(new long[]{0x0030000000000000L});
+    public static final BitSet FOLLOW_UCWORD_in_qualified_java_class1031 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BRA_in_prova_list1059 = new BitSet(new long[]{0x03F8220000018040L,0x0000000000000060L});
+    public static final BitSet FOLLOW_list_body_in_prova_list1061 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_KET_in_prova_list1063 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OPEN_in_args1080 = new BitSet(new long[]{0x03F822000000A040L,0x0000000000000060L});
+    public static final BitSet FOLLOW_list_body_in_args1082 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_CLOSE_in_args1084 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_predicate_java_call_in_semantic_attachment1102 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_binary_operation_in_semantic_attachment1106 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_left_term_in_binary_operation1115 = new BitSet(new long[]{0x0000000000FE0000L});
+    public static final BitSet FOLLOW_EQUAL_in_binary_operation1121 = new BitSet(new long[]{0x03F8220000009040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_constructor_java_call_in_binary_operation1131 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_prova_list_in_binary_operation1138 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_constant_in_binary_operation1145 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expr_in_binary_operation1152 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_not_equal_in_binary_operation1163 = new BitSet(new long[]{0x0338000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_constant_in_binary_operation1165 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_binary_operator_in_binary_operation1171 = new BitSet(new long[]{0x03F8220000009040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_expr_in_binary_operation1173 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_aterm_in_expr1185 = new BitSet(new long[]{0x0000000000000062L});
+    public static final BitSet FOLLOW_set_in_expr1188 = new BitSet(new long[]{0x03F8220000009040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_expr_in_expr1196 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_aterm1208 = new BitSet(new long[]{0x0338220000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_variable_in_aterm1211 = new BitSet(new long[]{0x0000100000000182L});
+    public static final BitSet FOLLOW_number_in_aterm1215 = new BitSet(new long[]{0x0000100000000182L});
+    public static final BitSet FOLLOW_MINUS_in_aterm1219 = new BitSet(new long[]{0x0338220000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_predicate_java_call_in_aterm1222 = new BitSet(new long[]{0x0000100000000182L});
+    public static final BitSet FOLLOW_OPEN_in_aterm1226 = new BitSet(new long[]{0x03F8220000009040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_expr_in_aterm1228 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_CLOSE_in_aterm1230 = new BitSet(new long[]{0x0000100000000182L});
+    public static final BitSet FOLLOW_set_in_aterm1234 = new BitSet(new long[]{0x03F8220000009040L,0x0000000000000020L});
+    public static final BitSet FOLLOW_aterm_in_aterm1248 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_qualified_java_class_in_constructor_java_call1260 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_UCWORD_in_constructor_java_call1264 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_args_in_constructor_java_call1267 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_static_java_call_in_predicate_java_call1278 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_instance_java_call_in_predicate_java_call1282 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_instance_call_in_instance_java_call1293 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_args_in_instance_java_call1295 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_static_call_in_static_java_call1316 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_args_in_static_java_call1318 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCWORD_in_method1339 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCWORD_in_func1347 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UCWORD_in_func1351 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_string_in_func1355 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_typed_variable_in_func1359 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCWORD_in_predicate1369 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UCWORD_in_predicate1373 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_string_in_predicate1377 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UCWORD_in_variable1384 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_USWORD_in_variable1388 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_typed_variable_in_variable1392 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DOLLARWORD_in_variable1396 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variable_in_variable_or_number1406 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_number_in_variable_or_number1410 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_word0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qualified_java_class_in_typed_variable1361 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DOT_in_typed_variable1363 = new BitSet(new long[]{0x000C000000000000L});
-    public static final BitSet FOLLOW_word_in_typed_variable1365 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UCWORD_in_typed_variable1381 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DOT_in_typed_variable1383 = new BitSet(new long[]{0x000C000000000000L});
-    public static final BitSet FOLLOW_word_in_typed_variable1385 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_variable_in_instance_call1407 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DOT_in_instance_call1409 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_LCWORD_in_instance_call1411 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qualified_java_class_in_static_call1429 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DOT_in_static_call1431 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_LCWORD_in_static_call1433 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_LITERAL_in_pos_number1449 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LONG_LITERAL_in_pos_number1453 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_float_literal_in_pos_number1457 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_number1468 = new BitSet(new long[]{0x0030000000000040L});
-    public static final BitSet FOLLOW_pos_number_in_number1472 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCWORD_in_constant1481 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_string_in_constant1485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qualified_java_class_in_constant1489 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_qualified_java_class_in_typed_variable1437 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DOT_in_typed_variable1439 = new BitSet(new long[]{0x0030000000000000L});
+    public static final BitSet FOLLOW_word_in_typed_variable1441 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UCWORD_in_typed_variable1457 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DOT_in_typed_variable1459 = new BitSet(new long[]{0x0030000000000000L});
+    public static final BitSet FOLLOW_word_in_typed_variable1461 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_variable_in_instance_call1483 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DOT_in_instance_call1485 = new BitSet(new long[]{0x0010000000000000L});
+    public static final BitSet FOLLOW_LCWORD_in_instance_call1487 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_qualified_java_class_in_static_call1505 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DOT_in_static_call1507 = new BitSet(new long[]{0x0010000000000000L});
+    public static final BitSet FOLLOW_LCWORD_in_static_call1509 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_LITERAL_in_pos_number1525 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LONG_LITERAL_in_pos_number1529 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_float_literal_in_pos_number1533 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_number1544 = new BitSet(new long[]{0x00C0000000000040L});
+    public static final BitSet FOLLOW_pos_number_in_number1548 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCWORD_in_constant1557 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_string_in_constant1561 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_qualified_java_class_in_constant1565 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_string0 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_not_equal0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_LITERAL_in_float_literal1525 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DOT_in_float_literal1527 = new BitSet(new long[]{0x0010000000000000L});
-    public static final BitSet FOLLOW_INT_LITERAL_in_float_literal1529 = new BitSet(new long[]{0x0100000000000002L});
-    public static final BitSet FOLLOW_EXPONENT_in_float_literal1531 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_LITERAL_in_float_literal1601 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DOT_in_float_literal1603 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_INT_LITERAL_in_float_literal1605 = new BitSet(new long[]{0x0400000000000002L});
+    public static final BitSet FOLLOW_EXPONENT_in_float_literal1607 = new BitSet(new long[]{0x0000000000000002L});
 
 }

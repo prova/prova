@@ -14,8 +14,6 @@ options {
 	import java.util.HashSet;
 	import java.util.Map;
 	import java.util.HashMap;
-	import ws.prova.parser.RulebaseParser;
-	import ws.prova.reagent;
 	
 	import ws.prova.util2.ProvaClassUtils;
 	import ws.prova.kernel2.ProvaObject;
@@ -516,6 +514,7 @@ term	returns [ProvaObject ret]
 	:	
 		lt=left_term {$ret=lt;}
 		| ft=func_term {$ret=ft;}
+		| map=prova_map {$ret=map;}
 ;
 
 left_term returns [ProvaObject ret]
@@ -545,7 +544,7 @@ scope {
 	$qualified_java_class::s = "";
 }
 @after {
-	Class type = Calc.findClass((String) $qualified_java_class::s);
+	Class type = ProvaClassUtils.findClass((String) $qualified_java_class::s);
 	if( type==null )
 		throw new RecognitionException();
 	$ret=ProvaConstantImpl.create(/*$qualified_java_class::s*/type);
@@ -624,6 +623,23 @@ prova_list returns [ProvaList ret]
 	:	^(PROVA_LIST l=list_body) {$ret=l;}
 ;
 
+prova_map returns [ProvaObject ret]
+@init {
+	Map<String,Object> map = new HashMap<String,Object>();
+}
+@after {
+	$ret = ProvaConstantImpl.create(map);
+}
+	:	^(PROVA_MAP (kv=key_value {map.put(kv.get(0).toString(),kv.get(1));})*)
+	;
+
+key_value returns [List<Object> ret]
+@init {
+	$ret = new ArrayList<Object>();
+}
+	:	^(KEY_VALUE (k=string v=term) {$ret.add(k); $ret.add(v);})
+	;
+	
 variable returns [ProvaObject ret]
 @after {
 	if( $ret instanceof ProvaVariable ) {
