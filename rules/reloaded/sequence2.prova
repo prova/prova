@@ -1,0 +1,42 @@
+:- eval(server()). 
+
+server() :-
+       rcvMult(XID,Protocol,From,request,start(Thread)),
+       server_1(XID).
+
+server_1(XID) :-
+       @group(g1) @stop
+       rcvMsg(XID,Protocol,From,request,end(Thread)),
+       println(["got end event "]).
+server_1(XID) :-
+       @group(g1)
+       rcvMult(XID,Protocol,From,request,a(Id,X)),
+       println(["got a(",Id,",",X,") "]),
+       @group(g1)
+       rcvMult(XID,Protocol,From,request,b(Id,Y)),
+       println(["got a(",Id,",",X,")->b(",Id,",",Y,") "]).
+server_1(XID) :-
+       @and(g1)
+       rcvMsg(XID,Proto,From,and,Events),
+       println(["Pattern detected : ",Events," "]).
+
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	sendMsg(test,async,0,request,start(test)),
+	sendMsg(test,async,0,request,a(1,11)),
+	sendMsg(test,async,0,request,b(1,8)),
+	sendMsg(test,async,0,request,a(1,12)),
+	sendMsg(test,async,0,request,b(1,20)),
+	sendMsg(test,async,0,request,a(1,33)),
+	sendMsg(test,async,0,request,b(1,2)),
+	sendMsg(test,async,0,request,end(test)),
+	% This won't be detected
+	sendMsg(test,async,0,request,a(1,11)).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

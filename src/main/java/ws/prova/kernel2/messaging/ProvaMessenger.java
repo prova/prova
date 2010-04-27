@@ -11,7 +11,7 @@ import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaPredicate;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.reference2.eventing.ProvaGroup;
-import ws.prova.service.ProvaService;
+import ws.prova.service.ProvaMiniService;
 
 public interface ProvaMessenger {
 
@@ -50,8 +50,8 @@ public interface ProvaMessenger {
 
 	public void stop();
 
-	public void setService(ProvaService service);
+	public void setService(ProvaMiniService service);
 
-	public void addMsg(String xid, String dest, String agent, Map<String, Object> payload);
+	public void addMsg(String xid, String dest, String agent, Object payload);
 
 }

@@ -48,7 +48,7 @@ import ws.prova.reference2.eventing.ProvaOrGroupImpl;
 import ws.prova.reference2.eventing.ProvaGroup.EventDetectionStatus;
 import ws.prova.reference2.messaging.where.WhereNode;
 import ws.prova.reference2.messaging.where.WhereTreeVisitor;
-import ws.prova.service.ProvaService;
+import ws.prova.service.ProvaMiniService;
 import ws.prova.util2.ProvaTimeUtils;
 
 @SuppressWarnings("unused")
@@ -86,7 +86,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 
 	private ScheduledThreadPoolExecutor timers;
 
-	private ProvaService service;
+	private ProvaMiniService service;
 
 	private static ThreadLocal<Map<String, String>> tlStatic2Dynamic = new ThreadLocal<Map<String, String>>();
 
@@ -1007,7 +1007,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	}
 
 	@Override
-	public void addMsg(String xid, String agent, String verb, Map<String, Object> payload) {
+	public void addMsg(String xid, String agent, String verb, Object payload) {
 		ProvaList terms = ProvaListImpl.create( new ProvaObject[] {
 			ProvaConstantImpl.create(xid),
 			ProvaConstantImpl.create("osgi"),
@@ -1206,7 +1206,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	}
 
 	@Override
-	public void setService(ProvaService service) {
+	public void setService(ProvaMiniService service) {
 		this.service = service;
 	}
 

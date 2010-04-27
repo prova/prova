@@ -38,6 +38,7 @@ import ws.prova.reference2.ProvaResolutionInferenceEngineImpl;
 import ws.prova.reference2.ProvaSwingAdaptor;
 import ws.prova.reference2.messaging.ProvaMessengerImpl;
 import ws.prova.reference2.messaging.ProvaWorkflowsImpl;
+import ws.prova.service.ProvaMiniService;
 
 @SuppressWarnings("unused")
 public class ProvaReagentImpl implements ProvaReagent {
@@ -77,7 +78,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 
 	private boolean allowedShutdown = true;
 	
-	public ProvaReagentImpl(String agent, String port,
+	public ProvaReagentImpl(ProvaMiniService service, String agent, String port,
 			String[] prot, Object rules, boolean async,
 			ProvaAgent esb, Map<String, Object> globals) {
 		this.agent = agent;
@@ -109,6 +110,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 		}
 
 		this.messenger = new ProvaMessengerImpl(this, kb, agent, password, machine, esb);
+		this.messenger.setService(service);
 		this.workflows = new ProvaWorkflowsImpl(kb);
 		
 		Runtime.getRuntime().addShutdownHook(new Thread() {

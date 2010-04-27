@@ -16,7 +16,7 @@ import ws.prova.exchange.ProvaSolution;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.messaging.ProvaMessenger;
 import ws.prova.parser2.ProvaParsingException;
-import ws.prova.service.ProvaService;
+import ws.prova.service.ProvaMiniService;
 
 public class ProvaCommunicatorImpl implements ProvaCommunicator {
 
@@ -50,7 +50,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			prot = null;
 		}
 
-		prova = new ProvaReagentImpl(agent, port, prot, rules, async, null, null);
+		prova = new ProvaReagentImpl(null, agent, port, prot, rules, async, null, null);
 		messenger = prova.getMessenger();
 	}
 
@@ -79,7 +79,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			prot = null;
 		}
 
-		prova = new ProvaReagentImpl(agent, port, prot, rules, async, null, globals);
+		prova = new ProvaReagentImpl(null, agent, port, prot, rules, async, null, globals);
 		messenger = prova.getMessenger();
 	}
 
@@ -92,16 +92,16 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			prot = null;
 		}
 
-		prova = new ProvaReagentImpl(agent, port, prot, rules, async, esb, globals);
+		prova = new ProvaReagentImpl(null, agent, port, prot, rules, async, esb, globals);
 		messenger = prova.getMessenger();
 	}
 
 	public ProvaCommunicatorImpl(String agent, Object rules, boolean async) {
-		prova = new ProvaReagentImpl(agent, null, null, rules, async, null, null);
+		prova = new ProvaReagentImpl(null, agent, null, null, rules, async, null, null);
 		messenger = prova.getMessenger();
 	}
 
-	public ProvaCommunicatorImpl(ProvaService service,
+	public ProvaCommunicatorImpl(ProvaMiniService service,
 			String agent, String port, String rules, boolean async, Map<String, Object> globals) {
 		String[] prot;
 		if (port != null) {
@@ -110,9 +110,8 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			prot = null;
 		}
 
-		prova = new ProvaReagentImpl(agent, port, prot, rules, async, null, globals);
+		prova = new ProvaReagentImpl(service, agent, port, prot, rules, async, null, globals);
 		messenger = prova.getMessenger();
-		messenger.setService(service);
 	}
 
 	@Override
@@ -359,7 +358,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	}
 
 	@Override
-	public void addMsg(String xid, String agent, String verb, Map<String, Object> payload) {
+	public void addMsg(String xid, String agent, String verb, Object payload) {
 		messenger.addMsg(xid, agent, verb, payload);
 	}
 

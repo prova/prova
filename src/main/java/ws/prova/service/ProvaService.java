@@ -6,7 +6,7 @@ import java.util.List;
 import ws.prova.exchange.ProvaSolution;
 import ws.prova.kernel2.ProvaList;
 
-public interface ProvaService extends EPService {
+public interface ProvaService extends ProvaMiniService, EPService {
 
 	public String instance(String agent, String rulebase);
 
@@ -25,6 +25,4 @@ public interface ProvaService extends EPService {
 	public List<ProvaSolution[]> consult(String agent, BufferedReader in,
 			String key);
 
-	public void send(String xid, String dest, String agent, String verb, Object payload);
-	
 }

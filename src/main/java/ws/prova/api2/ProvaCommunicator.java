@@ -39,6 +39,6 @@ public interface ProvaCommunicator {
 
 	public void setGlobalConstant(String name, Object value);
 
-	public void addMsg(String xid, String agent, String verb, Map<String, Object> payload);
+	public void addMsg(String xid, String agent, String verb, Object payload);
 
 }

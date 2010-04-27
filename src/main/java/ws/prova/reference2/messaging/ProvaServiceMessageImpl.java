@@ -6,13 +6,13 @@ import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.reference2.ProvaConstantImpl;
-import ws.prova.service.ProvaService;
+import ws.prova.service.ProvaMiniService;
 
 public class ProvaServiceMessageImpl implements ProvaDelayedCommand {
 
 	private String dest;
 	
-	private ProvaService service;
+	private ProvaMiniService service;
 
 	private String xid;
 
@@ -23,7 +23,7 @@ public class ProvaServiceMessageImpl implements ProvaDelayedCommand {
 	private String verb;
 	
 	public ProvaServiceMessageImpl(String dest, ProvaList terms,
-			String agent, ProvaService service) {
+			String agent, ProvaMiniService service2) {
 		this.xid = terms.getFixed()[0].toString();
 		this.dest = dest;
 		this.agent = agent;
@@ -35,7 +35,7 @@ public class ProvaServiceMessageImpl implements ProvaDelayedCommand {
 			terms.getFixed()[2] = ProvaConstantImpl.create(agent);
 			this.payload = terms;
 		}
-		this.service = service;
+		this.service = service2;
 	}
 
 	@Override

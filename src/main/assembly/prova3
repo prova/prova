@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Prova batch file
+
+PROVA_HOME=".."
+PROVA_LIBS="$PROVA_HOME/lib"
+
+# Building the Classpath
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/ws.prova.compact-3.0.0.jar"
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.apache.commons.lang.jar"
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.antlr.runtime.jar"
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.apache.commons.beanutils.jar"
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.apache.commons.collections.jar"
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.apache.log4j.jar"
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.slf4j.api.jar"
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.slf4j.log4j.jar"
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.apache.commons.logging.jar"
+
+export CLASSPATH 
+
+java -Xms512m -Xmx512m -XX:NewSize=256m -XX:MaxNewSize=256m ws.prova.reagent mediator password $*
