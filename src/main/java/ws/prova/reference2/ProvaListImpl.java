@@ -346,6 +346,10 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 				newFixed[i] = ((ProvaList) fixed[i]).rebuild(unification);
 				changed |= newFixed[i]!=fixed[i];
 				continue;
+			} else if( fixed[i] instanceof ProvaMapImpl ) {
+				newFixed[i] = ((ProvaMapImpl) fixed[i]).rebuild(unification);
+				changed |= newFixed[i]!=fixed[i];
+				continue;
 			} else
 				newFixed[i] = fixed[i];
 		}

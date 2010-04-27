@@ -1,6 +1,8 @@
 package ws.prova.reference2;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import ws.prova.kernel2.ProvaComputable;
 import ws.prova.kernel2.ProvaConstant;
@@ -14,7 +16,7 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 
 	private static final long serialVersionUID = -3976583974992460058L;
 
-	private Object object;
+	protected Object object;
 	
 	public static ProvaConstantImpl create(Object object) {
 		return new ProvaConstantImpl(object);
@@ -41,6 +43,16 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 
 	@Override
 	public int collectVariables(long ruleId, List<ProvaVariable> variables) {
+		if( object instanceof Map<?,?> ) {
+			Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+			for( Entry<String,ProvaObject> e : map.entrySet() ) {
+				int r = e.getValue().collectVariables(ruleId, variables);
+				if( r!=-1 ) {
+					e.setValue(new ProvaVariablePtrImpl(ruleId, r));
+				}
+			}
+			return 0;
+		}
 		return -1;
 	}
 

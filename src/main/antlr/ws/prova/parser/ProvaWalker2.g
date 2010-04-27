@@ -25,6 +25,7 @@ options {
 	import ws.prova.kernel2.ProvaResultSet;
 	import ws.prova.reference2.ProvaConstantImpl;
 	import ws.prova.reference2.ProvaVariableImpl;
+	import ws.prova.reference2.ProvaMapImpl;
 	import ws.prova.reference2.ProvaListImpl;
 	import ws.prova.reference2.ProvaLiteralImpl;
 	import ws.prova.reference2.ProvaRuleImpl;
@@ -628,7 +629,7 @@ prova_map returns [ProvaObject ret]
 	Map<String,Object> map = new HashMap<String,Object>();
 }
 @after {
-	$ret = ProvaConstantImpl.create(map);
+	$ret = ProvaMapImpl.create(map);
 }
 	:	^(PROVA_MAP (kv=key_value {map.put(kv.get(0).toString(),kv.get(1));})*)
 	;
@@ -637,7 +638,7 @@ key_value returns [List<Object> ret]
 @init {
 	$ret = new ArrayList<Object>();
 }
-	:	^(KEY_VALUE (k=string v=term) {$ret.add(k); $ret.add(v);})
+	:	^(KEY_VALUE (k=mstring v=term) {$ret.add(k); $ret.add(v);})
 	;
 	
 variable returns [ProvaObject ret]
@@ -713,6 +714,11 @@ constant returns [ProvaConstant ret]
 string	returns [String ret]
 	:	s1=STRING1 {$ret=s1.toString().substring(1,s1.toString().length()-1);}
 		| s2=STRING2 {$ret=s2.toString().substring(1,s2.toString().length()-1);}
+;
+
+mstring	returns [String ret]
+	:	s=string {$ret=s;}
+		| l=LCWORD {$ret=l.toString();}
 ;
 
 pos_number	returns [Number ret]

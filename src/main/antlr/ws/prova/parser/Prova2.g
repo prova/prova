@@ -153,7 +153,7 @@ prova_map
 	;
 
 key_value
-	:	string ':' term -> ^(KEY_VALUE string term)	
+	:	mstring ':' term -> ^(KEY_VALUE mstring term)	
 	;
 	
 terms 	:	NEWLINE* term (NEWLINE* ',' NEWLINE* term)* -> ^(TERM term+);
@@ -246,6 +246,9 @@ pos_number	:	INT_LITERAL | LONG_LITERAL | float_literal/*FLOAT_LITERAL*/;
 number
 	:	('-')? pos_number;
 
+mstring		:
+	LCWORD | string;
+	
 constant	:
 	LCWORD | string | qualified_java_class;
 
@@ -282,7 +285,7 @@ DOLLARWORD
 	:	DOLLAR WORD;
 
 fragment WORD
-	: (LC | UC | UNDERSCORE | ':' | DIGIT)*;
+	: (LC | UC | UNDERSCORE | DIGIT)*;
 	
 fragment UNDERSCORE
 	:	'_'

@@ -53,7 +53,7 @@ public class ProvaRuleImpl implements ProvaRule {
 			variable.setRuleId(ruleId);
 		if( this.head!=null )
 			this.head.addClause(this);
-		if( log.isInfoEnabled() )
+		if( log.isDebugEnabled() )
 			getSourceCode();
 	}
 
