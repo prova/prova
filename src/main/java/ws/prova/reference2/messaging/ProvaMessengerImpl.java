@@ -39,6 +39,7 @@ import ws.prova.parser.WhereLexer;
 import ws.prova.parser.WhereParser;
 import ws.prova.reference2.ProvaConstantImpl;
 import ws.prova.reference2.ProvaListImpl;
+import ws.prova.reference2.ProvaMapImpl;
 import ws.prova.reference2.ProvaResolutionInferenceEngineImpl;
 import ws.prova.reference2.ProvaVariableImpl;
 import ws.prova.reference2.eventing.ProvaAndGroupImpl;
@@ -1013,7 +1014,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			ProvaConstantImpl.create("osgi"),
 			ProvaConstantImpl.create(agent),
 			ProvaConstantImpl.create(verb),
-			ProvaConstantImpl.create(payload)
+			payload instanceof Map<?,?> ? ProvaMapImpl.wrap((Map<?,?>) payload) : ProvaConstantImpl.create(payload)
 		});
 		ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", terms);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,

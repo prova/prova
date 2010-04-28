@@ -105,6 +105,8 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 				fixed[i].substituteVariables(varsMap);
 			else if( fixed[i] instanceof ProvaLiteral )
 				fixed[i].substituteVariables(varsMap);
+			else if( fixed[i] instanceof ProvaMapImpl )
+				fixed[i].substituteVariables(varsMap);
 		}
 		if( tail!=null ) {
 			if( tail instanceof ProvaVariablePtr )
@@ -444,6 +446,8 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 				continue;
 			} else if( fixed[i] instanceof ProvaLiteral ) {
 				newFixed[i] = ((ProvaLiteral) fixed[i]).rebuildSource(unification);
+			} else if( fixed[i] instanceof ProvaMapImpl ) {
+				newFixed[i] = ((ProvaMapImpl) fixed[i]).rebuildSource(unification);
 			} else
 				newFixed[i] = fixed[i];
 		}

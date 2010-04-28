@@ -9,6 +9,3 @@ test_map(X) :-
 % Match the supplied variable. Note that a is the same as 'a' in Prova.
 test_map(X) :-
 	data({a:X,'b':2}).
-% Match only selected fields
-test_map(X) :-
-	data({a:X}).

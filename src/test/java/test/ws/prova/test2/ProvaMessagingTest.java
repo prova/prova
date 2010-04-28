@@ -230,6 +230,24 @@ public class ProvaMessagingTest {
 		}
 	}
 
+	@Test
+	public void map_payload() {
+		final String rulebase = "rules/reloaded/msg011.prova";
+		
+		AtomicInteger count = new AtomicInteger(0);
+		Map<String,Object> globals = new HashMap<String,Object>();
+		globals.put("$Count", count);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+
+		try {
+			synchronized(this) {
+				wait(1000);
+				org.junit.Assert.assertEquals(1,count.get());
+			}
+		} catch (Exception e) {
+		}
+	}
+
 	/**
 	 * Demonstrate the use cycled event processing.
 	 * Inbound events for 2 different XID are executed concurrently.

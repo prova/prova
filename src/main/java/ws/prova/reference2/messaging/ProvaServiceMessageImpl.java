@@ -6,6 +6,7 @@ import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.reference2.ProvaConstantImpl;
+import ws.prova.reference2.ProvaMapImpl;
 import ws.prova.service.ProvaMiniService;
 
 public class ProvaServiceMessageImpl implements ProvaDelayedCommand {
@@ -29,8 +30,8 @@ public class ProvaServiceMessageImpl implements ProvaDelayedCommand {
 		this.agent = agent;
 		this.verb = terms.getFixed()[3].toString();
 		this.payload = terms.getFixed()[4];
-		if( this.payload instanceof ProvaConstant && ((ProvaConstant) this.payload).getObject() instanceof Map<?, ?> )
-			this.payload = ((ProvaConstant) payload).getObject();
+		if( this.payload instanceof ProvaMapImpl )
+			this.payload = ((ProvaMapImpl) payload).unwrap();
 		else {
 			terms.getFixed()[2] = ProvaConstantImpl.create(agent);
 			this.payload = terms;
