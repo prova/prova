@@ -62,8 +62,9 @@ ARITHMETIC_RELATION=32
 DIV=8
 METADATA=29
 INSTANCE_JAVA_CALL=35
-BRA=15
+T__73=73
 BAR=14
+BRA=15
 LE=22
 NOT_EQUAL2=19
 NOT_EQUAL1=18
@@ -80,13 +81,14 @@ NOT_EQUAL1=18
 ':-'=10
 ')'=13
 '.'=4
+'->'=72
 '}'=71
 '{'=70
 '<='=22
 '!='=19
 '<'=20
+':'=73
 '('=12
-':'=72
 '['=15
 '*'=7
 '-'=6

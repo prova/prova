@@ -271,6 +271,8 @@ public class ProvaUnificationImpl implements ProvaUnification {
 			return ((ProvaList) assigned).rebuild(this);
 		} else if( assigned instanceof ProvaListPtr ) {
 			return ((ProvaListPtr) assigned).rebuild(this);
+		} else if( assigned instanceof ProvaMapImpl ) {
+			return ((ProvaMapImpl) assigned).rebuild(this);
 		}
 		return assigned;
 	}
@@ -295,6 +297,8 @@ public class ProvaUnificationImpl implements ProvaUnification {
 			return ((ProvaList) assigned).rebuildSource(this);
 		} else if( assigned instanceof ProvaListPtr ) {
 			return ((ProvaListPtr) assigned).rebuildSource(this);
+		} else if( assigned instanceof ProvaMapImpl ) {
+			return ((ProvaMapImpl) assigned).rebuildSource(this);
 		}
 		return assigned;
 	}
@@ -323,35 +327,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 			}
 		}
 		newQuery.substituteVariables(varsMap);
-//		Map<ProvaVariablePtr,ProvaVariablePtr> varsMap = new HashMap<ProvaVariablePtr,ProvaVariablePtr>();
-//		Vector<ProvaVariable> newVariables = newQuery.getVariables();
-//		int index = 0;
-//		for( int i=0; i<sourceVariables.size(); i++ ) {
-//			if( sourceVariables.get(i).getAssigned()==null ) {
-//				ProvaVariablePtr key = new ProvaVariablePtrImpl(sourceRuleId,i);
-//				varsMap.put(
-//						key,
-//						new ProvaVariablePtrImpl(0,index));
-//				ProvaVariable newVariable = sourceVariables.get(i).clone();
-//				newVariable.setIndex(index++);
-//				newVariable.setRuleId(newQuery.getRuleId());
-//				newVariables.add(newVariable);
-//			}
-//		}
-//		for( int i=0; i<targetVariables.size(); i++ ) {
-//			if( targetVariables.get(i).getAssigned()==null /*&& targetVariables.get(i).getRuleId()==targetRuleId*/ ) {
-//				ProvaVariablePtr key = new ProvaVariablePtrImpl(/*targetVariables.get(i).getRuleId()*/targetRuleId,i);
-//				if( varsMap.containsKey(key) )
-//					continue;
-//				varsMap.put(
-//						key,
-//						new ProvaVariablePtrImpl(newQuery.getRuleId(),newVariables.size()));
-//				ProvaVariable newVariable = targetVariables.get(i).clone();
-//				newVariable.setRuleId(newQuery.getRuleId());
-//				newVariables.add(newVariable);
-//			}
-//		}
-//		newQuery.substituteVariables(varsMap);
+
 		return newQuery;
 	}
 

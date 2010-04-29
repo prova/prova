@@ -1,0 +1,9 @@
+:- solve(own(X)).
+
+buy({buyer->'Bill',seller->'Amazon',item->'Avatar Blu-ray'}).
+
+keep({keeper->'Bill',item->'Avatar Blu-ray'}).
+
+own({owner->Person,item->Object}) :-
+	buy({buyer->Person,seller->Merchant,item->Object}),
+	keep({keeper->Person,item->Object}).

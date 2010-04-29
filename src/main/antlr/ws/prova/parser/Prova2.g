@@ -153,7 +153,7 @@ prova_map
 	;
 
 key_value
-	:	mstring ':' term -> ^(KEY_VALUE mstring term)	
+	:	mstring ('->'|':') term -> ^(KEY_VALUE mstring term)	
 	;
 	
 terms 	:	NEWLINE* term (NEWLINE* ',' NEWLINE* term)* -> ^(TERM term+);
