@@ -168,12 +168,23 @@ public class ProvaServiceImpl implements ProvaService {
 	}
 	
 	@Override
-	public void send(String xid, String dest, String agent, String verb, Object payload) {
+	public void send(String xid, String dest, String agent, String verb, Object content) {
 		EPService callback = callbacks.get(dest);
-		if( callback!=null && callback!=this )
+		if( callback!=null && callback!=this ) {
+			if( !(content instanceof Map<?, ?>) )
+				throw new IllegalArgumentException();
+			Map<String, Object> payload = (Map<String, Object>) content;
+			if( "present".equals(verb) ) {
+				// Ask the subscriber to start receiving the stream
+				String topic = payload.get("topic").toString();
+				if( log.isDebugEnabled() )
+					log.debug("Subscriber "+dest+" to receive stream on "+topic);
+				// Register the mapping
+				registerMapping(topic, dest);
+			}
 			callback.send(xid, dest, agent, verb, payload, this);
-		else
-			send(xid, dest, agent, verb, payload, this);
+		} else
+			send(xid, dest, agent, verb, content, this);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -207,9 +218,11 @@ public class ProvaServiceImpl implements ProvaService {
 				ProvaCommunicator engine = engines.get(target);
 				if( engine==null )
 					log.error("Subscriber "+target+" not present");
-				engine.addMsg(xid, agent, verb, payload);
-				if( log.isDebugEnabled() )
-					log.debug("Sent: "+payload+" to "+target);
+				else {
+					engine.addMsg(xid, agent, verb, payload);
+					if( log.isDebugEnabled() )
+						log.debug("Sent: "+payload+" to "+target);
+				}
 			}
 			return;
 		} else if( "unregister".equals(verb) ) {
