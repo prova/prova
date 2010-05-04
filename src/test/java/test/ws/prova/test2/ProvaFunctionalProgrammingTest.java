@@ -15,6 +15,18 @@ public class ProvaFunctionalProgrammingTest {
 	static final String kPort = null;
 
 	@Test
+	public void func_stream_fusion() {
+		final String rulebase = "rules/reloaded/func_010.prova";
+		final int[] numSolutions = new int[] {0,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+	}
+
+	@Test
 	public void func_fact_monad() {
 		final String rulebase = "rules/reloaded/func_fact_monad.prova";
 		final int[] numSolutions = new int[] {0,1,1,1,3,1,3,1,3,1,3,1,1,1};
