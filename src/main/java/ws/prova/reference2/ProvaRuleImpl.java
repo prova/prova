@@ -359,7 +359,7 @@ public class ProvaRuleImpl implements ProvaRule {
 
 	@Override
 	public String getSourceCode() {
-		if( log.isInfoEnabled() && this.sourceCode==null ) {
+		if( log.isDebugEnabled() && this.sourceCode==null ) {
 			if( head!=null && head.getPredicate().getSymbol().length()==0 )
 				return toString();
 			StringBuilder sb = new StringBuilder();
@@ -381,7 +381,7 @@ public class ProvaRuleImpl implements ProvaRule {
 
 	@Override
 	public void computeSourceCode() {
-		if( log.isInfoEnabled() ) {
+		if( log.isDebugEnabled() ) {
 			if( head!=null )
 				head.setSourceCode(head.cloneWithVariables(variables).toString());
 			if( body==null )

@@ -1,8 +1,8 @@
-% This test can only be run from ProvaServiceTest.java
+% This test can only be run from ProvaServiceTest.java or ProvaSimpleService.java
 
 :- eval(sender()).
 
 sender() :-
 	println(["==========Service messaging test: sender=========="]),
 
-	sendMsg(XID,osgi,receiver,inform,a(1)).
+	sendMsg(XID,osgi,receiver,inform,{a->1}).

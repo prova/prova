@@ -1,10 +1,13 @@
-% This test can only be run from ProvaServiceTest.java
+% This test can only be run from ProvaServiceTest.java or ProvaSimpleService.java
 
 :- eval(receiver()).
 
 receiver() :-
 	println(["==========Service messaging test: receiver=========="]),
 
-	rcvMsg(XID,Protocol,From,inform,a(I)),
-	println(["Received ",a(I)]),
-	$Count.incrementAndGet().
+	rcvMult(XID,Protocol,From,inform,{a->I}),
+	println(["Received ",{a->I}]),
+	$Count.incrementAndGet(),
+
+	% This only makes sense if run from ProvaSimpleService.java
+	sendMsg(XID,osgi,runner,inform,{a->I})	.

@@ -75,17 +75,17 @@ gt_m([X,A],list()).
 ).
 
 % direct product in Haskell (note that the return leaves the result as M(Ma), list of lists):
-% The goal returns: X=[list,[1,4],[1,5],[2,4],[2,5],[3,4],[3,5]]
+% The goal returns: X=[list,[list,1,4],[list,1,5],[list,2,4],[list,2,5],[list,3,4],[list,3,5]]
 :- solve(
 	derive(
-		[[map( lambda(A,[[map(pair(A),list(4,5)),join]]) ),join],list(1,2,3),X]
+		[[map( lambda(A,map(pair(A),list(4,5))) ),join],list(1,2,3),X]
 	)
 ).
 
 matching([A,A],list(A)) :- !.
 matching([_,_],list()).
 
-pair([A,B],[A,B]).
+pair([A,B],list(A,B)).
 
 % a fractal a->Mb
 f('#',list('#',' ','#')) :- !.

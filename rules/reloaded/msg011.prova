@@ -7,15 +7,15 @@ msg011() :-
 	println(["==========Messaging test 011=========="]),
 
 	% Only one message will be received here as the reaction disappears after the first message is consumed
-	% Messaging in contravariant in that the more general pattern in the reaction subsumes the message parameters
-	rcvMsg(XID,Protocol,From,inform,{b:I}),
-	println(["Received: ",rcvMsg(XID,self,From,inform,{b:I})],""),
+	% Messaging is contravariant in that the more general pattern in the reaction subsumes the message parameters
+	rcvMsg(XID,Protocol,From,inform,{b->Integer.I}),
+	println(["Received: ",rcvMsg(XID,self,From,inform,{b->Integer.I})]),
 	Count=$Count,
 	Count.incrementAndGet().
 msg011() :-
 	for([1,2],I),
-	sendMsg(XID,self,0,inform,{a:1,b:I}),
-	println(["Sent: ",sendMsg(XID,self,0,inform,{a:1,b:I})],"").
+	sendMsg(XID,self,0,inform,{a->1,b->I}),
+	println(["Sent: ",sendMsg(XID,self,0,inform,{a->1,b->I})],"").
 
 % This outputs:
 % ==========Messaging test 011==========

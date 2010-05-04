@@ -47,6 +47,9 @@
 			<directory>rules/rules3</directory>
 			<fileMode>0644</fileMode>
 			<outputDirectory>/rules</outputDirectory>
+			<excludes>
+				<exclude>prova3*</exclude>
+			</excludes>
 		</fileSet>
 	</fileSets>
 	<files>
@@ -54,6 +57,14 @@
 			<source>/src/main/assembly/prova3.bat
 			</source>
 			<outputDirectory>/bin</outputDirectory>
+			<destName>prova3.bat</destName>
+			<fileMode>0755</fileMode>
+			<filtered />
+		</file>
+		<file>
+			<source>/src/main/assembly/prova3.bat
+			</source>
+			<outputDirectory>/rules</outputDirectory>
 			<destName>prova3.bat</destName>
 			<fileMode>0755</fileMode>
 			<filtered />

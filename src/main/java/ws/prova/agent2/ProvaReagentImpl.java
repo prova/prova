@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -173,7 +174,7 @@ public class ProvaReagentImpl implements ProvaReagent {
             }
         };
         FutureTask<List<ProvaSolution[]>> ftask = new FutureTask<List<ProvaSolution[]>>(task);
-        executor.execute(ftask);
+        executor.submit(ftask);
         return ftask;
     }
 
@@ -185,7 +186,7 @@ public class ProvaReagentImpl implements ProvaReagent {
             }
         };
         FutureTask<List<ProvaSolution[]>> ftask = new FutureTask<List<ProvaSolution[]>>(task);
-        executor.execute(ftask);
+        executor.submit(ftask);
         return ftask;
     }
 
@@ -199,7 +200,7 @@ public class ProvaReagentImpl implements ProvaReagent {
                 ProvaReagentImpl.this.consultSyncInternal(in, key, objects);
 			}
         };
-        executor.execute(task);
+        executor.submit(task);
 	}
 
 	@Override
@@ -210,7 +211,7 @@ public class ProvaReagentImpl implements ProvaReagent {
                 ProvaReagentImpl.this.consultSyncInternal(in, key, objects);
 			}
         };
-        executor.execute(task);
+        executor.submit(task);
 	}
 /*
        Callable<Object> job = new Callable<Object>() {

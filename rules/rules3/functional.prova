@@ -175,6 +175,11 @@ lambda([X,[Fun|Args]|X],R) :-
 map([lambda(A,Fun),state([A,S])],state([VM,SM])) :-
 	!,
 	derive([[Fun],S,[VM,SM]]).
+@label(ttt)
+map([comp(Fun),state([V,S])],state([VM,SM])) :-
+	!,
+	clone(Fun,FunX),
+	derive([[FunX(V)],S,[VM,SM]]).
 map([Fun,state([V,S])],state([VM,SM])) :-
 	!,
 	derive([[Fun(V)],S,[VM,SM]]).
