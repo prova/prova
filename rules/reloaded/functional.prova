@@ -187,6 +187,9 @@ wrap([A|As],[A|As]) :-
 	!.
 wrap(A,[A]).
 
+next([list(A|As)],[A,[list|As]]) :- !.
+next([[list(A|As),list(B|Bs)]],[[A,B],[[list|As],[list|Bs]]]) :- !.
+
 % map on lists is an example of an fmap: a->b->Ma->Mb
 map([_,[]],[]) :-
 	!.
@@ -245,6 +248,10 @@ map([Fun,list()],list()) :-
 @label(experiment)
 map([Fun,list(),M|Ms],[list(),M|Ms]) :-
 	!.
+@label(experiment)
+map([Fun,[SS|SSs],M|Ms],[list(),M|Ms]) :-
+	element(list(),[SS|SSs]),
+	!.
 map([[Fun|Args],list(A)],list(B)) :-
 	!,
 	attach(Args,A,C),
@@ -255,10 +262,13 @@ map([[Fun|Args],list(A|As)],list(B|Bs)) :-
 	derive(Fun(C,B)),
 	map([[Fun|Args],[list|As]],[list|Bs]).
 @label(experiment)
-map([Fun,list(A|As),M|Ms],[list(B|Bs),MX|MXs]) :-
+map([Fun,[SS|SSs],M|Ms],[In,MX|MXs]) :-
 	!,
-	derive([Fun,[A,M|Ms],[B,M2|M2s]]),
-	map([Fun,[list|As],M2|M2s],[[list|Bs],MX|MXs]).
+	next([[SS|SSs]],[S,SSM]),
+	clone([Fun,[S,M|Ms]],[FunZ,R]),
+	derive([FunZ,R,[B|M2s]]),
+	mklist([B,Bs],In),
+	map([Fun,SSM|M2s],[[list|Bs],MX|MXs]).
 @label(check_this)
 map([Fun,list(A|As)],list(B|Bs)) :-
 	!,

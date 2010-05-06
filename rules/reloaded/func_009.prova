@@ -224,10 +224,10 @@ fizzbuzz(_,_,I,I).
 
 :-solve(mapM(A,X17)).
 
-record([A,S],[yes,S]) :-
+record([A,S],[list(yes),S]) :-
 	S.contains(A),
 	!.
-record([A,S],[no,S]) :-
+record([A,S],[list(no),S]) :-
 	S.add(A).
 
 mapM(A,X) :-

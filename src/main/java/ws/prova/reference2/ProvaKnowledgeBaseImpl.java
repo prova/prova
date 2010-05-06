@@ -74,6 +74,7 @@ import ws.prova.reference2.builtins.ProvaMathDivideImpl;
 import ws.prova.reference2.builtins.ProvaMathMultiplyImpl;
 import ws.prova.reference2.builtins.ProvaMathRemainderImpl;
 import ws.prova.reference2.builtins.ProvaMathSubtractImpl;
+import ws.prova.reference2.builtins.ProvaMkListImpl;
 import ws.prova.reference2.builtins.ProvaNotEqualsImpl;
 import ws.prova.reference2.builtins.ProvaParseListImpl;
 import ws.prova.reference2.builtins.ProvaParseNvImpl;
@@ -191,6 +192,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("type", new ProvaTypeImpl(this));
 		builtins.put("match", new ProvaMatchImpl(this));
 		builtins.put("update", new ProvaUpdateImpl(this));
+		builtins.put("mklist", new ProvaMkListImpl(this));
 		builtins.put("@update_cache", new ProvaUpdateCacheImpl(this));
 		builtins.put("@temporal_rule_remove", new ProvaTemporalRuleRemoveImpl(this));
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));

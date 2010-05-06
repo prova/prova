@@ -4,7 +4,7 @@
 % This is close to Scala code below but does not have recursion or list copying. 
 %   def scalaLibrarySum(a : Array[Int]) = a.map(i => i * 3 + 7).filter(i => (i % 10) == 0).foldLeft(0)(_ + _)
 
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 % This returns:
 % SF1=[state,[[list,10,40],50]]
