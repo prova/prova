@@ -14,6 +14,42 @@ public class ProvaFunctionalProgrammingTest {
 
 	static final String kPort = null;
 
+	/*
+	 * This test is postponed to version 3.0.1
+	 */
+//	@Test
+	public void func_reactive_unfoldr() {
+		final String rulebase = "rules/reloaded/func_013.prova";
+		final int[] numSolutions = new int[] {0,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		try {
+			synchronized(this) {
+				wait(1000);
+			}
+		} catch (Exception e) {
+		}
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertEquals(numSolutions[1],solutions.get(1).length);
+	}
+
+	@Test
+	public void func_unfoldr() {
+		final String rulebase = "rules/reloaded/func_012.prova";
+		final int[] numSolutions = new int[] {0,1,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertEquals(numSolutions[1],solutions.get(1).length);
+	}
+
 	@Test
 	public void func_stream_fusion_2() {
 		final String rulebase = "rules/reloaded/func_011.prova";

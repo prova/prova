@@ -187,8 +187,12 @@ wrap([A|As],[A|As]) :-
 	!.
 wrap(A,[A]).
 
+% unfoldr step: consuming from no stream
+next([list([])],[[],list([])]) :- !.
+
 next([list(A|As)],[A,[list|As]]) :- !.
 next([[list(A|As),list(B|Bs)]],[[A,B],[[list|As],[list|Bs]]]) :- !.
+next([[A|As]],[A,As]) :- !.
 
 % map on lists is an example of an fmap: a->b->Ma->Mb
 map([_,[]],[]) :-
@@ -245,6 +249,13 @@ map([comp(Fun),[A|As]],[B|Bs]) :-
 
 map([Fun,list()],list()) :-
 	!.
+% unfoldr terminator
+@label(experiment2)
+map([Fun,list([]),[]],[list(),[]]) :-
+	!.
+@label(experiment2)
+map([Fun,list([]),maybe(nothing())],[list(),[]]) :-
+	!.
 @label(experiment)
 map([Fun,list(),M|Ms],[list(),M|Ms]) :-
 	!.
@@ -261,6 +272,16 @@ map([[Fun|Args],list(A|As)],list(B|Bs)) :-
 	attach(Args,A,C),
 	derive(Fun(C,B)),
 	map([[Fun|Args],[list|As]],[list|Bs]).
+/*
+@label(experiment)
+map([Fun,[SS|SSs]|Ms],[In|MXs]) :-
+	!,
+	next([[SS|SSs]],[S,SSM]),
+	clone([Fun,[S|Ms]],[FunZ,R]),
+	derive([FunZ,R,[B|M2s]]),
+	mklist([B,Bs],In),
+	map([Fun,SSM|M2s],[[list|Bs]|MXs]).
+*/
 @label(experiment)
 map([Fun,[SS|SSs],M|Ms],[In,MX|MXs]) :-
 	!,

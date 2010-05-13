@@ -1,0 +1,33 @@
+% Demonstrate unfoldr-like functionality: creating a stream by iteration.
+% This is done two ways: with maybe and without.
+
+:- eval(consult('rules/reloaded/functional.prova')).
+
+:- solve(test_unfoldr_3(SF3)).
+
+:- eval(server()).
+
+server() :-
+	switch_thread(),
+	sendMsg(xid,async,0,data,{s:1}),
+	sendMsg(xid,async,0,data,{s:2}),
+	sendMsg(xid,async,0,data,{s:3}),
+	sendMsg(xid,async,0,data,{s:4}).
+	
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).
+
+accept([[],maybe(just([I]))],maybe(just([J,K]))) :-
+	rcvMsg(xid,async,From,data,{s:J}),
+	println([{s:J}]),
+	K=I+J.
+
+cond([N,maybe(just([J,N]))],[list(N),maybe(nothing())]) :-
+	!.
+cond([N,maybe(just([J,K]))],[list(K),maybe(just([J]))]).
+
+test_unfoldr_3(X) :-
+	derive(
+		[[map([map([accept,cond(5)])])],state([list([]),maybe(just([0]))]),X]
+	).
