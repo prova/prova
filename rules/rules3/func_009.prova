@@ -143,11 +143,11 @@ print(V,V) :-
 		[[map(lambda(A,incValue(A))),join,map(lambda(B,add(A,B))),join,map(lambda(C,mult(2,C))),join],state([2,2]),X9]
 	)
 ).
-% state(['a',true]) >>= (\x -> flipcase x)
-% this returns: X10=[state,['A',false]]
+% state(['a',true]) >>= (\x -> flipcase x) >>= (\y -> flipcase y)
+% this returns: X10=[state,['a',true]]
 :- solve(
 	derive(
-	[[map(flipcase),join],state(['a',true]),X10]
+	[[map(flipcase),join,map(flipcase),join],state(['a',true]),X10]
 	)
 ).
 % This returns 6 solutions non-deterministically:
@@ -224,10 +224,10 @@ fizzbuzz(_,_,I,I).
 
 :-solve(mapM(A,X17)).
 
-record([A,S],[yes,S]) :-
+record([A,S],[list(yes),S]) :-
 	S.contains(A),
 	!.
-record([A,S],[no,S]) :-
+record([A,S],[list(no),S]) :-
 	S.add(A).
 
 mapM(A,X) :-
