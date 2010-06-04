@@ -15,12 +15,9 @@ To run a Prova 3.0 rulebase as a script file, change to the bin directory, and r
 The directory 'rules' contains a large selection of examples for you to try. For example,
 	prova3[.bat] ../rules/test001_args.prova anticoagulant
 
+You can also run the examples from within the rules directory. Change directory to rules and run: 
+	prova3[.bat] ex001.prova
+
 The command-line arguments are passed to the script as $0 through $N (see the script in rules/test001_args.prova). 
-
-To run the older but complete implementation of Prova, use
-	prova[.bat] <rulebase file>
-
-Note that the old Prova code does not support command-line arguments. The demo rulebases for the old Prova
-are in the 'rules-old' directory.
 
 Alex Kozlenkov and Adrian Paschke
