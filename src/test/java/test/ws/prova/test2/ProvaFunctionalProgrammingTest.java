@@ -51,6 +51,32 @@ public class ProvaFunctionalProgrammingTest {
 	}
 
 	@Test
+	public void func_unfoldr_with_take() {
+		final String rulebase = "rules/reloaded/func_014.prova";
+		final int[] numSolutions = new int[] {0,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertEquals(numSolutions[1],solutions.get(1).length);
+	}
+
+	@Test
+	public void func_runs() {
+		final String rulebase = "rules/reloaded/func_015.prova";
+		final int[] numSolutions = new int[] {0,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertEquals(numSolutions[1],solutions.get(1).length);
+	}
+
+	@Test
 	public void func_stream_fusion_2() {
 		final String rulebase = "rules/reloaded/func_011.prova";
 		final int[] numSolutions = new int[] {0,1};
