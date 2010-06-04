@@ -1,17 +1,10 @@
-% Find all sequences A->B between Start and End
+% Find a sequence A->B and a C between Start and End
 %
-% This prints
+% This returns:
 % got a(1,11) 
-% got a(1,11)->b(1,8) 
-% got a(1,12) 
+% got c(1,16) 
 % got a(1,11)->b(1,20) 
-% got a(1,12)->b(1,20) 
-% got a(1,33) 
-% got a(1,11)->b(1,2) 
-% got a(1,12)->b(1,2) 
-% got a(1,33)->b(1,2) 
-% got end event 
-% Pattern detected : [[[test,async,0,request,[a,1,11]], [test,async,0,request,[b,1,8]], [test,async,0,request,[a,1,12]], [test,async,0,request,[b,1,20]], [test,async,0,request,[b,1,20]], [test,async,0,request,[a,1,33]], [test,async,0,request,[b,1,2]], [test,async,0,request,[b,1,2]], [test,async,0,request,[b,1,2]], [test,async,0,request,[end,test]]]] 
+% Pattern detected : [[[test,async,0,request,[a,1,11]], [test,async,0,request,[c,1,16]], [test,async,0,request,[b,1,20]]]] 
 
 :- eval(server()). 
 
@@ -21,15 +14,19 @@ server() :-
 
 server_1(XID) :-
 	@group(g1) @stop
-	rcvMsg(XID,Protocol,From,request,end(Thread)),	
+	rcvMsg(XID,Protocol,From,request,end(Thread)),
 	println(["got end event "]).
 server_1(XID) :-
-	@group(g1) @count(-1)
+	@group(g1)
 	rcvMsg(XID,Protocol,From,request,a(Id,X)),
 	println(["got a(",Id,",",X,") "]),
-	@group(g1) @count(-1)
+	@group(g1)
 	rcvMsg(XID,Protocol,From,request,b(Id,Y)),
 	println(["got a(",Id,",",X,")->b(",Id,",",Y,") "]).
+server_1(XID) :-
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,c(Id,X)),
+	println(["got c(",Id,",",X,") "]).
 server_1(XID) :-
 	@and(g1)
 	rcvMsg(XID,Proto,From,and,Events),
@@ -44,8 +41,7 @@ client() :-
 
 	sendMsg(test,async,0,request,start(test)),
 	sendMsg(test,async,0,request,a(1,11)),
-	sendMsg(test,async,0,request,b(1,8)),
-	sendMsg(test,async,0,request,a(1,12)),
+	sendMsg(test,async,0,request,c(1,16)),
 	sendMsg(test,async,0,request,b(1,20)),
 	sendMsg(test,async,0,request,a(1,33)),
 	sendMsg(test,async,0,request,b(1,2)),

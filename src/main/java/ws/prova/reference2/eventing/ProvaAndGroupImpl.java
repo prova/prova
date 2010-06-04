@@ -194,8 +194,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 		if( reaction==null
 				|| (metadata!=null 
 						&& (not || (metadata.containsKey("stop") && metadata.get("stop").isEmpty()))) ) {
-			// Under timeout OR negated reaction not under timeout
-			this.failed = reaction!=null || !not;
+			// Fail a negated reaction not under timeout
+			this.failed = reaction!=null && not;
 			if( this.failed ) {
 				if( log.isDebugEnabled() )
 					log.debug("@and not complete"+results);
@@ -205,6 +205,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 				// @and is complete (but may be extended by subsequent reactions in a sequence)
 				if( log.isDebugEnabled() )
 					log.debug("@and complete"+results);
+				this.setExtended(false);
 				this.failed = false;
 			} else
 				this.failed = true;
@@ -239,6 +240,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 			// @and is complete (but may be extended by subsequent reactions in a sequence)
 			if( log.isInfoEnabled() )
 				log.info("@and complete"+results);
+			this.setExtended(false);
 			this.lastReaction = reaction;
 			return EventDetectionStatus.complete;
 		}

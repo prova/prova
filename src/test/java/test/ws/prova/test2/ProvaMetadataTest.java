@@ -842,6 +842,54 @@ public class ProvaMetadataTest {
 	}
 
 	@Test
+	public void sequence2() {
+		final String rulebase = "rules/reloaded/sequence2.prova";
+		
+		AtomicInteger count = new AtomicInteger();
+		Map<String,Object> globals = new HashMap<String,Object>();
+		globals.put("$Count", count);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		final int numSolutions[] = {0,0};
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(solutions.size(),numSolutions.length);
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",solutions.get(i).length,numSolutions[i]);
+
+		try {
+			synchronized(this) {
+				wait(2500);
+				org.junit.Assert.assertEquals(1,count.get());
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	@Test
+	public void sequence3() {
+		final String rulebase = "rules/reloaded/sequence3.prova";
+		
+		AtomicInteger count = new AtomicInteger();
+		Map<String,Object> globals = new HashMap<String,Object>();
+		globals.put("$Count", count);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		final int numSolutions[] = {0,0};
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(solutions.size(),numSolutions.length);
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",solutions.get(i).length,numSolutions[i]);
+
+		try {
+			synchronized(this) {
+				wait(1500);
+				org.junit.Assert.assertEquals(1,count.get());
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	@Test
 	public void and() {
 		final String rulebase = "rules/reloaded/and.prova";
 		
