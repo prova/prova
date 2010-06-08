@@ -273,7 +273,7 @@ scope {
 			)
 		| not_equal c=constant {
 			$ret=new java.util.ArrayList<ProvaObject>();
-			$ret.add(ProvaConstantImpl.create("equals_minus"));
+			$ret.add(ProvaConstantImpl.create("ne"));
 			$ret.add(lt);
 			$ret.add(c);
 		}
