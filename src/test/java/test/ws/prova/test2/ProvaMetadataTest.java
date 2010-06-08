@@ -381,6 +381,8 @@ public class ProvaMetadataTest {
 				// Wait for 100 microseconds
 				Thread.sleep(0,100000);
 			}
+			long diff0 = System.currentTimeMillis()-startTime;
+			System.out.println("All messages sent in "+diff0+" ms");
 			doneSignal.await(5, TimeUnit.SECONDS);
 			long diff = System.currentTimeMillis()-startTime;
 			System.out.println(count+" patterns detected in "+diff+" ms");
