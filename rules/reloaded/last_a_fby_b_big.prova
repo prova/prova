@@ -1,0 +1,22 @@
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,Protocol,From,request,login(User,IP)),
+	server_1(XID,User).
+
+server_1(XID,User) :-
+	@group(g1) @not
+	rcvMsg(XID,Protocol,From,request,login(User,IP)).
+server_1(XID,User) :-
+	@group(g1)
+	rcvMsg(XID,Protocol,From,request,logout(User,IP)).
+server_1(XID,User) :-
+	@and(g1)
+	rcvMsg(XID,Protocol,From,and,Events),
+	$Count.incrementAndGet(),
+	0 = $Count mod 100,
+	println(["Pattern detected: ",Events," ",$Count]),
+	10000 = $Count + 0,
+	$Latch.countDown().
+
