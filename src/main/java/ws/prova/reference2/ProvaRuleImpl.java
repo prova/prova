@@ -242,7 +242,7 @@ public class ProvaRuleImpl implements ProvaRule {
 	@Override
 	public List<ProvaVariable> cloneVariables() {
 		int size = variables.size();
-		List<ProvaVariable> newVariables = new ArrayList<ProvaVariable>();
+		List<ProvaVariable> newVariables = new ArrayList<ProvaVariable>(size);
 		for( int i=0; i<size; i++ ) {
 			newVariables.add(variables.get(i).clone());
 		}

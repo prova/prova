@@ -484,7 +484,6 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			headControl = kb.generateLiteral("@temporal_rule_control",
 					(ProvaList) headControlList
 							.cloneWithVariables(variables));
-
 			RemoveList rl = new RemoveList(head.getPredicate(), headControl
 					.getPredicate(), ruleid, (ProvaList) head.getTerms()
 					.getFixed()[2].cloneWithVariables(variables));
@@ -627,12 +626,11 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			synchronized (kb) {
 				temporalRule = kb.generateRule(head, body
 						.toArray(new ProvaLiteral[] {}));
-
 				kb.generateRule(headControl,
 						new ProvaLiteral[] { removeLiteral });
 				if (log.isDebugEnabled())
-					log.debug("Added end-of-reaction: "
-							+ temporalRule.getSourceCode());
+					log.debug("Added temporal rule: " + (dynamic==null?"":dynamic.getDynamicGroup()) + " "
+							+ head);
 			}
 
 			if (dynamic != null && dynamic.isOperatorConfigured() ) {

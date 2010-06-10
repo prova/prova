@@ -221,6 +221,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 	public boolean cleanup(ProvaKnowledgeBase kb, ProvaReagent prova, Map<Long, ProvaGroup> ruleid2Group, Map<String, ProvaGroup> dynamic2Group) {
 		if( failed ) {
 			immediateCleanup(ruleid2Group, dynamic2Group);
+//			System.out.println("Removed failed group: "+dynamicGroup);
 			return true;
 		}
 		List<ProvaDelayedCommand> delayed = ProvaResolutionInferenceEngineImpl.delayedCommands.get();
@@ -260,6 +261,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 			}
 		}
 		dynamic2Group.remove(dynamicGroup);
+//		System.out.println("Removed group: "+dynamicGroup);
 		if( lastReaction==null ) {
 			if( log.isDebugEnabled() )
 				log.debug("Group failed");

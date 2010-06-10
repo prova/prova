@@ -1,6 +1,7 @@
 package ws.prova.reference2;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaObject;
@@ -24,7 +25,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	
 	private long ruleId;
 
-	private static Long incName = Long.valueOf(1);
+	private static AtomicLong incName = new AtomicLong(0);
 	
 	public static ProvaVariableImpl create() {
 		return new ProvaVariableImpl();
@@ -43,14 +44,14 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	private ProvaVariableImpl() {
-		this.name = incName++;
+		this.name = incName.incrementAndGet();
 		this.type = Object.class;
 		this.assigned = null;
 		this.index = -1;
 	}
 	
 	private ProvaVariableImpl(String name) {
-		this.name = "_".equals(name) ? incName++ : name;
+		this.name = "_".equals(name) ? incName.incrementAndGet() : name;
 		this.type = Object.class;
 		this.assigned = null;
 		this.index = -1;
@@ -65,7 +66,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	
 	private ProvaVariableImpl(Class<?> type, ProvaObject assigned, int index,
 			long ruleId) {
-		this.name = incName++;
+		this.name = incName.incrementAndGet();
 		this.type = type;
 		this.assigned = assigned;
 		this.index = index;

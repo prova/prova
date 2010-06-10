@@ -94,6 +94,8 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 			
 			ProvaLiteral goalLiteral = goal.getGoal();
 			ProvaPredicate predicate = goalLiteral.getPredicate();
+//			if( "@temporal_rule".equals(predicate.getSymbol()) )
+//				System.out.println(query);
 			if( "fail".equals(predicate.getSymbol()) ) {
 				if( node.getParent()==null ) {
 					node.setFailed(true);

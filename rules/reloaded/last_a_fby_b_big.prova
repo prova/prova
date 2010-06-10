@@ -14,9 +14,9 @@ server_1(XID,User) :-
 server_1(XID,User) :-
 	@and(g1)
 	rcvMsg(XID,Protocol,From,and,Events),
-	$Count.incrementAndGet(),
-	0 = $Count mod 100,
-	println(["Pattern detected: ",Events," ",$Count]),
-	10000 = $Count + 0,
+	Count=$Count.incrementAndTestCompletion(),
+	0L = Count mod 100,
+	println(["Pattern detected: ",Events," ",Count]),
+	0L = Count,
 	$Latch.countDown().
 

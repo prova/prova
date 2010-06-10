@@ -324,13 +324,28 @@ public class ProvaMetadataTest {
 		}
 	}
 
+	public class ResultCounter {
+		private final long maxCount;
+		private volatile long count = 0;
+		public ResultCounter(long maxCount) {
+			this.maxCount = maxCount;
+		}
+		public synchronized long incrementAndTestCompletion() {
+			count++;
+			return count==maxCount ? 0 : count;
+		}
+		public long get() {
+			return count;
+		}
+	}
+	
 	@Test
 	public void last_a_fby_b_big() {
 		final String rulebase = "rules/reloaded/last_a_fby_b_big.prova";
 		
 		final long maxCount = 10000;
 		
-		AtomicLong count = new AtomicLong();
+		ResultCounter count = new ResultCounter(maxCount);
 		Map<String,Object> globals = new HashMap<String,Object>();
 		globals.put("$Count", count);
 		CountDownLatch doneSignal = new CountDownLatch(1);
@@ -342,56 +357,58 @@ public class ProvaMetadataTest {
 		// Send maxCount messages to the consulted Prova rulebase.
 		try {
 			for( int i=0; i<maxCount; i++ ) {
+				int shift = i % 32;
 				ProvaList terms = ProvaListImpl.create( new ProvaObject[] {
-						ProvaConstantImpl.create("user"+(i%32)),
+						ProvaConstantImpl.create(""+shift),
 						ProvaConstantImpl.create("async"),
 						ProvaConstantImpl.create(0),
 						ProvaConstantImpl.create("request"),
 						ProvaListImpl.create(new ProvaObject[] {
 								ProvaConstantImpl.create("login"),
-								ProvaConstantImpl.create("user"+(i%32)),
+								ProvaConstantImpl.create("user"+shift),
 								ProvaConstantImpl.create("10.10.10.10")
 								})
 				});
 				prova.addMsg(terms);
 				ProvaList terms2 = ProvaListImpl.create( new ProvaObject[] {
-						ProvaConstantImpl.create("user"+(i%32)),
+						ProvaConstantImpl.create(""+shift),
 						ProvaConstantImpl.create("async"),
 						ProvaConstantImpl.create(0),
 						ProvaConstantImpl.create("request"),
 						ProvaListImpl.create(new ProvaObject[] {
 								ProvaConstantImpl.create("login"),
-								ProvaConstantImpl.create("user"+(i%32)),
+								ProvaConstantImpl.create("user"+shift),
 								ProvaConstantImpl.create("20.20.20.20")
 								})
 				});
 				prova.addMsg(terms2);
 				ProvaList terms3 = ProvaListImpl.create( new ProvaObject[] {
-						ProvaConstantImpl.create("user"+(i%32)),
+						ProvaConstantImpl.create(""+shift),
 						ProvaConstantImpl.create("async"),
 						ProvaConstantImpl.create(0),
 						ProvaConstantImpl.create("request"),
 						ProvaListImpl.create(new ProvaObject[] {
 								ProvaConstantImpl.create("logout"),
-								ProvaConstantImpl.create("user"+(i%32)),
+								ProvaConstantImpl.create("user"+shift),
 								ProvaConstantImpl.create("10.10.10.10")
 								})
 				});
 				prova.addMsg(terms3);
-				// Wait for 100 microseconds
-				Thread.sleep(0,100000);
+				// Wait for 10 microseconds
+				Thread.sleep(0,10000);
 			}
 			long diff0 = System.currentTimeMillis()-startTime;
 			System.out.println("All messages sent in "+diff0+" ms");
 			doneSignal.await(5, TimeUnit.SECONDS);
 			long diff = System.currentTimeMillis()-startTime;
-			System.out.println(count+" patterns detected in "+diff+" ms");
+			System.out.println(count.get()+" patterns detected in "+diff+" ms");
 			// All maxCount events must be detected
 			org.junit.Assert.assertEquals(maxCount,count.get());
 		} catch (Exception e) {
 			org.junit.Assert.fail("Unexpected exception: "+e.getLocalizedMessage());
 		}
 	}
+
 
 	@Test
 	public void groupby_acc() {
