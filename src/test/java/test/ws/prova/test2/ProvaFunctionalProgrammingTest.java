@@ -15,12 +15,14 @@ public class ProvaFunctionalProgrammingTest {
 	static final String kPort = null;
 
 	/*
-	 * This test is postponed to version 3.0.1
+	 * Demonstrate unfoldr-like functionality with embedded reactions.
+	 * The process continues generating the output stream until
+	 * the condition cond is verified: the sum of the previous input with new data is 5.
 	 */
-//	@Test
+	@Test
 	public void func_reactive_unfoldr() {
 		final String rulebase = "rules/reloaded/func_013.prova";
-		final int[] numSolutions = new int[] {0,1};
+		final int[] numSolutions = new int[] {0,0,1};
 		
 		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
@@ -53,6 +55,19 @@ public class ProvaFunctionalProgrammingTest {
 	@Test
 	public void func_unfoldr_with_take() {
 		final String rulebase = "rules/reloaded/func_014.prova";
+		final int[] numSolutions = new int[] {0,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertEquals(numSolutions[1],solutions.get(1).length);
+	}
+
+	@Test
+	public void func_max() {
+		final String rulebase = "rules/reloaded/func_016.prova";
 		final int[] numSolutions = new int[] {0,1};
 		
 		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
