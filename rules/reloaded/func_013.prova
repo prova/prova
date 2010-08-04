@@ -25,24 +25,38 @@ switch_thread() :-
 	sendMsgSync(XID,task,0,switch,[]),
 	rcvMsg(XID,task,From,switch,[]).
 
-accept([[],maybe(just([I]))],maybe(just([J,K]))) :-
+% Receive new message while passing the previous history
+accept([[],maybe(just([I]))],[list(J),maybe(just([I]))]) :-
 	rcvMsg(xid,async,From,data,{s:J}),
-	println([{s:J}]),
+	println([{s:J}]).
+
+% Skip -> Skip
+hadd([list(),M],[list(),M]) :- !.
+% Done -> Done
+hadd([L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+% Emit the sum of history with current as new event and replace history with current
+hadd([list(J),maybe(just([I]))],[list(K),maybe(just([J]))]) :-
 	K=I+J.
 
 % This defines a Haskell Stream just like in the Coutts' or Gibbons papers.
-% list(N) emits a new head (from the alphabet) while maybe holds the new data or Nothing for termination.
-cond([N,maybe(just([J,N]))],[list(N),maybe(nothing())]) :-
-	!.
-cond([N,maybe(just([J,K]))],[list(K),maybe(just([J]))]).
+% list(N) emits a new head (from the alphabet) while maybe holds the new data
+%    to be used as a past history when more data arrives or Nothing for termination.
+% Skip -> Skip
+cond([N,list(),M],[list(),M]) :- !.
+% Done -> Done
+cond([N,L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+% Termination reached -> Done
+cond([N,list(N),maybe(just([J]))],[list(N),maybe(nothing())]) :- !.
+% New data
+cond([N,list(K),maybe(just([J]))],[list(K),maybe(just([J]))]).
 
-% This could be formalized as (x is Cartesian product):
-% Exists s.(s->1+Integer X s) x s
+% In the main, this could be formalized as (x is Cartesian product):
+% Exists s.(s->1+Integer x s) x s
 % Here maybe(just(0)) is the original seed state
-% and cond(5) . accept is a composition pipeline.
+% and (cond(5) . hadd . accept) is a composition pipeline.
 % Note that our approach is general enough to cover Coutts' Skip easily as we can emit 0 or more new data.
 % For example, list() denotes a Skip.
 test_unfoldr_3(X) :-
 	derive(
-		[[map([map([accept,cond(5)])])],state([list([]),maybe(just([0]))]),X]
+		[[map([map([accept,hadd,cond(5)])])],state([list([]),maybe(just([0]))]),X]
 	).
