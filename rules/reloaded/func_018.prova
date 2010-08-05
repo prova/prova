@@ -1,0 +1,66 @@
+% Demonstrate unfoldr-like functionality with embedded reactions.
+% The process continues generating the output stream until
+%     the condition cond is verified: the sum of the previous input with new data is 5.
+% This outputs:
+% 
+% {s=1}
+% {s=2}
+% {s=3}
+% SF3=[state,[[list,1,3,5],[]]]
+
+:- eval(consult('rules/reloaded/functional.prova')).
+
+:- solve(test_unfoldr_3(SF3)).
+
+:- eval(client()).
+
+client() :-
+	switch_thread(),
+	for([1,4],I),
+	element(XID,[p,q]),
+	sendMsg(XID,async,0,data,{s:I}).
+	
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).
+
+% Receive new message while passing the previous history
+accept([[],maybe(just([]))],[list(J),maybe(just([XID,0]))]) :-
+	Set=java.util.HashSet(),
+	rcvMult(XID,async,From,data,{s:J}) [false=Set.contains(XID)],
+	Set.add(XID),
+	println([XID,":| ",{s:J}]).
+accept([[],maybe(just([XID,I]))],[list(J),maybe(just([XID,I]))]) :-
+	rcvMsg(XID,async,From,data,{s:J}),
+	println([XID,":> ",{s:J}]).
+
+% Skip -> Skip
+hadd([list(),M],[list(),M]) :- !.
+% Done -> Done
+hadd([L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+% Emit the sum of history with current as new event and replace history with current
+hadd([list(J),maybe(just([XID,I]))],[list(K),maybe(just([XID,J]))]) :-
+	K=I+J.
+
+% This defines a Haskell Stream just like in the Coutts' or Gibbons papers.
+% list(N) emits a new head (from the alphabet) while maybe holds the new data
+%    to be used as a past history when more data arrives or Nothing for termination.
+% Skip -> Skip
+cond([N,list(),M],[list(),M]) :- !.
+% Done -> Done
+cond([N,L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+% Termination reached -> Done
+cond([N,list(N),maybe(just([XID,J]))],[list(N),maybe(nothing())]) :- !.
+% New data
+cond([N,list(K),maybe(just([XID,J]))],[list(K),maybe(just([XID,J]))]).
+
+% In the main, this could be formalized as (x is Cartesian product):
+% Exists s.(s->1+Integer x s) x s
+% Here maybe(just(0)) is the original seed state
+% and (cond(5) . hadd . accept) is a composition pipeline.
+% Note that our approach is general enough to cover Coutts' Skip easily as we can emit 0 or more new data.
+% For example, list() denotes a Skip.
+test_unfoldr_3(X) :-
+	derive(
+		[[map([map([accept,hadd,cond(5)])])],state([list([]),maybe(just([]))]),X]
+	).

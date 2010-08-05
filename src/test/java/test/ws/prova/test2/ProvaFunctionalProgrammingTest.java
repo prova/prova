@@ -16,6 +16,30 @@ public class ProvaFunctionalProgrammingTest {
 
 	/*
 	 * Demonstrate unfoldr-like functionality with embedded reactions.
+	 * This example uses concurrent detection for two partitions based on different XID's.
+	 */
+	@Test
+	public void func_reactive_unfoldr_mult() {
+		final String rulebase = "rules/reloaded/func_018.prova";
+		final int[] numSolutions = new int[] {0,0,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		try {
+			synchronized(this) {
+				wait(1000);
+			}
+		} catch (Exception e) {
+		}
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertEquals(numSolutions[1],solutions.get(1).length);
+	}
+
+	/*
+	 * Demonstrate unfoldr-like functionality with embedded reactions.
 	 * The process continues generating the output stream until
 	 * the condition cond is verified: the sum of the previous input with new data is 5.
 	 */
