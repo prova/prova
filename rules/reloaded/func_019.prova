@@ -1,0 +1,89 @@
+% Demonstrate unfoldr-like functionality with embedded reactions.
+% Detect 2 consecutive events with values <= 5.
+% This outputs (the order may different as two streams are processed concurrently):
+% 
+% q:| {s=7}
+% p:| {s=7}
+% p:> {s=2}
+% p:> {s=12}
+% p:> {s=4}
+% p:> {s=3}
+% p>> {result=2}
+% q:> {s=2}
+% p:> {s=1}
+% p>> {result=2}
+% p:> {s=10}
+% q:> {s=12}
+% q:> {s=4}
+% q:> {s=3}
+% q>> {result=2}
+% q:> {s=1}
+% q>> {result=2}
+% q:> {s=10}
+
+:- eval(consult('rules/reloaded/functional.prova')).
+
+:- solve(test_unfoldr_count(SFC)).
+
+:- eval(client()).
+
+client() :-
+	switch_thread(),
+	element(XID,[p]),
+	sendMsg(XID,async,0,data,{s:7}),
+	sendMsg(XID,async,0,data,{s:2}),
+	sendMsg(XID,async,0,data,{s:12}),
+	sendMsg(XID,async,0,data,{s:4}),
+	sendMsg(XID,async,0,data,{s:3}),
+	sendMsg(XID,async,0,data,{s:1}),
+	sendMsg(XID,async,0,data,{s:10}).
+	
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).
+
+ge_m([A,X],list(A)) :-
+	A>=X,
+	!.
+ge_m([A,X],list()).
+
+get_state([Map,XID],N) :-
+	Map.containsKey(XID),
+	!,
+	N=Map.get(XID).
+get_state([Map,XID],0).
+
+accept([[],maybe(just([]))],[list(J),maybe(just([XID,N,Map]))]) :-
+	Map=java.util.concurrent.ConcurrentHashMap(),
+	rcvMult(XID,async,From,data,{s:J}),
+	get_state([Map,XID],N),
+	println([XID,":| ",{s:J},Map,N]).
+
+filter1([F,list(),M],[list(),M]) :- !.
+filter1([F,L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+filter1([F,list(J),M],[X,M]) :- derive([[F],J,X]).
+
+count1([list(),maybe(just([XID,N,Map]))],[list(),maybe(just([XID,0,Map]))]) :- !.
+count1([L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+count1([list(J),maybe(just([XID,N,Map]))],[list(J),maybe(just([XID,N1,Map]))]) :- N1=N+1.
+
+cond([R,list(),M],[list(),M]) :- !.
+cond([R,L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+cond([N,list(J),maybe(just([XID,N,Map]))],[list(N),maybe(just([XID,NM1,Map]))]) :- !,NM1=N-1.
+cond([R,list(J),M],[list(),M]).
+
+emit([list(),maybe(just([XID,N,Map]))],[list(),maybe(nothing())]) :-
+	!,
+	Map.put(XID,N),
+	println(["Added: ",Map]).
+emit([L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+emit([list(N),maybe(just([XID,NM1,Map]))],[list(N),maybe(nothing())]) :-
+	sendMsg(XID,async,0,data,{result:N}),
+	Map.put(XID,NM1),
+	println([XID,">> ",{result:N}]).
+
+% (emit . cond(2) . count1 . filter1(ge_m(5)) . accept) is a composition pipeline.
+test_unfoldr_count(X) :-
+	derive(
+		[[map([map([accept,filter1(ge_m(5)),count1,cond(2),emit])])],state([list([]),maybe(just([]))]),X]
+	).
