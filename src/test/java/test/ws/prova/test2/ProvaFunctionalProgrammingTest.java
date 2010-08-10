@@ -1,18 +1,136 @@
 package test.ws.prova.test2;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
 import ws.prova.api2.ProvaCommunicator;
 import ws.prova.api2.ProvaCommunicatorImpl;
 import ws.prova.exchange.ProvaSolution;
+import ws.prova.kernel2.ProvaList;
+import ws.prova.kernel2.ProvaObject;
+import ws.prova.reference2.ProvaConstantImpl;
+import ws.prova.reference2.ProvaListImpl;
+import ws.prova.reference2.ProvaMapImpl;
 
 public class ProvaFunctionalProgrammingTest {
 
 	static final String kAgent = "prova";
 
 	static final String kPort = null;
+
+	public class ResultCounter {
+		private final long maxCount;
+		private volatile long count = 0;
+		public ResultCounter(long maxCount) {
+			this.maxCount = maxCount;
+		}
+		public synchronized long incrementAndTestCompletion() {
+			count++;
+			return count==maxCount ? 0 : count;
+		}
+		public long get() {
+			return count;
+		}
+	}
+	
+	@Test
+	public void func_reactive_unfoldr_iteration_perf() {
+		final String rulebase = "rules/reloaded/func_019_perf.prova";
+		
+		final long maxCount = 10000;
+		final long expectedPatterns = 2537;
+		
+		ResultCounter count = new ResultCounter(expectedPatterns);
+		Map<String,Object> globals = new HashMap<String,Object>();
+		globals.put("$Count", count);
+		CountDownLatch doneSignal = new CountDownLatch(1);
+		globals.put("$Latch", doneSignal);
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		
+		long startTime = System.currentTimeMillis();
+		
+		long accountId = 0;
+		// Send maxCount messages to the consulted Prova rulebase.
+		try {
+			for( int i=0; i<maxCount; i++ ) {
+				int shift = i % 32;
+				accountId = (accountId+1) % 1000;
+				Map<String,Integer> payload1 = new HashMap<String,Integer>(1);
+				payload1.put("s", shift);
+				ProvaList terms = ProvaListImpl.create( new ProvaObject[] {
+						ProvaConstantImpl.create(""+accountId),
+						ProvaConstantImpl.create("async"),
+						ProvaConstantImpl.create(0),
+						ProvaConstantImpl.create("data"),
+						ProvaMapImpl.wrap(payload1)
+				});
+				prova.addMsg(terms);
+			}
+			long diff0 = System.currentTimeMillis()-startTime;
+			System.out.println("All messages sent in "+diff0+" ms");
+			doneSignal.await(15, TimeUnit.SECONDS);
+			long diff = System.currentTimeMillis()-startTime;
+			System.out.println(count.get()+" patterns detected in "+diff+" ms");
+			// All expectedPatterns events must be detected
+			org.junit.Assert.assertEquals(expectedPatterns,count.get());
+		} catch (Exception e) {
+			org.junit.Assert.fail("Unexpected exception: "+e.getLocalizedMessage());
+		}
+	}
+
+	/**
+	 * Performance test for partitioned stream fusion pattern detection
+	 */
+	@Test
+	public void func_reactive_unfoldr_iteration_perf_large() {
+		final String rulebase = "rules/reloaded/func_019_perf.prova";
+		
+		final long maxCount = 100000;
+		final long expectedPatterns = 5625;
+		
+		ResultCounter count = new ResultCounter(expectedPatterns);
+		Map<String,Object> globals = new HashMap<String,Object>();
+		globals.put("$Count", count);
+		CountDownLatch doneSignal = new CountDownLatch(1);
+		globals.put("$Latch", doneSignal);
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		
+		long startTime = System.currentTimeMillis();
+		
+		long accountId = 0;
+		// Send maxCount messages to the consulted Prova rulebase.
+		try {
+			for( int i=0; i<maxCount; i++ ) {
+				int shift = i % 32;
+				accountId = (accountId+1) % 10000;
+				Map<String,Integer> payload1 = new HashMap<String,Integer>(1);
+				payload1.put("s", shift);
+				ProvaList terms = ProvaListImpl.create( new ProvaObject[] {
+						ProvaConstantImpl.create(""+accountId),
+						ProvaConstantImpl.create("async"),
+						ProvaConstantImpl.create(0),
+						ProvaConstantImpl.create("data"),
+						ProvaMapImpl.wrap(payload1)
+				});
+				prova.addMsg(terms);
+			}
+			long diff0 = System.currentTimeMillis()-startTime;
+			System.out.println("All messages sent in "+diff0+" ms");
+			doneSignal.await(50, TimeUnit.SECONDS);
+			long diff = System.currentTimeMillis()-startTime;
+			System.out.println(count.get()+" patterns detected in "+diff+" ms");
+			// All expectedPatterns events must be detected
+			org.junit.Assert.assertEquals(expectedPatterns,count.get());
+		} catch (Throwable e) {
+			org.junit.Assert.fail("Unexpected exception: "+e.getLocalizedMessage());
+		}
+	}
 
 	/*
 	 * Demonstrate unfoldr-like functionality with embedded reactions.
@@ -21,21 +139,23 @@ public class ProvaFunctionalProgrammingTest {
 	@Test
 	public void func_reactive_unfoldr_iteration() {
 		final String rulebase = "rules/reloaded/func_019.prova";
-		final int[] numSolutions = new int[] {0,0,1};
+		final int[] numSolutions = new int[] {0,0,0};
+		Map<String,Object> globals = new HashMap<String,Object>();
+		AtomicInteger count = new AtomicInteger();
+		globals.put("$Count", count);
 		
-		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
 
 		try {
 			synchronized(this) {
 				wait(1000);
+				org.junit.Assert.assertEquals(4,count.get());
 			}
 		} catch (Exception e) {
 		}
 
 		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
-		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
-		org.junit.Assert.assertEquals(numSolutions[1],solutions.get(1).length);
 	}
 
 	/*
@@ -45,7 +165,7 @@ public class ProvaFunctionalProgrammingTest {
 	@Test
 	public void func_reactive_unfoldr_mult() {
 		final String rulebase = "rules/reloaded/func_018.prova";
-		final int[] numSolutions = new int[] {0,0,1};
+		final int[] numSolutions = new int[] {0,0,0};
 		
 		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();

@@ -11,23 +11,7 @@
 
 :- eval(test_unfoldr_iteration(SFC)).
 
-:- eval(client()).
-
-client() :-
-	switch_thread(),
-	element(XID,[p,q]),
-	sendMsg(XID,async,0,data,{s:7}),
-	sendMsg(XID,async,0,data,{s:2}),
-	sendMsg(XID,async,0,data,{s:12}),
-	sendMsg(XID,async,0,data,{s:4}),
-	sendMsg(XID,async,0,data,{s:3}),
-	sendMsg(XID,async,0,data,{s:1}),
-	sendMsg(XID,async,0,data,{s:10}).
-	
-switch_thread() :-
-	sendMsgSync(XID,task,0,switch,[]),
-	rcvMsg(XID,task,From,switch,[]).
-
+% Monadic 'GE' filter returning an empty list if the condition does not hold, and A, if it does
 ge_m([A,X],list(A)) :-
 	A>=X,
 	!.
@@ -47,9 +31,9 @@ get_state([Map,XID],0).
 accept_([[],maybe(just([]))],[list(J),maybe(just([XID,N,Map]))]) :-
 	Map=java.util.concurrent.ConcurrentHashMap(),
 	rcvMult(XID,async,From,data,{s:J}),
-	get_state([Map,XID],N)
-%	,println([XID,":| ",{s:J},Map,N])
-	.
+	get_state([Map,XID],N).
+%,
+%	println([XID,":| ",{s:J},Map,N]).
 
 filter_([F,list(),M],[list(),M]) :- !.
 filter_([F,L,maybe(nothing())],[L,maybe(nothing())]) :- !.
@@ -73,12 +57,22 @@ update_([L,maybe(just([XID,N,Map]))],[L,maybe(just([XID,N,Map]))]) :-
 emit_([list(),M],[list(),maybe(nothing())]) :- !.
 emit_([L,maybe(nothing())],[L,maybe(nothing())]) :- !.
 emit_([list(N),maybe(just([XID,NM1,Map]))],[list(N),maybe(nothing())]) :-
-	sendMsg(XID,async,0,data,{result:N}),
-	$Count.incrementAndGet(),
-	println([XID,">> ",{result:N}]).
+%	sendMsg(XID,async,0,data,{result:N}),
+%	println([XID,">> ",{result:N}]),
+	report().
+
+
+report() :-
+	Count=$Count.incrementAndTestCompletion(),
+	Count>0,
+	!,
+	0L = Count mod 100,
+	println([Count," patterns detected"]).
+report() :-
+	$Latch.countDown().
 
 % (emit_ . update_ . cond_(2) . count_ . filter_(ge_m(5)) . accept_) is a composition pipeline.
 test_unfoldr_iteration(X) :-
 	derive(
-		[[map([map([accept_,filter_(ge_m(5)),count_,cond_(2),update_,emit_])])],state([list([]),maybe(just([]))]),X]
+		[[map([map([accept_,filter_(ge_m(16)),count_,cond_(2),update_,emit_])])],state([list([]),maybe(just([]))]),X]
 	).
