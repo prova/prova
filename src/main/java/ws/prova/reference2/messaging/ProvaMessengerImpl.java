@@ -278,6 +278,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				// TODO: Other protocols
 			}
 		} catch (Exception e) {
+			// TODO: For now, just log this
+			log.error(e);
 		}
 		return false;
 	}
