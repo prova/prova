@@ -131,8 +131,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 						removeMap.get(ruleid).setOptional(true);
 					else if( countMode!=2 || countMax!=0 ) {
 						// Beyond the minimum of a non-strict mode interval or within the maximum of a strict mode interval 
-						if( log.isInfoEnabled() )
-							log.info("@and not complete"+results);
+						if( log.isDebugEnabled() )
+							log.debug("@and not complete"+results);
 						this.failed = true;
 						return EventDetectionStatus.complete;
 					} else
@@ -140,8 +140,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 				} else {
 					if( countMin>0 ) {
 						// Fail at reaction timeout due to not enough events
-						if( log.isInfoEnabled() )
-							log.info("@and not complete"+results);
+						if( log.isDebugEnabled() )
+							log.debug("@and not complete"+results);
 						this.failed = true;
 						return EventDetectionStatus.complete;
 					} else
@@ -150,8 +150,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 			} else {
 				if( !not && countMax==0 && countMode==2 ) {
 					// Strict mode failure due to too many events
-					if( log.isInfoEnabled() )
-						log.info("@and not complete"+results);
+					if( log.isDebugEnabled() )
+						log.debug("@and not complete"+results);
 					this.failed = true;
 					return EventDetectionStatus.complete;
 				}
@@ -164,8 +164,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 						removeMap.get(ruleid).setOptional(true);
 					else if( countMode!=2 ) {
 						// Beyond the minimum of a non-strict mode interval
-						if( log.isInfoEnabled() )
-							log.info("@and not complete"+results);
+						if( log.isDebugEnabled() )
+							log.debug("@and not complete"+results);
 						this.failed = true;
 						return EventDetectionStatus.complete;
 					} else
@@ -173,8 +173,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 				}
 				if( countMax>0 )
 					countList.set(1,--countMax);
-				if( log.isInfoEnabled() )
-					log.info(countMin);
+				if( log.isDebugEnabled() )
+					log.debug(countMin);
 				if( !not && countMin==0 && removeMap.containsKey(ruleid) )
 					// Necessary minimum events have arrived, further events are now optional
 					removeMap.get(ruleid).setOptional(true);
@@ -238,8 +238,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 		}
 		if( !dynamicContext && isAndComplete(ruleid2Group) ) {
 			// @and is complete (but may be extended by subsequent reactions in a sequence)
-			if( log.isInfoEnabled() )
-				log.info("@and complete"+results);
+			if( log.isDebugEnabled() )
+				log.debug("@and complete"+results);
 			this.setExtended(false);
 			this.lastReaction = reaction;
 			return EventDetectionStatus.complete;
@@ -294,7 +294,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 					}
 				}
 				if( matching ) {
-					log.info("Matching");
+					if( log.isDebugEnabled() )
+						log.debug("Matching");
 					legMatches.add(values.result);
 				}
 			}

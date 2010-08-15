@@ -324,6 +324,9 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 				lastReaction.getFixed()[1] = ProvaConstantImpl.create("async");
 				lastReaction.getFixed()[2] = ProvaConstantImpl.create(0);
 			} else {
+				if( lastReaction.getFixed().length==0 )
+					// A timeout expired so that strict @count is successful
+					lastReaction = (ProvaList) results.get(results.size()-1);
 				ProvaObject o = lastReaction.getFixed()[2];
 				if( o instanceof ProvaList )
 					lastReaction = (ProvaList) o;
