@@ -1,11 +1,8 @@
 % Demonstrate unfoldr-like functionality with embedded reactions.
-% Detect 2 consecutive events with values <= 5.
-% This outputs (the order may different as two streams are processed concurrently):
-% 
-% p>> {result=2}
-% q>> {result=2}
-% q>> {result=2}
-% p>> {result=2}
+% This test is meant to run only from
+%   ProvaFunctionalProgrammingTest.func_reactive_unfoldr_iteration_perf()
+% or
+%   ProvaFunctionalProgrammingTest.func_reactive_unfoldr_iteration_perf_large()
 
 :- eval(consult('rules/reloaded/functional.prova')).
 
