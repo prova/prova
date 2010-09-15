@@ -1,0 +1,9 @@
+:- solve(test_map(P)).
+
+w(E,E).
+
+extract([E,P],[E,P]) :-
+	w(E,P).
+
+test_map(P) :-
+	extract([{a:1,b:2},{a:A}],[X,P]).

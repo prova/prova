@@ -48,6 +48,23 @@ public class ProvaBuiltins1Test {
 		org.junit.Assert.assertTrue(ans2 instanceof Map<?,?>);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Test
+	public void map3() {
+		final String rulebase = "rules/reloaded/map3.prova";
+		final int[] numSolutions = new int[] {1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(1,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertTrue(solutions.get(0)[0].getNv("P") instanceof ProvaConstant);
+		final Object ans2 = ((ProvaConstant) solutions.get(0)[0].getNv("P")).getObject();
+		org.junit.Assert.assertTrue(ans2 instanceof Map);
+		org.junit.Assert.assertEquals(1, ((Map) ans2).size());
+	}
+
 	@Test
 	public void free() {
 		final String rulebase = "rules/reloaded/test010.prova";
