@@ -30,6 +30,8 @@ public class ProvaServiceMessageImpl implements ProvaDelayedCommand {
 		this.agent = agent;
 		this.verb = terms.getFixed()[3].toString();
 		this.payload = terms.getFixed()[4];
+		if( this.payload instanceof ProvaConstant && ((ProvaConstant) this.payload).getObject() instanceof Map)
+			this.payload = ProvaMapImpl.wrap(((ProvaConstant) this.payload).getObject());
 		if( this.payload instanceof ProvaMapImpl )
 			this.payload = ((ProvaMapImpl) payload).unwrap();
 		else {
