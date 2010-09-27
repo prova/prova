@@ -135,8 +135,6 @@ public class ProvaReagentImpl implements ProvaReagent {
 			}
 		});
 
-		swingAdaptor = new ProvaSwingAdaptor(this);
-
 		if (rules != null && !rules.equals("")) {
 			// Import prova rules from .prova file or a BufferedReader
 			try {
@@ -431,6 +429,8 @@ public class ProvaReagentImpl implements ProvaReagent {
 
 	@Override
 	public ProvaSwingAdaptor getSwingAdaptor() {
+		if( this.swingAdaptor==null )
+			swingAdaptor = new ProvaSwingAdaptor(this);
 		return this.swingAdaptor;
 	}
 
