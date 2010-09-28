@@ -32,11 +32,11 @@ public class ProvaServiceTest {
 		service.init();
 		org.junit.Assert.assertNotNull(service);
 
-		String sender = service.instance("sender", "");
-		org.junit.Assert.assertNotNull(sender);
-
 		String receiver = service.instance("receiver", "");
 		org.junit.Assert.assertNotNull(receiver);
+
+		String sender = service.instance("sender", "");
+		org.junit.Assert.assertNotNull(sender);
 
 		service.consult(receiver, receiver_rulebase, "receiver1");
 		AtomicInteger count = new AtomicInteger();

@@ -108,7 +108,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 			final int index = i;
 			this.partitionedPool[i] =
 				new ThreadPoolExecutor(1, 1,
-					    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<Runnable>(65536),
+					    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<Runnable>(8192),
 //				Executors.newFixedThreadPool(1,
 					new ThreadFactory() {
 
@@ -266,10 +266,24 @@ public class ProvaReagentImpl implements ProvaReagent {
 		};
 		switch (threadPool) {
 		case MAIN:
-			executor.execute(job);
+			try {
+				executor.execute(job);
+			} catch( RejectedExecutionException r ) {
+				try {
+					Thread.sleep(0L, 100);
+				} catch (InterruptedException ignored) {}
+				executor.execute(job);
+			}
 			break;
 		case TASK:
-			pool.execute(job);
+			try {
+				pool.execute(job);
+			} catch( RejectedExecutionException r ) {
+				try {
+					Thread.sleep(0L, 100);
+				} catch (InterruptedException ignored) {}
+				pool.execute(job);
+			}
 			break;
 		case SWING:
 			// All Swing events are queued to the Swing events thread
@@ -290,7 +304,14 @@ public class ProvaReagentImpl implements ProvaReagent {
 			}
 			break;
 		case CONVERSATION:
-			partitionedPool[threadIndex(partition)].execute(job);
+			try {
+				partitionedPool[threadIndex(partition)].execute(job);
+			} catch( RejectedExecutionException r ) {
+				try {
+					Thread.sleep(0L, 100);
+				} catch (InterruptedException ignored) {}
+				partitionedPool[threadIndex(partition)].execute(job);
+			}
 		}
 	}
 
@@ -412,8 +433,10 @@ public class ProvaReagentImpl implements ProvaReagent {
 	public void shutdown() {
 		messenger.stop();
 		pool.shutdown();
-		for (ExecutorService partitioned : partitionedPool)
+		for (ExecutorService partitioned : partitionedPool) {
 			partitioned.shutdown();
+			partitioned = null;
+		}
 		executor.shutdown();
 	}
 
