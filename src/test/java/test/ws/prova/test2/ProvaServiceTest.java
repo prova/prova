@@ -210,7 +210,7 @@ public class ProvaServiceTest {
 
 		try {
 			synchronized(this) {
-				wait(3000);
+				wait(4000);
 				org.junit.Assert.assertEquals(12,count.get());
 			}
 		} catch (Exception e) {
