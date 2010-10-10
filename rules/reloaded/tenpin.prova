@@ -1,0 +1,20 @@
+:-solve(tenpin([10,2,3],0,X)).
+:-solve(tenpin([10,2,8],0,X)).
+:-solve(tenpin([10,10,4,2],0,X)).
+:-solve(tenpin([10,10,10,0,9],0,X)).
+:-solve(tenpin([7,3,4,2],0,X)).
+
+tenpin([],Score,Score):-
+	!.
+tenpin([10,B,C|Xs],Score,ScoreM2):-
+	!,
+	ScoreM=Score+10+B+C,
+	tenpin([B,C|Xs],ScoreM,ScoreM2).
+tenpin([A,B,C|Xs],Score,ScoreM2):-
+	10=A+B,
+	!,
+	ScoreM=Score+10+C,
+	tenpin([C|Xs],ScoreM,ScoreM2).
+tenpin([A,B|Xs],Score,ScoreM2):-
+	ScoreM=Score+A+B,
+	tenpin(Xs,ScoreM,ScoreM2).

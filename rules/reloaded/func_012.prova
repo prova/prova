@@ -15,9 +15,7 @@ until([N,maybe(just([I,N]))],[list(N),maybe(nothing())]) :-
 until([N,maybe(just([I,J]))],[list(J),maybe(just([I,J]))]).
 
 test_unfoldr_1(X) :-
-	derive(
-		[[map([map([fibs,until(5)])])],state([list([]),maybe(just([0,1]))]),X]
-	).
+	map([[map([fibs,until(5)])],state([list([]),maybe(just([0,1]))])],X).
 
 % This returns:
 % SF2=[state,[[list,1,2,3,5],[]]]
@@ -31,6 +29,4 @@ until2([N,I,N],[list(N),[]]) :-
 until2([N,I,J],[list(J),[I,J]]).
 
 test_unfoldr_2(X) :-
-	derive(
-		[[map([map([fibs2,until2(5)])])],state([list([]),[[0,1]]]),X]
-	).
+	map([[map([fibs2,until2(5)])],state([list([]),[[0,1]]])],X).

@@ -159,6 +159,29 @@ public class ProvaFunctionalProgrammingTest {
 	}
 
 	/*
+	 * Demonstrate functional tenpin scoring with stream fusion.
+	 */
+	@Test
+	public void func_tenpin() {
+		final String rulebase = "rules/reloaded/func_tenpin.prova";
+		final int[] numSolutions = new int[] {0,1,1,1,1,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		try {
+			synchronized(this) {
+				wait(1000);
+			}
+		} catch (Exception e) {
+		}
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",numSolutions[i],solutions.get(i).length);
+	}
+
+	/*
 	 * Demonstrate unfoldr-like functionality with embedded reactions.
 	 * This example uses concurrent detection for two partitions based on different XID's.
 	 */
@@ -247,7 +270,7 @@ public class ProvaFunctionalProgrammingTest {
 	}
 
 	@Test
-	public void func_runs() {
+	public void func_run_length_encoding() {
 		final String rulebase = "rules/reloaded/func_015.prova";
 		final int[] numSolutions = new int[] {0,1};
 		
@@ -292,8 +315,8 @@ public class ProvaFunctionalProgrammingTest {
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
 
 		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
-		org.junit.Assert.assertEquals(numSolutions[2],solutions.get(2).length);
-		org.junit.Assert.assertEquals(numSolutions[4],solutions.get(4).length);
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",numSolutions[i],solutions.get(i).length);
 	}
 
 	@Test

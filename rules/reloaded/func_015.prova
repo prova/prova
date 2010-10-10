@@ -1,4 +1,4 @@
-% Demonstrate partial emissions when specified global conditions in the inbound stream are met. 
+% Compute the run-length encoding of a list. 
 
 :- eval(consult('rules/reloaded/functional.prova')).
 
@@ -6,11 +6,9 @@
 % SF1=[state,[[list,[a,3],[b,2],[c,1],[d,3]],[-1,1]]]
 :-solve(test_runs(SF1)).
 
-runs([X,[_,0]],[list(),[X,1]]) :- !.
-runs([X,[X,N]],[list(),[X,N1]]) :- !, N1=N+1.
-runs([Y,[X,N]],[list([X,N]),[Y,1]]).
+encode([X,[_,0]],[list(),[X,1]]) :- !.
+encode([X,[X,N]],[list(),[X,N1]]) :- !, N1=N+1.
+encode([Y,[X,N]],[list([X,N]),[Y,1]]).
 
 test_runs(X) :-
-	derive(
-		[[map([map(runs)])],state([list(a,a,a,b,b,c,d,d,d,-1),[[_,0]]]),X]
-	).
+	map([[map(encode)],state([list(a,a,a,b,b,c,d,d,d,-1),[[_,0]]])],X).

@@ -57,6 +57,4 @@ cond([N,list(K),maybe(just([J]))],[list(K),maybe(just([J]))]).
 % Note that our approach is general enough to cover Coutts' Skip easily as we can emit 0 or more new data.
 % For example, list() denotes a Skip.
 test_unfoldr_3(X) :-
-	derive(
-		[[map([map([accept,hadd,cond(5)])])],state([list([]),maybe(just([0]))]),X]
-	).
+	map([[map([accept,hadd,cond(5)])],state([list([]),maybe(just([0]))])],X).

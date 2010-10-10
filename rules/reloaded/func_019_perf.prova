@@ -58,7 +58,6 @@ emit_([list(N),maybe(just([XID,NM1,Map]))],[list(N),maybe(nothing())]) :-
 %	println([XID,">> ",{result:N}]),
 	report().
 
-
 report() :-
 	Count=$Count.incrementAndTestCompletion(),
 	Count>0,
@@ -70,6 +69,4 @@ report() :-
 
 % (emit_ . update_ . cond_(2) . count_ . filter_(ge_m(5)) . accept_) is a composition pipeline.
 test_unfoldr_iteration(X) :-
-	derive(
-		[[map([map([accept_,filter_(ge_m(16)),count_,cond_(2),update_,emit_])])],state([list([]),maybe(just([]))]),X]
-	).
+	map([[map([accept_,filter_(ge_m(16)),count_,cond_(2),update_,emit_])],state([list([]),maybe(just([]))])],X).

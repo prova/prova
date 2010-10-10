@@ -16,6 +16,4 @@ take([N,maybe(just(K,[I,J]))],[list(J),maybe(just(K1,[I,J]))]) :-
 	K1=K+1.
 
 test_unfoldr_1(X) :-
-	derive(
-		[[map([map([fibs,take(5)])])],state([list([]),maybe(just(1,[0,1]))]),X]
-	).
+	map([[map([fibs,take(5)])],state([list([]),maybe(just(1,[0,1]))])],X).

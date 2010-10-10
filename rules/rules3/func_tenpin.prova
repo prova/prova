@@ -1,0 +1,26 @@
+% Stream of ten pin bowling scores for one pinfall at a time input list.
+% Uses unfoldr-like stream fusion approach.
+
+:- eval(consult('functional.prova')).
+
+:-solve(run(list(10,2,3),X)).
+:-solve(run(list(10,2,8),X)).
+:-solve(run(list(10,10,4,2),X)).
+:-solve(run(list(10,10,10,0,9),X)).
+:-solve(run(list(7,3,4,2),X)).
+
+% Stage 1: basic score
+basic([N,[H,Score]],[N,[H,ScoreM]]) :- ScoreM=Score+N.
+
+% Stage 2: bonus score
+bonus([N,[[10,10],Score]],[N,[[10,10],ScoreM]]) :- !, ScoreM=Score+N+N.
+bonus([N,[[A,10],Score]],[N,[[A,10],ScoreM]]) :- !, ScoreM=Score+N.
+bonus([N,[[10,B],Score]],[N,[[10,B],ScoreM]]) :- !, ScoreM=Score+N.
+bonus([N,[[A,B],Score]],[N,[[A,B],ScoreM]]) :- 10=A+B, !, ScoreM=Score+N.
+bonus([N,[H,Score]],[N,[H,Score]]).
+
+% Stage 3: history update
+history([N,[[A,B],Score]],[list(Score),[[N,A],Score]]).
+
+run(Scores,X) :-
+	map([[map([basic,bonus,history])],state([Scores,[[[0,0],0]]])],X).
