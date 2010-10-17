@@ -66,6 +66,23 @@ public class ProvaBuiltins1Test {
 	}
 
 	@Test
+	public void map_in_head_literal() {
+		final String rulebase = "rules/reloaded/map4.prova";
+		final int[] numSolutions = new int[] {1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(1,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertTrue(solutions.get(0)[0].getNv("A") instanceof ProvaConstant);
+		final Object ans2 = ((ProvaConstant) solutions.get(0)[0].getNv("A")).getObject();
+		org.junit.Assert.assertTrue(ans2 instanceof Integer);
+		long l = (Integer) ans2;
+		org.junit.Assert.assertEquals(3L, l);
+	}
+
+	@Test
 	public void free() {
 		final String rulebase = "rules/reloaded/test010.prova";
 		final int[] numSolutions = new int[] {1};

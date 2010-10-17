@@ -1,0 +1,7 @@
+:- solve(test(A,4)).
+
+test(A,B) :-
+	w({a:A,b:B}).
+
+w({a:1,b:2}).
+w({a:3,b:4}).

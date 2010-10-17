@@ -86,7 +86,7 @@ public class ProvaGoalImpl implements ProvaGoal {
 				firstObject = variables.get(((ProvaVariablePtr) firstObject).getIndex());
 				firstObject = firstObject.getRecursivelyAssigned();
 			}
-			if( firstObject instanceof ProvaConstant ) {
+			if( firstObject instanceof ProvaConstant && !(firstObject instanceof ProvaMapImpl ) ) {
 				Object o = ((ProvaConstant) firstObject).getObject();
 				final List<ProvaRule> keyClauses = predicate.getClauseSet().getClauses(o);
 				if( keyClauses!=null ) {
