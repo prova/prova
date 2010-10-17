@@ -50,8 +50,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			prot = null;
 		}
 
-		prova = new ProvaReagentImpl(null, agent, port, prot, rules, async, null, null);
-		messenger = prova.getMessenger();
+		prova = new ProvaReagentImpl(this, null, agent, port, prot, rules, async, null, null);
 	}
 
 	/**
@@ -79,8 +78,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			prot = null;
 		}
 
-		prova = new ProvaReagentImpl(null, agent, port, prot, rules, async, null, globals);
-		messenger = prova.getMessenger();
+		prova = new ProvaReagentImpl(this, null, agent, port, prot, rules, async, null, globals);
 	}
 
 	public ProvaCommunicatorImpl(String agent, String port,
@@ -92,12 +90,11 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			prot = null;
 		}
 
-		prova = new ProvaReagentImpl(null, agent, port, prot, rules, async, esb, globals);
-		messenger = prova.getMessenger();
+		prova = new ProvaReagentImpl(this, null, agent, port, prot, rules, async, esb, globals);
 	}
 
 	public ProvaCommunicatorImpl(String agent, Object rules, boolean async) {
-		prova = new ProvaReagentImpl(null, agent, null, null, rules, async, null, null);
+		prova = new ProvaReagentImpl(this, null, agent, null, null, rules, async, null, null);
 		messenger = prova.getMessenger();
 	}
 
@@ -110,8 +107,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			prot = null;
 		}
 
-		prova = new ProvaReagentImpl(service, agent, port, prot, rules, async, null, globals);
-		messenger = prova.getMessenger();
+		prova = new ProvaReagentImpl(this, service, agent, port, prot, rules, async, null, globals);
 	}
 
 	@Override
@@ -370,6 +366,11 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	@Override
 	public void setGlobalConstant(String name, Object value) {
 		prova.setGlobalConstant(name, value);
+	}
+
+	@Override
+	public void setMessenger(ProvaMessenger messenger) {
+		this.messenger = messenger;
 	}
 
 }

@@ -29,6 +29,8 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.log4j.Logger;
 
+import ws.prova.api2.ProvaCommunicator;
+import ws.prova.api2.ProvaCommunicatorImpl;
 import ws.prova.esb2.ProvaAgent;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaDerivationNode;
@@ -87,7 +89,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 
 	private boolean allowedShutdown = true;
 
-	public ProvaReagentImpl(ProvaMiniService service, String agent,
+	public ProvaReagentImpl(ProvaCommunicator communicator, ProvaMiniService service, String agent,
 			String port, String[] prot, Object rules, boolean async,
 			ProvaAgent esb, Map<String, Object> globals) {
 		this.agent = agent;
@@ -127,6 +129,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 		this.messenger = new ProvaMessengerImpl(this, kb, agent, password,
 				machine, esb);
 		this.messenger.setService(service);
+		communicator.setMessenger(messenger);
 		this.workflows = new ProvaWorkflowsImpl(kb);
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {

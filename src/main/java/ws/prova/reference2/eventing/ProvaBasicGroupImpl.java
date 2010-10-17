@@ -215,6 +215,9 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		if( children!=null )
 			for( ProvaGroup c : children )
 				c.stop();
+		// Remove any pending timers
+		if( future!=null )
+			future.cancel(false);
 	}
 
 	@Override
@@ -288,6 +291,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		dynamic2Group.remove(dynamicGroup);
 		if( log.isDebugEnabled() )
 			log.debug("Group removed: "+dynamicGroup);
+		if( future!=null )
+			future.cancel(false);
 	}
 
 	@Override

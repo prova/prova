@@ -7,6 +7,7 @@ import java.util.Map;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaList;
+import ws.prova.kernel2.messaging.ProvaMessenger;
 import ws.prova.exchange.ProvaSolution;
 
 public interface ProvaCommunicator {
@@ -40,5 +41,7 @@ public interface ProvaCommunicator {
 	public void setGlobalConstant(String name, Object value);
 
 	public void addMsg(String xid, String agent, String verb, Object payload);
+
+	public void setMessenger(ProvaMessenger messenger);
 
 }

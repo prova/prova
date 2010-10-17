@@ -1,0 +1,63 @@
+% MUST BE run with -t -1 option to prevent the shutdown after 1 second of queue inactivity.
+% Test a recurring timer. The acquirer tries to acquire a service that only appears at some time offset.
+% Only the first two are acquired but the third cannot be acquired as the acquire group has a timeout
+% smaller than the time before the the third service becomes available.
+
+% Registry stores services and responds to queries
+:- eval(registry()).
+
+registry() :-
+	rcvMult(XID,async,_,update,{service:S}),
+	assert(service(S)).
+registry() :-
+	rcvMult(XID,async,_,query,{service:S}),
+	println(["Received query for service ",S]),
+	service(S),
+	sendMsg(XID,async,0,result,{service:S}).
+
+% Advertiser adds new services the registry 
+:- eval(advertiser()). 
+
+advertiser() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+	% Process all messages on the same partition
+	sendMsg(u1,async,0,update,{service:1}),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(2000L),
+	sendMsg(u2,async,0,update,{service:2}),
+	java.lang.Thread.sleep(2000L),
+	sendMsg(u3,async,0,update,{service:3}).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).
+
+% Acquirer requests services and periodically retries if it does not receive a response, eventually giving up.
+:- eval(acquirer()). 
+
+acquirer() :-
+	for([1,3],S),
+	sendMsgSync(XID,async,registry,query,{service:S}),
+	% CRITICALLY, the group instances must be created in separate reactions and this rcvMsg guarantees that.
+	% Otherwise, the same logical group instance will be reused from the same ThreadLocal context.
+	rcvMsg(XID,async,_,query,{service:S}),
+	acquire(XID,S).
+
+acquire(XID,S) :-
+	@group(acquire) @stop
+	rcvMsg(XID,Protocol,Self,result,{service:S}),
+	println(["[",XID,"] acquired service: ",S]),
+	$Count.incrementAndGet().
+acquire(XID,S) :-
+	@group(acquire) @timer('500 ms')
+	rcvMsg(XID,Protocol,Self,noop,_).
+acquire(XID,S) :-
+	@or(acquire) @timeout('3 sec')
+	rcvMsg(XID,Protocol,_,or,Events),
+	println(["Retrying to acquire service ",S]),
+	sendMsgSync(XID,async,0,query,{service:S}).
+acquire(XID,S) :-
+	@or(acquire)
+	rcvMsg(XID,Protocol,_,timeout,Events),
+	println(["Service ",S," could not be acquired"]).

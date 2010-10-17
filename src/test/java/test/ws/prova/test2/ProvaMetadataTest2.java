@@ -29,6 +29,30 @@ public class ProvaMetadataTest2 {
 	}
 	
 	@Test
+	public void service_acquirer_with_retry_using_timer() {
+		final String rulebase = "rules/reloaded/timer.prova";
+		
+		AtomicInteger count = new AtomicInteger();
+		Map<String,Object> globals = new HashMap<String,Object>();
+		globals.put("$Count", count);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		final int numSolutions[] = {0,0,0};
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(solutions.size(),numSolutions.length);
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",solutions.get(i).length,numSolutions[i]);
+
+		try {
+			synchronized(this) {
+				wait(4000);
+				org.junit.Assert.assertEquals("Incorrect number of services acquired",2,count.get());
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	@Test
 	public void poker2_and_not() {
 		final String rulebase = "rules/reloaded/poker2.prova";
 		
