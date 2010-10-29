@@ -126,7 +126,13 @@ clause returns [ProvaRule ret]:
 	List rel = new ArrayList();
 	$stat::ret0[5]=m; $stat::ret0[1]=rel; $stat::ret0[2]=l;
 	rel.add(pred.toString());
-	rel.add(ProvaListImpl.create(new ProvaObject[] {params,result},null));
+	ProvaObject p = params;
+	if( params.getFixed().length==1 )
+		p = params.getFixed()[0];
+	ProvaObject o = result;
+	if( result.getFixed().length==1 )
+		o = result.getFixed()[0];
+	rel.add(ProvaListImpl.create(new ProvaObject[] {p,o},null));
 	ProvaLiteral head = ProvaParserImpl.tlKB.get().generateLiteral(pred.toString(),(ProvaList) rel.get(1));
 	ProvaLiteral[] body = (l==null) ? new ProvaLiteral[0] : l.toArray(new ProvaLiteral[0]);
 	$ret = ProvaParserImpl.tlKB.get().generateRule(head,body);

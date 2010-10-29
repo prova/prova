@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g 2010-10-25 16:36:50
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g 2010-10-29 19:34:09
 
        package ws.prova.parser;
 
@@ -113,7 +113,7 @@ public class Prova2Parser extends Parser {
     }
 
     public String[] getTokenNames() { return Prova2Parser.tokenNames; }
-    public String getGrammarFileName() { return "C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g"; }
+    public String getGrammarFileName() { return "D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g"; }
 
 
         private ProvaErrorReporter errorReporter = null;
@@ -134,7 +134,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "rulebase"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:1: rulebase : ( statement )* ( NEWLINE )* EOF -> ^( RULEBASE ( statement )* ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:87:1: rulebase : ( statement )* ( NEWLINE )* EOF -> ^( RULEBASE ( statement )* ) ;
     public final Prova2Parser.rulebase_return rulebase() throws RecognitionException {
         Prova2Parser.rulebase_return retval = new Prova2Parser.rulebase_return();
         retval.start = input.LT(1);
@@ -152,17 +152,17 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_EOF=new RewriteRuleTokenStream(adaptor,"token EOF");
         RewriteRuleSubtreeStream stream_statement=new RewriteRuleSubtreeStream(adaptor,"rule statement");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:2: ( ( statement )* ( NEWLINE )* EOF -> ^( RULEBASE ( statement )* ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:4: ( statement )* ( NEWLINE )* EOF
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:2: ( ( statement )* ( NEWLINE )* EOF -> ^( RULEBASE ( statement )* ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:4: ( statement )* ( NEWLINE )* EOF
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:4: ( statement )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:4: ( statement )*
             loop1:
             do {
                 int alt1=2;
                 alt1 = dfa1.predict(input);
                 switch (alt1) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:4: statement
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:4: statement
             	    {
             	    pushFollow(FOLLOW_statement_in_rulebase339);
             	    statement1=statement();
@@ -179,7 +179,7 @@ public class Prova2Parser extends Parser {
                 }
             } while (true);
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:15: ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:15: ( NEWLINE )*
             loop2:
             do {
                 int alt2=2;
@@ -192,7 +192,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:15: NEWLINE
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:15: NEWLINE
             	    {
             	    NEWLINE2=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rulebase342);  
             	    stream_NEWLINE.add(NEWLINE2);
@@ -224,12 +224,12 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 88:27: -> ^( RULEBASE ( statement )* )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:30: ^( RULEBASE ( statement )* )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:30: ^( RULEBASE ( statement )* )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(RULEBASE, "RULEBASE"), root_1);
 
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:41: ( statement )*
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:88:41: ( statement )*
                 while ( stream_statement.hasNext() ) {
                     adaptor.addChild(root_1, stream_statement.nextTree());
 
@@ -268,7 +268,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "statement"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:90:1: statement : ( NEWLINE )* stat end_of_statement -> ^( STATEMENT stat ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:90:1: statement : ( NEWLINE )* stat end_of_statement -> ^( STATEMENT stat ) ;
     public final Prova2Parser.statement_return statement() throws RecognitionException {
         Prova2Parser.statement_return retval = new Prova2Parser.statement_return();
         retval.start = input.LT(1);
@@ -286,10 +286,10 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_end_of_statement=new RewriteRuleSubtreeStream(adaptor,"rule end_of_statement");
         RewriteRuleSubtreeStream stream_stat=new RewriteRuleSubtreeStream(adaptor,"rule stat");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:2: ( ( NEWLINE )* stat end_of_statement -> ^( STATEMENT stat ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:4: ( NEWLINE )* stat end_of_statement
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:2: ( ( NEWLINE )* stat end_of_statement -> ^( STATEMENT stat ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:4: ( NEWLINE )* stat end_of_statement
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:4: ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:4: ( NEWLINE )*
             loop3:
             do {
                 int alt3=2;
@@ -302,7 +302,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:4: NEWLINE
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:4: NEWLINE
             	    {
             	    NEWLINE4=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_statement363);  
             	    stream_NEWLINE.add(NEWLINE4);
@@ -343,7 +343,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 91:35: -> ^( STATEMENT stat )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:38: ^( STATEMENT stat )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:91:38: ^( STATEMENT stat )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(STATEMENT, "STATEMENT"), root_1);
@@ -382,7 +382,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "end_of_statement"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:93:1: end_of_statement : ( NEWLINE )* DOT ( NEWLINE | EOF ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:93:1: end_of_statement : ( NEWLINE )* DOT ( NEWLINE | EOF ) ;
     public final Prova2Parser.end_of_statement_return end_of_statement() throws RecognitionException {
         Prova2Parser.end_of_statement_return retval = new Prova2Parser.end_of_statement_return();
         retval.start = input.LT(1);
@@ -398,12 +398,12 @@ public class Prova2Parser extends Parser {
         ProvaAST set9_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:94:2: ( ( NEWLINE )* DOT ( NEWLINE | EOF ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:94:4: ( NEWLINE )* DOT ( NEWLINE | EOF )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:94:2: ( ( NEWLINE )* DOT ( NEWLINE | EOF ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:94:4: ( NEWLINE )* DOT ( NEWLINE | EOF )
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:94:4: ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:94:4: ( NEWLINE )*
             loop4:
             do {
                 int alt4=2;
@@ -416,7 +416,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:94:4: NEWLINE
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:94:4: NEWLINE
             	    {
             	    NEWLINE7=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_end_of_statement385); 
             	    NEWLINE7_tree = (ProvaAST)adaptor.create(NEWLINE7);
@@ -473,7 +473,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "stat"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:96:1: stat : ( clause | query | function );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:96:1: stat : ( clause | query | function );
     public final Prova2Parser.stat_return stat() throws RecognitionException {
         Prova2Parser.stat_return retval = new Prova2Parser.stat_return();
         retval.start = input.LT(1);
@@ -489,12 +489,12 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:96:7: ( clause | query | function )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:96:7: ( clause | query | function )
             int alt5=3;
             alt5 = dfa5.predict(input);
             switch (alt5) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:96:9: clause
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:96:9: clause
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -508,7 +508,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:97:5: query
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:97:5: query
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -522,7 +522,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:5: function
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:98:5: function
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -561,7 +561,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "function"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:100:1: function : ( metadata )? LCWORD list_body ':' list_body0 ( '=' literals )? -> ^( CLAUSE ( metadata )? LCWORD list_body list_body0 ( literals )? ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:100:1: function : ( metadata )? LCWORD list_body ':' list_body0 ( '=' literals )? -> ^( CLAUSE ( metadata )? LCWORD list_body list_body0 ( literals )? ) ;
     public final Prova2Parser.function_return function() throws RecognitionException {
         Prova2Parser.function_return retval = new Prova2Parser.function_return();
         retval.start = input.LT(1);
@@ -591,10 +591,10 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_metadata=new RewriteRuleSubtreeStream(adaptor,"rule metadata");
         RewriteRuleSubtreeStream stream_list_body=new RewriteRuleSubtreeStream(adaptor,"rule list_body");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:2: ( ( metadata )? LCWORD list_body ':' list_body0 ( '=' literals )? -> ^( CLAUSE ( metadata )? LCWORD list_body list_body0 ( literals )? ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:4: ( metadata )? LCWORD list_body ':' list_body0 ( '=' literals )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:2: ( ( metadata )? LCWORD list_body ':' list_body0 ( '=' literals )? -> ^( CLAUSE ( metadata )? LCWORD list_body list_body0 ( literals )? ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:4: ( metadata )? LCWORD list_body ':' list_body0 ( '=' literals )?
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:4: ( metadata )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:4: ( metadata )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -603,7 +603,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:4: metadata
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:4: metadata
                     {
                     pushFollow(FOLLOW_metadata_in_function429);
                     metadata13=metadata();
@@ -635,7 +635,7 @@ public class Prova2Parser extends Parser {
             state._fsp--;
 
             stream_list_body0.add(list_body017.getTree());
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:46: ( '=' literals )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:46: ( '=' literals )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -644,7 +644,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt7) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:47: '=' literals
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:47: '=' literals
                     {
                     char_literal18=(Token)match(input,EQUAL,FOLLOW_EQUAL_in_function441);  
                     stream_EQUAL.add(char_literal18);
@@ -664,7 +664,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: literals, list_body, LCWORD, metadata, list_body0
+            // elements: literals, metadata, list_body0, LCWORD, list_body
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -676,12 +676,12 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 101:62: -> ^( CLAUSE ( metadata )? LCWORD list_body list_body0 ( literals )? )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:65: ^( CLAUSE ( metadata )? LCWORD list_body list_body0 ( literals )? )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:65: ^( CLAUSE ( metadata )? LCWORD list_body list_body0 ( literals )? )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(CLAUSE, "CLAUSE"), root_1);
 
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:74: ( metadata )?
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:74: ( metadata )?
                 if ( stream_metadata.hasNext() ) {
                     adaptor.addChild(root_1, stream_metadata.nextTree());
 
@@ -690,7 +690,7 @@ public class Prova2Parser extends Parser {
                 adaptor.addChild(root_1, stream_LCWORD.nextNode());
                 adaptor.addChild(root_1, stream_list_body.nextTree());
                 adaptor.addChild(root_1, stream_list_body0.nextTree());
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:112: ( literals )?
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:101:112: ( literals )?
                 if ( stream_literals.hasNext() ) {
                     adaptor.addChild(root_1, stream_literals.nextTree());
 
@@ -729,7 +729,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "query"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:1: query : IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')' -> ^( QUERY query_predicate relation ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:1: query : IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')' -> ^( QUERY query_predicate relation ) ;
     public final Prova2Parser.query_return query() throws RecognitionException {
         Prova2Parser.query_return retval = new Prova2Parser.query_return();
         retval.start = input.LT(1);
@@ -762,13 +762,13 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_query_predicate=new RewriteRuleSubtreeStream(adaptor,"rule query_predicate");
         RewriteRuleSubtreeStream stream_relation=new RewriteRuleSubtreeStream(adaptor,"rule relation");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:8: ( IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')' -> ^( QUERY query_predicate relation ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:10: IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')'
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:8: ( IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')' -> ^( QUERY query_predicate relation ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:10: IF ( NEWLINE )* query_predicate ( NEWLINE )* '(' ( NEWLINE )* relation ( NEWLINE )* ')'
             {
             IF20=(Token)match(input,IF,FOLLOW_IF_in_query472);  
             stream_IF.add(IF20);
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:13: ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:13: ( NEWLINE )*
             loop8:
             do {
                 int alt8=2;
@@ -781,7 +781,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:13: NEWLINE
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:13: NEWLINE
             	    {
             	    NEWLINE21=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query474);  
             	    stream_NEWLINE.add(NEWLINE21);
@@ -801,7 +801,7 @@ public class Prova2Parser extends Parser {
             state._fsp--;
 
             stream_query_predicate.add(query_predicate22.getTree());
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:38: ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:38: ( NEWLINE )*
             loop9:
             do {
                 int alt9=2;
@@ -814,7 +814,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:38: NEWLINE
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:38: NEWLINE
             	    {
             	    NEWLINE23=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query479);  
             	    stream_NEWLINE.add(NEWLINE23);
@@ -831,7 +831,7 @@ public class Prova2Parser extends Parser {
             char_literal24=(Token)match(input,OPEN,FOLLOW_OPEN_in_query482);  
             stream_OPEN.add(char_literal24);
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:51: ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:51: ( NEWLINE )*
             loop10:
             do {
                 int alt10=2;
@@ -844,7 +844,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:51: NEWLINE
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:51: NEWLINE
             	    {
             	    NEWLINE25=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query484);  
             	    stream_NEWLINE.add(NEWLINE25);
@@ -864,7 +864,7 @@ public class Prova2Parser extends Parser {
             state._fsp--;
 
             stream_relation.add(relation26.getTree());
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:69: ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:69: ( NEWLINE )*
             loop11:
             do {
                 int alt11=2;
@@ -877,7 +877,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:69: NEWLINE
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:69: NEWLINE
             	    {
             	    NEWLINE27=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_query489);  
             	    stream_NEWLINE.add(NEWLINE27);
@@ -897,7 +897,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: query_predicate, relation
+            // elements: relation, query_predicate
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -909,7 +909,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 103:82: -> ^( QUERY query_predicate relation )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:85: ^( QUERY query_predicate relation )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:103:85: ^( QUERY query_predicate relation )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(QUERY, "QUERY"), root_1);
@@ -949,7 +949,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "query_predicate"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:105:1: query_predicate : constant ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:105:1: query_predicate : constant ;
     public final Prova2Parser.query_predicate_return query_predicate() throws RecognitionException {
         Prova2Parser.query_predicate_return retval = new Prova2Parser.query_predicate_return();
         retval.start = input.LT(1);
@@ -961,8 +961,8 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:2: ( constant )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:4: constant
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:2: ( constant )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:106:4: constant
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -999,7 +999,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "clause"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:1: clause : ( metadata )? relation ( IF literals )? -> ^( CLAUSE ( metadata )? relation ( literals )? ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:1: clause : ( metadata )? relation ( IF literals )? -> ^( CLAUSE ( metadata )? relation ( literals )? ) ;
     public final Prova2Parser.clause_return clause() throws RecognitionException {
         Prova2Parser.clause_return retval = new Prova2Parser.clause_return();
         retval.start = input.LT(1);
@@ -1020,10 +1020,10 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_relation=new RewriteRuleSubtreeStream(adaptor,"rule relation");
         RewriteRuleSubtreeStream stream_metadata=new RewriteRuleSubtreeStream(adaptor,"rule metadata");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:9: ( ( metadata )? relation ( IF literals )? -> ^( CLAUSE ( metadata )? relation ( literals )? ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:11: ( metadata )? relation ( IF literals )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:9: ( ( metadata )? relation ( IF literals )? -> ^( CLAUSE ( metadata )? relation ( literals )? ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:11: ( metadata )? relation ( IF literals )?
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:11: ( metadata )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:11: ( metadata )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1032,7 +1032,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt12) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:11: metadata
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:11: metadata
                     {
                     pushFollow(FOLLOW_metadata_in_clause521);
                     metadata30=metadata();
@@ -1052,7 +1052,7 @@ public class Prova2Parser extends Parser {
             state._fsp--;
 
             stream_relation.add(relation31.getTree());
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:30: ( IF literals )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:30: ( IF literals )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1061,7 +1061,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt13) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:31: IF literals
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:31: IF literals
                     {
                     IF32=(Token)match(input,IF,FOLLOW_IF_in_clause527);  
                     stream_IF.add(IF32);
@@ -1093,19 +1093,19 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 108:45: -> ^( CLAUSE ( metadata )? relation ( literals )? )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:48: ^( CLAUSE ( metadata )? relation ( literals )? )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:48: ^( CLAUSE ( metadata )? relation ( literals )? )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(CLAUSE, "CLAUSE"), root_1);
 
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:57: ( metadata )?
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:57: ( metadata )?
                 if ( stream_metadata.hasNext() ) {
                     adaptor.addChild(root_1, stream_metadata.nextTree());
 
                 }
                 stream_metadata.reset();
                 adaptor.addChild(root_1, stream_relation.nextTree());
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:76: ( literals )?
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:108:76: ( literals )?
                 if ( stream_literals.hasNext() ) {
                     adaptor.addChild(root_1, stream_literals.nextTree());
 
@@ -1144,7 +1144,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "metadata"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:1: metadata : ( annotation ( NEWLINE )* )+ -> ^( METADATA ( annotation )+ ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:110:1: metadata : ( annotation ( NEWLINE )* )+ -> ^( METADATA ( annotation )+ ) ;
     public final Prova2Parser.metadata_return metadata() throws RecognitionException {
         Prova2Parser.metadata_return retval = new Prova2Parser.metadata_return();
         retval.start = input.LT(1);
@@ -1159,10 +1159,10 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_NEWLINE=new RewriteRuleTokenStream(adaptor,"token NEWLINE");
         RewriteRuleSubtreeStream stream_annotation=new RewriteRuleSubtreeStream(adaptor,"rule annotation");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:2: ( ( annotation ( NEWLINE )* )+ -> ^( METADATA ( annotation )+ ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:4: ( annotation ( NEWLINE )* )+
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:2: ( ( annotation ( NEWLINE )* )+ -> ^( METADATA ( annotation )+ ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:4: ( annotation ( NEWLINE )* )+
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:4: ( annotation ( NEWLINE )* )+
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:4: ( annotation ( NEWLINE )* )+
             int cnt15=0;
             loop15:
             do {
@@ -1176,7 +1176,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt15) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:5: annotation ( NEWLINE )*
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:5: annotation ( NEWLINE )*
             	    {
             	    pushFollow(FOLLOW_annotation_in_metadata555);
             	    annotation34=annotation();
@@ -1184,7 +1184,7 @@ public class Prova2Parser extends Parser {
             	    state._fsp--;
 
             	    stream_annotation.add(annotation34.getTree());
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:16: ( NEWLINE )*
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:16: ( NEWLINE )*
             	    loop14:
             	    do {
             	        int alt14=2;
@@ -1197,7 +1197,7 @@ public class Prova2Parser extends Parser {
 
             	        switch (alt14) {
             	    	case 1 :
-            	    	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:16: NEWLINE
+            	    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:16: NEWLINE
             	    	    {
             	    	    NEWLINE35=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_metadata557);  
             	    	    stream_NEWLINE.add(NEWLINE35);
@@ -1239,7 +1239,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 111:27: -> ^( METADATA ( annotation )+ )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:30: ^( METADATA ( annotation )+ )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:111:30: ^( METADATA ( annotation )+ )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(METADATA, "METADATA"), root_1);
@@ -1285,7 +1285,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "annotation"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:114:1: annotation : '@' LCWORD ( '(' value ( COMMA value )* ')' )? -> ^( ANNOTATION LCWORD ( value )* ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:114:1: annotation : '@' LCWORD ( '(' value ( COMMA value )* ')' )? -> ^( ANNOTATION LCWORD ( value )* ) ;
     public final Prova2Parser.annotation_return annotation() throws RecognitionException {
         Prova2Parser.annotation_return retval = new Prova2Parser.annotation_return();
         retval.start = input.LT(1);
@@ -1314,8 +1314,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_LCWORD=new RewriteRuleTokenStream(adaptor,"token LCWORD");
         RewriteRuleSubtreeStream stream_value=new RewriteRuleSubtreeStream(adaptor,"rule value");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:2: ( '@' LCWORD ( '(' value ( COMMA value )* ')' )? -> ^( ANNOTATION LCWORD ( value )* ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:4: '@' LCWORD ( '(' value ( COMMA value )* ')' )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:2: ( '@' LCWORD ( '(' value ( COMMA value )* ')' )? -> ^( ANNOTATION LCWORD ( value )* ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:4: '@' LCWORD ( '(' value ( COMMA value )* ')' )?
             {
             char_literal36=(Token)match(input,71,FOLLOW_71_in_annotation579);  
             stream_71.add(char_literal36);
@@ -1323,7 +1323,7 @@ public class Prova2Parser extends Parser {
             LCWORD37=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_annotation581);  
             stream_LCWORD.add(LCWORD37);
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:15: ( '(' value ( COMMA value )* ')' )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:15: ( '(' value ( COMMA value )* ')' )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1332,7 +1332,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt17) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:16: '(' value ( COMMA value )* ')'
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:16: '(' value ( COMMA value )* ')'
                     {
                     char_literal38=(Token)match(input,OPEN,FOLLOW_OPEN_in_annotation584);  
                     stream_OPEN.add(char_literal38);
@@ -1343,7 +1343,7 @@ public class Prova2Parser extends Parser {
                     state._fsp--;
 
                     stream_value.add(value39.getTree());
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:26: ( COMMA value )*
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:26: ( COMMA value )*
                     loop16:
                     do {
                         int alt16=2;
@@ -1356,7 +1356,7 @@ public class Prova2Parser extends Parser {
 
                         switch (alt16) {
                     	case 1 :
-                    	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:27: COMMA value
+                    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:27: COMMA value
                     	    {
                     	    COMMA40=(Token)match(input,COMMA,FOLLOW_COMMA_in_annotation589);  
                     	    stream_COMMA.add(COMMA40);
@@ -1388,7 +1388,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: value, LCWORD
+            // elements: LCWORD, value
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1400,13 +1400,13 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 115:47: -> ^( ANNOTATION LCWORD ( value )* )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:50: ^( ANNOTATION LCWORD ( value )* )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:50: ^( ANNOTATION LCWORD ( value )* )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(ANNOTATION, "ANNOTATION"), root_1);
 
                 adaptor.addChild(root_1, stream_LCWORD.nextNode());
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:70: ( value )*
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:115:70: ( value )*
                 while ( stream_value.hasNext() ) {
                     adaptor.addChild(root_1, stream_value.nextTree());
 
@@ -1445,7 +1445,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "value"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:1: value : ( LCWORD | UCWORD | string | number );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:118:1: value : ( LCWORD | UCWORD | string | number );
     public final Prova2Parser.value_return value() throws RecognitionException {
         Prova2Parser.value_return retval = new Prova2Parser.value_return();
         retval.start = input.LT(1);
@@ -1463,7 +1463,7 @@ public class Prova2Parser extends Parser {
         ProvaAST UCWORD44_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:2: ( LCWORD | UCWORD | string | number )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:2: ( LCWORD | UCWORD | string | number )
             int alt18=4;
             switch ( input.LA(1) ) {
             case LCWORD:
@@ -1498,7 +1498,7 @@ public class Prova2Parser extends Parser {
 
             switch (alt18) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:4: LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:4: LCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -1510,7 +1510,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:13: UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:13: UCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -1522,7 +1522,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:22: string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:22: string
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -1536,7 +1536,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:31: number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:119:31: number
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -1575,7 +1575,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "literals"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:1: literals : literal ( COMMA literal )* -> ^( LITERAL ( literal )+ ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:1: literals : literal ( COMMA literal )* -> ^( LITERAL ( literal )+ ) ;
     public final Prova2Parser.literals_return literals() throws RecognitionException {
         Prova2Parser.literals_return retval = new Prova2Parser.literals_return();
         retval.start = input.LT(1);
@@ -1592,8 +1592,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleSubtreeStream stream_literal=new RewriteRuleSubtreeStream(adaptor,"rule literal");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:11: ( literal ( COMMA literal )* -> ^( LITERAL ( literal )+ ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:13: literal ( COMMA literal )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:11: ( literal ( COMMA literal )* -> ^( LITERAL ( literal )+ ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:13: literal ( COMMA literal )*
             {
             pushFollow(FOLLOW_literal_in_literals642);
             literal47=literal();
@@ -1601,7 +1601,7 @@ public class Prova2Parser extends Parser {
             state._fsp--;
 
             stream_literal.add(literal47.getTree());
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:21: ( COMMA literal )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:21: ( COMMA literal )*
             loop19:
             do {
                 int alt19=2;
@@ -1614,7 +1614,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt19) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:22: COMMA literal
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:22: COMMA literal
             	    {
             	    COMMA48=(Token)match(input,COMMA,FOLLOW_COMMA_in_literals645);  
             	    stream_COMMA.add(COMMA48);
@@ -1649,7 +1649,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 122:38: -> ^( LITERAL ( literal )+ )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:41: ^( LITERAL ( literal )+ )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:122:41: ^( LITERAL ( literal )+ )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(LITERAL, "LITERAL"), root_1);
@@ -1695,7 +1695,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "literal"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:1: literal : ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:1: literal : ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) );
     public final Prova2Parser.literal_return literal() throws RecognitionException {
         Prova2Parser.literal_return retval = new Prova2Parser.literal_return();
         retval.start = input.LT(1);
@@ -1726,14 +1726,14 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_cut=new RewriteRuleSubtreeStream(adaptor,"rule cut");
         RewriteRuleSubtreeStream stream_metadata=new RewriteRuleSubtreeStream(adaptor,"rule metadata");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:10: ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:10: ( ( NEWLINE )* (m= metadata )? r= relation (g= guard )? -> ^( RELATION ( metadata )? relation ( guard )? ) | ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )? -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? ) | ( NEWLINE )* cut -> ^( CUT cut ) )
             int alt27=3;
             alt27 = dfa27.predict(input);
             switch (alt27) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:12: ( NEWLINE )* (m= metadata )? r= relation (g= guard )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:12: ( NEWLINE )* (m= metadata )? r= relation (g= guard )?
                     {
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:12: ( NEWLINE )*
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:12: ( NEWLINE )*
                     loop20:
                     do {
                         int alt20=2;
@@ -1746,7 +1746,7 @@ public class Prova2Parser extends Parser {
 
                         switch (alt20) {
                     	case 1 :
-                    	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:12: NEWLINE
+                    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:12: NEWLINE
                     	    {
                     	    NEWLINE50=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_literal667);  
                     	    stream_NEWLINE.add(NEWLINE50);
@@ -1760,7 +1760,7 @@ public class Prova2Parser extends Parser {
                         }
                     } while (true);
 
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:22: (m= metadata )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:22: (m= metadata )?
                     int alt21=2;
                     int LA21_0 = input.LA(1);
 
@@ -1769,7 +1769,7 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt21) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:22: m= metadata
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:22: m= metadata
                             {
                             pushFollow(FOLLOW_metadata_in_literal672);
                             m=metadata();
@@ -1789,7 +1789,7 @@ public class Prova2Parser extends Parser {
                     state._fsp--;
 
                     stream_relation.add(r.getTree());
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:45: (g= guard )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:45: (g= guard )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -1798,7 +1798,7 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt22) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:45: g= guard
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:45: g= guard
                             {
                             pushFollow(FOLLOW_guard_in_literal681);
                             g=guard();
@@ -1815,7 +1815,7 @@ public class Prova2Parser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: metadata, guard, relation
+                    // elements: guard, metadata, relation
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1827,19 +1827,19 @@ public class Prova2Parser extends Parser {
                     root_0 = (ProvaAST)adaptor.nil();
                     // 124:53: -> ^( RELATION ( metadata )? relation ( guard )? )
                     {
-                        // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:56: ^( RELATION ( metadata )? relation ( guard )? )
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:56: ^( RELATION ( metadata )? relation ( guard )? )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(RELATION, "RELATION"), root_1);
 
-                        // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:67: ( metadata )?
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:67: ( metadata )?
                         if ( stream_metadata.hasNext() ) {
                             adaptor.addChild(root_1, stream_metadata.nextTree());
 
                         }
                         stream_metadata.reset();
                         adaptor.addChild(root_1, stream_relation.nextTree());
-                        // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:86: ( guard )?
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:124:86: ( guard )?
                         if ( stream_guard.hasNext() ) {
                             adaptor.addChild(root_1, stream_guard.nextTree());
 
@@ -1855,9 +1855,9 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:6: ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:6: ( NEWLINE )* (m= metadata )? semantic_attachment (g= guard )?
                     {
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:6: ( NEWLINE )*
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:6: ( NEWLINE )*
                     loop23:
                     do {
                         int alt23=2;
@@ -1870,7 +1870,7 @@ public class Prova2Parser extends Parser {
 
                         switch (alt23) {
                     	case 1 :
-                    	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:6: NEWLINE
+                    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:6: NEWLINE
                     	    {
                     	    NEWLINE51=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_literal703);  
                     	    stream_NEWLINE.add(NEWLINE51);
@@ -1884,7 +1884,7 @@ public class Prova2Parser extends Parser {
                         }
                     } while (true);
 
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:16: (m= metadata )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:16: (m= metadata )?
                     int alt24=2;
                     int LA24_0 = input.LA(1);
 
@@ -1893,7 +1893,7 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt24) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:16: m= metadata
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:16: m= metadata
                             {
                             pushFollow(FOLLOW_metadata_in_literal708);
                             m=metadata();
@@ -1913,7 +1913,7 @@ public class Prova2Parser extends Parser {
                     state._fsp--;
 
                     stream_semantic_attachment.add(semantic_attachment52.getTree());
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:48: (g= guard )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:48: (g= guard )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -1922,7 +1922,7 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt25) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:48: g= guard
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:48: g= guard
                             {
                             pushFollow(FOLLOW_guard_in_literal715);
                             g=guard();
@@ -1951,19 +1951,19 @@ public class Prova2Parser extends Parser {
                     root_0 = (ProvaAST)adaptor.nil();
                     // 125:56: -> ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? )
                     {
-                        // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:59: ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? )
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:59: ^( SEMANTIC_ATTACHMENT ( metadata )? semantic_attachment ( guard )? )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(SEMANTIC_ATTACHMENT, "SEMANTIC_ATTACHMENT"), root_1);
 
-                        // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:81: ( metadata )?
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:81: ( metadata )?
                         if ( stream_metadata.hasNext() ) {
                             adaptor.addChild(root_1, stream_metadata.nextTree());
 
                         }
                         stream_metadata.reset();
                         adaptor.addChild(root_1, stream_semantic_attachment.nextTree());
-                        // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:111: ( guard )?
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:125:111: ( guard )?
                         if ( stream_guard.hasNext() ) {
                             adaptor.addChild(root_1, stream_guard.nextTree());
 
@@ -1979,9 +1979,9 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:6: ( NEWLINE )* cut
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:6: ( NEWLINE )* cut
                     {
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:6: ( NEWLINE )*
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:6: ( NEWLINE )*
                     loop26:
                     do {
                         int alt26=2;
@@ -1994,7 +1994,7 @@ public class Prova2Parser extends Parser {
 
                         switch (alt26) {
                     	case 1 :
-                    	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:6: NEWLINE
+                    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:6: NEWLINE
                     	    {
                     	    NEWLINE53=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_literal737);  
                     	    stream_NEWLINE.add(NEWLINE53);
@@ -2029,7 +2029,7 @@ public class Prova2Parser extends Parser {
                     root_0 = (ProvaAST)adaptor.nil();
                     // 126:19: -> ^( CUT cut )
                     {
-                        // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:22: ^( CUT cut )
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:126:22: ^( CUT cut )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(CUT, "CUT"), root_1);
@@ -2070,7 +2070,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "cut"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:128:1: cut : CUT ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:128:1: cut : CUT ;
     public final Prova2Parser.cut_return cut() throws RecognitionException {
         Prova2Parser.cut_return retval = new Prova2Parser.cut_return();
         retval.start = input.LT(1);
@@ -2082,8 +2082,8 @@ public class Prova2Parser extends Parser {
         ProvaAST CUT55_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:128:5: ( CUT )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:128:7: CUT
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:128:5: ( CUT )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:128:7: CUT
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -2118,7 +2118,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "binary_operator"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:130:1: binary_operator : ( not_equal | LT | GT | LE | GE );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:130:1: binary_operator : ( not_equal | LT | GT | LE | GE );
     public final Prova2Parser.binary_operator_return binary_operator() throws RecognitionException {
         Prova2Parser.binary_operator_return retval = new Prova2Parser.binary_operator_return();
         retval.start = input.LT(1);
@@ -2138,7 +2138,7 @@ public class Prova2Parser extends Parser {
         ProvaAST GE60_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:2: ( not_equal | LT | GT | LE | GE )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:2: ( not_equal | LT | GT | LE | GE )
             int alt28=5;
             switch ( input.LA(1) ) {
             case NOT_EQUAL1:
@@ -2176,7 +2176,7 @@ public class Prova2Parser extends Parser {
 
             switch (alt28) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:4: not_equal
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:4: not_equal
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2190,7 +2190,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:16: LT
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:16: LT
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2202,7 +2202,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:21: GT
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:21: GT
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2214,7 +2214,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:26: LE
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:26: LE
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2226,7 +2226,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 5 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:31: GE
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:131:31: GE
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2263,7 +2263,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "relation"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:1: relation : predicate '(' list_body ')' -> ^( PREDICATE predicate list_body ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:134:1: relation : predicate '(' list_body ')' -> ^( PREDICATE predicate list_body ) ;
     public final Prova2Parser.relation_return relation() throws RecognitionException {
         Prova2Parser.relation_return retval = new Prova2Parser.relation_return();
         retval.start = input.LT(1);
@@ -2284,8 +2284,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_predicate=new RewriteRuleSubtreeStream(adaptor,"rule predicate");
         RewriteRuleSubtreeStream stream_list_body=new RewriteRuleSubtreeStream(adaptor,"rule list_body");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:2: ( predicate '(' list_body ')' -> ^( PREDICATE predicate list_body ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:4: predicate '(' list_body ')'
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:2: ( predicate '(' list_body ')' -> ^( PREDICATE predicate list_body ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:4: predicate '(' list_body ')'
             {
             pushFollow(FOLLOW_predicate_in_relation793);
             predicate61=predicate();
@@ -2308,7 +2308,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: predicate, list_body
+            // elements: list_body, predicate
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2320,7 +2320,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 135:32: -> ^( PREDICATE predicate list_body )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:35: ^( PREDICATE predicate list_body )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:135:35: ^( PREDICATE predicate list_body )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(PREDICATE, "PREDICATE"), root_1);
@@ -2360,7 +2360,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "guard"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:1: guard : '[' literals ']' -> ^( GUARD literals ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:137:1: guard : '[' literals ']' -> ^( GUARD literals ) ;
     public final Prova2Parser.guard_return guard() throws RecognitionException {
         Prova2Parser.guard_return retval = new Prova2Parser.guard_return();
         retval.start = input.LT(1);
@@ -2378,8 +2378,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_KET=new RewriteRuleTokenStream(adaptor,"token KET");
         RewriteRuleSubtreeStream stream_literals=new RewriteRuleSubtreeStream(adaptor,"rule literals");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:138:2: ( '[' literals ']' -> ^( GUARD literals ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:138:4: '[' literals ']'
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:138:2: ( '[' literals ']' -> ^( GUARD literals ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:138:4: '[' literals ']'
             {
             char_literal65=(Token)match(input,BRA,FOLLOW_BRA_in_guard818);  
             stream_BRA.add(char_literal65);
@@ -2408,7 +2408,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 138:21: -> ^( GUARD literals )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:138:24: ^( GUARD literals )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:138:24: ^( GUARD literals )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(GUARD, "GUARD"), root_1);
@@ -2447,7 +2447,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "list_body"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:141:1: list_body : ( terms ( '|' list_tail )? )? ( NEWLINE )* -> ^( LIST_BODY ( terms ( list_tail )? )? ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:141:1: list_body : ( terms ( '|' list_tail )? )? ( NEWLINE )* -> ^( LIST_BODY ( terms ( list_tail )? )? ) ;
     public final Prova2Parser.list_body_return list_body() throws RecognitionException {
         Prova2Parser.list_body_return retval = new Prova2Parser.list_body_return();
         retval.start = input.LT(1);
@@ -2468,15 +2468,15 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_terms=new RewriteRuleSubtreeStream(adaptor,"rule terms");
         RewriteRuleSubtreeStream stream_list_tail=new RewriteRuleSubtreeStream(adaptor,"rule list_tail");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:3: ( ( terms ( '|' list_tail )? )? ( NEWLINE )* -> ^( LIST_BODY ( terms ( list_tail )? )? ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:5: ( terms ( '|' list_tail )? )? ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:3: ( ( terms ( '|' list_tail )? )? ( NEWLINE )* -> ^( LIST_BODY ( terms ( list_tail )? )? ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:5: ( terms ( '|' list_tail )? )? ( NEWLINE )*
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:5: ( terms ( '|' list_tail )? )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:5: ( terms ( '|' list_tail )? )?
             int alt30=2;
             alt30 = dfa30.predict(input);
             switch (alt30) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:6: terms ( '|' list_tail )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:6: terms ( '|' list_tail )?
                     {
                     pushFollow(FOLLOW_terms_in_list_body843);
                     terms68=terms();
@@ -2484,7 +2484,7 @@ public class Prova2Parser extends Parser {
                     state._fsp--;
 
                     stream_terms.add(terms68.getTree());
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:12: ( '|' list_tail )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:12: ( '|' list_tail )?
                     int alt29=2;
                     int LA29_0 = input.LA(1);
 
@@ -2493,7 +2493,7 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt29) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:13: '|' list_tail
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:13: '|' list_tail
                             {
                             char_literal69=(Token)match(input,BAR,FOLLOW_BAR_in_list_body846);  
                             stream_BAR.add(char_literal69);
@@ -2516,7 +2516,7 @@ public class Prova2Parser extends Parser {
 
             }
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:31: ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:31: ( NEWLINE )*
             loop31:
             do {
                 int alt31=2;
@@ -2529,7 +2529,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt31) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:31: NEWLINE
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:31: NEWLINE
             	    {
             	    NEWLINE71=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_list_body854);  
             	    stream_NEWLINE.add(NEWLINE71);
@@ -2546,7 +2546,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: list_tail, terms
+            // elements: terms, list_tail
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2558,15 +2558,15 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 142:40: -> ^( LIST_BODY ( terms ( list_tail )? )? )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:43: ^( LIST_BODY ( terms ( list_tail )? )? )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:43: ^( LIST_BODY ( terms ( list_tail )? )? )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(LIST_BODY, "LIST_BODY"), root_1);
 
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:55: ( terms ( list_tail )? )?
-                if ( stream_list_tail.hasNext()||stream_terms.hasNext() ) {
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:55: ( terms ( list_tail )? )?
+                if ( stream_terms.hasNext()||stream_list_tail.hasNext() ) {
                     adaptor.addChild(root_1, stream_terms.nextTree());
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:62: ( list_tail )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:142:62: ( list_tail )?
                     if ( stream_list_tail.hasNext() ) {
                         adaptor.addChild(root_1, stream_list_tail.nextTree());
 
@@ -2574,8 +2574,8 @@ public class Prova2Parser extends Parser {
                     stream_list_tail.reset();
 
                 }
-                stream_list_tail.reset();
                 stream_terms.reset();
+                stream_list_tail.reset();
 
                 adaptor.addChild(root_0, root_1);
                 }
@@ -2609,7 +2609,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "list_body0"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:144:1: list_body0 : ( terms ( '|' list_tail )? )? -> ^( LIST_BODY ( terms ( list_tail )? )? ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:144:1: list_body0 : ( terms ( '|' list_tail )? )? -> ^( LIST_BODY ( terms ( list_tail )? )? ) ;
     public final Prova2Parser.list_body0_return list_body0() throws RecognitionException {
         Prova2Parser.list_body0_return retval = new Prova2Parser.list_body0_return();
         retval.start = input.LT(1);
@@ -2627,15 +2627,15 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_terms=new RewriteRuleSubtreeStream(adaptor,"rule terms");
         RewriteRuleSubtreeStream stream_list_tail=new RewriteRuleSubtreeStream(adaptor,"rule list_tail");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:3: ( ( terms ( '|' list_tail )? )? -> ^( LIST_BODY ( terms ( list_tail )? )? ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:5: ( terms ( '|' list_tail )? )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:3: ( ( terms ( '|' list_tail )? )? -> ^( LIST_BODY ( terms ( list_tail )? )? ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:5: ( terms ( '|' list_tail )? )?
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:5: ( terms ( '|' list_tail )? )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:5: ( terms ( '|' list_tail )? )?
             int alt33=2;
             alt33 = dfa33.predict(input);
             switch (alt33) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:6: terms ( '|' list_tail )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:6: terms ( '|' list_tail )?
                     {
                     pushFollow(FOLLOW_terms_in_list_body0880);
                     terms72=terms();
@@ -2643,7 +2643,7 @@ public class Prova2Parser extends Parser {
                     state._fsp--;
 
                     stream_terms.add(terms72.getTree());
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:12: ( '|' list_tail )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:12: ( '|' list_tail )?
                     int alt32=2;
                     int LA32_0 = input.LA(1);
 
@@ -2652,7 +2652,7 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt32) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:13: '|' list_tail
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:13: '|' list_tail
                             {
                             char_literal73=(Token)match(input,BAR,FOLLOW_BAR_in_list_body0883);  
                             stream_BAR.add(char_literal73);
@@ -2690,15 +2690,15 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 145:31: -> ^( LIST_BODY ( terms ( list_tail )? )? )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:34: ^( LIST_BODY ( terms ( list_tail )? )? )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:34: ^( LIST_BODY ( terms ( list_tail )? )? )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(LIST_BODY, "LIST_BODY"), root_1);
 
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:46: ( terms ( list_tail )? )?
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:46: ( terms ( list_tail )? )?
                 if ( stream_terms.hasNext()||stream_list_tail.hasNext() ) {
                     adaptor.addChild(root_1, stream_terms.nextTree());
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:53: ( list_tail )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:145:53: ( list_tail )?
                     if ( stream_list_tail.hasNext() ) {
                         adaptor.addChild(root_1, stream_list_tail.nextTree());
 
@@ -2741,7 +2741,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "list_tail"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:147:1: list_tail : ( variable | prova_list );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:147:1: list_tail : ( variable | prova_list );
     public final Prova2Parser.list_tail_return list_tail() throws RecognitionException {
         Prova2Parser.list_tail_return retval = new Prova2Parser.list_tail_return();
         retval.start = input.LT(1);
@@ -2755,7 +2755,7 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:2: ( variable | prova_list )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:2: ( variable | prova_list )
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -2773,7 +2773,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt34) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:4: variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:4: variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2787,7 +2787,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:15: prova_list
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:148:15: prova_list
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2826,7 +2826,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "left_term"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:150:1: left_term : ( constant | variable | number | prova_list );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:150:1: left_term : ( constant | variable | number | prova_list );
     public final Prova2Parser.left_term_return left_term() throws RecognitionException {
         Prova2Parser.left_term_return retval = new Prova2Parser.left_term_return();
         retval.start = input.LT(1);
@@ -2844,12 +2844,12 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:151:2: ( constant | variable | number | prova_list )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:151:2: ( constant | variable | number | prova_list )
             int alt35=4;
             alt35 = dfa35.predict(input);
             switch (alt35) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:151:4: constant
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:151:4: constant
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2863,7 +2863,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:3: variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:152:3: variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2877,7 +2877,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:153:3: number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:153:3: number
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2891,7 +2891,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:154:3: prova_list
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:154:3: prova_list
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -2930,7 +2930,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "right_term"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:156:1: right_term : ( ( ( MINUS )? ( constant | variable ) ) | number | prova_list | prova_map );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:156:1: right_term : ( ( ( MINUS )? ( constant | variable ) ) | number | prova_list | prova_map );
     public final Prova2Parser.right_term_return right_term() throws RecognitionException {
         Prova2Parser.right_term_return retval = new Prova2Parser.right_term_return();
         retval.start = input.LT(1);
@@ -2952,7 +2952,7 @@ public class Prova2Parser extends Parser {
         ProvaAST MINUS81_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:2: ( ( ( MINUS )? ( constant | variable ) ) | number | prova_list | prova_map )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:2: ( ( ( MINUS )? ( constant | variable ) ) | number | prova_list | prova_map )
             int alt38=4;
             switch ( input.LA(1) ) {
             case MINUS:
@@ -3008,14 +3008,14 @@ public class Prova2Parser extends Parser {
 
             switch (alt38) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:4: ( ( MINUS )? ( constant | variable ) )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:4: ( ( MINUS )? ( constant | variable ) )
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:4: ( ( MINUS )? ( constant | variable ) )
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:5: ( MINUS )? ( constant | variable )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:4: ( ( MINUS )? ( constant | variable ) )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:5: ( MINUS )? ( constant | variable )
                     {
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:5: ( MINUS )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:5: ( MINUS )?
                     int alt36=2;
                     int LA36_0 = input.LA(1);
 
@@ -3024,7 +3024,7 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt36) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:5: MINUS
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:5: MINUS
                             {
                             MINUS81=(Token)match(input,MINUS,FOLLOW_MINUS_in_right_term957); 
                             MINUS81_tree = (ProvaAST)adaptor.create(MINUS81);
@@ -3036,12 +3036,12 @@ public class Prova2Parser extends Parser {
 
                     }
 
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:12: ( constant | variable )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:12: ( constant | variable )
                     int alt37=2;
                     alt37 = dfa37.predict(input);
                     switch (alt37) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:13: constant
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:13: constant
                             {
                             pushFollow(FOLLOW_constant_in_right_term961);
                             constant82=constant();
@@ -3053,7 +3053,7 @@ public class Prova2Parser extends Parser {
                             }
                             break;
                         case 2 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:24: variable
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:24: variable
                             {
                             pushFollow(FOLLOW_variable_in_right_term965);
                             variable83=variable();
@@ -3074,7 +3074,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:37: number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:37: number
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -3088,7 +3088,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:46: prova_list
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:46: prova_list
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -3102,7 +3102,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:59: prova_map
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:157:59: prova_map
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -3141,7 +3141,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "prova_map"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:1: prova_map : '{' ( key_value )? ( ',' key_value )* '}' -> ^( PROVA_MAP ( key_value )* ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:159:1: prova_map : '{' ( key_value )? ( ',' key_value )* '}' -> ^( PROVA_MAP ( key_value )* ) ;
     public final Prova2Parser.prova_map_return prova_map() throws RecognitionException {
         Prova2Parser.prova_map_return retval = new Prova2Parser.prova_map_return();
         retval.start = input.LT(1);
@@ -3164,13 +3164,13 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_73=new RewriteRuleTokenStream(adaptor,"token 73");
         RewriteRuleSubtreeStream stream_key_value=new RewriteRuleSubtreeStream(adaptor,"rule key_value");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:2: ( '{' ( key_value )? ( ',' key_value )* '}' -> ^( PROVA_MAP ( key_value )* ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:4: '{' ( key_value )? ( ',' key_value )* '}'
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:2: ( '{' ( key_value )? ( ',' key_value )* '}' -> ^( PROVA_MAP ( key_value )* ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:4: '{' ( key_value )? ( ',' key_value )* '}'
             {
             char_literal87=(Token)match(input,72,FOLLOW_72_in_prova_map989);  
             stream_72.add(char_literal87);
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:8: ( key_value )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:8: ( key_value )?
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -3179,7 +3179,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt39) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:8: key_value
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:8: key_value
                     {
                     pushFollow(FOLLOW_key_value_in_prova_map991);
                     key_value88=key_value();
@@ -3193,7 +3193,7 @@ public class Prova2Parser extends Parser {
 
             }
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:19: ( ',' key_value )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:19: ( ',' key_value )*
             loop40:
             do {
                 int alt40=2;
@@ -3206,7 +3206,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt40) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:20: ',' key_value
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:20: ',' key_value
             	    {
             	    char_literal89=(Token)match(input,COMMA,FOLLOW_COMMA_in_prova_map995);  
             	    stream_COMMA.add(char_literal89);
@@ -3244,12 +3244,12 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 160:40: -> ^( PROVA_MAP ( key_value )* )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:43: ^( PROVA_MAP ( key_value )* )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:43: ^( PROVA_MAP ( key_value )* )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(PROVA_MAP, "PROVA_MAP"), root_1);
 
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:55: ( key_value )*
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:160:55: ( key_value )*
                 while ( stream_key_value.hasNext() ) {
                     adaptor.addChild(root_1, stream_key_value.nextTree());
 
@@ -3288,7 +3288,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "key_value"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:163:1: key_value : mstring ( '->' | ':' ) term -> ^( KEY_VALUE mstring term ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:163:1: key_value : mstring ( '->' | ':' ) term -> ^( KEY_VALUE mstring term ) ;
     public final Prova2Parser.key_value_return key_value() throws RecognitionException {
         Prova2Parser.key_value_return retval = new Prova2Parser.key_value_return();
         retval.start = input.LT(1);
@@ -3309,8 +3309,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_term=new RewriteRuleSubtreeStream(adaptor,"rule term");
         RewriteRuleSubtreeStream stream_mstring=new RewriteRuleSubtreeStream(adaptor,"rule mstring");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:2: ( mstring ( '->' | ':' ) term -> ^( KEY_VALUE mstring term ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:4: mstring ( '->' | ':' ) term
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:2: ( mstring ( '->' | ':' ) term -> ^( KEY_VALUE mstring term ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:4: mstring ( '->' | ':' ) term
             {
             pushFollow(FOLLOW_mstring_in_key_value1021);
             mstring92=mstring();
@@ -3318,7 +3318,7 @@ public class Prova2Parser extends Parser {
             state._fsp--;
 
             stream_mstring.add(mstring92.getTree());
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:12: ( '->' | ':' )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:12: ( '->' | ':' )
             int alt41=2;
             int LA41_0 = input.LA(1);
 
@@ -3336,7 +3336,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt41) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:13: '->'
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:13: '->'
                     {
                     string_literal93=(Token)match(input,74,FOLLOW_74_in_key_value1024);  
                     stream_74.add(string_literal93);
@@ -3345,7 +3345,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:18: ':'
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:18: ':'
                     {
                     char_literal94=(Token)match(input,70,FOLLOW_70_in_key_value1026);  
                     stream_70.add(char_literal94);
@@ -3377,7 +3377,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 164:28: -> ^( KEY_VALUE mstring term )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:31: ^( KEY_VALUE mstring term )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:164:31: ^( KEY_VALUE mstring term )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(KEY_VALUE, "KEY_VALUE"), root_1);
@@ -3417,7 +3417,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "terms"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:1: terms : ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )* -> ^( TERM ( term )+ ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:1: terms : ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )* -> ^( TERM ( term )+ ) ;
     public final Prova2Parser.terms_return terms() throws RecognitionException {
         Prova2Parser.terms_return retval = new Prova2Parser.terms_return();
         retval.start = input.LT(1);
@@ -3441,10 +3441,10 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleSubtreeStream stream_term=new RewriteRuleSubtreeStream(adaptor,"rule term");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:8: ( ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )* -> ^( TERM ( term )+ ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:10: ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:8: ( ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )* -> ^( TERM ( term )+ ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:10: ( NEWLINE )* term ( ( NEWLINE )* ',' ( NEWLINE )* term )*
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:10: ( NEWLINE )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:10: ( NEWLINE )*
             loop42:
             do {
                 int alt42=2;
@@ -3457,7 +3457,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt42) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:10: NEWLINE
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:10: NEWLINE
             	    {
             	    NEWLINE96=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_terms1052);  
             	    stream_NEWLINE.add(NEWLINE96);
@@ -3477,16 +3477,16 @@ public class Prova2Parser extends Parser {
             state._fsp--;
 
             stream_term.add(term97.getTree());
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:24: ( ( NEWLINE )* ',' ( NEWLINE )* term )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:24: ( ( NEWLINE )* ',' ( NEWLINE )* term )*
             loop45:
             do {
                 int alt45=2;
                 alt45 = dfa45.predict(input);
                 switch (alt45) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:25: ( NEWLINE )* ',' ( NEWLINE )* term
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:25: ( NEWLINE )* ',' ( NEWLINE )* term
             	    {
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:25: ( NEWLINE )*
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:25: ( NEWLINE )*
             	    loop43:
             	    do {
             	        int alt43=2;
@@ -3499,7 +3499,7 @@ public class Prova2Parser extends Parser {
 
             	        switch (alt43) {
             	    	case 1 :
-            	    	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:25: NEWLINE
+            	    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:25: NEWLINE
             	    	    {
             	    	    NEWLINE98=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_terms1058);  
             	    	    stream_NEWLINE.add(NEWLINE98);
@@ -3516,7 +3516,7 @@ public class Prova2Parser extends Parser {
             	    char_literal99=(Token)match(input,COMMA,FOLLOW_COMMA_in_terms1061);  
             	    stream_COMMA.add(char_literal99);
 
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:38: ( NEWLINE )*
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:38: ( NEWLINE )*
             	    loop44:
             	    do {
             	        int alt44=2;
@@ -3529,7 +3529,7 @@ public class Prova2Parser extends Parser {
 
             	        switch (alt44) {
             	    	case 1 :
-            	    	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:38: NEWLINE
+            	    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:38: NEWLINE
             	    	    {
             	    	    NEWLINE100=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_terms1063);  
             	    	    stream_NEWLINE.add(NEWLINE100);
@@ -3573,7 +3573,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 167:54: -> ^( TERM ( term )+ )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:57: ^( TERM ( term )+ )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:167:57: ^( TERM ( term )+ )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(TERM, "TERM"), root_1);
@@ -3619,7 +3619,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "term"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:1: term : ( left_term | func_term | prova_map );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:1: term : ( left_term | func_term | prova_map );
     public final Prova2Parser.term_return term() throws RecognitionException {
         Prova2Parser.term_return retval = new Prova2Parser.term_return();
         retval.start = input.LT(1);
@@ -3635,12 +3635,12 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:6: ( left_term | func_term | prova_map )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:6: ( left_term | func_term | prova_map )
             int alt46=3;
             alt46 = dfa46.predict(input);
             switch (alt46) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:8: left_term
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:8: left_term
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -3654,7 +3654,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:20: func_term
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:20: func_term
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -3668,7 +3668,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:32: prova_map
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:169:32: prova_map
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -3707,7 +3707,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "func_term"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:171:1: func_term : func args ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:171:1: func_term : func args ;
     public final Prova2Parser.func_term_return func_term() throws RecognitionException {
         Prova2Parser.func_term_return retval = new Prova2Parser.func_term_return();
         retval.start = input.LT(1);
@@ -3721,8 +3721,8 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:172:2: ( func args )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:172:4: func args
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:172:2: ( func args )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:172:4: func args
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -3765,7 +3765,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "qualified_java_class"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:174:1: qualified_java_class : ( ( LCWORD DOT )+ UCWORD ) -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:174:1: qualified_java_class : ( ( LCWORD DOT )+ UCWORD ) -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD ) ;
     public final Prova2Parser.qualified_java_class_return qualified_java_class() throws RecognitionException {
         Prova2Parser.qualified_java_class_return retval = new Prova2Parser.qualified_java_class_return();
         retval.start = input.LT(1);
@@ -3784,13 +3784,13 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_LCWORD=new RewriteRuleTokenStream(adaptor,"token LCWORD");
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:2: ( ( ( LCWORD DOT )+ UCWORD ) -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:4: ( ( LCWORD DOT )+ UCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:2: ( ( ( LCWORD DOT )+ UCWORD ) -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:4: ( ( LCWORD DOT )+ UCWORD )
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:4: ( ( LCWORD DOT )+ UCWORD )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:5: ( LCWORD DOT )+ UCWORD
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:4: ( ( LCWORD DOT )+ UCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:5: ( LCWORD DOT )+ UCWORD
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:5: ( LCWORD DOT )+
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:5: ( LCWORD DOT )+
             int cnt47=0;
             loop47:
             do {
@@ -3804,7 +3804,7 @@ public class Prova2Parser extends Parser {
 
                 switch (alt47) {
             	case 1 :
-            	    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:6: LCWORD DOT
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:6: LCWORD DOT
             	    {
             	    LCWORD107=(Token)match(input,LCWORD,FOLLOW_LCWORD_in_qualified_java_class1117);  
             	    stream_LCWORD.add(LCWORD107);
@@ -3846,7 +3846,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 175:27: -> ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:30: ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:175:30: ^( QUALIFIED_JAVA_CLASS ( LCWORD DOT )+ UCWORD )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(QUALIFIED_JAVA_CLASS, "QUALIFIED_JAVA_CLASS"), root_1);
@@ -3895,7 +3895,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "prova_list"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:178:1: prova_list : '[' list_body ']' -> ^( PROVA_LIST list_body ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:178:1: prova_list : '[' list_body ']' -> ^( PROVA_LIST list_body ) ;
     public final Prova2Parser.prova_list_return prova_list() throws RecognitionException {
         Prova2Parser.prova_list_return retval = new Prova2Parser.prova_list_return();
         retval.start = input.LT(1);
@@ -3913,8 +3913,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_KET=new RewriteRuleTokenStream(adaptor,"token KET");
         RewriteRuleSubtreeStream stream_list_body=new RewriteRuleSubtreeStream(adaptor,"rule list_body");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:179:2: ( '[' list_body ']' -> ^( PROVA_LIST list_body ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:179:4: '[' list_body ']'
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:179:2: ( '[' list_body ']' -> ^( PROVA_LIST list_body ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:179:4: '[' list_body ']'
             {
             char_literal110=(Token)match(input,BRA,FOLLOW_BRA_in_prova_list1151);  
             stream_BRA.add(char_literal110);
@@ -3943,7 +3943,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 179:22: -> ^( PROVA_LIST list_body )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:179:25: ^( PROVA_LIST list_body )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:179:25: ^( PROVA_LIST list_body )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(PROVA_LIST, "PROVA_LIST"), root_1);
@@ -3982,7 +3982,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "args"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:181:1: args : '(' list_body ')' -> ^( ARGS list_body ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:181:1: args : '(' list_body ')' -> ^( ARGS list_body ) ;
     public final Prova2Parser.args_return args() throws RecognitionException {
         Prova2Parser.args_return retval = new Prova2Parser.args_return();
         retval.start = input.LT(1);
@@ -4000,8 +4000,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_CLOSE=new RewriteRuleTokenStream(adaptor,"token CLOSE");
         RewriteRuleSubtreeStream stream_list_body=new RewriteRuleSubtreeStream(adaptor,"rule list_body");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:181:7: ( '(' list_body ')' -> ^( ARGS list_body ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:181:9: '(' list_body ')'
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:181:7: ( '(' list_body ')' -> ^( ARGS list_body ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:181:9: '(' list_body ')'
             {
             char_literal113=(Token)match(input,OPEN,FOLLOW_OPEN_in_args1172);  
             stream_OPEN.add(char_literal113);
@@ -4030,7 +4030,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 181:27: -> ^( ARGS list_body )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:181:30: ^( ARGS list_body )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:181:30: ^( ARGS list_body )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(ARGS, "ARGS"), root_1);
@@ -4069,7 +4069,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "semantic_attachment"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:183:1: semantic_attachment : ( predicate_java_call | binary_operation );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:183:1: semantic_attachment : ( predicate_java_call | binary_operation );
     public final Prova2Parser.semantic_attachment_return semantic_attachment() throws RecognitionException {
         Prova2Parser.semantic_attachment_return retval = new Prova2Parser.semantic_attachment_return();
         retval.start = input.LT(1);
@@ -4083,12 +4083,12 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:184:2: ( predicate_java_call | binary_operation )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:184:2: ( predicate_java_call | binary_operation )
             int alt48=2;
             alt48 = dfa48.predict(input);
             switch (alt48) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:184:4: predicate_java_call
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:184:4: predicate_java_call
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -4102,7 +4102,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:184:26: binary_operation
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:184:26: binary_operation
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -4141,7 +4141,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "binary_operation"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:186:1: binary_operation : left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:186:1: binary_operation : left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr ) ;
     public final Prova2Parser.binary_operation_return binary_operation() throws RecognitionException {
         Prova2Parser.binary_operation_return retval = new Prova2Parser.binary_operation_return();
         retval.start = input.LT(1);
@@ -4171,8 +4171,8 @@ public class Prova2Parser extends Parser {
         ProvaAST EQUAL119_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:187:2: ( left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:187:4: left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:187:2: ( left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:187:4: left_term ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -4182,23 +4182,23 @@ public class Prova2Parser extends Parser {
             state._fsp--;
 
             adaptor.addChild(root_0, left_term118.getTree());
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:188:3: ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:188:3: ( EQUAL ( constructor_java_call | prova_list | constant | expr ) | not_equal constant | binary_operator expr )
             int alt50=3;
             alt50 = dfa50.predict(input);
             switch (alt50) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:188:5: EQUAL ( constructor_java_call | prova_list | constant | expr )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:188:5: EQUAL ( constructor_java_call | prova_list | constant | expr )
                     {
                     EQUAL119=(Token)match(input,EQUAL,FOLLOW_EQUAL_in_binary_operation1213); 
                     EQUAL119_tree = (ProvaAST)adaptor.create(EQUAL119);
                     adaptor.addChild(root_0, EQUAL119_tree);
 
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:189:4: ( constructor_java_call | prova_list | constant | expr )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:189:4: ( constructor_java_call | prova_list | constant | expr )
                     int alt49=4;
                     alt49 = dfa49.predict(input);
                     switch (alt49) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:190:4: constructor_java_call
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:190:4: constructor_java_call
                             {
                             pushFollow(FOLLOW_constructor_java_call_in_binary_operation1223);
                             constructor_java_call120=constructor_java_call();
@@ -4210,7 +4210,7 @@ public class Prova2Parser extends Parser {
                             }
                             break;
                         case 2 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:191:6: prova_list
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:191:6: prova_list
                             {
                             pushFollow(FOLLOW_prova_list_in_binary_operation1230);
                             prova_list121=prova_list();
@@ -4222,7 +4222,7 @@ public class Prova2Parser extends Parser {
                             }
                             break;
                         case 3 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:192:6: constant
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:192:6: constant
                             {
                             pushFollow(FOLLOW_constant_in_binary_operation1237);
                             constant122=constant();
@@ -4234,7 +4234,7 @@ public class Prova2Parser extends Parser {
                             }
                             break;
                         case 4 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:6: expr
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:193:6: expr
                             {
                             pushFollow(FOLLOW_expr_in_binary_operation1244);
                             expr123=expr();
@@ -4252,7 +4252,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:195:5: not_equal constant
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:195:5: not_equal constant
                     {
                     pushFollow(FOLLOW_not_equal_in_binary_operation1255);
                     not_equal124=not_equal();
@@ -4270,7 +4270,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:196:5: binary_operator expr
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:196:5: binary_operator expr
                     {
                     pushFollow(FOLLOW_binary_operator_in_binary_operation1263);
                     binary_operator126=binary_operator();
@@ -4317,7 +4317,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "expr"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:1: expr : aterm ( ( PLUS | MINUS ) expr )? ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:1: expr : aterm ( ( PLUS | MINUS ) expr )? ;
     public final Prova2Parser.expr_return expr() throws RecognitionException {
         Prova2Parser.expr_return retval = new Prova2Parser.expr_return();
         retval.start = input.LT(1);
@@ -4333,8 +4333,8 @@ public class Prova2Parser extends Parser {
         ProvaAST set129_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:6: ( aterm ( ( PLUS | MINUS ) expr )? )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:8: aterm ( ( PLUS | MINUS ) expr )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:6: ( aterm ( ( PLUS | MINUS ) expr )? )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:8: aterm ( ( PLUS | MINUS ) expr )?
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -4344,7 +4344,7 @@ public class Prova2Parser extends Parser {
             state._fsp--;
 
             adaptor.addChild(root_0, aterm128.getTree());
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:14: ( ( PLUS | MINUS ) expr )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:14: ( ( PLUS | MINUS ) expr )?
             int alt51=2;
             int LA51_0 = input.LA(1);
 
@@ -4353,7 +4353,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt51) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:15: ( PLUS | MINUS ) expr
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:199:15: ( PLUS | MINUS ) expr
                     {
                     set129=(Token)input.LT(1);
                     if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -4405,7 +4405,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "aterm"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:1: aterm : ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )? ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:1: aterm : ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )? ;
     public final Prova2Parser.aterm_return aterm() throws RecognitionException {
         Prova2Parser.aterm_return retval = new Prova2Parser.aterm_return();
         retval.start = input.LT(1);
@@ -4435,19 +4435,19 @@ public class Prova2Parser extends Parser {
         ProvaAST set139_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:7: ( ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )? )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:7: ( ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )? )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE ) ( ( MULT | DIV | REM ) aterm )?
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:9: ( ( MINUS )? variable | number | ( MINUS )? predicate_java_call | OPEN expr CLOSE )
             int alt54=4;
             alt54 = dfa54.predict(input);
             switch (alt54) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:10: ( MINUS )? variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:10: ( MINUS )? variable
                     {
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:10: ( MINUS )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:10: ( MINUS )?
                     int alt52=2;
                     int LA52_0 = input.LA(1);
 
@@ -4456,7 +4456,7 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt52) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:10: MINUS
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:10: MINUS
                             {
                             MINUS131=(Token)match(input,MINUS,FOLLOW_MINUS_in_aterm1300); 
                             MINUS131_tree = (ProvaAST)adaptor.create(MINUS131);
@@ -4478,7 +4478,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:28: number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:28: number
                     {
                     pushFollow(FOLLOW_number_in_aterm1307);
                     number133=number();
@@ -4490,9 +4490,9 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:37: ( MINUS )? predicate_java_call
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:37: ( MINUS )? predicate_java_call
                     {
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:37: ( MINUS )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:37: ( MINUS )?
                     int alt53=2;
                     int LA53_0 = input.LA(1);
 
@@ -4501,7 +4501,7 @@ public class Prova2Parser extends Parser {
                     }
                     switch (alt53) {
                         case 1 :
-                            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:37: MINUS
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:37: MINUS
                             {
                             MINUS134=(Token)match(input,MINUS,FOLLOW_MINUS_in_aterm1311); 
                             MINUS134_tree = (ProvaAST)adaptor.create(MINUS134);
@@ -4523,7 +4523,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:66: OPEN expr CLOSE
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:66: OPEN expr CLOSE
                     {
                     OPEN136=(Token)match(input,OPEN,FOLLOW_OPEN_in_aterm1318); 
                     OPEN136_tree = (ProvaAST)adaptor.create(OPEN136);
@@ -4545,7 +4545,7 @@ public class Prova2Parser extends Parser {
 
             }
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:83: ( ( MULT | DIV | REM ) aterm )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:83: ( ( MULT | DIV | REM ) aterm )?
             int alt55=2;
             int LA55_0 = input.LA(1);
 
@@ -4554,7 +4554,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt55) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:84: ( MULT | DIV | REM ) aterm
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:201:84: ( MULT | DIV | REM ) aterm
                     {
                     set139=(Token)input.LT(1);
                     if ( (input.LA(1)>=MULT && input.LA(1)<=DIV)||input.LA(1)==REM ) {
@@ -4606,7 +4606,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "constructor_java_call"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:203:1: constructor_java_call : ( qualified_java_class | UCWORD ) args ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:203:1: constructor_java_call : ( qualified_java_class | UCWORD ) args ;
     public final Prova2Parser.constructor_java_call_return constructor_java_call() throws RecognitionException {
         Prova2Parser.constructor_java_call_return retval = new Prova2Parser.constructor_java_call_return();
         retval.start = input.LT(1);
@@ -4622,12 +4622,12 @@ public class Prova2Parser extends Parser {
         ProvaAST UCWORD142_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:2: ( ( qualified_java_class | UCWORD ) args )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:4: ( qualified_java_class | UCWORD ) args
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:2: ( ( qualified_java_class | UCWORD ) args )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:4: ( qualified_java_class | UCWORD ) args
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:4: ( qualified_java_class | UCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:4: ( qualified_java_class | UCWORD )
             int alt56=2;
             int LA56_0 = input.LA(1);
 
@@ -4645,7 +4645,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt56) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:5: qualified_java_class
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:5: qualified_java_class
                     {
                     pushFollow(FOLLOW_qualified_java_class_in_constructor_java_call1352);
                     qualified_java_class141=qualified_java_class();
@@ -4657,7 +4657,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:28: UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:204:28: UCWORD
                     {
                     UCWORD142=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_constructor_java_call1356); 
                     UCWORD142_tree = (ProvaAST)adaptor.create(UCWORD142);
@@ -4702,7 +4702,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "predicate_java_call"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:207:1: predicate_java_call : ( static_java_call | instance_java_call );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:207:1: predicate_java_call : ( static_java_call | instance_java_call );
     public final Prova2Parser.predicate_java_call_return predicate_java_call() throws RecognitionException {
         Prova2Parser.predicate_java_call_return retval = new Prova2Parser.predicate_java_call_return();
         retval.start = input.LT(1);
@@ -4716,12 +4716,12 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:208:2: ( static_java_call | instance_java_call )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:208:2: ( static_java_call | instance_java_call )
             int alt57=2;
             alt57 = dfa57.predict(input);
             switch (alt57) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:208:4: static_java_call
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:208:4: static_java_call
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -4735,7 +4735,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:208:23: instance_java_call
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:208:23: instance_java_call
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -4774,7 +4774,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "instance_java_call"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:211:1: instance_java_call : instance_call args -> ^( INSTANCE_JAVA_CALL instance_call args ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:211:1: instance_java_call : instance_call args -> ^( INSTANCE_JAVA_CALL instance_call args ) ;
     public final Prova2Parser.instance_java_call_return instance_java_call() throws RecognitionException {
         Prova2Parser.instance_java_call_return retval = new Prova2Parser.instance_java_call_return();
         retval.start = input.LT(1);
@@ -4789,8 +4789,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_instance_call=new RewriteRuleSubtreeStream(adaptor,"rule instance_call");
         RewriteRuleSubtreeStream stream_args=new RewriteRuleSubtreeStream(adaptor,"rule args");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:212:2: ( instance_call args -> ^( INSTANCE_JAVA_CALL instance_call args ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:212:4: instance_call args
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:212:2: ( instance_call args -> ^( INSTANCE_JAVA_CALL instance_call args ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:212:4: instance_call args
             {
             pushFollow(FOLLOW_instance_call_in_instance_java_call1385);
             instance_call146=instance_call();
@@ -4807,7 +4807,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: args, instance_call
+            // elements: instance_call, args
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4819,7 +4819,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 212:23: -> ^( INSTANCE_JAVA_CALL instance_call args )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:212:26: ^( INSTANCE_JAVA_CALL instance_call args )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:212:26: ^( INSTANCE_JAVA_CALL instance_call args )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(INSTANCE_JAVA_CALL, "INSTANCE_JAVA_CALL"), root_1);
@@ -4859,7 +4859,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "static_java_call"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:215:1: static_java_call : static_call args -> ^( STATIC_JAVA_CALL static_call args ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:215:1: static_java_call : static_call args -> ^( STATIC_JAVA_CALL static_call args ) ;
     public final Prova2Parser.static_java_call_return static_java_call() throws RecognitionException {
         Prova2Parser.static_java_call_return retval = new Prova2Parser.static_java_call_return();
         retval.start = input.LT(1);
@@ -4874,8 +4874,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_static_call=new RewriteRuleSubtreeStream(adaptor,"rule static_call");
         RewriteRuleSubtreeStream stream_args=new RewriteRuleSubtreeStream(adaptor,"rule args");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:2: ( static_call args -> ^( STATIC_JAVA_CALL static_call args ) )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:4: static_call args
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:2: ( static_call args -> ^( STATIC_JAVA_CALL static_call args ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:4: static_call args
             {
             pushFollow(FOLLOW_static_call_in_static_java_call1408);
             static_call148=static_call();
@@ -4892,7 +4892,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: static_call, args
+            // elements: args, static_call
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4904,7 +4904,7 @@ public class Prova2Parser extends Parser {
             root_0 = (ProvaAST)adaptor.nil();
             // 216:21: -> ^( STATIC_JAVA_CALL static_call args )
             {
-                // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:24: ^( STATIC_JAVA_CALL static_call args )
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:216:24: ^( STATIC_JAVA_CALL static_call args )
                 {
                 ProvaAST root_1 = (ProvaAST)adaptor.nil();
                 root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(STATIC_JAVA_CALL, "STATIC_JAVA_CALL"), root_1);
@@ -4944,7 +4944,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "method"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:219:1: method : LCWORD ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:219:1: method : LCWORD ;
     public final Prova2Parser.method_return method() throws RecognitionException {
         Prova2Parser.method_return retval = new Prova2Parser.method_return();
         retval.start = input.LT(1);
@@ -4956,8 +4956,8 @@ public class Prova2Parser extends Parser {
         ProvaAST LCWORD150_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:219:9: ( LCWORD )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:219:11: LCWORD
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:219:9: ( LCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:219:11: LCWORD
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -4992,7 +4992,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "func"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:1: func : ( LCWORD | UCWORD | string | typed_variable );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:1: func : ( LCWORD | UCWORD | string | typed_variable );
     public final Prova2Parser.func_return func() throws RecognitionException {
         Prova2Parser.func_return retval = new Prova2Parser.func_return();
         retval.start = input.LT(1);
@@ -5010,7 +5010,7 @@ public class Prova2Parser extends Parser {
         ProvaAST UCWORD152_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:6: ( LCWORD | UCWORD | string | typed_variable )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:6: ( LCWORD | UCWORD | string | typed_variable )
             int alt58=4;
             switch ( input.LA(1) ) {
             case LCWORD:
@@ -5064,7 +5064,7 @@ public class Prova2Parser extends Parser {
 
             switch (alt58) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:8: LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:8: LCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5076,7 +5076,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:17: UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:17: UCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5088,7 +5088,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:26: string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:26: string
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5102,7 +5102,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:35: typed_variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:221:35: typed_variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5141,7 +5141,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "predicate"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:223:1: predicate : ( LCWORD | UCWORD | string );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:223:1: predicate : ( LCWORD | UCWORD | string );
     public final Prova2Parser.predicate_return predicate() throws RecognitionException {
         Prova2Parser.predicate_return retval = new Prova2Parser.predicate_return();
         retval.start = input.LT(1);
@@ -5157,7 +5157,7 @@ public class Prova2Parser extends Parser {
         ProvaAST UCWORD156_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:224:2: ( LCWORD | UCWORD | string )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:224:2: ( LCWORD | UCWORD | string )
             int alt59=3;
             switch ( input.LA(1) ) {
             case LCWORD:
@@ -5185,7 +5185,7 @@ public class Prova2Parser extends Parser {
 
             switch (alt59) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:224:4: LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:224:4: LCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5197,7 +5197,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:224:13: UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:224:13: UCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5209,7 +5209,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:224:22: string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:224:22: string
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5248,7 +5248,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "variable"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:1: variable : ( UCWORD | USWORD | typed_variable | DOLLARWORD );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:1: variable : ( UCWORD | USWORD | typed_variable | DOLLARWORD );
     public final Prova2Parser.variable_return variable() throws RecognitionException {
         Prova2Parser.variable_return retval = new Prova2Parser.variable_return();
         retval.start = input.LT(1);
@@ -5266,7 +5266,7 @@ public class Prova2Parser extends Parser {
         ProvaAST DOLLARWORD161_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:9: ( UCWORD | USWORD | typed_variable | DOLLARWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:9: ( UCWORD | USWORD | typed_variable | DOLLARWORD )
             int alt60=4;
             switch ( input.LA(1) ) {
             case UCWORD:
@@ -5347,7 +5347,7 @@ public class Prova2Parser extends Parser {
 
             switch (alt60) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:11: UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:11: UCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5359,7 +5359,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:20: USWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:20: USWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5371,7 +5371,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:29: typed_variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:29: typed_variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5385,7 +5385,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:46: DOLLARWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:226:46: DOLLARWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5422,7 +5422,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "variable_or_number"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:228:1: variable_or_number : ( variable | number );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:228:1: variable_or_number : ( variable | number );
     public final Prova2Parser.variable_or_number_return variable_or_number() throws RecognitionException {
         Prova2Parser.variable_or_number_return retval = new Prova2Parser.variable_or_number_return();
         retval.start = input.LT(1);
@@ -5436,7 +5436,7 @@ public class Prova2Parser extends Parser {
 
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:229:2: ( variable | number )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:229:2: ( variable | number )
             int alt61=2;
             int LA61_0 = input.LA(1);
 
@@ -5454,7 +5454,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt61) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:229:4: variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:229:4: variable
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5468,7 +5468,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:229:15: number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:229:15: number
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5507,7 +5507,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "word"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:231:1: word : ( LCWORD | UCWORD );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:231:1: word : ( LCWORD | UCWORD );
     public final Prova2Parser.word_return word() throws RecognitionException {
         Prova2Parser.word_return retval = new Prova2Parser.word_return();
         retval.start = input.LT(1);
@@ -5519,8 +5519,8 @@ public class Prova2Parser extends Parser {
         ProvaAST set164_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:231:6: ( LCWORD | UCWORD )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:231:6: ( LCWORD | UCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -5562,7 +5562,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "typed_variable"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:236:1: typed_variable : ( qualified_java_class DOT word -> ^( TYPED_VARIABLE qualified_java_class word ) | UCWORD DOT word -> ^( TYPED_VARIABLE UCWORD word ) );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:236:1: typed_variable : ( qualified_java_class DOT word -> ^( TYPED_VARIABLE qualified_java_class word ) | UCWORD DOT word -> ^( TYPED_VARIABLE UCWORD word ) );
     public final Prova2Parser.typed_variable_return typed_variable() throws RecognitionException {
         Prova2Parser.typed_variable_return retval = new Prova2Parser.typed_variable_return();
         retval.start = input.LT(1);
@@ -5587,7 +5587,7 @@ public class Prova2Parser extends Parser {
         RewriteRuleSubtreeStream stream_qualified_java_class=new RewriteRuleSubtreeStream(adaptor,"rule qualified_java_class");
         RewriteRuleSubtreeStream stream_word=new RewriteRuleSubtreeStream(adaptor,"rule word");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:237:2: ( qualified_java_class DOT word -> ^( TYPED_VARIABLE qualified_java_class word ) | UCWORD DOT word -> ^( TYPED_VARIABLE UCWORD word ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:237:2: ( qualified_java_class DOT word -> ^( TYPED_VARIABLE qualified_java_class word ) | UCWORD DOT word -> ^( TYPED_VARIABLE UCWORD word ) )
             int alt62=2;
             int LA62_0 = input.LA(1);
 
@@ -5605,7 +5605,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt62) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:238:3: qualified_java_class DOT word
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:238:3: qualified_java_class DOT word
                     {
                     pushFollow(FOLLOW_qualified_java_class_in_typed_variable1529);
                     qualified_java_class165=qualified_java_class();
@@ -5637,7 +5637,7 @@ public class Prova2Parser extends Parser {
                     root_0 = (ProvaAST)adaptor.nil();
                     // 238:33: -> ^( TYPED_VARIABLE qualified_java_class word )
                     {
-                        // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:238:36: ^( TYPED_VARIABLE qualified_java_class word )
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:238:36: ^( TYPED_VARIABLE qualified_java_class word )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(TYPED_VARIABLE, "TYPED_VARIABLE"), root_1);
@@ -5654,7 +5654,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:239:5: UCWORD DOT word
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:239:5: UCWORD DOT word
                     {
                     UCWORD168=(Token)match(input,UCWORD,FOLLOW_UCWORD_in_typed_variable1549);  
                     stream_UCWORD.add(UCWORD168);
@@ -5683,7 +5683,7 @@ public class Prova2Parser extends Parser {
                     root_0 = (ProvaAST)adaptor.nil();
                     // 239:21: -> ^( TYPED_VARIABLE UCWORD word )
                     {
-                        // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:239:24: ^( TYPED_VARIABLE UCWORD word )
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:239:24: ^( TYPED_VARIABLE UCWORD word )
                         {
                         ProvaAST root_1 = (ProvaAST)adaptor.nil();
                         root_1 = (ProvaAST)adaptor.becomeRoot((ProvaAST)adaptor.create(TYPED_VARIABLE, "TYPED_VARIABLE"), root_1);
@@ -5725,7 +5725,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "instance_call"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:244:1: instance_call : variable DOT LCWORD -> variable LCWORD ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:244:1: instance_call : variable DOT LCWORD -> variable LCWORD ;
     public final Prova2Parser.instance_call_return instance_call() throws RecognitionException {
         Prova2Parser.instance_call_return retval = new Prova2Parser.instance_call_return();
         retval.start = input.LT(1);
@@ -5743,8 +5743,8 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_LCWORD=new RewriteRuleTokenStream(adaptor,"token LCWORD");
         RewriteRuleSubtreeStream stream_variable=new RewriteRuleSubtreeStream(adaptor,"rule variable");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:245:2: ( variable DOT LCWORD -> variable LCWORD )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:245:4: variable DOT LCWORD
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:245:2: ( variable DOT LCWORD -> variable LCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:245:4: variable DOT LCWORD
             {
             pushFollow(FOLLOW_variable_in_instance_call1575);
             variable171=variable();
@@ -5805,7 +5805,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "static_call"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:248:1: static_call : ( qualified_java_class DOT LCWORD ) -> qualified_java_class LCWORD ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:248:1: static_call : ( qualified_java_class DOT LCWORD ) -> qualified_java_class LCWORD ;
     public final Prova2Parser.static_call_return static_call() throws RecognitionException {
         Prova2Parser.static_call_return retval = new Prova2Parser.static_call_return();
         retval.start = input.LT(1);
@@ -5823,11 +5823,11 @@ public class Prova2Parser extends Parser {
         RewriteRuleTokenStream stream_LCWORD=new RewriteRuleTokenStream(adaptor,"token LCWORD");
         RewriteRuleSubtreeStream stream_qualified_java_class=new RewriteRuleSubtreeStream(adaptor,"rule qualified_java_class");
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:2: ( ( qualified_java_class DOT LCWORD ) -> qualified_java_class LCWORD )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:4: ( qualified_java_class DOT LCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:2: ( ( qualified_java_class DOT LCWORD ) -> qualified_java_class LCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:4: ( qualified_java_class DOT LCWORD )
             {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:4: ( qualified_java_class DOT LCWORD )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:5: qualified_java_class DOT LCWORD
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:4: ( qualified_java_class DOT LCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:249:5: qualified_java_class DOT LCWORD
             {
             pushFollow(FOLLOW_qualified_java_class_in_static_call1597);
             qualified_java_class174=qualified_java_class();
@@ -5847,7 +5847,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: qualified_java_class, LCWORD
+            // elements: LCWORD, qualified_java_class
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5891,7 +5891,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "pos_number"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:1: pos_number : ( INT_LITERAL | LONG_LITERAL | float_literal );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:1: pos_number : ( INT_LITERAL | LONG_LITERAL | float_literal );
     public final Prova2Parser.pos_number_return pos_number() throws RecognitionException {
         Prova2Parser.pos_number_return retval = new Prova2Parser.pos_number_return();
         retval.start = input.LT(1);
@@ -5907,7 +5907,7 @@ public class Prova2Parser extends Parser {
         ProvaAST LONG_LITERAL178_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:12: ( INT_LITERAL | LONG_LITERAL | float_literal )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:12: ( INT_LITERAL | LONG_LITERAL | float_literal )
             int alt63=3;
             int LA63_0 = input.LA(1);
 
@@ -5951,7 +5951,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt63) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:14: INT_LITERAL
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:14: INT_LITERAL
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5963,7 +5963,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:28: LONG_LITERAL
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:28: LONG_LITERAL
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -5975,7 +5975,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:43: float_literal
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:252:43: float_literal
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -6014,7 +6014,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "number"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:254:1: number : ( '-' )? pos_number ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:254:1: number : ( '-' )? pos_number ;
     public final Prova2Parser.number_return number() throws RecognitionException {
         Prova2Parser.number_return retval = new Prova2Parser.number_return();
         retval.start = input.LT(1);
@@ -6028,12 +6028,12 @@ public class Prova2Parser extends Parser {
         ProvaAST char_literal180_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:255:2: ( ( '-' )? pos_number )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:255:4: ( '-' )? pos_number
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:255:2: ( ( '-' )? pos_number )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:255:4: ( '-' )? pos_number
             {
             root_0 = (ProvaAST)adaptor.nil();
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:255:4: ( '-' )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:255:4: ( '-' )?
             int alt64=2;
             int LA64_0 = input.LA(1);
 
@@ -6042,7 +6042,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt64) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:255:5: '-'
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:255:5: '-'
                     {
                     char_literal180=(Token)match(input,MINUS,FOLLOW_MINUS_in_number1636); 
                     char_literal180_tree = (ProvaAST)adaptor.create(char_literal180);
@@ -6087,7 +6087,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "mstring"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:257:1: mstring : ( LCWORD | string );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:257:1: mstring : ( LCWORD | string );
     public final Prova2Parser.mstring_return mstring() throws RecognitionException {
         Prova2Parser.mstring_return retval = new Prova2Parser.mstring_return();
         retval.start = input.LT(1);
@@ -6101,7 +6101,7 @@ public class Prova2Parser extends Parser {
         ProvaAST LCWORD182_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:257:10: ( LCWORD | string )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:257:10: ( LCWORD | string )
             int alt65=2;
             int LA65_0 = input.LA(1);
 
@@ -6119,7 +6119,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt65) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:258:2: LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:258:2: LCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -6131,7 +6131,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:258:11: string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:258:11: string
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -6170,7 +6170,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "constant"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:260:1: constant : ( LCWORD | string | qualified_java_class );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:260:1: constant : ( LCWORD | string | qualified_java_class );
     public final Prova2Parser.constant_return constant() throws RecognitionException {
         Prova2Parser.constant_return retval = new Prova2Parser.constant_return();
         retval.start = input.LT(1);
@@ -6186,7 +6186,7 @@ public class Prova2Parser extends Parser {
         ProvaAST LCWORD184_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:260:10: ( LCWORD | string | qualified_java_class )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:260:10: ( LCWORD | string | qualified_java_class )
             int alt66=3;
             int LA66_0 = input.LA(1);
 
@@ -6230,7 +6230,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt66) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:261:2: LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:261:2: LCWORD
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -6242,7 +6242,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:261:11: string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:261:11: string
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -6256,7 +6256,7 @@ public class Prova2Parser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:261:20: qualified_java_class
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:261:20: qualified_java_class
                     {
                     root_0 = (ProvaAST)adaptor.nil();
 
@@ -6295,7 +6295,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "string"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:263:1: string : ( STRING1 | STRING2 );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:263:1: string : ( STRING1 | STRING2 );
     public final Prova2Parser.string_return string() throws RecognitionException {
         Prova2Parser.string_return retval = new Prova2Parser.string_return();
         retval.start = input.LT(1);
@@ -6307,8 +6307,8 @@ public class Prova2Parser extends Parser {
         ProvaAST set187_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:263:8: ( STRING1 | STRING2 )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:263:8: ( STRING1 | STRING2 )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -6350,7 +6350,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "not_equal"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:265:1: not_equal : ( NOT_EQUAL1 | NOT_EQUAL2 );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:265:1: not_equal : ( NOT_EQUAL1 | NOT_EQUAL2 );
     public final Prova2Parser.not_equal_return not_equal() throws RecognitionException {
         Prova2Parser.not_equal_return retval = new Prova2Parser.not_equal_return();
         retval.start = input.LT(1);
@@ -6362,8 +6362,8 @@ public class Prova2Parser extends Parser {
         ProvaAST set188_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:266:2: ( NOT_EQUAL1 | NOT_EQUAL2 )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:266:2: ( NOT_EQUAL1 | NOT_EQUAL2 )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -6405,7 +6405,7 @@ public class Prova2Parser extends Parser {
     };
 
     // $ANTLR start "float_literal"
-    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:1: float_literal : INT_LITERAL DOT INT_LITERAL ( EXPONENT )? ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:1: float_literal : INT_LITERAL DOT INT_LITERAL ( EXPONENT )? ;
     public final Prova2Parser.float_literal_return float_literal() throws RecognitionException {
         Prova2Parser.float_literal_return retval = new Prova2Parser.float_literal_return();
         retval.start = input.LT(1);
@@ -6423,8 +6423,8 @@ public class Prova2Parser extends Parser {
         ProvaAST EXPONENT192_tree=null;
 
         try {
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:16: ( INT_LITERAL DOT INT_LITERAL ( EXPONENT )? )
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:18: INT_LITERAL DOT INT_LITERAL ( EXPONENT )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:16: ( INT_LITERAL DOT INT_LITERAL ( EXPONENT )? )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:18: INT_LITERAL DOT INT_LITERAL ( EXPONENT )?
             {
             root_0 = (ProvaAST)adaptor.nil();
 
@@ -6440,7 +6440,7 @@ public class Prova2Parser extends Parser {
             INT_LITERAL191_tree = (ProvaAST)adaptor.create(INT_LITERAL191);
             adaptor.addChild(root_0, INT_LITERAL191_tree);
 
-            // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:46: ( EXPONENT )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:46: ( EXPONENT )?
             int alt67=2;
             int LA67_0 = input.LA(1);
 
@@ -6449,7 +6449,7 @@ public class Prova2Parser extends Parser {
             }
             switch (alt67) {
                 case 1 :
-                    // C:\\perforce\\workspace-sts-2.3.3.M2.3.5.2\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:46: EXPONENT
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:269:46: EXPONENT
                     {
                     EXPONENT192=(Token)match(input,EXPONENT,FOLLOW_EXPONENT_in_float_literal1714); 
                     EXPONENT192_tree = (ProvaAST)adaptor.create(EXPONENT192);

@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g 2010-10-29 12:43:10
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g 2010-10-29 19:00:44
 
 	package ws.prova.parser;
 	import java.util.List;
@@ -524,7 +524,13 @@ public class ProvaWalker2 extends TreeParser {
                     	List rel = new ArrayList();
                     	((stat_scope)stat_stack.peek()).ret0[5]=m; ((stat_scope)stat_stack.peek()).ret0[1]=rel; ((stat_scope)stat_stack.peek()).ret0[2]=l;
                     	rel.add(pred.toString());
-                    	rel.add(ProvaListImpl.create(new ProvaObject[] {params,result},null));
+                    	ProvaObject p = params;
+                    	if( params.getFixed().length==1 )
+                    		p = params.getFixed()[0];
+                    	ProvaObject o = result;
+                    	if( result.getFixed().length==1 )
+                    		o = result.getFixed()[0];
+                    	rel.add(ProvaListImpl.create(new ProvaObject[] {p,o},null));
                     	ProvaLiteral head = ProvaParserImpl.tlKB.get().generateLiteral(pred.toString(),(ProvaList) rel.get(1));
                     	ProvaLiteral[] body = (l==null) ? new ProvaLiteral[0] : l.toArray(new ProvaLiteral[0]);
                     	ret = ProvaParserImpl.tlKB.get().generateRule(head,body);
@@ -550,7 +556,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "metadata"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:139:1: metadata returns [Map<String,List<Object>> ret] : ^( METADATA (a= annotation )+ ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:145:1: metadata returns [Map<String,List<Object>> ret] : ^( METADATA (a= annotation )+ ) ;
     public final Map<String,List<Object>> metadata() throws RecognitionException {
         Map<String,List<Object>> ret = null;
 
@@ -561,13 +567,13 @@ public class ProvaWalker2 extends TreeParser {
         	ret = new HashMap<String,List<Object>>();
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:143:2: ( ^( METADATA (a= annotation )+ ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:143:4: ^( METADATA (a= annotation )+ )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:149:2: ( ^( METADATA (a= annotation )+ ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:149:4: ^( METADATA (a= annotation )+ )
             {
             match(input,METADATA,FOLLOW_METADATA_in_metadata227); 
 
             match(input, Token.DOWN, null); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:143:15: (a= annotation )+
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:149:15: (a= annotation )+
             int cnt8=0;
             loop8:
             do {
@@ -581,7 +587,7 @@ public class ProvaWalker2 extends TreeParser {
 
                 switch (alt8) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:143:16: a= annotation
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:149:16: a= annotation
             	    {
             	    pushFollow(FOLLOW_annotation_in_metadata232);
             	    a=annotation();
@@ -625,7 +631,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "annotation"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:146:1: annotation returns [List<Object> ret] : ^( ANNOTATION n= LCWORD (v= value )* ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:152:1: annotation returns [List<Object> ret] : ^( ANNOTATION n= LCWORD (v= value )* ) ;
     public final List<Object> annotation() throws RecognitionException {
         annotation_stack.push(new annotation_scope());
         List<Object> ret = null;
@@ -639,15 +645,15 @@ public class ProvaWalker2 extends TreeParser {
         	((annotation_scope)annotation_stack.peek()).value = new ArrayList<String>(); 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:157:2: ( ^( ANNOTATION n= LCWORD (v= value )* ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:157:4: ^( ANNOTATION n= LCWORD (v= value )* )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:163:2: ( ^( ANNOTATION n= LCWORD (v= value )* ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:163:4: ^( ANNOTATION n= LCWORD (v= value )* )
             {
             match(input,ANNOTATION,FOLLOW_ANNOTATION_in_annotation266); 
 
             match(input, Token.DOWN, null); 
             n=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_annotation270); 
             ret.add(n.toString());
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:157:52: (v= value )*
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:163:52: (v= value )*
             loop9:
             do {
                 int alt9=2;
@@ -660,7 +666,7 @@ public class ProvaWalker2 extends TreeParser {
 
                 switch (alt9) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:157:53: v= value
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:163:53: v= value
             	    {
             	    pushFollow(FOLLOW_value_in_annotation277);
             	    v=value();
@@ -699,7 +705,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "value"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:160:1: value returns [String ret] : (l= LCWORD | u= UCWORD | s= string | n= number );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:166:1: value returns [String ret] : (l= LCWORD | u= UCWORD | s= string | n= number );
     public final String value() throws RecognitionException {
         String ret = null;
 
@@ -711,7 +717,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:161:2: (l= LCWORD | u= UCWORD | s= string | n= number )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:167:2: (l= LCWORD | u= UCWORD | s= string | n= number )
             int alt10=4;
             switch ( input.LA(1) ) {
             case LCWORD:
@@ -746,7 +752,7 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt10) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:161:4: l= LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:167:4: l= LCWORD
                     {
                     l=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_value299); 
                     ret = l.toString();
@@ -754,7 +760,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:162:5: u= UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:168:5: u= UCWORD
                     {
                     u=(CommonTree)match(input,UCWORD,FOLLOW_UCWORD_in_value309); 
                      ret = u.toString(); 
@@ -762,7 +768,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:163:5: s= string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:169:5: s= string
                     {
                     pushFollow(FOLLOW_string_in_value319);
                     s=string();
@@ -774,7 +780,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:164:5: n= number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:170:5: n= number
                     {
                     pushFollow(FOLLOW_number_in_value329);
                     n=number();
@@ -800,7 +806,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "literals"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:167:1: literals returns [List<ProvaLiteral> ret] : ^( LITERAL (l= literal )+ ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:173:1: literals returns [List<ProvaLiteral> ret] : ^( LITERAL (l= literal )+ ) ;
     public final List<ProvaLiteral> literals() throws RecognitionException {
         List<ProvaLiteral> ret = null;
 
@@ -812,13 +818,13 @@ public class ProvaWalker2 extends TreeParser {
         	((stat_scope)stat_stack.peek()).isBody = true;
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:172:2: ( ^( LITERAL (l= literal )+ ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:172:4: ^( LITERAL (l= literal )+ )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:178:2: ( ^( LITERAL (l= literal )+ ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:178:4: ^( LITERAL (l= literal )+ )
             {
             match(input,LITERAL,FOLLOW_LITERAL_in_literals352); 
 
             match(input, Token.DOWN, null); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:172:14: (l= literal )+
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:178:14: (l= literal )+
             int cnt11=0;
             loop11:
             do {
@@ -832,7 +838,7 @@ public class ProvaWalker2 extends TreeParser {
 
                 switch (alt11) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:172:15: l= literal
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:178:15: l= literal
             	    {
             	    pushFollow(FOLLOW_literal_in_literals357);
             	    l=literal();
@@ -871,7 +877,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "literal"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:175:1: literal returns [ProvaLiteral ret] : ( ^(rel= RELATION (m= metadata )? r= relation (g= guard )? ) | ^(sem= SEMANTIC_ATTACHMENT (m= metadata )? sa= semantic_attachment (g= guard )? ) | ^(cu= CUT c= cut ) );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:181:1: literal returns [ProvaLiteral ret] : ( ^(rel= RELATION (m= metadata )? r= relation (g= guard )? ) | ^(sem= SEMANTIC_ATTACHMENT (m= metadata )? sa= semantic_attachment (g= guard )? ) | ^(cu= CUT c= cut ) );
     public final ProvaLiteral literal() throws RecognitionException {
         ProvaLiteral ret = null;
 
@@ -888,7 +894,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:176:2: ( ^(rel= RELATION (m= metadata )? r= relation (g= guard )? ) | ^(sem= SEMANTIC_ATTACHMENT (m= metadata )? sa= semantic_attachment (g= guard )? ) | ^(cu= CUT c= cut ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:182:2: ( ^(rel= RELATION (m= metadata )? r= relation (g= guard )? ) | ^(sem= SEMANTIC_ATTACHMENT (m= metadata )? sa= semantic_attachment (g= guard )? ) | ^(cu= CUT c= cut ) )
             int alt16=3;
             switch ( input.LA(1) ) {
             case RELATION:
@@ -915,12 +921,12 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt16) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:177:2: ^(rel= RELATION (m= metadata )? r= relation (g= guard )? )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:183:2: ^(rel= RELATION (m= metadata )? r= relation (g= guard )? )
                     {
                     rel=(CommonTree)match(input,RELATION,FOLLOW_RELATION_in_literal380); 
 
                     match(input, Token.DOWN, null); 
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:177:18: (m= metadata )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:183:18: (m= metadata )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -929,7 +935,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     switch (alt12) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:177:18: m= metadata
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:183:18: m= metadata
                             {
                             pushFollow(FOLLOW_metadata_in_literal384);
                             m=metadata();
@@ -947,7 +953,7 @@ public class ProvaWalker2 extends TreeParser {
 
                     state._fsp--;
 
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:177:41: (g= guard )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:183:41: (g= guard )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -956,7 +962,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     switch (alt13) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:177:41: g= guard
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:183:41: g= guard
                             {
                             pushFollow(FOLLOW_guard_in_literal393);
                             g=guard();
@@ -993,12 +999,12 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:195:4: ^(sem= SEMANTIC_ATTACHMENT (m= metadata )? sa= semantic_attachment (g= guard )? )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:201:4: ^(sem= SEMANTIC_ATTACHMENT (m= metadata )? sa= semantic_attachment (g= guard )? )
                     {
                     sem=(CommonTree)match(input,SEMANTIC_ATTACHMENT,FOLLOW_SEMANTIC_ATTACHMENT_in_literal405); 
 
                     match(input, Token.DOWN, null); 
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:195:31: (m= metadata )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:201:31: (m= metadata )?
                     int alt14=2;
                     int LA14_0 = input.LA(1);
 
@@ -1007,7 +1013,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     switch (alt14) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:195:31: m= metadata
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:201:31: m= metadata
                             {
                             pushFollow(FOLLOW_metadata_in_literal409);
                             m=metadata();
@@ -1025,7 +1031,7 @@ public class ProvaWalker2 extends TreeParser {
 
                     state._fsp--;
 
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:195:66: (g= guard )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:201:66: (g= guard )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1034,7 +1040,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     switch (alt15) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:195:66: g= guard
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:201:66: g= guard
                             {
                             pushFollow(FOLLOW_guard_in_literal418);
                             g=guard();
@@ -1058,7 +1064,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:200:4: ^(cu= CUT c= cut )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:206:4: ^(cu= CUT c= cut )
                     {
                     cu=(CommonTree)match(input,CUT,FOLLOW_CUT_in_literal430); 
 
@@ -1094,7 +1100,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "guard"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:208:1: guard returns [List<ProvaLiteral> ret] : ^(g= GUARD lits= literals ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:214:1: guard returns [List<ProvaLiteral> ret] : ^(g= GUARD lits= literals ) ;
     public final List<ProvaLiteral> guard() throws RecognitionException {
         List<ProvaLiteral> ret = null;
 
@@ -1103,8 +1109,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:209:2: ( ^(g= GUARD lits= literals ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:209:4: ^(g= GUARD lits= literals )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:215:2: ( ^(g= GUARD lits= literals ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:215:4: ^(g= GUARD lits= literals )
             {
             g=(CommonTree)match(input,GUARD,FOLLOW_GUARD_in_guard454); 
 
@@ -1135,11 +1141,11 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "cut"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:214:1: cut : CUT ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:220:1: cut : CUT ;
     public final void cut() throws RecognitionException {
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:215:2: ( CUT )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:215:4: CUT
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:221:2: ( CUT )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:221:4: CUT
             {
             match(input,CUT,FOLLOW_CUT_in_cut471); 
 
@@ -1158,7 +1164,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "semantic_attachment"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:218:1: semantic_attachment returns [List<ProvaObject> ret] : (pjc= predicate_java_call | bo= binary_operation );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:224:1: semantic_attachment returns [List<ProvaObject> ret] : (pjc= predicate_java_call | bo= binary_operation );
     public final List<ProvaObject> semantic_attachment() throws RecognitionException {
         List<ProvaObject> ret = null;
 
@@ -1171,7 +1177,7 @@ public class ProvaWalker2 extends TreeParser {
         	ret = new ArrayList<ProvaObject>();
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:222:2: (pjc= predicate_java_call | bo= binary_operation )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:228:2: (pjc= predicate_java_call | bo= binary_operation )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1189,7 +1195,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt17) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:222:4: pjc= predicate_java_call
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:228:4: pjc= predicate_java_call
                     {
                     pushFollow(FOLLOW_predicate_java_call_in_semantic_attachment492);
                     pjc=predicate_java_call();
@@ -1207,7 +1213,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:229:5: bo= binary_operation
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:235:5: bo= binary_operation
                     {
                     pushFollow(FOLLOW_binary_operation_in_semantic_attachment502);
                     bo=binary_operation();
@@ -1238,7 +1244,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "predicate_java_call"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:237:1: predicate_java_call returns [List<ProvaObject> ret] : (sjc= static_java_call | ijc= instance_java_call );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:243:1: predicate_java_call returns [List<ProvaObject> ret] : (sjc= static_java_call | ijc= instance_java_call );
     public final List<ProvaObject> predicate_java_call() throws RecognitionException {
         List<ProvaObject> ret = null;
 
@@ -1248,7 +1254,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:238:2: (sjc= static_java_call | ijc= instance_java_call )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:244:2: (sjc= static_java_call | ijc= instance_java_call )
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -1266,7 +1272,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt18) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:238:4: sjc= static_java_call
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:244:4: sjc= static_java_call
                     {
                     pushFollow(FOLLOW_static_java_call_in_predicate_java_call520);
                     sjc=static_java_call();
@@ -1280,7 +1286,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:241:5: ijc= instance_java_call
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:247:5: ijc= instance_java_call
                     {
                     pushFollow(FOLLOW_instance_java_call_in_predicate_java_call530);
                     ijc=instance_java_call();
@@ -1308,7 +1314,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "static_java_call"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:246:1: static_java_call returns [List<ProvaObject> ret] : ^( STATIC_JAVA_CALL sc= static_call a= args ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:252:1: static_java_call returns [List<ProvaObject> ret] : ^( STATIC_JAVA_CALL sc= static_call a= args ) ;
     public final List<ProvaObject> static_java_call() throws RecognitionException {
         List<ProvaObject> ret = null;
 
@@ -1318,8 +1324,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:247:2: ( ^( STATIC_JAVA_CALL sc= static_call a= args ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:247:4: ^( STATIC_JAVA_CALL sc= static_call a= args )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:253:2: ( ^( STATIC_JAVA_CALL sc= static_call a= args ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:253:4: ^( STATIC_JAVA_CALL sc= static_call a= args )
             {
             match(input,STATIC_JAVA_CALL,FOLLOW_STATIC_JAVA_CALL_in_static_java_call547); 
 
@@ -1361,7 +1367,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "binary_operation"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:253:1: binary_operation returns [List<ProvaObject> ret] : lt= left_term ( EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr ) | not_equal c= constant | bo= binary_operator e= expr ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:259:1: binary_operation returns [List<ProvaObject> ret] : lt= left_term ( EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr ) | not_equal c= constant | bo= binary_operator e= expr ) ;
     public final List<ProvaObject> binary_operation() throws RecognitionException {
         binary_operation_stack.push(new binary_operation_scope());
         List<ProvaObject> ret = null;
@@ -1380,15 +1386,15 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:257:2: (lt= left_term ( EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr ) | not_equal c= constant | bo= binary_operator e= expr ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:258:3: lt= left_term ( EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr ) | not_equal c= constant | bo= binary_operator e= expr )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:263:2: (lt= left_term ( EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr ) | not_equal c= constant | bo= binary_operator e= expr ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:264:3: lt= left_term ( EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr ) | not_equal c= constant | bo= binary_operator e= expr )
             {
             pushFollow(FOLLOW_left_term_in_binary_operation581);
             lt=left_term();
 
             state._fsp--;
 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:258:16: ( EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr ) | not_equal c= constant | bo= binary_operator e= expr )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:264:16: ( EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr ) | not_equal c= constant | bo= binary_operator e= expr )
             int alt20=3;
             switch ( input.LA(1) ) {
             case EQUAL:
@@ -1442,15 +1448,15 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt20) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:259:4: EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:265:4: EQUAL (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr )
                     {
                     match(input,EQUAL,FOLLOW_EQUAL_in_binary_operation588); 
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:259:10: (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:265:10: (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr )
                     int alt19=4;
                     alt19 = dfa19.predict(input);
                     switch (alt19) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:260:4: cjc= constructor_java_call
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:266:4: cjc= constructor_java_call
                             {
                             pushFollow(FOLLOW_constructor_java_call_in_binary_operation597);
                             cjc=constructor_java_call();
@@ -1468,7 +1474,7 @@ public class ProvaWalker2 extends TreeParser {
                             }
                             break;
                         case 2 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:267:6: pl= prova_list
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:273:6: pl= prova_list
                             {
                             pushFollow(FOLLOW_prova_list_in_binary_operation608);
                             pl=prova_list();
@@ -1485,7 +1491,7 @@ public class ProvaWalker2 extends TreeParser {
                             }
                             break;
                         case 3 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:273:6: c= constant
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:279:6: c= constant
                             {
                             pushFollow(FOLLOW_constant_in_binary_operation619);
                             c=constant();
@@ -1502,7 +1508,7 @@ public class ProvaWalker2 extends TreeParser {
                             }
                             break;
                         case 4 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:280:6: e= expr
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:286:6: e= expr
                             {
                             pushFollow(FOLLOW_expr_in_binary_operation634);
                             e=expr();
@@ -1526,7 +1532,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:288:5: not_equal c= constant
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:294:5: not_equal c= constant
                     {
                     pushFollow(FOLLOW_not_equal_in_binary_operation647);
                     not_equal();
@@ -1548,7 +1554,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:294:5: bo= binary_operator e= expr
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:300:5: bo= binary_operator e= expr
                     {
                     pushFollow(FOLLOW_binary_operator_in_binary_operation661);
                     bo=binary_operator();
@@ -1590,7 +1596,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "expr"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:315:1: expr returns [ProvaObject ret] : a= aterm (op= ( PLUS | MINUS ) e= expr )? ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:321:1: expr returns [ProvaObject ret] : a= aterm (op= ( PLUS | MINUS ) e= expr )? ;
     public final ProvaObject expr() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -1601,15 +1607,15 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:316:2: (a= aterm (op= ( PLUS | MINUS ) e= expr )? )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:317:2: a= aterm (op= ( PLUS | MINUS ) e= expr )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:322:2: (a= aterm (op= ( PLUS | MINUS ) e= expr )? )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:323:2: a= aterm (op= ( PLUS | MINUS ) e= expr )?
             {
             pushFollow(FOLLOW_aterm_in_expr692);
             a=aterm();
 
             state._fsp--;
 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:317:10: (op= ( PLUS | MINUS ) e= expr )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:323:10: (op= ( PLUS | MINUS ) e= expr )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -1618,7 +1624,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt21) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:317:11: op= ( PLUS | MINUS ) e= expr
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:323:11: op= ( PLUS | MINUS ) e= expr
                     {
                     op=(CommonTree)input.LT(1);
                     if ( (input.LA(1)>=PLUS && input.LA(1)<=MINUS) ) {
@@ -1668,7 +1674,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "aterm"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:330:1: aterm returns [ProvaObject ret] : ( (m= MINUS )? v= variable | n= number | (m= MINUS )? pjc= predicate_java_call | OPEN e= expr CLOSE ) (op= ( MULT | DIV | REM ) a= aterm )? ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:336:1: aterm returns [ProvaObject ret] : ( (m= MINUS )? v= variable | n= number | (m= MINUS )? pjc= predicate_java_call | OPEN e= expr CLOSE ) (op= ( MULT | DIV | REM ) a= aterm )? ;
     public final ProvaObject aterm() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -1686,10 +1692,10 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:331:2: ( ( (m= MINUS )? v= variable | n= number | (m= MINUS )? pjc= predicate_java_call | OPEN e= expr CLOSE ) (op= ( MULT | DIV | REM ) a= aterm )? )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:2: ( (m= MINUS )? v= variable | n= number | (m= MINUS )? pjc= predicate_java_call | OPEN e= expr CLOSE ) (op= ( MULT | DIV | REM ) a= aterm )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:337:2: ( ( (m= MINUS )? v= variable | n= number | (m= MINUS )? pjc= predicate_java_call | OPEN e= expr CLOSE ) (op= ( MULT | DIV | REM ) a= aterm )? )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:2: ( (m= MINUS )? v= variable | n= number | (m= MINUS )? pjc= predicate_java_call | OPEN e= expr CLOSE ) (op= ( MULT | DIV | REM ) a= aterm )?
             {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:2: ( (m= MINUS )? v= variable | n= number | (m= MINUS )? pjc= predicate_java_call | OPEN e= expr CLOSE )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:2: ( (m= MINUS )? v= variable | n= number | (m= MINUS )? pjc= predicate_java_call | OPEN e= expr CLOSE )
             int alt24=4;
             switch ( input.LA(1) ) {
             case MINUS:
@@ -1758,9 +1764,9 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt24) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:3: (m= MINUS )? v= variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:3: (m= MINUS )? v= variable
                     {
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:4: (m= MINUS )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:4: (m= MINUS )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -1769,7 +1775,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     switch (alt22) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:4: m= MINUS
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:4: m= MINUS
                             {
                             m=(CommonTree)match(input,MINUS,FOLLOW_MINUS_in_aterm728); 
 
@@ -1787,7 +1793,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:25: n= number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:25: n= number
                     {
                     pushFollow(FOLLOW_number_in_aterm739);
                     n=number();
@@ -1798,9 +1804,9 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:36: (m= MINUS )? pjc= predicate_java_call
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:36: (m= MINUS )? pjc= predicate_java_call
                     {
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:37: (m= MINUS )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:37: (m= MINUS )?
                     int alt23=2;
                     int LA23_0 = input.LA(1);
 
@@ -1809,7 +1815,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     switch (alt23) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:37: m= MINUS
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:37: m= MINUS
                             {
                             m=(CommonTree)match(input,MINUS,FOLLOW_MINUS_in_aterm745); 
 
@@ -1827,7 +1833,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:71: OPEN e= expr CLOSE
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:71: OPEN e= expr CLOSE
                     {
                     match(input,OPEN,FOLLOW_OPEN_in_aterm754); 
                     pushFollow(FOLLOW_expr_in_aterm758);
@@ -1842,7 +1848,7 @@ public class ProvaWalker2 extends TreeParser {
 
             }
 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:90: (op= ( MULT | DIV | REM ) a= aterm )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:90: (op= ( MULT | DIV | REM ) a= aterm )?
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -1851,7 +1857,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt25) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:332:91: op= ( MULT | DIV | REM ) a= aterm
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:338:91: op= ( MULT | DIV | REM ) a= aterm
                     {
                     op=(CommonTree)input.LT(1);
                     if ( (input.LA(1)>=MULT && input.LA(1)<=DIV)||input.LA(1)==REM ) {
@@ -1929,7 +1935,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "variable_or_number"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:373:1: variable_or_number returns [ProvaObject ret] : (v= variable | n= number );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:379:1: variable_or_number returns [ProvaObject ret] : (v= variable | n= number );
     public final ProvaObject variable_or_number() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -1939,7 +1945,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:374:2: (v= variable | n= number )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:380:2: (v= variable | n= number )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -1957,7 +1963,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt26) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:374:4: v= variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:380:4: v= variable
                     {
                     pushFollow(FOLLOW_variable_in_variable_or_number796);
                     v=variable();
@@ -1969,7 +1975,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:374:29: n= number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:380:29: n= number
                     {
                     pushFollow(FOLLOW_number_in_variable_or_number804);
                     n=number();
@@ -1995,7 +2001,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "constructor_java_call"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:376:1: constructor_java_call returns [List<ProvaObject> ret] : (qjc= qualified_java_class | o= UCWORD ) a= args ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:382:1: constructor_java_call returns [List<ProvaObject> ret] : (qjc= qualified_java_class | o= UCWORD ) a= args ;
     public final List<ProvaObject> constructor_java_call() throws RecognitionException {
         List<ProvaObject> ret = null;
 
@@ -2009,10 +2015,10 @@ public class ProvaWalker2 extends TreeParser {
         	ret = new ArrayList<ProvaObject>();
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:380:2: ( (qjc= qualified_java_class | o= UCWORD ) a= args )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:380:4: (qjc= qualified_java_class | o= UCWORD ) a= args
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:386:2: ( (qjc= qualified_java_class | o= UCWORD ) a= args )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:386:4: (qjc= qualified_java_class | o= UCWORD ) a= args
             {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:380:4: (qjc= qualified_java_class | o= UCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:386:4: (qjc= qualified_java_class | o= UCWORD )
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -2030,7 +2036,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt27) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:380:5: qjc= qualified_java_class
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:386:5: qjc= qualified_java_class
                     {
                     pushFollow(FOLLOW_qualified_java_class_in_constructor_java_call827);
                     qjc=qualified_java_class();
@@ -2042,7 +2048,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:381:5: o= UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:387:5: o= UCWORD
                     {
                     o=(CommonTree)match(input,UCWORD,FOLLOW_UCWORD_in_constructor_java_call837); 
 
@@ -2081,12 +2087,12 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "binary_operator"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:391:1: binary_operator returns [String ret] : ( | not_equal | LT | GT | LE | GE );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:397:1: binary_operator returns [String ret] : ( | not_equal | LT | GT | LE | GE );
     public final String binary_operator() throws RecognitionException {
         String ret = null;
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:392:2: ( | not_equal | LT | GT | LE | GE )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:398:2: ( | not_equal | LT | GT | LE | GE )
             int alt28=6;
             switch ( input.LA(1) ) {
             case MINUS:
@@ -2138,12 +2144,12 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt28) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:393:3: 
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:399:3: 
                     {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:393:5: not_equal
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:399:5: not_equal
                     {
                     pushFollow(FOLLOW_not_equal_in_binary_operator866);
                     not_equal();
@@ -2155,7 +2161,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:394:5: LT
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:400:5: LT
                     {
                     match(input,LT,FOLLOW_LT_in_binary_operator874); 
                     ret ="lt";
@@ -2163,7 +2169,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:395:5: GT
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:401:5: GT
                     {
                     match(input,GT,FOLLOW_GT_in_binary_operator882); 
                     ret ="gt";
@@ -2171,7 +2177,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:396:5: LE
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:402:5: LE
                     {
                     match(input,LE,FOLLOW_LE_in_binary_operator890); 
                     ret ="le";
@@ -2179,7 +2185,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:397:5: GE
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:403:5: GE
                     {
                     match(input,GE,FOLLOW_GE_in_binary_operator898); 
                     ret ="ge";
@@ -2201,10 +2207,10 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "not_equal"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:400:1: not_equal : ( NOT_EQUAL1 | NOT_EQUAL2 );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:406:1: not_equal : ( NOT_EQUAL1 | NOT_EQUAL2 );
     public final void not_equal() throws RecognitionException {
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:401:2: ( NOT_EQUAL1 | NOT_EQUAL2 )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:407:2: ( NOT_EQUAL1 | NOT_EQUAL2 )
             // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:
             {
             if ( (input.LA(1)>=NOT_EQUAL1 && input.LA(1)<=NOT_EQUAL2) ) {
@@ -2232,7 +2238,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "instance_java_call"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:404:1: instance_java_call returns [List<ProvaObject> ret] : ^( INSTANCE_JAVA_CALL ic= instance_call a= args ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:410:1: instance_java_call returns [List<ProvaObject> ret] : ^( INSTANCE_JAVA_CALL ic= instance_call a= args ) ;
     public final List<ProvaObject> instance_java_call() throws RecognitionException {
         List<ProvaObject> ret = null;
 
@@ -2242,8 +2248,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:405:2: ( ^( INSTANCE_JAVA_CALL ic= instance_call a= args ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:405:4: ^( INSTANCE_JAVA_CALL ic= instance_call a= args )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:411:2: ( ^( INSTANCE_JAVA_CALL ic= instance_call a= args ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:411:4: ^( INSTANCE_JAVA_CALL ic= instance_call a= args )
             {
             match(input,INSTANCE_JAVA_CALL,FOLLOW_INSTANCE_JAVA_CALL_in_instance_java_call930); 
 
@@ -2280,7 +2286,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "instance_call"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:412:1: instance_call returns [List<ProvaObject> ret] : v= variable l= LCWORD ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:418:1: instance_call returns [List<ProvaObject> ret] : v= variable l= LCWORD ;
     public final List<ProvaObject> instance_call() throws RecognitionException {
         List<ProvaObject> ret = null;
 
@@ -2293,8 +2299,8 @@ public class ProvaWalker2 extends TreeParser {
         	((stat_scope)stat_stack.peek()).inInstanceCall = true;
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:420:2: (v= variable l= LCWORD )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:420:4: v= variable l= LCWORD
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:426:2: (v= variable l= LCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:426:4: v= variable l= LCWORD
             {
             pushFollow(FOLLOW_variable_in_instance_call969);
             v=variable();
@@ -2330,7 +2336,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "static_call"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:431:1: static_call returns [List<ProvaObject> ret] : qjc= qualified_java_class l= LCWORD ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:437:1: static_call returns [List<ProvaObject> ret] : qjc= qualified_java_class l= LCWORD ;
     public final List<ProvaObject> static_call() throws RecognitionException {
         List<ProvaObject> ret = null;
 
@@ -2342,8 +2348,8 @@ public class ProvaWalker2 extends TreeParser {
         	ret = new ArrayList<ProvaObject>();
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:435:2: (qjc= qualified_java_class l= LCWORD )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:435:4: qjc= qualified_java_class l= LCWORD
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:441:2: (qjc= qualified_java_class l= LCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:441:4: qjc= qualified_java_class l= LCWORD
             {
             pushFollow(FOLLOW_qualified_java_class_in_static_call996);
             qjc=qualified_java_class();
@@ -2373,7 +2379,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "query_predicate"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:443:1: query_predicate returns [String ret] : c= constant ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:449:1: query_predicate returns [String ret] : c= constant ;
     public final String query_predicate() throws RecognitionException {
         String ret = null;
 
@@ -2381,8 +2387,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:444:2: (c= constant )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:444:4: c= constant
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:450:2: (c= constant )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:450:4: c= constant
             {
             pushFollow(FOLLOW_constant_in_query_predicate1018);
             c=constant();
@@ -2406,7 +2412,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "query"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:447:1: query returns [ProvaRule ret] : ^( QUERY qp= query_predicate r= relation ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:453:1: query returns [ProvaRule ret] : ^( QUERY qp= query_predicate r= relation ) ;
     public final ProvaRule query() throws RecognitionException {
         ProvaRule ret = null;
 
@@ -2416,8 +2422,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:448:2: ( ^( QUERY qp= query_predicate r= relation ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:448:4: ^( QUERY qp= query_predicate r= relation )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:454:2: ( ^( QUERY qp= query_predicate r= relation ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:454:4: ^( QUERY qp= query_predicate r= relation )
             {
             match(input,QUERY,FOLLOW_QUERY_in_query1035); 
 
@@ -2461,7 +2467,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "relation"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:461:1: relation returns [List ret] : ^( PREDICATE p= predicate l= list_body ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:467:1: relation returns [List ret] : ^( PREDICATE p= predicate l= list_body ) ;
     public final List relation() throws RecognitionException {
         List ret = null;
 
@@ -2474,8 +2480,8 @@ public class ProvaWalker2 extends TreeParser {
         	ret = new ArrayList();
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:465:2: ( ^( PREDICATE p= predicate l= list_body ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:465:4: ^( PREDICATE p= predicate l= list_body )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:471:2: ( ^( PREDICATE p= predicate l= list_body ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:471:4: ^( PREDICATE p= predicate l= list_body )
             {
             match(input,PREDICATE,FOLLOW_PREDICATE_in_relation1066); 
 
@@ -2515,7 +2521,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "predicate"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:483:1: predicate returns [String ret] : (l= LCWORD | u= UCWORD | s= string );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:489:1: predicate returns [String ret] : (l= LCWORD | u= UCWORD | s= string );
     public final String predicate() throws RecognitionException {
         String ret = null;
 
@@ -2525,7 +2531,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:484:2: (l= LCWORD | u= UCWORD | s= string )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:490:2: (l= LCWORD | u= UCWORD | s= string )
             int alt29=3;
             switch ( input.LA(1) ) {
             case LCWORD:
@@ -2553,7 +2559,7 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt29) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:484:4: l= LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:490:4: l= LCWORD
                     {
                     l=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_predicate1096); 
                     ret = l.toString();
@@ -2561,7 +2567,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:485:5: u= UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:491:5: u= UCWORD
                     {
                     u=(CommonTree)match(input,UCWORD,FOLLOW_UCWORD_in_predicate1106); 
                      ret = u.toString(); 
@@ -2569,7 +2575,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:486:5: s= string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:492:5: s= string
                     {
                     pushFollow(FOLLOW_string_in_predicate1116);
                     s=string();
@@ -2595,7 +2601,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "func"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:489:1: func returns [ProvaObject ret] : (l= LCWORD | u= UCWORD | s= string | tv= typed_variable );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:495:1: func returns [ProvaObject ret] : (l= LCWORD | u= UCWORD | s= string | tv= typed_variable );
     public final ProvaObject func() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -2607,7 +2613,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:490:2: (l= LCWORD | u= UCWORD | s= string | tv= typed_variable )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:496:2: (l= LCWORD | u= UCWORD | s= string | tv= typed_variable )
             int alt30=4;
             switch ( input.LA(1) ) {
             case LCWORD:
@@ -2640,7 +2646,7 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt30) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:490:4: l= LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:496:4: l= LCWORD
                     {
                     l=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_func1134); 
 
@@ -2650,7 +2656,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:493:5: u= UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:499:5: u= UCWORD
                     {
                     u=(CommonTree)match(input,UCWORD,FOLLOW_UCWORD_in_func1144); 
 
@@ -2660,7 +2666,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:496:5: s= string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:502:5: s= string
                     {
                     pushFollow(FOLLOW_string_in_func1154);
                     s=string();
@@ -2674,7 +2680,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:499:5: tv= typed_variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:505:5: tv= typed_variable
                     {
                     pushFollow(FOLLOW_typed_variable_in_func1164);
                     tv=typed_variable();
@@ -2707,7 +2713,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "list_body"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:504:1: list_body returns [ProvaList ret] : ^( LIST_BODY (t= terms (lt= list_tail )? )? ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:510:1: list_body returns [ProvaList ret] : ^( LIST_BODY (t= terms (lt= list_tail )? )? ) ;
     public final ProvaList list_body() throws RecognitionException {
         list_body_stack.push(new list_body_scope());
         ProvaList ret = null;
@@ -2718,14 +2724,14 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:508:3: ( ^( LIST_BODY (t= terms (lt= list_tail )? )? ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:508:5: ^( LIST_BODY (t= terms (lt= list_tail )? )? )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:514:3: ( ^( LIST_BODY (t= terms (lt= list_tail )? )? ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:514:5: ^( LIST_BODY (t= terms (lt= list_tail )? )? )
             {
             match(input,LIST_BODY,FOLLOW_LIST_BODY_in_list_body1186); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:508:17: (t= terms (lt= list_tail )? )?
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:514:17: (t= terms (lt= list_tail )? )?
                 int alt32=2;
                 int LA32_0 = input.LA(1);
 
@@ -2734,14 +2740,14 @@ public class ProvaWalker2 extends TreeParser {
                 }
                 switch (alt32) {
                     case 1 :
-                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:508:18: t= terms (lt= list_tail )?
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:514:18: t= terms (lt= list_tail )?
                         {
                         pushFollow(FOLLOW_terms_in_list_body1191);
                         t=terms();
 
                         state._fsp--;
 
-                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:508:28: (lt= list_tail )?
+                        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:514:28: (lt= list_tail )?
                         int alt31=2;
                         int LA31_0 = input.LA(1);
 
@@ -2750,7 +2756,7 @@ public class ProvaWalker2 extends TreeParser {
                         }
                         switch (alt31) {
                             case 1 :
-                                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:508:28: lt= list_tail
+                                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:514:28: lt= list_tail
                                 {
                                 pushFollow(FOLLOW_list_tail_in_list_body1195);
                                 lt=list_tail();
@@ -2799,7 +2805,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "terms"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:521:1: terms returns [List<ProvaObject> ret] : ^( TERM (t= term )+ ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:527:1: terms returns [List<ProvaObject> ret] : ^( TERM (t= term )+ ) ;
     public final List<ProvaObject> terms() throws RecognitionException {
         List<ProvaObject> ret = null;
 
@@ -2810,13 +2816,13 @@ public class ProvaWalker2 extends TreeParser {
         	ret = new ArrayList<ProvaObject>();
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:525:2: ( ^( TERM (t= term )+ ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:525:4: ^( TERM (t= term )+ )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:531:2: ( ^( TERM (t= term )+ ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:531:4: ^( TERM (t= term )+ )
             {
             match(input,TERM,FOLLOW_TERM_in_terms1227); 
 
             match(input, Token.DOWN, null); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:525:11: (t= term )+
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:531:11: (t= term )+
             int cnt33=0;
             loop33:
             do {
@@ -2830,7 +2836,7 @@ public class ProvaWalker2 extends TreeParser {
 
                 switch (alt33) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:525:12: t= term
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:531:12: t= term
             	    {
             	    pushFollow(FOLLOW_term_in_terms1232);
             	    t=term();
@@ -2869,7 +2875,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "term"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:528:1: term returns [ProvaObject ret] : (lt= left_term | ft= func_term | map= prova_map );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:534:1: term returns [ProvaObject ret] : (lt= left_term | ft= func_term | map= prova_map );
     public final ProvaObject term() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -2881,12 +2887,12 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:529:2: (lt= left_term | ft= func_term | map= prova_map )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:535:2: (lt= left_term | ft= func_term | map= prova_map )
             int alt34=3;
             alt34 = dfa34.predict(input);
             switch (alt34) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:530:3: lt= left_term
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:536:3: lt= left_term
                     {
                     pushFollow(FOLLOW_left_term_in_term1257);
                     lt=left_term();
@@ -2898,7 +2904,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:531:5: ft= func_term
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:537:5: ft= func_term
                     {
                     pushFollow(FOLLOW_func_term_in_term1267);
                     ft=func_term();
@@ -2910,7 +2916,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:532:5: map= prova_map
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:538:5: map= prova_map
                     {
                     pushFollow(FOLLOW_prova_map_in_term1277);
                     map=prova_map();
@@ -2936,7 +2942,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "left_term"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:535:1: left_term returns [ProvaObject ret] : (c= constant | v= variable | n= number | p= prova_list );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:541:1: left_term returns [ProvaObject ret] : (c= constant | v= variable | n= number | p= prova_list );
     public final ProvaObject left_term() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -2950,7 +2956,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:536:2: (c= constant | v= variable | n= number | p= prova_list )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:542:2: (c= constant | v= variable | n= number | p= prova_list )
             int alt35=4;
             switch ( input.LA(1) ) {
             case QUALIFIED_JAVA_CLASS:
@@ -2990,7 +2996,7 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt35) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:536:4: c= constant
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:542:4: c= constant
                     {
                     pushFollow(FOLLOW_constant_in_left_term1295);
                     c=constant();
@@ -3002,7 +3008,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:537:5: v= variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:543:5: v= variable
                     {
                     pushFollow(FOLLOW_variable_in_left_term1305);
                     v=variable();
@@ -3014,7 +3020,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:538:5: n= number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:544:5: n= number
                     {
                     pushFollow(FOLLOW_number_in_left_term1315);
                     n=number();
@@ -3026,7 +3032,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:539:5: p= prova_list
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:545:5: p= prova_list
                     {
                     pushFollow(FOLLOW_prova_list_in_left_term1325);
                     p=prova_list();
@@ -3052,7 +3058,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "right_term"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:542:1: right_term returns [ProvaObject ret] : ( ( (m= MINUS )? (c= constant | v= variable ) ) | n= number | p= prova_list );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:548:1: right_term returns [ProvaObject ret] : ( ( (m= MINUS )? (c= constant | v= variable ) ) | n= number | p= prova_list );
     public final ProvaObject right_term() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -3070,7 +3076,7 @@ public class ProvaWalker2 extends TreeParser {
         	((binary_operation_scope)binary_operation_stack.peek()).op ="";
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:550:2: ( ( (m= MINUS )? (c= constant | v= variable ) ) | n= number | p= prova_list )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:556:2: ( ( (m= MINUS )? (c= constant | v= variable ) ) | n= number | p= prova_list )
             int alt38=3;
             switch ( input.LA(1) ) {
             case MINUS:
@@ -3123,12 +3129,12 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt38) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:550:4: ( (m= MINUS )? (c= constant | v= variable ) )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:556:4: ( (m= MINUS )? (c= constant | v= variable ) )
                     {
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:550:4: ( (m= MINUS )? (c= constant | v= variable ) )
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:550:5: (m= MINUS )? (c= constant | v= variable )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:556:4: ( (m= MINUS )? (c= constant | v= variable ) )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:556:5: (m= MINUS )? (c= constant | v= variable )
                     {
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:550:6: (m= MINUS )?
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:556:6: (m= MINUS )?
                     int alt36=2;
                     int LA36_0 = input.LA(1);
 
@@ -3137,7 +3143,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     switch (alt36) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:550:6: m= MINUS
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:556:6: m= MINUS
                             {
                             m=(CommonTree)match(input,MINUS,FOLLOW_MINUS_in_right_term1354); 
 
@@ -3146,7 +3152,7 @@ public class ProvaWalker2 extends TreeParser {
 
                     }
 
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:550:14: (c= constant | v= variable )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:556:14: (c= constant | v= variable )
                     int alt37=2;
                     int LA37_0 = input.LA(1);
 
@@ -3164,7 +3170,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     switch (alt37) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:550:15: c= constant
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:556:15: c= constant
                             {
                             pushFollow(FOLLOW_constant_in_right_term1360);
                             c=constant();
@@ -3176,7 +3182,7 @@ public class ProvaWalker2 extends TreeParser {
                             }
                             break;
                         case 2 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:550:38: v= variable
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:556:38: v= variable
                             {
                             pushFollow(FOLLOW_variable_in_right_term1368);
                             v=variable();
@@ -3197,7 +3203,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:551:5: n= number
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:557:5: n= number
                     {
                     pushFollow(FOLLOW_number_in_right_term1380);
                     n=number();
@@ -3209,7 +3215,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:552:5: p= prova_list
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:558:5: p= prova_list
                     {
                     pushFollow(FOLLOW_prova_list_in_right_term1390);
                     p=prova_list();
@@ -3244,7 +3250,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "qualified_java_class"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:554:1: qualified_java_class returns [ProvaConstant ret] : ^( QUALIFIED_JAVA_CLASS ( (l= LCWORD d= DOT ) )+ u= UCWORD ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:560:1: qualified_java_class returns [ProvaConstant ret] : ^( QUALIFIED_JAVA_CLASS ( (l= LCWORD d= DOT ) )+ u= UCWORD ) ;
     public final ProvaConstant qualified_java_class() throws RecognitionException {
         qualified_java_class_stack.push(new qualified_java_class_scope());
         ProvaConstant ret = null;
@@ -3257,13 +3263,13 @@ public class ProvaWalker2 extends TreeParser {
         	((qualified_java_class_scope)qualified_java_class_stack.peek()).s = "";
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:567:2: ( ^( QUALIFIED_JAVA_CLASS ( (l= LCWORD d= DOT ) )+ u= UCWORD ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:567:4: ^( QUALIFIED_JAVA_CLASS ( (l= LCWORD d= DOT ) )+ u= UCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:573:2: ( ^( QUALIFIED_JAVA_CLASS ( (l= LCWORD d= DOT ) )+ u= UCWORD ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:573:4: ^( QUALIFIED_JAVA_CLASS ( (l= LCWORD d= DOT ) )+ u= UCWORD )
             {
             match(input,QUALIFIED_JAVA_CLASS,FOLLOW_QUALIFIED_JAVA_CLASS_in_qualified_java_class1420); 
 
             match(input, Token.DOWN, null); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:567:27: ( (l= LCWORD d= DOT ) )+
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:573:27: ( (l= LCWORD d= DOT ) )+
             int cnt39=0;
             loop39:
             do {
@@ -3277,10 +3283,10 @@ public class ProvaWalker2 extends TreeParser {
 
                 switch (alt39) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:567:28: (l= LCWORD d= DOT )
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:573:28: (l= LCWORD d= DOT )
             	    {
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:567:28: (l= LCWORD d= DOT )
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:567:29: l= LCWORD d= DOT
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:573:28: (l= LCWORD d= DOT )
+            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:573:29: l= LCWORD d= DOT
             	    {
             	    l=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_qualified_java_class1426); 
             	    d=(CommonTree)match(input,DOT,FOLLOW_DOT_in_qualified_java_class1430); 
@@ -3330,7 +3336,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "func_term"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:572:1: func_term returns [ProvaObject ret] : f= func a= args ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:578:1: func_term returns [ProvaObject ret] : f= func a= args ;
     public final ProvaObject func_term() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -3340,8 +3346,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:573:2: (f= func a= args )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:573:4: f= func a= args
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:579:2: (f= func a= args )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:579:4: f= func a= args
             {
             pushFollow(FOLLOW_func_in_func_term1459);
             f=func();
@@ -3376,7 +3382,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "typed_variable"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:582:1: typed_variable returns [ProvaObject ret] : ( ^( TYPED_VARIABLE q= qualified_java_class (w= LCWORD | w= UCWORD ) ) | ^( TYPED_VARIABLE u= UCWORD l= LCWORD ) | ^( TYPED_VARIABLE u= UCWORD w= UCWORD ) );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:588:1: typed_variable returns [ProvaObject ret] : ( ^( TYPED_VARIABLE q= qualified_java_class (w= LCWORD | w= UCWORD ) ) | ^( TYPED_VARIABLE u= UCWORD l= LCWORD ) | ^( TYPED_VARIABLE u= UCWORD w= UCWORD ) );
     public final ProvaObject typed_variable() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -3387,7 +3393,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:583:2: ( ^( TYPED_VARIABLE q= qualified_java_class (w= LCWORD | w= UCWORD ) ) | ^( TYPED_VARIABLE u= UCWORD l= LCWORD ) | ^( TYPED_VARIABLE u= UCWORD w= UCWORD ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:589:2: ( ^( TYPED_VARIABLE q= qualified_java_class (w= LCWORD | w= UCWORD ) ) | ^( TYPED_VARIABLE u= UCWORD l= LCWORD ) | ^( TYPED_VARIABLE u= UCWORD w= UCWORD ) )
             int alt41=3;
             int LA41_0 = input.LA(1);
 
@@ -3438,7 +3444,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt41) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:583:4: ^( TYPED_VARIABLE q= qualified_java_class (w= LCWORD | w= UCWORD ) )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:589:4: ^( TYPED_VARIABLE q= qualified_java_class (w= LCWORD | w= UCWORD ) )
                     {
                     match(input,TYPED_VARIABLE,FOLLOW_TYPED_VARIABLE_in_typed_variable1481); 
 
@@ -3448,7 +3454,7 @@ public class ProvaWalker2 extends TreeParser {
 
                     state._fsp--;
 
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:583:44: (w= LCWORD | w= UCWORD )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:589:44: (w= LCWORD | w= UCWORD )
                     int alt40=2;
                     int LA40_0 = input.LA(1);
 
@@ -3466,14 +3472,14 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     switch (alt40) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:583:45: w= LCWORD
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:589:45: w= LCWORD
                             {
                             w=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_typed_variable1490); 
 
                             }
                             break;
                         case 2 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:583:54: w= UCWORD
+                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:589:54: w= UCWORD
                             {
                             w=(CommonTree)match(input,UCWORD,FOLLOW_UCWORD_in_typed_variable1494); 
 
@@ -3499,7 +3505,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:595:5: ^( TYPED_VARIABLE u= UCWORD l= LCWORD )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:601:5: ^( TYPED_VARIABLE u= UCWORD l= LCWORD )
                     {
                     match(input,TYPED_VARIABLE,FOLLOW_TYPED_VARIABLE_in_typed_variable1508); 
 
@@ -3531,7 +3537,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:615:5: ^( TYPED_VARIABLE u= UCWORD w= UCWORD )
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:621:5: ^( TYPED_VARIABLE u= UCWORD w= UCWORD )
                     {
                     match(input,TYPED_VARIABLE,FOLLOW_TYPED_VARIABLE_in_typed_variable1529); 
 
@@ -3578,7 +3584,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "prova_list"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:637:1: prova_list returns [ProvaList ret] : ^( PROVA_LIST l= list_body ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:643:1: prova_list returns [ProvaList ret] : ^( PROVA_LIST l= list_body ) ;
     public final ProvaList prova_list() throws RecognitionException {
         ProvaList ret = null;
 
@@ -3586,8 +3592,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:638:2: ( ^( PROVA_LIST l= list_body ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:638:4: ^( PROVA_LIST l= list_body )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:644:2: ( ^( PROVA_LIST l= list_body ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:644:4: ^( PROVA_LIST l= list_body )
             {
             match(input,PROVA_LIST,FOLLOW_PROVA_LIST_in_prova_list1556); 
 
@@ -3616,7 +3622,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "prova_map"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:641:1: prova_map returns [ProvaObject ret] : ^( PROVA_MAP (kv= key_value )* ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:647:1: prova_map returns [ProvaObject ret] : ^( PROVA_MAP (kv= key_value )* ) ;
     public final ProvaObject prova_map() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -3627,14 +3633,14 @@ public class ProvaWalker2 extends TreeParser {
         	Map<String,Object> map = new HashMap<String,Object>();
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:648:2: ( ^( PROVA_MAP (kv= key_value )* ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:648:4: ^( PROVA_MAP (kv= key_value )* )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:654:2: ( ^( PROVA_MAP (kv= key_value )* ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:654:4: ^( PROVA_MAP (kv= key_value )* )
             {
             match(input,PROVA_MAP,FOLLOW_PROVA_MAP_in_prova_map1588); 
 
             if ( input.LA(1)==Token.DOWN ) {
                 match(input, Token.DOWN, null); 
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:648:16: (kv= key_value )*
+                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:654:16: (kv= key_value )*
                 loop42:
                 do {
                     int alt42=2;
@@ -3647,7 +3653,7 @@ public class ProvaWalker2 extends TreeParser {
 
                     switch (alt42) {
                 	case 1 :
-                	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:648:17: kv= key_value
+                	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:654:17: kv= key_value
                 	    {
                 	    pushFollow(FOLLOW_key_value_in_prova_map1593);
                 	    kv=key_value();
@@ -3686,7 +3692,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "key_value"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:651:1: key_value returns [List<Object> ret] : ^( KEY_VALUE (k= mstring v= term ) ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:657:1: key_value returns [List<Object> ret] : ^( KEY_VALUE (k= mstring v= term ) ) ;
     public final List<Object> key_value() throws RecognitionException {
         List<Object> ret = null;
 
@@ -3699,14 +3705,14 @@ public class ProvaWalker2 extends TreeParser {
         	ret = new ArrayList<Object>();
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:655:2: ( ^( KEY_VALUE (k= mstring v= term ) ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:655:4: ^( KEY_VALUE (k= mstring v= term ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:661:2: ( ^( KEY_VALUE (k= mstring v= term ) ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:661:4: ^( KEY_VALUE (k= mstring v= term ) )
             {
             match(input,KEY_VALUE,FOLLOW_KEY_VALUE_in_key_value1619); 
 
             match(input, Token.DOWN, null); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:655:16: (k= mstring v= term )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:655:17: k= mstring v= term
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:661:16: (k= mstring v= term )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:661:17: k= mstring v= term
             {
             pushFollow(FOLLOW_mstring_in_key_value1624);
             k=mstring();
@@ -3740,7 +3746,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "variable"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:658:1: variable returns [ProvaObject ret] : (u= UCWORD | usw= USWORD | tv= typed_variable | gc= DOLLARWORD );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:664:1: variable returns [ProvaObject ret] : (u= UCWORD | usw= USWORD | tv= typed_variable | gc= DOLLARWORD );
     public final ProvaObject variable() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -3751,7 +3757,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:664:2: (u= UCWORD | usw= USWORD | tv= typed_variable | gc= DOLLARWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:670:2: (u= UCWORD | usw= USWORD | tv= typed_variable | gc= DOLLARWORD )
             int alt43=4;
             switch ( input.LA(1) ) {
             case UCWORD:
@@ -3783,7 +3789,7 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt43) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:665:3: u= UCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:671:3: u= UCWORD
                     {
                     u=(CommonTree)match(input,UCWORD,FOLLOW_UCWORD_in_variable1657); 
 
@@ -3798,7 +3804,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:673:5: usw= USWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:679:5: usw= USWORD
                     {
                     usw=(CommonTree)match(input,USWORD,FOLLOW_USWORD_in_variable1667); 
 
@@ -3811,7 +3817,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:679:5: tv= typed_variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:685:5: tv= typed_variable
                     {
                     pushFollow(FOLLOW_typed_variable_in_variable1677);
                     tv=typed_variable();
@@ -3823,7 +3829,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:680:5: gc= DOLLARWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:686:5: gc= DOLLARWORD
                     {
                     gc=(CommonTree)match(input,DOLLARWORD,FOLLOW_DOLLARWORD_in_variable1687); 
                     ret =ProvaParserImpl.tlKB.get().generateGlobalConstant(gc.toString());
@@ -3850,7 +3856,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "args"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:683:1: args returns [ProvaList ret] : ^( ARGS lb= list_body ) ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:689:1: args returns [ProvaList ret] : ^( ARGS lb= list_body ) ;
     public final ProvaList args() throws RecognitionException {
         ProvaList ret = null;
 
@@ -3858,8 +3864,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:684:2: ( ^( ARGS lb= list_body ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:684:4: ^( ARGS lb= list_body )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:690:2: ( ^( ARGS lb= list_body ) )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:690:4: ^( ARGS lb= list_body )
             {
             match(input,ARGS,FOLLOW_ARGS_in_args1705); 
 
@@ -3888,7 +3894,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "list_tail"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:687:1: list_tail returns [ProvaObject ret] : (v= variable | p= prova_list );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:693:1: list_tail returns [ProvaObject ret] : (v= variable | p= prova_list );
     public final ProvaObject list_tail() throws RecognitionException {
         ProvaObject ret = null;
 
@@ -3901,7 +3907,7 @@ public class ProvaWalker2 extends TreeParser {
         	((stat_scope)stat_stack.peek()).inRest = true;
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:694:2: (v= variable | p= prova_list )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:700:2: (v= variable | p= prova_list )
             int alt44=2;
             int LA44_0 = input.LA(1);
 
@@ -3919,7 +3925,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt44) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:694:4: v= variable
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:700:4: v= variable
                     {
                     pushFollow(FOLLOW_variable_in_list_tail1738);
                     v=variable();
@@ -3933,7 +3939,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:697:5: p= prova_list
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:703:5: p= prova_list
                     {
                     pushFollow(FOLLOW_prova_list_in_list_tail1748);
                     p=prova_list();
@@ -3962,7 +3968,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "constant"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:700:1: constant returns [ProvaConstant ret] : (d= LCWORD | s= string | qjc= qualified_java_class );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:706:1: constant returns [ProvaConstant ret] : (d= LCWORD | s= string | qjc= qualified_java_class );
     public final ProvaConstant constant() throws RecognitionException {
         ProvaConstant ret = null;
 
@@ -3973,7 +3979,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:701:2: (d= LCWORD | s= string | qjc= qualified_java_class )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:707:2: (d= LCWORD | s= string | qjc= qualified_java_class )
             int alt45=3;
             switch ( input.LA(1) ) {
             case LCWORD:
@@ -4001,7 +4007,7 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt45) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:704:3: d= LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:710:3: d= LCWORD
                     {
                     d=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_constant1775); 
 
@@ -4017,7 +4023,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:713:5: s= string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:719:5: s= string
                     {
                     pushFollow(FOLLOW_string_in_constant1785);
                     s=string();
@@ -4029,7 +4035,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:714:5: qjc= qualified_java_class
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:720:5: qjc= qualified_java_class
                     {
                     pushFollow(FOLLOW_qualified_java_class_in_constant1795);
                     qjc=qualified_java_class();
@@ -4062,7 +4068,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "string"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:728:1: string returns [String ret] : (s1= STRING1 | s2= STRING2 );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:734:1: string returns [String ret] : (s1= STRING1 | s2= STRING2 );
     public final String string() throws RecognitionException {
         String ret = null;
 
@@ -4070,7 +4076,7 @@ public class ProvaWalker2 extends TreeParser {
         CommonTree s2=null;
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:729:2: (s1= STRING1 | s2= STRING2 )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:735:2: (s1= STRING1 | s2= STRING2 )
             int alt46=2;
             int LA46_0 = input.LA(1);
 
@@ -4088,7 +4094,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt46) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:729:4: s1= STRING1
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:735:4: s1= STRING1
                     {
                     s1=(CommonTree)match(input,STRING1,FOLLOW_STRING1_in_string1817); 
                     ret =s1.toString().substring(1,s1.toString().length()-1);
@@ -4096,7 +4102,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:730:5: s2= STRING2
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:736:5: s2= STRING2
                     {
                     s2=(CommonTree)match(input,STRING2,FOLLOW_STRING2_in_string1827); 
                     ret =s2.toString().substring(1,s2.toString().length()-1);
@@ -4118,7 +4124,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "mstring"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:733:1: mstring returns [String ret] : (s= string | l= LCWORD );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:739:1: mstring returns [String ret] : (s= string | l= LCWORD );
     public final String mstring() throws RecognitionException {
         String ret = null;
 
@@ -4127,7 +4133,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:734:2: (s= string | l= LCWORD )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:740:2: (s= string | l= LCWORD )
             int alt47=2;
             int LA47_0 = input.LA(1);
 
@@ -4145,7 +4151,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt47) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:734:4: s= string
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:740:4: s= string
                     {
                     pushFollow(FOLLOW_string_in_mstring1845);
                     s=string();
@@ -4157,7 +4163,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:735:5: l= LCWORD
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:741:5: l= LCWORD
                     {
                     l=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_mstring1855); 
                     ret =l.toString();
@@ -4179,7 +4185,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "pos_number"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:738:1: pos_number returns [Number ret] : (i= INT_LITERAL | l= LONG_LITERAL | f= float_literal );
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:744:1: pos_number returns [Number ret] : (i= INT_LITERAL | l= LONG_LITERAL | f= float_literal );
     public final Number pos_number() throws RecognitionException {
         Number ret = null;
 
@@ -4189,7 +4195,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:739:2: (i= INT_LITERAL | l= LONG_LITERAL | f= float_literal )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:745:2: (i= INT_LITERAL | l= LONG_LITERAL | f= float_literal )
             int alt48=3;
             int LA48_0 = input.LA(1);
 
@@ -4220,7 +4226,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt48) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:739:4: i= INT_LITERAL
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:745:4: i= INT_LITERAL
                     {
                     i=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_pos_number1873); 
                     ret =Integer.parseInt(i.toString());
@@ -4228,7 +4234,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:740:5: l= LONG_LITERAL
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:746:5: l= LONG_LITERAL
                     {
                     l=(CommonTree)match(input,LONG_LITERAL,FOLLOW_LONG_LITERAL_in_pos_number1883); 
                     String s = l.toString(); ret =Long.parseLong(s.substring(0,s.length()-1));
@@ -4236,7 +4242,7 @@ public class ProvaWalker2 extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:741:5: f= float_literal
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:747:5: f= float_literal
                     {
                     pushFollow(FOLLOW_float_literal_in_pos_number1893);
                     f=float_literal();
@@ -4262,7 +4268,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "float_literal"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:745:1: float_literal returns [String ret] : i1= INT_LITERAL DOT i2= INT_LITERAL (e= EXPONENT )? ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:751:1: float_literal returns [String ret] : i1= INT_LITERAL DOT i2= INT_LITERAL (e= EXPONENT )? ;
     public final String float_literal() throws RecognitionException {
         String ret = null;
 
@@ -4271,13 +4277,13 @@ public class ProvaWalker2 extends TreeParser {
         CommonTree e=null;
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:746:2: (i1= INT_LITERAL DOT i2= INT_LITERAL (e= EXPONENT )? )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:746:4: i1= INT_LITERAL DOT i2= INT_LITERAL (e= EXPONENT )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:752:2: (i1= INT_LITERAL DOT i2= INT_LITERAL (e= EXPONENT )? )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:752:4: i1= INT_LITERAL DOT i2= INT_LITERAL (e= EXPONENT )?
             {
             i1=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1913); 
             match(input,DOT,FOLLOW_DOT_in_float_literal1915); 
             i2=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1919); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:746:38: (e= EXPONENT )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:752:38: (e= EXPONENT )?
             int alt49=2;
             int LA49_0 = input.LA(1);
 
@@ -4286,7 +4292,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt49) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:746:39: e= EXPONENT
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:752:39: e= EXPONENT
                     {
                     e=(CommonTree)match(input,EXPONENT,FOLLOW_EXPONENT_in_float_literal1924); 
 
@@ -4316,7 +4322,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "number"
-    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:754:1: number returns [ProvaConstant ret] : (m= '-' )? p= pos_number ;
+    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:760:1: number returns [ProvaConstant ret] : (m= '-' )? p= pos_number ;
     public final ProvaConstant number() throws RecognitionException {
         ProvaConstant ret = null;
 
@@ -4325,10 +4331,10 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:755:2: ( (m= '-' )? p= pos_number )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:755:4: (m= '-' )? p= pos_number
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:761:2: ( (m= '-' )? p= pos_number )
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:761:4: (m= '-' )? p= pos_number
             {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:755:5: (m= '-' )?
+            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:761:5: (m= '-' )?
             int alt50=2;
             int LA50_0 = input.LA(1);
 
@@ -4337,7 +4343,7 @@ public class ProvaWalker2 extends TreeParser {
             }
             switch (alt50) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:755:5: m= '-'
+                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:761:5: m= '-'
                     {
                     m=(CommonTree)match(input,MINUS,FOLLOW_MINUS_in_number1946); 
 
@@ -4514,7 +4520,7 @@ public class ProvaWalker2 extends TreeParser {
             this.transition = DFA19_transition;
         }
         public String getDescription() {
-            return "259:10: (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr )";
+            return "265:10: (cjc= constructor_java_call | pl= prova_list | c= constant | e= expr )";
         }
     }
     static final String DFA34_eotS =
@@ -4596,7 +4602,7 @@ public class ProvaWalker2 extends TreeParser {
             this.transition = DFA34_transition;
         }
         public String getDescription() {
-            return "528:1: term returns [ProvaObject ret] : (lt= left_term | ft= func_term | map= prova_map );";
+            return "534:1: term returns [ProvaObject ret] : (lt= left_term | ft= func_term | map= prova_map );";
         }
     }
  
