@@ -241,4 +241,12 @@ public class ProvaServiceImpl implements ProvaService {
 			log.debug("Sent: "+payload+" to "+dest);
 	}
 
+	@Override
+	public void register(String agent, EPService epService) {
+		EPService callback0 = callbacks.get(agent);
+		if( callback0==null ) {
+			callbacks.put(agent, epService);
+		}
+	}
+
 }

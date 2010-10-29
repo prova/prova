@@ -5,7 +5,7 @@
 	<groupId>ws.prova</groupId>
 	<artifactId>ws.prova.compact</artifactId>
 	<name>prova</name>
-	<version>3.1.0</version>
+	<version>3.0.4</version>
 	<url>http://www.prova.ws</url>
 	<licenses>
 		<license>
@@ -196,11 +196,6 @@
 		<repository>
 			<uniqueVersion>false</uniqueVersion>
 			<id>inhouse</id>
-			<!--
-				<url>
-				svn:http://subversion.techops.uk.betfair:8080/svn/ATG/Projects/maven2_repositories/inhouse/
-				</url>
-			-->
 			<url>
 				svn:https://mandarax.svn.sourceforge.net/svnroot/mandarax/maven2/prova/
 			</url>

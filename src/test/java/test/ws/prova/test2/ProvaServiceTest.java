@@ -1,9 +1,12 @@
 package test.ws.prova.test2;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
+import ws.prova.service.EPService;
 import ws.prova.service.ProvaService;
 import ws.prova.service.impl.ProvaServiceImpl;
 
@@ -14,7 +17,7 @@ import ws.prova.service.impl.ProvaServiceImpl;
  * @author alex.kozlenkov
  *
  */
-public class ProvaServiceTest {
+public class ProvaServiceTest implements EPService {
 
 	@Test
 	public void initialization() {
@@ -30,6 +33,9 @@ public class ProvaServiceTest {
 		
 		ProvaService service = new ProvaServiceImpl();
 		service.init();
+		// Register the running agent "runner" as a callback EPService
+		service.register("runner", this);
+
 		org.junit.Assert.assertNotNull(service);
 
 		String receiver = service.instance("receiver", "");
@@ -43,10 +49,15 @@ public class ProvaServiceTest {
 		service.setGlobalConstant(receiver, "$Count", count);
 		service.consult(sender, sender_rulebase, "sender1");
 
+		// Send a message directly from this runner
+		Map<String, Integer> payload = new HashMap<String, Integer>();
+		payload.put("a", 2);
+		service.send("xid", "receiver", "runner", "inform", payload);
+		
 		try {
 			synchronized(this) {
 				wait(1000);
-				org.junit.Assert.assertEquals(1,count.get());
+				org.junit.Assert.assertEquals(2,count.get());
 			}
 		} catch (Exception e) {
 		}
@@ -265,6 +276,12 @@ public class ProvaServiceTest {
 			}
 		} catch (Exception e) {
 		}
+	}
+
+	@Override
+	public void send(String xid, String dest, String agent, String verb,
+			Object payload, EPService callback) {
+		System.out.println("Received "+verb+" from "+agent+" :"+payload);
 	}
 
 }
