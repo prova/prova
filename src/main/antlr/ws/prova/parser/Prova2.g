@@ -53,6 +53,7 @@ tokens {
 	EXPR;
 	PROVA_MAP;
 	KEY_VALUE;
+	FUNCTION;
 }
 
 @header {
@@ -93,7 +94,11 @@ end_of_statement
 	:	NEWLINE* DOT (NEWLINE | EOF);
 		
 stat 	:	clause
-		| query;
+		| query
+		| function;
+
+function	
+	:	metadata? LCWORD list_body ':' list_body0 ('=' literals)? -> ^(CLAUSE metadata? LCWORD list_body list_body0 literals?);
 
 query 	:	IF NEWLINE* query_predicate NEWLINE* '(' NEWLINE* relation NEWLINE* ')' -> ^(QUERY query_predicate relation);
 
@@ -135,6 +140,9 @@ guard
 
 list_body
  	:	(terms ('|' list_tail)?)? NEWLINE* -> ^(LIST_BODY (terms list_tail?)?);
+
+list_body0
+ 	:	(terms ('|' list_tail)?)? -> ^(LIST_BODY (terms list_tail?)?);
 
 list_tail 
 	:	variable | prova_list;

@@ -306,6 +306,21 @@ public class ProvaFunctionalProgrammingTest {
 		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
 	}
 
+	/**
+	 * Use new functional notation and call functions in a pipeline using the stream fusion approach.
+	 */
+	@Test
+	public void func_stream_fusion_fun() {
+		final String rulebase = "rules/reloaded/func_010_fun.prova";
+		final int[] numSolutions = new int[] {0,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+	}
+
 	@Test
 	public void func_fact_monad() {
 		final String rulebase = "rules/reloaded/func_fact_monad.prova";

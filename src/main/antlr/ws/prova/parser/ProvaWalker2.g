@@ -120,6 +120,20 @@ clause returns [ProvaRule ret]:
 	$ret.setSrc(Arrays.asList(new Object[] {$stat::src}));
 	$ret.addMetadata(m);
 	}
+	|
+	^(cl=CLAUSE m=metadata? pred=LCWORD params=list_body result=list_body l=literals?)
+	{
+	List rel = new ArrayList();
+	$stat::ret0[5]=m; $stat::ret0[1]=rel; $stat::ret0[2]=l;
+	rel.add(pred.toString());
+	rel.add(ProvaListImpl.create(new ProvaObject[] {params,result},null));
+	ProvaLiteral head = ProvaParserImpl.tlKB.get().generateLiteral(pred.toString(),(ProvaList) rel.get(1));
+	ProvaLiteral[] body = (l==null) ? new ProvaLiteral[0] : l.toArray(new ProvaLiteral[0]);
+	$ret = ProvaParserImpl.tlKB.get().generateRule(head,body);
+	$ret.setLine($cl.getLine());
+	$ret.setSrc(Arrays.asList(new Object[] {$stat::src}));
+	$ret.addMetadata(m);
+	}
 ;
 	
 metadata returns [Map<String,List<Object>> ret]
