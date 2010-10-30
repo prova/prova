@@ -11,12 +11,12 @@
 % SF1=[state,[[list,10,40],50]]
 :-solve(stream_fusion_1(SF1)).
 
-a I,S : IM,S = IM=I*3+7.
+a I S : IM S = IM=I*3+7.
 
 % The returned list(I) appends I to the result list
-b I,S : list(I),SM = 0=I mod 10, !, SM=S+I.
+b I S : list(I) SM = 0=I mod 10, !, SM=S+I.
 % The returned list() allows I to be skipped in the result list
-b I,S : list(),S.
+b I S : list() S.
 
 stream_fusion_1(X) :-
-	map([[map([a,b])],state([list(1,-1,3,11),0])],X).
+	map [map([a,b])] state([list(1,-1,3,11),0]) : X.

@@ -54,6 +54,7 @@ tokens {
 	PROVA_MAP;
 	KEY_VALUE;
 	FUNCTION;
+	FUNCTION_CALL;
 }
 
 @header {
@@ -98,7 +99,10 @@ stat 	:	clause
 		| function;
 
 function	
-	:	metadata? LCWORD list_body ':' list_body0 ('=' literals)? -> ^(CLAUSE metadata? LCWORD list_body list_body0 literals?);
+	:	metadata? LCWORD list_body0 ':' list_body0 ('=' literals)? -> ^(CLAUSE metadata? LCWORD list_body0 list_body0 literals?);
+
+function_call	
+	:	predicate list_body0 ':' list_body0 -> ^(FUNCTION_CALL predicate list_body0 list_body0);
 
 query 	:	IF NEWLINE* query_predicate NEWLINE* '(' NEWLINE* relation NEWLINE* ')' -> ^(QUERY query_predicate relation);
 
@@ -123,6 +127,7 @@ literals 	:	literal (COMMA literal)* -> ^(LITERAL literal+);
 
 literal 	:	NEWLINE* m=metadata? r=relation g=guard? -> ^(RELATION metadata? relation guard?)
 			| NEWLINE* m=metadata? semantic_attachment g=guard? -> ^(SEMANTIC_ATTACHMENT metadata? semantic_attachment guard?)
+			| NEWLINE* metadata? function_call -> ^(FUNCTION metadata? function_call)
 			| NEWLINE* cut -> ^(CUT cut);
 
 cut	:	CUT;
@@ -142,7 +147,7 @@ list_body
  	:	(terms ('|' list_tail)?)? NEWLINE* -> ^(LIST_BODY (terms list_tail?)?);
 
 list_body0
- 	:	(terms ('|' list_tail)?)? -> ^(LIST_BODY (terms list_tail?)?);
+ 	:	terms0 ('|' list_tail)? -> ^(LIST_BODY terms0 list_tail?);
 
 list_tail 
 	:	variable | prova_list;
@@ -165,6 +170,8 @@ key_value
 	;
 	
 terms 	:	NEWLINE* term (NEWLINE* ',' NEWLINE* term)* -> ^(TERM term+);
+
+terms0 	:	term+ -> ^(TERM term+);
 
 term	:	left_term | func_term | prova_map;
 

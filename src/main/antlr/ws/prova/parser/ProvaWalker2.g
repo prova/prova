@@ -178,6 +178,26 @@ literals 	returns [List<ProvaLiteral> ret]
 	:	^(LITERAL (l=literal {$ret.add(l);})+)
 ;
 
+function_call returns [List ret]
+@init {
+	$ret = new ArrayList();
+}
+	:
+	^(FUNCTION_CALL pred=predicate params=list_body result=list_body) {
+		if( Character.isUpperCase(pred.charAt(0)) )
+			$ret.add(ProvaVariableImpl.create(pred));
+		else
+			$ret.add(ProvaConstantImpl.create(pred));
+		ProvaObject p = params;
+		if( params.getFixed().length==1 )
+			p = params.getFixed()[0];
+		ProvaObject o = result;
+		if( result.getFixed().length==1 )
+			o = result.getFixed()[0];
+		$ret.add(ProvaListImpl.create(new ProvaObject[] {p,o},null));
+	}
+	;
+
 literal returns [ProvaLiteral ret]
 	:
 	^(rel=RELATION m=metadata? r=relation g=guard?) {
@@ -201,6 +221,11 @@ literal returns [ProvaLiteral ret]
 	| ^(sem=SEMANTIC_ATTACHMENT m=metadata? sa=semantic_attachment g=guard?) {
 		$ret=ProvaParserImpl.tlKB.get().generateLiteral((String) ((ProvaConstant) sa.get(0)).getObject(),(ProvaList) sa.get(1),g);
 		$ret.setLine($sem.getLine());
+		$ret.addMetadata(m);
+	}
+	| ^(fun=FUNCTION m=metadata? f=function_call) {
+		$ret=ProvaParserImpl.tlKB.get().generateLiteral((String) ((ProvaConstant) f.get(0)).getObject(),(ProvaList) f.get(1));
+		$ret.setLine($fun.getLine());
 		$ret.addMetadata(m);
 	}
 	| ^(cu=CUT c=cut) {
