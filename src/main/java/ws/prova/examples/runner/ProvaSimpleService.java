@@ -13,7 +13,7 @@ import ws.prova.service.impl.ProvaServiceImpl;
  * using the "osgi" protocol.
  * Note that this runs in plain Java--no OSGi container is actually required.
  * 
- * The runner implements EPService for Proa engines to be able to send messages to the runner,
+ * The runner implements EPService for Prova engines to be able to send messages to the runner,
  * not just between themselves.
  * 
  * @author Alex Kozlenkov
@@ -34,13 +34,15 @@ public class ProvaSimpleService implements EPService {
 	public ProvaSimpleService() {
 		service = new ProvaServiceImpl();
 		service.init();
+		// Register the runner as a callback EPService
+		service.register("runner", this);
 	}
 	
 	private void run() {
 		// Create two Prova agents in their own engines
 		String sender = service.instance("sender", "");
 		String receiver = service.instance("receiver", "");
-
+		
 		// Consult one rulebase into each
 		service.consult(receiver, receiver_rulebase, "receiver1");
 		// Make sure the consumer has access to a global object for counting

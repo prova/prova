@@ -85,8 +85,8 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 				ruleid2Group.remove(ruleid);
 				RemoveList r = removeMap.remove(ruleid);
 				if( r!=null ) {
-					r.getP1().getClauseSet().removeClauses(ruleid,1);
-					r.getP2().getClauseSet().removeClauses(ruleid);
+					r.getP1().getClauseSet().removeTemporalClause(ruleid);
+					r.getP2().getClauseSet().removeTemporalClause(ruleid);
 				}
 				if( future!=null )
 					future.cancel(true);
@@ -127,8 +127,8 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 				ruleid2Group.remove(ruleid);
 				RemoveList r = removeMap.remove(ruleid);
 				if( r!=null && !isTemplate() ) {
-					r.getP1().getClauseSet().removeClauses(ruleid,1);
-					r.getP2().getClauseSet().removeClauses(ruleid);
+					r.getP1().getClauseSet().removeTemporalClause(ruleid);
+					r.getP2().getClauseSet().removeTemporalClause(ruleid);
 				}
 			}
 		}
@@ -180,8 +180,8 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 					ruleid2Group.remove(ruleidToStop);
 					RemoveList r = removeMap.remove(ruleidToStop);
 					if( r!=null ) {
-						r.getP1().getClauseSet().removeClauses(ruleidToStop,1);
-						r.getP2().getClauseSet().removeClauses(ruleidToStop);
+						r.getP1().getClauseSet().removeTemporalClause(ruleidToStop);
+						r.getP2().getClauseSet().removeTemporalClause(ruleidToStop);
 					}
 				}
 				if( log.isDebugEnabled() )

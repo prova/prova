@@ -212,8 +212,8 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 				"rcvMsg(XID,CtlProtocol,CtlFrom,eof,[ReactionXID,Protocol,From,Verb,Payload],CorrelationID):-" +
 				"	!," +
 				"	'@temporal_rule_control'(TID,CtlProtocol,CtlFrom,eof,[ReactionXID,Protocol,From,Verb,Payload,CorrelationID]).\n" +
-				"rcvMsg(XID,Protocol,From,Verb,Payload):- '@temporal_rule'(XID,TID,[XID,Protocol,From,Verb,Payload]).\n" +
-				"rcvMsg(XID,Protocol,From,Verb,Payload,CorrelationID):-'@temporal_rule'(XID,TID,[XID,Protocol,From,Verb,Payload,CorrelationID]).\n" +
+//				"rcvMsg(XID,Protocol,From,Verb,Payload):- '@temporal_rule'(XID,TID,[XID,Protocol,From,Verb,Payload]).\n" +
+//				"rcvMsg(XID,Protocol,From,Verb,Payload,CorrelationID):-'@temporal_rule'(XID,TID,[XID,Protocol,From,Verb,Payload,CorrelationID]).\n" +
 				"findall(P,Q,L) :-" +
 				"	L=java.util.ArrayList()," +
 				"	findall2(P,Q,L).\n" +
@@ -285,8 +285,6 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 				}
 			}
 			return results;
-		} catch( RuntimeException e ) {
-			throw e;
 		} catch( Exception e ) {
 			throw new RuntimeException(e);
 		}
@@ -499,6 +497,21 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		}
 		long ruleId = seqRuleId.incrementAndGet();
 		return new ProvaRuleImpl(ruleId,head,body);
+	}
+
+	@Override
+	/**
+	 * Called from ProvaMessengerImpl.
+	 * Generate a temporal rule like @temporal_rule or @temporal_rule_control.
+	 * These rules have ruleId that is negative.
+	 */
+	public ProvaRule generateRule(long ruleId, ProvaLiteral head,
+			ProvaLiteral[] body) {
+		if( head!=null && head.getPredicate() instanceof ProvaBuiltin ) {
+			// No builtins are allowed in the clause head, so we correct that on the fly
+			head = generateHeadLiteral(head.getPredicate().getSymbol(),head.getTerms());
+		}
+		return new ProvaRuleImpl(-ruleId,head,body);
 	}
 
 	/**

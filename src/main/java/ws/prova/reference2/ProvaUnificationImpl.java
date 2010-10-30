@@ -113,7 +113,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 		// TODO: throw something
 //		if( sourceLiterals.length==0 )
 //			throw 
-		ProvaLiteral sourceLiteral = sourceLiterals[0];
+		ProvaLiteral sourceLiteral = sourceLiterals[source.getOffset()];
 		if( !matchMetadata(sourceLiteral,target) )
 			return false;
 		ProvaLiteral targetLiteral = target.getHead();
@@ -200,6 +200,13 @@ public class ProvaUnificationImpl implements ProvaUnification {
 	}
 
 	private ProvaLiteral[] rebuildNewGoals(ProvaDerivationNode node) {
+		boolean allGround = true;
+		for( ProvaVariable var : targetVariables ) {
+			if( !var.getRecursivelyAssigned().isGround() ) {
+				allGround = false;
+				break;
+			}
+		}
 		final ProvaLiteral[] body = target.getGuardedBody(source.getBody()[0]);
 		int bodyLength = body==null ? 0 : body.length;
 		ProvaLiteral[] goals = new ProvaLiteralImpl[bodyLength];
@@ -212,6 +219,8 @@ public class ProvaUnificationImpl implements ProvaUnification {
 					targetVariables.get(any.getIndex()).setAssigned(ProvaConstantImpl.create(node));
 			}
 			goals[i] = body[i].rebuild(this);
+			if( allGround )
+				goals[i].setGround(true);
 		}
 		return goals;
 	}
@@ -314,6 +323,8 @@ public class ProvaUnificationImpl implements ProvaUnification {
 
 	private ProvaRule rebuild(ProvaRule newQuery) {
 		int size = sourceVariables.size();
+		if( size==0 )
+			return newQuery;
 		ProvaVariablePtr[] varsMap = new ProvaVariablePtr[size];
 		List<ProvaVariable> newVariables = newQuery.getVariables();
 		int index = 0;

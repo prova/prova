@@ -70,9 +70,9 @@ public class ProvaCommunicatorTest {
 			comm = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 		
 		} catch (Exception e) {
-			final String localizedMessage = e.getCause().getLocalizedMessage();
+			final String localizedMessage = e.getCause().getMessage();
 			org.junit.Assert.assertEquals(
-					"No such accessible method: nomethod() on object: java.util.HashSet",
+					"java.lang.NoSuchMethodException: No such accessible method: nomethod() on object: java.util.HashSet",
 					localizedMessage);
 		}
 	}

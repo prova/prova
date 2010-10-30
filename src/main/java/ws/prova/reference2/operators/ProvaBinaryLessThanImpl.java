@@ -10,7 +10,7 @@ public class ProvaBinaryLessThanImpl implements ProvaBinaryOperator {
 	@Override
 	public boolean evaluate( ProvaObject o1, ProvaComputable a2 ) {
 		if( o1 instanceof ProvaVariable ) {
-			throw new RuntimeException("Variable "+o1+"used in '<'");
+			throw new RuntimeException("Variable "+o1+" used in '<'");
 		}
 		Object oa1 = ((ProvaConstant) o1).getObject();
 		Object oa2 = a2.compute();

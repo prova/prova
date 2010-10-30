@@ -50,4 +50,6 @@ public interface ProvaLiteral extends ProvaObject {
 
 	public void setTerms(ProvaList newList);
 
+	public void setGround(boolean ground);
+
 }

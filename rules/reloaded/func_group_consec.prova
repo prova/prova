@@ -1,0 +1,16 @@
+:- eval(consult('rules/reloaded/functional.prova')).
+
+% This returns:
+% SF=[state,[[list,[list,1,3],[list,6,7],[list,9,10]],[2147483647,2147483647]]]
+
+:-solve(stream_fusion(SF)).
+
+% I is a new list element processed one at a time.
+% The state in the second argument represents a consecutive run between From and To
+group_consec I [From,To] : list() [I,I] = To < From, !.
+group_consec I [From,To] : list(list(From,To)) [I,I] = I!=To+1, !.
+group_consec I [From,To] : list() [From,I].
+
+stream_fusion(X) :-
+	% Note that we currently need a terminator
+	map [map(group_consec)] state([list(1,2,3,5,6,8,9,Integer.MAX_VALUE),[[0,-1]]]) : X.

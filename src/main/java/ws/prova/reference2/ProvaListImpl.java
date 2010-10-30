@@ -250,7 +250,7 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 		} else if( target instanceof ProvaVariable ) {
 			return ((ProvaVariable) target).unify(this, unification);
 		} else if( target instanceof ProvaConstant ) {
-			return false;
+			return target instanceof ProvaAnyImpl;
 		} else if( target instanceof ProvaListPtr ) {
 			return unify(((ProvaListPtr) target).getAssignedWithOffset(), unification);
 		} else

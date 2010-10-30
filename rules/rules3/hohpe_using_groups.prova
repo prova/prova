@@ -1,0 +1,50 @@
+% Since Prova 3.0
+
+:- eval(client()).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% SERVER %%%%%
+%%%%%%%%%%%%%%%%%%
+
+rcvMsg(XID,Protocol,From,request,Proposal) :-
+	consider1(From,Proposal,Offer),
+	sendMsg(XID,Protocol,From,respond,Offer).
+
+consider1(_,[Proposal],[1,12]) :-
+	Proposal>20.
+
+rcvMsg(XID,Protocol,From,request,Proposal) :-
+	consider2(From,Proposal,Offer),
+	sendMsg(XID,Protocol,From,respond,Offer).
+
+consider2(_,[Proposal],[2,12]) :-
+	Proposal>15.
+
+rcvMsg(XID,Protocol,From,request,Proposal) :-
+	consider3(From,Proposal,Offer),
+	sendMsg(XID,Protocol,From,respond,Offer).
+
+consider3(_,[Proposal],[3,10]) :-
+	Proposal>15,
+	Proposal<20.
+
+%%%%%%%%%%%%%%%%%%
+%%%%% CLIENT %%%%%
+%%%%%%%%%%%%%%%%%%
+
+client() :-
+	sendMsg(XID,self,0,request,[19]),
+	branch(XID).
+
+branch(XID) :-
+	Acc = ws.prova.eventing.SortedAccumulator(),
+	@group(bids) @timer('0 minutes 500 ms','500 ms',Acc)
+	rcvMsg(XID,self,Me,respond,[Service,Offer]),
+	Acc.processAt(Offer,Service),
+	println(["Received offer: ",Offer," from ",Service]).
+branch(XID) :-
+	@or(bids) @size(1)
+	rcvMsg(XID,self,Self,or,[Results]),
+	Acc=Results.get(0),
+	Top = Acc.highest(1),
+	println(["Received best offer: ",Top]).

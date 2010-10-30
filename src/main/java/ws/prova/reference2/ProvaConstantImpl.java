@@ -66,23 +66,29 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 	}
 
 	@Override
+	public boolean matched( ProvaConstant target ) {
+		if( target instanceof ProvaMapImpl )
+			return false;
+		return object.equals(target.getObject());
+	}
+	
+	@Override
 	public boolean unify(ProvaObject target, ProvaUnification unification) {
 		if( target==null )
 			return false;
+		if( target instanceof ProvaConstant ) {
+			// The target is a constant
+			ProvaConstant targetConstant = (ProvaConstant) target;
+			// TODO: deal with types later
+			Object targetObject = targetConstant.getObject();
+			return object.equals(targetObject);
+		}
 		if( target instanceof ProvaVariable )
 			return ((ProvaVariable) target).unify(this, unification);
 		if( target instanceof ProvaVariablePtr ) {
 			return ((ProvaVariablePtr) target).unify(this, unification);
-		} else if( target instanceof ProvaList ) {
-			return false;
-		} else if( target instanceof ProvaListPtrImpl ) {
-			return false;
 		}
-		// The target is a constant
-		ProvaConstant targetConstant = (ProvaConstant) target;
-		// TODO: deal with types later
-		Object targetObject = targetConstant.getObject();
-		return object.equals(targetObject);
+		return false;
 	}
 
 	public String toString() {

@@ -90,9 +90,7 @@ public class ProvaDeriveImpl extends ProvaBuiltinImpl {
 				}
 			}
 			List<ProvaLiteral> body = new ArrayList<ProvaLiteral>();
-			ProvaVariable in = ProvaVariableImpl.create();
-			ProvaVariable out = ProvaVariableImpl.create();
-			ProvaVariable temp = null;
+			ProvaObject temp = null;
 			for( int i=0; i<funs.length; i++ ) {
 				ProvaObject fun = funs[i];
 				// Note that if the fixed part is only 1, the new query will be tail-only
@@ -115,7 +113,7 @@ public class ProvaDeriveImpl extends ProvaBuiltinImpl {
 					ProvaObject[] attachTo = new ProvaObject[complex.length-1];
 					System.arraycopy(complex,1,attachTo,0,complex.length-1);
 					ProvaList attachToList = ProvaListImpl.create(attachTo,null);
-					ProvaVariable attachTemp = ProvaVariableImpl.create();
+					ProvaObject attachTemp = ProvaVariableImpl.create();
 					ProvaObject[] attachFixed = null;
 					if( temp==null ) {
 						attachFixed = new ProvaObject[] {attachToList,fixed[1],attachTemp};
@@ -134,6 +132,8 @@ public class ProvaDeriveImpl extends ProvaBuiltinImpl {
 				ProvaList newTerms = (ProvaList) ProvaListImpl.create(newFixed,firstList.getTail());//.cloneWithVariables(variables);
 				body.add(kb.generateLiteral(symbol, newTerms));
 			}
+			ProvaObject in = ProvaVariableImpl.create();
+			ProvaObject out = ProvaVariableImpl.create();
 			ProvaList ls = ProvaListImpl.create( new ProvaObject[] {in,out} );
 			ProvaLiteral lit = new ProvaLiteralImpl(pred,ls);
 			ProvaRule clause = ProvaRuleImpl.createVirtualRule(1, lit, body.toArray(new ProvaLiteral[] {}));

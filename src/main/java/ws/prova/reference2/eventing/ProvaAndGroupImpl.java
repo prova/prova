@@ -95,8 +95,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 			}
 
 			// Find new full AND solutions
-			List<List<ProvaList>> matches = findFullAnd(ruleid, varsMap, (ProvaList) reaction.getFixed()[2]);
-			addVarResults(ruleid, varsMap, (ProvaList) reaction.getFixed()[2].cloneWithVariables(null));
+			List<List<ProvaList>> matches = findFullAnd(ruleid, varsMap, reaction);
+			addVarResults(ruleid, varsMap, (ProvaList) reaction.cloneWithVariables(null));
 
 			if( !matches.isEmpty() ) {
 				this.lastReaction = reaction;
@@ -187,8 +187,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 		if( !this.isPermanent() ) {
 			RemoveList r0 = removeMap.remove(ruleid);
 			if( r0!=null && !this.isTemplate() ) {
-				r0.getP1().getClauseSet().removeClauses(ruleid,1);
-				r0.getP2().getClauseSet().removeClauses(ruleid);
+				r0.getP1().getClauseSet().removeTemporalClause(ruleid);
+				r0.getP2().getClauseSet().removeTemporalClause(ruleid);
 			}
 		}
 		if( reaction==null
@@ -232,8 +232,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 				}
 				ruleid2Group.remove(ruleidToStop);
 				removeMap.remove(ruleidToStop);
-				r.getP1().getClauseSet().removeClauses(ruleidToStop,1);
-				r.getP2().getClauseSet().removeClauses(ruleidToStop);
+				r.getP1().getClauseSet().removeTemporalClause(ruleidToStop);
+				r.getP2().getClauseSet().removeTemporalClause(ruleidToStop);
 			}
 		}
 		if( !dynamicContext && isAndComplete(ruleid2Group) ) {
@@ -333,8 +333,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 			long ruleid = e.getKey();
 			ruleid2Group.remove(ruleid);
 			RemoveList r = removeMap.get(ruleid);
-			r.getP1().getClauseSet().removeClauses(ruleid,1);
-			r.getP2().getClauseSet().removeClauses(ruleid);
+			r.getP1().getClauseSet().removeTemporalClause(ruleid);
+			r.getP2().getClauseSet().removeTemporalClause(ruleid);
 		}
 		removeMap.clear();
 		return true;

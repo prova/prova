@@ -2,7 +2,6 @@ package ws.prova.reference2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +31,8 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 
 	private final Map<String,List<ProvaRule>> srcMap = new HashMap<String,List<ProvaRule>>();
 
+	private Map<Long,ProvaRule> temporalRuleMap;
+
 	public ProvaRuleSetImpl(String symbol) {
 		this.symbol = symbol;
 		this.arity = -1;
@@ -52,7 +53,10 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	}
 
 	@Override
-	public synchronized List<ProvaRule> getClauses(Object key) {
+	/**
+	 * Now implements pre-filtering by spotting mismatched constants in the source and target arguments
+	 */
+	public synchronized List<ProvaRule> getClauses(Object key, ProvaObject[] source) {
 		List<ProvaRule> bound = firstArgMap.get(key);
 		List<ProvaRule> free = firstArgMap.get("@");
 		if( bound==null )
@@ -66,22 +70,54 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 		int i1 = 0;
 		int i2 = 0;
 		while( i1<boundSize && i2<freeSize ) {
-			if( bound.get(i1).getRuleId()>free.get(i2).getRuleId() )
-				merged.add(free.get(i2++));
-			else
-				merged.add(bound.get(i1++));
+			ProvaRule next;
+			if( bound.get(i1).getAbsRuleId()>free.get(i2).getAbsRuleId() ) {
+				next = free.get(i2++);
+			} else {
+				next = bound.get(i1++);
+			}
+			ProvaObject[] target = next.getHead().getTerms().getFixed();
+			if( preFilter(source, target) )
+				merged.add(next);
 		}
 		while( i1<boundSize ) {
-			merged.add(bound.get(i1++));
+			ProvaRule next = bound.get(i1++);
+			ProvaObject[] target = next.getHead().getTerms().getFixed();
+			if( preFilter(source, target) )
+				merged.add(next);
 		}
 		while( i2<freeSize ) {
-			merged.add(free.get(i2++));
+			ProvaRule next = free.get(i2++);
+			ProvaObject[] target = next.getHead().getTerms().getFixed();
+			if( preFilter(source, target) )
+				merged.add(next);
 		}
 		return merged;
 	}
 
+	/**
+	 * Reject obvious mismatches between constants
+	 * @param source goal arguments
+	 * @param target rule head arguments
+	 * @return true if no constants are mismatched
+	 */
+	private boolean preFilter( ProvaObject[] source, ProvaObject[] target ) {
+		for( int i=1; i<source.length; i++ ) {
+			if( source[i] instanceof ProvaConstant && target[i] instanceof ProvaConstant &&
+				!((ProvaConstant) source[i]).matched((ProvaConstant) target[i]) )
+				return false;
+		}
+		return true;
+	}
+	
 	@Override
 	public synchronized void removeClauses(Object key) {
+		if( key instanceof Long && ((Long) key)<0 ) {
+			ProvaRule rule = temporalRuleMap.remove(-((Long) key));
+			rule.setRemoved();
+			clauses.remove(rule);
+			return;
+		}
 		List<ProvaRule> bound = firstArgMap.get(key);
 		for( ProvaRule rule : bound ) {
 			rule.setRemoved();
@@ -89,21 +125,21 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 		}
 	}
 
-	// This is only used for removing temporal rules in inlne reactions.
-	// TODO: Optimise rule storage for multi-key access
+	/**
+	 * 	This is only used for removing temporal rules in inline reactions, including rcvMsg and @temporal_rule_control.
+	 * TODO: Optimise rule storage for multi-key access
+	 */
 	@Override
-	public synchronized boolean removeClauses(Object key, int offset) {
-		for( Iterator<ProvaRule> iter=clauses.iterator(); iter.hasNext(); ) {
-			ProvaRule rule = iter.next();
-			if( ((ProvaConstant) rule.getHead().getTerms().getFixed()[offset]).getObject().equals(key) ) {
-//				log.info("Removed rule with key "+key);
-				rule.setRemoved();
-				iter.remove();
-				return true;
-			}
+	public synchronized void removeTemporalClause(long key) {
+		ProvaRule rule = temporalRuleMap.remove(-key);
+		if( rule==null )
+			return;
+		rule.setRemoved();
+		if( !"@".equals(rule.getFirstArg()) ) {
+			List<ProvaRule> children = firstArgMap.get(rule.getFirstArg());
+			children.remove(rule);
 		}
-		// TODO: Throw something, this should never happen
-		return false;
+		clauses.remove(rule);
 	}
 
 	/**
@@ -164,6 +200,12 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 				firstArgMap.put(firstArg, rules);
 			}
 			rules.add(clause);
+		}
+		if( clause.getRuleId()<0 ) {
+			// It is a temporal rule, so store it in the map
+			if( this.temporalRuleMap==null )
+				this.temporalRuleMap = new HashMap<Long, ProvaRule>();
+			this.temporalRuleMap.put(clause.getRuleId(), clause);
 		}
 		// TODO: understand the implications of this
 		if( !clauses.contains(clause) )

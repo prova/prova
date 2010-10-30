@@ -2,7 +2,10 @@ package test.ws.prova.test2;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.After;
 import org.junit.Test;
@@ -148,7 +151,7 @@ public class ProvaMessagingTest {
 
 		try {
 			synchronized(this) {
-				wait(2000);
+				wait(2500);
 				org.junit.Assert.assertEquals(2,count.get());
 			}
 		} catch (Exception e) {
@@ -290,6 +293,35 @@ public class ProvaMessagingTest {
 			}
 		} catch (Exception e) {
 		}
+	}
+
+	@Test
+	/**
+	 * Pass messages 1000 times around a ring of 1000 reagents
+	 */
+	public void ring() {
+		final String rulebase = "rules/reloaded/ring.prova";
+		
+		AtomicLong count = new AtomicLong(0);
+		Map<String,Object> globals = new HashMap<String,Object>();
+		CountDownLatch doneSignal = new CountDownLatch(1);
+		globals.put("$Latch", doneSignal);
+		globals.put("$Count", count);
+
+		long startTime = System.currentTimeMillis();
+		
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+
+		try {
+			doneSignal.await(5000, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			org.junit.Assert.fail("Unexpected exception: "+e.getMessage());
+		}
+		long diff = (System.currentTimeMillis()-startTime) / 1000;
+		System.out.println(count.get()+" rounds complete in "+diff+" sec");
+		// All 1000 rounds around the ring must be complete
+		org.junit.Assert.assertEquals("Not all messages received in 50 seconds",1000L,count.get());
+
 	}
 
 }

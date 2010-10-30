@@ -11,12 +11,12 @@ test_spawn() :-
 	% P.longcalc(1L) is an instance method that takes a Long.
 	% It takes 1 seconds to complete and returns a Boolean.
 	spawn(XID,P,longcalc,1L),
-	% Ret will contain a returned object in a list,
+	% Ret will contain a returned object,
 	%    a Boolean.TRUE in this case.
 	% If a called method was void or returned null,
 	%    Ret would have contained a string 'null'. 
 	rcvMsg(XID,self,Me,return,Ret),
-	println(Ret),
+	println(["1:",Ret]),
 	$Count.incrementAndGet().
 test_spawn() :-
 	sendMsg(XID,self,0,test,t()),
@@ -25,6 +25,6 @@ test_spawn() :-
 	% If the method returns void or returns null, return is instantiated with
 	%    an Integer 0
 	rcvMsg(XID,self,Me,return,Ret),
-	println([Ret]),
+	println(["2:",Ret]),
 	println(["========test complete========="]),
 	$Count.incrementAndGet().

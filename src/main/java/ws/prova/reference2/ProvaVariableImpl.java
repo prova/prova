@@ -27,15 +27,15 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 
 	private static AtomicLong incName = new AtomicLong(0);
 	
-	public static ProvaVariableImpl create() {
+	public static ProvaVariable create() {
 		return new ProvaVariableImpl();
 	}
 
-	public static ProvaVariableImpl create(String name) {
+	public static ProvaVariable create(String name) {
 		return new ProvaVariableImpl(name);
 	}
 
-	public static ProvaVariableImpl create(String name, Class<?> type) {
+	public static ProvaVariable create(String name, Class<?> type) {
 		return new ProvaVariableImpl(name, type);
 	}
 
@@ -120,6 +120,8 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 
 	@Override
 	public ProvaObject getRecursivelyAssigned() {
+		if( assigned instanceof ProvaConstant )
+			return assigned;
 		if( assigned==this ) {
 			assigned=null;
 			return this;
@@ -196,6 +198,8 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 		}
 		if( type!=Object.class ) {
 			if( target instanceof ProvaConstant ) {
+				if( target instanceof ProvaAnyImpl )
+					return true;
 				if( !type.isInstance(((ProvaConstant) target).getObject()) )
 					return false;
 			}

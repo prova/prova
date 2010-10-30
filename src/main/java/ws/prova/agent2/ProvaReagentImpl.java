@@ -105,7 +105,10 @@ public class ProvaReagentImpl implements ProvaReagent {
 		kb.setGlobals(globals);
 
 		this.executor = Executors.newFixedThreadPool(1);
-		this.pool = Executors.newFixedThreadPool(10);
+		this.pool = 
+//			Executors.newFixedThreadPool(10);
+			new ThreadPoolExecutor(10, 10,
+			    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<Runnable>(8192));
 		for (int i = 0; i < partitionedPool.length; i++) {
 			final int index = i;
 			this.partitionedPool[i] =
@@ -200,7 +203,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 		};
 		FutureTask<List<ProvaSolution[]>> ftask = new FutureTask<List<ProvaSolution[]>>(
 				task);
-		executor.submit(ftask);
+		Future<?> future = executor.submit(ftask);
 		return ftask;
 	}
 
@@ -493,6 +496,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 		public boolean offer(E e) {
 	        try {
 				put(e);
+//				this.offer(e, 86400, TimeUnit.SECONDS);
 			} catch (InterruptedException e1) {
 				log.info("Interrupted asynchronous thread");
 			}

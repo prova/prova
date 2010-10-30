@@ -20,11 +20,9 @@ public interface ProvaRuleSet {
 
 	public List<ProvaRule> getClauses();
 
-	public List<ProvaRule> getClauses(Object key);
+	public List<ProvaRule> getClauses(Object key, ProvaObject[] source);
 
 	public void removeClauses(Object key);
-
-	public boolean removeClauses(Object key, int offset);
 
 	public boolean removeClausesByMatch(ProvaKnowledgeBase kb, ProvaObject[] data);
 
@@ -36,5 +34,7 @@ public interface ProvaRuleSet {
 	public void removeClausesBySrc(String src);
 
 	public ProvaUnification nextMatch(ProvaKnowledgeBase kb, ProvaGoal goal);
+
+	public void removeTemporalClause(long key);
 
 }

@@ -238,4 +238,11 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		return newMap;
 	}
 
+	@Override
+	public boolean matched( ProvaConstant target ) {
+		if( target instanceof ProvaMapImpl )
+			return true;
+		return false;
+	}
+	
 }

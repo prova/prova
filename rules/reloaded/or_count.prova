@@ -4,10 +4,11 @@
 %
 % Logout user1 10.10.10.10
 % Suspicious login user2 30.30.30.30 20.20.20.20
+% Suspicious login user1 10.10.10.10 20.20.20.20
 % Suspicious login user2 30.30.30.30 40.40.40.40
 % Suspicious login user2 20.20.20.20 40.40.40.40
-% Pattern detected: [[[user2,async,0,request,[login,user2,20.20.20.20]], [user2,async,0,request,[login,user2,40.40.40.40]]]] 
 % Pattern detected: [[[user1,async,0,request,[logout,user1,10.10.10.10]]]] 
+% Pattern detected: [[[user2,async,0,request,[login,user2,20.20.20.20]], [user2,async,0,request,[login,user2,40.40.40.40]]]] 
 %
 % Global constant $Count is used for counting successful detections and passing them back to the Java test
 

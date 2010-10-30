@@ -45,18 +45,18 @@ public class ProvaExpressionLiteralImpl extends ProvaBuiltinImpl {
 		ProvaBinaryOperator bo = (ProvaBinaryOperator) olt1;
 		// LHS
 		ProvaObject a1 = data[1];
-		if( a1 instanceof ProvaVariablePtr ) {
-			ProvaVariablePtr varPtr = (ProvaVariablePtr) a1;
-			a1 = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
-		}
+//		if( a1 instanceof ProvaVariablePtr ) {
+//			ProvaVariablePtr varPtr = (ProvaVariablePtr) a1;
+//			a1 = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+//		}
 		if( !((a1 instanceof ProvaVariable) || (a1 instanceof ProvaConstant)) )
 			return false;
 		// Expression
 		ProvaObject a2 = data[2];
-		if( a2 instanceof ProvaVariablePtr ) {
-			ProvaVariablePtr varPtr = (ProvaVariablePtr) a2;
-			a2 = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
-		}
+//		if( a2 instanceof ProvaVariablePtr ) {
+//			ProvaVariablePtr varPtr = (ProvaVariablePtr) a2;
+//			a2 = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+//		}
 		return bo.evaluate(a1, (ProvaComputable) a2);
 	}
 

@@ -68,17 +68,16 @@ public class ProvaGoalImpl implements ProvaGoal {
 			this.iterator.next();
 	}
 
+	@Override
+	public void update() {
+		this.goal = query.getTop();
+		this.predicate = goal.getPredicate();
+	}
+	
 	/*
 	 * Creates the iterator on a copy of the iterated collection of clauses
 	 */
 	private void createIterator() {
-		final List<ProvaRule> clauses = predicate.getClauseSet().getClauses();
-		if( clauses.size()==1 ) {
-			this.iterator = clauses.iterator();
-//			if( !predicate.getKnowledgeBase().isCachePredicate(predicate.getSymbol()) )
-				this.singleClause = true;
-			return;
-		}
 		ProvaObject[] fixed = this.goal.getTerms().getFixed();
 		if( fixed.length!=0 ) {
 			ProvaObject firstObject = fixed[0];
@@ -88,18 +87,23 @@ public class ProvaGoalImpl implements ProvaGoal {
 			}
 			if( firstObject instanceof ProvaConstant && !(firstObject instanceof ProvaMapImpl ) ) {
 				Object o = ((ProvaConstant) firstObject).getObject();
-				final List<ProvaRule> keyClauses = predicate.getClauseSet().getClauses(o);
+				final List<ProvaRule> keyClauses = predicate.getClauseSet().getClauses(o, fixed);
 				if( keyClauses!=null ) {
 					if( keyClauses.size()==1 ) {
-//						this.iterator = keyClauses.iterator();
 						this.singleClause = true;
-//						return;
 					}
 					final List<ProvaRule> tempClauses = new ArrayList<ProvaRule>(keyClauses);
 					this.iterator = tempClauses.iterator();
 				}
 				return;
 			}
+		}
+		final List<ProvaRule> clauses = predicate.getClauseSet().getClauses();
+		if( clauses.size()==1 ) {
+			this.iterator = clauses.iterator();
+//			if( !predicate.getKnowledgeBase().isCachePredicate(predicate.getSymbol()) )
+				this.singleClause = true;
+			return;
 		}
 		this.iterator = clauses.iterator();
 //		final List<ProvaRule> tempClauses = new ArrayList<ProvaRule>(clauses);

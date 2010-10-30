@@ -325,4 +325,9 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 		return this;
 	}
 
+	@Override
+	public void setGround(boolean ground) {
+		this.ground = ground;
+	}
+
 }

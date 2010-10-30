@@ -20,13 +20,10 @@ import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaLiteral;
 import ws.prova.kernel2.ProvaObject;
-import ws.prova.kernel2.ProvaPredicate;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.reference2.ProvaConstantImpl;
 import ws.prova.reference2.ProvaListImpl;
-import ws.prova.reference2.ProvaLiteralImpl;
 import ws.prova.reference2.ProvaResolutionInferenceEngineImpl;
-import ws.prova.reference2.ProvaVariableImpl;
 import ws.prova.reference2.messaging.ProvaDelayedCommand;
 import ws.prova.reference2.messaging.ProvaMessengerImpl;
 import ws.prova.reference2.messaging.RemoveList;
@@ -171,8 +168,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 			return;
 		for( RemoveList rl : timeoutRemoveEntries ) {
 			long k = rl.getRuleid();
-			rl.getP1().getClauseSet().removeClauses(k,1);
-			rl.getP2().getClauseSet().removeClauses(k);
+			rl.getP1().getClauseSet().removeTemporalClause(k);
+			rl.getP2().getClauseSet().removeTemporalClause(k);
 		}
 	}
 	
@@ -209,8 +206,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 				log.debug(e);
 			RemoveList r = e.getValue();
 			long k = r.getRuleid();
-			r.getP1().getClauseSet().removeClauses(k,1);
-			r.getP2().getClauseSet().removeClauses(k);
+			r.getP1().getClauseSet().removeTemporalClause(k);
+			r.getP2().getClauseSet().removeTemporalClause(k);
 		}
 		if( children!=null )
 			for( ProvaGroup c : children )
@@ -240,7 +237,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 					ProvaList reaction = rl.getReaction();
 					reaction.getFixed()[1] = ProvaConstantImpl.create("async");
 					reaction.getFixed()[2] = ProvaConstantImpl.create(0);
-					lastReaction = ProvaListImpl.create(new ProvaObject[] {rl.getReaction().getFixed()[0],ProvaConstantImpl.create(0),reaction});
+					lastReaction = reaction;
+//					lastReaction = ProvaListImpl.create(new ProvaObject[] {rl.getReaction().getFixed()[0],ProvaConstantImpl.create(0),reaction});
 					ProvaList reactionM = ProvaListImpl.create(new ProvaObject[] {ProvaConstantImpl.create("not"),reaction.shallowCopy()});
 					addResult(reactionM);
 					iter.remove();
@@ -254,8 +252,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		}
 		if( !resultsSent ) {
 			long k = resultRemoveEntry.getRuleid();
-			resultRemoveEntry.getP1().getClauseSet().removeClauses(k,1);
-			resultRemoveEntry.getP2().getClauseSet().removeClauses(k);
+			resultRemoveEntry.getP1().getClauseSet().removeTemporalClause(k);
+			resultRemoveEntry.getP2().getClauseSet().removeTemporalClause(k);
 			cleanupTimeoutEntries();
 		}
 		if( children!=null ) {
@@ -281,8 +279,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 			ruleid2Group.remove(k);
 		}
 		long k = resultRemoveEntry.getRuleid();
-		resultRemoveEntry.getP1().getClauseSet().removeClauses(k,1);
-		resultRemoveEntry.getP2().getClauseSet().removeClauses(k);
+		resultRemoveEntry.getP1().getClauseSet().removeTemporalClause(k);
+		resultRemoveEntry.getP2().getClauseSet().removeTemporalClause(k);
 		cleanupTimeoutEntries();
 		if( children!=null ) {
 			for( ProvaGroup c : children )
@@ -343,9 +341,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		final String cid = cidOriginal instanceof ProvaConstant ? ((ProvaConstant) cidOriginal).getObject().toString() : "0";
 		final ProvaObject cidObject = ProvaConstantImpl.create(cid);
 		lastReaction.getFixed()[0] = cidObject;
-		ProvaList terms = ProvaListImpl.create(new ProvaObject[] {cidObject,ProvaVariableImpl.create("TID"),lastReaction});
-		ProvaPredicate pred = kb.getPredicate("@temporal_rule", terms.getFixed().length);
-		ProvaLiteral lit = new ProvaLiteralImpl(pred,terms);
+		ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg",lastReaction);
 		Map<String, List<Object>> meta = new HashMap<String, List<Object>>(1);
 		if( this.templateDynamicGroup!=null )
 			meta.put("group", Arrays.asList(new Object[] {templateDynamicGroup}));

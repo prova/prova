@@ -19,7 +19,7 @@ public interface ProvaRule {
 	
 	public ProvaRule cloneRule();
 
-	public void advance();
+	public boolean advance();
 
 	public ProvaLiteral getTop();
 
@@ -68,5 +68,7 @@ public interface ProvaRule {
 	public ProvaLiteral[] getGuardedBody(ProvaLiteral sourceLiteral);
 
 	public void setSrc(List<Object> value);
+
+	public long getAbsRuleId();
 
 }

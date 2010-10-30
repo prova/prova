@@ -85,7 +85,7 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 			query = node.getQuery();
 			if( log.isDebugEnabled() )
 				log.debug(query);
-			ProvaGoal goal = node.getCurrentGoal();
+			final ProvaGoal goal = node.getCurrentGoal();
 
 			if( goal == null ) {				
 				node.setFailed(true);
@@ -94,9 +94,8 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 			
 			ProvaLiteral goalLiteral = goal.getGoal();
 			ProvaPredicate predicate = goalLiteral.getPredicate();
-//			if( "@temporal_rule".equals(predicate.getSymbol()) )
-//				System.out.println(query);
-			if( "fail".equals(predicate.getSymbol()) ) {
+			final String symbol = predicate.getSymbol();
+			if( "fail".equals(symbol) ) {
 				if( node.getParent()==null ) {
 					node.setFailed(true);
 					return node; // fail
@@ -106,7 +105,7 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 				continue;
 			}
 
-			if( predicate.getSymbol().equals("metadata") ) {
+			if( symbol.equals("metadata") ) {
 				goal.updateMetadataGoal();
 				goalLiteral = goal.getGoal();
 				predicate = goalLiteral.getPredicate();
@@ -123,16 +122,28 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 					if( size==1 ) {
 						// New substitute goal has appeared
 						query.replaceTopBodyLiteral(newLiterals);
-						node.setCurrentGoal(new ProvaGoalImpl(query));
+						// Goal update is sufficient
+						goal.update();
 					} else if( size>1 ) {
 						// This is interpreted as more than one literal replacing the current (top) goal.
 						// Non-deterministic choice is dealt with inside the built-ins that can create
 						//    virtual predicate (see, for example, ProvaElementImpl).
 						query.replaceTopBodyLiteral(newLiterals);
+						// This requires a new goal
 						node.setCurrentGoal(new ProvaGoalImpl(query));
 					} else {
-						query.advance();
-						node.setCurrentGoal(new ProvaGoalImpl(query));
+						boolean fail = query.advance();
+						if( fail ) {
+							if( node.getParent()==null ) {
+								node.setFailed(true);
+								return node; // fail
+							}
+							node = node.getParent();
+							tabledNodes.push(node);
+							continue;
+						}
+						// Goal update is sufficient
+						goal.update();
 					}
 				}
 				if( node!=null )
@@ -140,12 +151,14 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 				continue;
 			}
 
-			// Check for cut
-            boolean isCut = checkCut(node, goal);
-            if( isCut ) {
-				tabledNodes.push(node);
-				continue;
-            }
+			if( "cut".equals(symbol) ) {
+				// Check for cut
+	            boolean isCut = checkCut(node, goal);
+	            if( isCut ) {
+					tabledNodes.push(node);
+					continue;
+	            }
+			}
 			
             ProvaDerivationNode newNode = null;
             ProvaUnification unification = null;

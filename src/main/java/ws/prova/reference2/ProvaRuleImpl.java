@@ -227,6 +227,11 @@ public class ProvaRuleImpl implements ProvaRule {
 	}
 
 	@Override
+	public long getAbsRuleId() {
+		return ruleId>=0 ? ruleId : -ruleId;
+	}
+
+	@Override
 	public ProvaRule cloneRule() {
 		ProvaRuleImpl newRule = new ProvaRuleImpl(this);
 		return newRule;		
@@ -234,6 +239,8 @@ public class ProvaRuleImpl implements ProvaRule {
 	
 	@Override
 	public ProvaRule cloneRule(boolean cloneVariables) {
+		if( this.variables.isEmpty() )
+			return this;
 		ProvaRuleImpl newRule = new ProvaRuleImpl(this,cloneVariables);
 		return newRule;
 	}
@@ -250,8 +257,15 @@ public class ProvaRuleImpl implements ProvaRule {
 	}
 
 	@Override
-	public void advance() {
+	/**
+	 * Advance the goal to the next query
+	 * @return True if the next query is fail
+	 */
+	public boolean advance() {
 		offset++;
+		if( offset!= body.length && body[offset].getTerms()==null )
+			return true;
+		return false;
 	}
 
 	@Override

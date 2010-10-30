@@ -39,4 +39,6 @@ public interface ProvaGoal {
 
 	boolean isCut();
 
+	public void update();
+
 }

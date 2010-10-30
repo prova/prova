@@ -112,7 +112,8 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 
 	@Override
 	public void stop() {
-		prova.getMessenger().stop();
+		if( prova!=null )
+			prova.shutdown();
 	}
 	
 	@Override
@@ -323,7 +324,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			comm.shutdown();
 		} catch( RuntimeException e ) {
 			if( e.getCause() instanceof IOException ) {
-				System.err.println("Could not read from "+rules);
+				System.err.println("IO error while reading from "+rules);
 			} else 
 				System.err.println(e.getCause());
 		}

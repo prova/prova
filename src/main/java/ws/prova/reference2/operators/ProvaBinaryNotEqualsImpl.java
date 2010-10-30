@@ -10,7 +10,7 @@ public class ProvaBinaryNotEqualsImpl implements ProvaBinaryOperator {
 	@Override
 	public boolean evaluate( ProvaObject o1, ProvaComputable a2 ) {
 		if( o1 instanceof ProvaVariable ) {
-			throw new RuntimeException("Variable "+o1+"used in '!='");
+			throw new RuntimeException("Variable "+o1+" used in '!='");
 		}
 		Object n2 = a2.computeIfExpression();
 		return !((ProvaConstant) o1).getObject().equals(n2);

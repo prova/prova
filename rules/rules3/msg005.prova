@@ -1,4 +1,5 @@
 % Test asynchronous processing in Java threads with returns.
+% This must run with the option "-t 2" to give at least 2 seconds for the queues to staty idle.
 % Does not work anymore in "old" Prova.
 % In Prova "reloaded", longcalc requires a long so "2L" is used for representing a Long.
 
@@ -11,12 +12,12 @@ test_spawn() :-
 	% P.longcalc(1L) is an instance method that takes a Long.
 	% It takes 1 seconds to complete and returns a Boolean.
 	spawn(XID,P,longcalc,1L),
-	% Ret will contain a returned object in a list,
+	% Ret will contain a returned object,
 	%    a Boolean.TRUE in this case.
 	% If a called method was void or returned null,
 	%    Ret would have contained a string 'null'. 
 	rcvMsg(XID,self,Me,return,Ret),
-	println(Ret).
+	println(["1:",Ret]).
 test_spawn() :-
 	sendMsg(XID,self,0,test,t()),
 	% java.lang.Thread.sleep(1000L) is a static method running for 1 seconds
@@ -24,5 +25,5 @@ test_spawn() :-
 	% If the method returns void or returns null, return is instantiated with
 	%    an Integer 0
 	rcvMsg(XID,self,Me,return,Ret),
-	println([Ret]),
+	println(["2:",Ret]),
 	println(["========test complete========="]).

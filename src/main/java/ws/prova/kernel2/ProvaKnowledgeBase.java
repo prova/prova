@@ -81,6 +81,9 @@ public interface ProvaKnowledgeBase {
 	public ProvaRule generateGoal(ProvaLiteral[] body,
 			List<ProvaVariable> variables);
 
+	public ProvaRule generateRule(long ruleId, ProvaLiteral head,
+			ProvaLiteral[] body);
+
 //	public ProvaRule generateLocalRule(ProvaReagent prova, long partitionKey,
 //			ProvaLiteral head, ProvaLiteral[] array);
 

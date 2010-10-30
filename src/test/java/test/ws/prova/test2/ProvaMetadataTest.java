@@ -438,7 +438,7 @@ public class ProvaMetadataTest {
 				Thread.sleep(4);
 			}
 			synchronized(this) {
-				wait(1500);
+				wait(2000);
 				// All 100 events must be detected in groups
 				org.junit.Assert.assertEquals(100L,count.get());
 			}

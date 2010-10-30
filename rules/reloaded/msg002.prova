@@ -8,8 +8,7 @@ msg002() :-
 	% Only one message will be received here as the reaction disappears after the first message is consumed
 	rcvMsg(XID,self,From,inform,a(I)),
 	println(["Received: ",rcvMsg(XID,self,From,inform,a(I))],""),
-	Count=$Count,
-	Count.incrementAndGet().
+	$Count.incrementAndGet().
 msg002() :-
 	for(I,1,2),
 	sendMsg(XID,self,0,inform,a(I)),
