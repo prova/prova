@@ -130,6 +130,7 @@ public class ProvaRuleImpl implements ProvaRule {
 		for( int i=0; i<size; i++ ) {
 			this.variables.add(variables.get(i).clone(ruleId));
 		}
+		this.head = head;
 		this.body = body;
 	}
 

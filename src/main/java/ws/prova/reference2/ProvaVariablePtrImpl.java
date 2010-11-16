@@ -135,6 +135,16 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	}
 
 	@Override
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+		ProvaObject assigned = variables.get(index).getRecursivelyAssigned();
+		if( assigned instanceof ProvaVariable ) {
+			isConstant.set(0, false);
+			return new ProvaVariablePtrImpl(0,this.index);
+		}
+		return assigned.cloneWithBoundVariables(variables, isConstant);
+	}
+
+	@Override
 	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
 		return variables.get(index).getRecursivelyAssigned().cloneWithVariables(variables);
 	}

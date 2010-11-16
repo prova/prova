@@ -258,6 +258,13 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	@Override
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+		if( assigned!=null )
+			return assigned;
+		return this;
+	}
+
+	@Override
 	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
 		if( assigned!=null )
 			return assigned;

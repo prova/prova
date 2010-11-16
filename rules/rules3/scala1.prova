@@ -8,19 +8,19 @@ init_server() :-
 server() :-
 	rcvMult(OrderID,Protocol,Sender,request,order(Item)),
 	$Orders.put(OrderID,order(OrderID,Sender,Item)),
-	sendMsg(OrderID,Protocol,Sender,ack(order)),
+	sendMsg(OrderID,Protocol,Sender,ack,order),
 	server_2(OrderID,Item).
 server() :-
 	rcvMsg(OrderID,Protocol,Sender,request,cancel(Item)) [false=$Orders.containsKey(OrderID)],
 	println(["Order",OrderID,"cannot be cancelled"]," "),
-	sendMsg(OrderID,Protocol,Sender,noack(cancel)).
+	sendMsg(OrderID,Protocol,Sender,noack,cancel).
 
 server_2(OrderID,Item) :-
 	@group(g1) @not @timeout(1000)
 	rcvMsg(OrderID,Protocol,Sender,request,cancel(Item)) [!],
 	$Orders.remove(OrderID),
 	println(["Order",OrderID,cancelled]," "),
-	sendMsg(OrderID,Protocol,Sender,ack(cancel)).
+	sendMsg(OrderID,Protocol,Sender,ack,cancel).
 server_2(OrderID,Item) :-
 	@and(g1)
 	rcvMsg(OrderID,Protocol,Sender,and,E),

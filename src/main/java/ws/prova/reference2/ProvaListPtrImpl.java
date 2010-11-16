@@ -115,15 +115,21 @@ public class ProvaListPtrImpl implements ProvaListPtr {
 	}
 
 	@Override
-	// Not meant to be called
-	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
-		return null;
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+		ProvaObject[] fixed = assigned.getFixed();
+		ProvaObject[] newFixed = new ProvaObject[fixed.length-offset];
+		System.arraycopy(fixed, offset, newFixed, 0, newFixed.length);
+		return ProvaListImpl.create(newFixed).cloneWithBoundVariables(variables, isConstant);
 	}
 
 	@Override
-	// Not meant to be called
+	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public ProvaObject cloneWithVariables(long ruleId, List<ProvaVariable> variables) {
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

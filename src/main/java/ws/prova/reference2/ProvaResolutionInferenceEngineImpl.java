@@ -168,7 +168,7 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
     				continue;
     			if( log.isDebugEnabled() )
     				log.debug(">>> ["+unification.getTarget().getMetadata()+']'+unification.getTarget().getSourceCode());
-    			ProvaRule newQuery = unification.generateQuery(kb, query, node);
+    			ProvaRule newQuery = unification.generateQuery(symbol, kb, query, node);
     			if( goal.isSingleClause() ) {
 					node.setCurrentGoal(new ProvaGoalImpl(newQuery));
 	    			node.setQuery(newQuery);
@@ -179,10 +179,8 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
    				newNode.setParent(node);
     			newNode.setId(counter.next());
     			newNode.setCut(false);
-//    			newNode.setFailed(true);
     			newNode.setCurrentGoal(new ProvaGoalImpl(newQuery));
     			tabledNodes.push(newNode);
-//    			node.setCurrentGoal(goal);
     			break;
     		}
             

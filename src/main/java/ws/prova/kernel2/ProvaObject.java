@@ -33,4 +33,6 @@ public interface ProvaObject extends Serializable {
 
 	public Object computeIfExpression();
 
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant);
+
 }

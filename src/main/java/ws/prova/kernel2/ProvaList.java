@@ -31,4 +31,8 @@ public interface ProvaList extends ProvaObject {
 
 	public ProvaList copyWithVariables(List<ProvaVariable> variables);
 
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> changed);
+
+	public ProvaList copyWithBoundVariables(List<ProvaVariable> variables, List<Boolean> changed);
+
 }

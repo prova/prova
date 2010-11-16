@@ -49,6 +49,33 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 	}
 
 	@Override
+	public ProvaLiteral cloneWithBoundVariables(ProvaUnification unification,
+			List<ProvaVariable> variables, List<Boolean> isConstant) {
+		ProvaGuardedLiteralImpl ret = (ProvaGuardedLiteralImpl) cloneWithBoundVariables(variables, isConstant);
+		List<ProvaLiteral> newGuard = new ArrayList<ProvaLiteral>(guard.size());
+		for( ProvaLiteral g : guard )
+			newGuard.add(g.cloneWithBoundVariables(unification, variables, isConstant));
+		ret.guard = newGuard;
+		if( ret.getMetadata()!=null )
+			copyMetadata(unification, ret);
+		return ret;
+	}
+
+	@Override
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+		if( terms==null )
+			return this;
+		ProvaList newTerms = (ProvaList) terms.cloneWithBoundVariables(variables, isConstant);
+		ProvaGuardedLiteralImpl newLit = new ProvaGuardedLiteralImpl(predicate,newTerms,null);
+		// TODO: the new literal may actually become ground
+		newLit.ground = ground;
+		newLit.line = line;
+		newLit.sourceCode = sourceCode;
+		newLit.metadata = metadata;
+		return newLit;
+	}
+
+	@Override
 	public ProvaLiteral rebuild(ProvaUnification unification) {
 		if( ground || terms==null )
 			return this;

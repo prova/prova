@@ -132,7 +132,7 @@ public class ProvaServiceTest implements EPService {
 
 		try {
 			synchronized(this) {
-				wait(1000);
+				wait(1500);
 				org.junit.Assert.assertEquals(3,count.get());
 			}
 		} catch (Exception e) {

@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.io.BufferedReader;
+import java.io.PrintWriter;
 
 import org.apache.log4j.Logger;
 
@@ -67,10 +68,25 @@ public class ProvaServiceImpl implements ProvaService {
 	}
 
 	@Override
+	public String instance(String agent, String rulebase, PrintWriter out) {
+		ProvaCommunicator prova = null;
+		try {
+			Map<String,Object> globals = new HashMap<String,Object>();
+			prova = new ProvaCommunicatorImpl(this,agent,null,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+			prova.setPrintWriter(out);
+			engines.put(agent, prova);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return agent;
+	}
+
+	@Override
 	public void release(String agent) {
 		ProvaCommunicator engine = engines.remove(agent);
 		if( engine==null )
 			throw new RuntimeException("No engine instance "+agent);
+		engine.stop();
 	}
 	
 	@Override

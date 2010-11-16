@@ -9,6 +9,7 @@ import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaLiteral;
 import ws.prova.kernel2.ProvaRule;
+import ws.prova.kernel2.ProvaVariable;
 
 public class ProvaAddGroupResultImpl extends ProvaBuiltinImpl {
 
@@ -20,8 +21,8 @@ public class ProvaAddGroupResultImpl extends ProvaBuiltinImpl {
 	public boolean process(ProvaReagent prova, ProvaDerivationNode node,
 			ProvaGoal goal, List<ProvaLiteral> newLiterals, ProvaRule query) {
 		ProvaLiteral literal = goal.getGoal();
+		ProvaList terms = (ProvaList) literal.getTerms();
 		synchronized(kb) {
-			ProvaList terms = (ProvaList) literal.getTerms();
 			try {
 				prova.getMessenger().addGroupResult(terms);
 			} catch (Exception e) {

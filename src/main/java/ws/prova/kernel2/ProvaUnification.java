@@ -28,7 +28,7 @@ public interface ProvaUnification {
 
 	public ProvaObject rebuildSource(ProvaVariablePtr variablePtr);
 
-	public ProvaRule generateQuery(ProvaKnowledgeBase kb, ProvaRule query,
+	public ProvaRule generateQuery(String symbol, ProvaKnowledgeBase kb, ProvaRule query,
 			ProvaDerivationNode node);
 
 	public boolean targetUnchanged();

@@ -82,10 +82,10 @@ gt_m([X,A],list()).
 	)
 ).
 
-matching([A,A],list(A)) :- !.
-matching([_,_],list()).
+matching A A : list(A) = !.
+matching _ _ : list().
 
-pair([A,B],list(A,B)).
+pair A B : list(A,B).
 
 % a fractal a->Mb
 f('#',list('#',' ','#')) :- !.

@@ -1,6 +1,7 @@
 package ws.prova.service;
 
 import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.util.List;
 
 import ws.prova.exchange.ProvaSolution;
@@ -26,5 +27,7 @@ public interface ProvaService extends ProvaMiniService, EPService {
 			String key);
 
 	public void register(String agent, EPService epService);
+
+	public String instance(String agent, String rulebase, PrintWriter out);
 
 }

@@ -314,7 +314,10 @@ public class ProvaUnificationImpl implements ProvaUnification {
 
 	@Override
 	// TODO: This all needs refactoring
-	public ProvaRule generateQuery(ProvaKnowledgeBase kb, ProvaRule query, ProvaDerivationNode node) {
+	public ProvaRule generateQuery(String symbol, ProvaKnowledgeBase kb, ProvaRule query, ProvaDerivationNode node) {
+		if( /*"rcvMsg".equals(symbol) &&*/ sourceVariables.isEmpty() ) {
+			return kb.generateGoal(this, node, target.getBody(), query.getBody(), query.getOffset(), targetVariables);
+		}
 		ProvaLiteral[] newGoals = rebuildNewGoals(node);
 		ProvaLiteral[] oldGoals = rebuildOldGoals(query.getBody(), query.getOffset());
 		ProvaRule newQuery = kb.generateRule(null, newGoals, oldGoals, query.getOffset());

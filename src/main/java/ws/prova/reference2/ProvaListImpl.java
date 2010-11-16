@@ -139,6 +139,39 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 	}
 
 	@Override
+	public ProvaList copyWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+		int fixedLength = fixed.length;
+		ProvaObject newTail = null;
+		if( tail!=null ) {
+			newTail = tail.cloneWithBoundVariables(variables, isConstant);
+			if( newTail instanceof ProvaList ) {
+				fixedLength += newTail.computeSize();
+				ProvaObject[] newFixed = new ProvaObject[fixedLength];
+				int i = 0;
+				for( ; i<fixed.length; i++ )
+					newFixed[i] = fixed[i].cloneWithBoundVariables(variables, isConstant);
+				ProvaObject[] tailFixed = ((ProvaList) newTail).getFixed();
+				for( ; i<fixedLength; i++ )
+					newFixed[i] = tailFixed[i-fixed.length];
+				return new ProvaListImpl( newFixed, ((ProvaList) newTail).getTail() );
+			}
+		}
+		ProvaObject[] newFixed = new ProvaObject[fixedLength];
+		int i = 0;
+		for( ; i<fixed.length; i++ ) {
+			newFixed[i] = fixed[i].cloneWithBoundVariables(variables, isConstant);
+		}
+		return new ProvaListImpl( newFixed, newTail );
+	}
+
+	@Override
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> changed) {
+		if( ground )
+			return this;
+		return copyWithBoundVariables(variables, changed);
+	}
+
+	@Override
 	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
 		if( ground )
 			return this;

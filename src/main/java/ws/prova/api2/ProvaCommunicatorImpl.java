@@ -99,7 +99,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	}
 
 	public ProvaCommunicatorImpl(ProvaMiniService service,
-			String agent, String port, String rules, boolean async, Map<String, Object> globals) {
+			String agent, String port, Object rules, boolean async, Map<String, Object> globals) {
 		String[] prot;
 		if (port != null) {
 			prot = new String[]{new String("jade")};

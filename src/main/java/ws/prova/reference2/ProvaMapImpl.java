@@ -108,6 +108,21 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 	}
 
 	@Override
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+		if( isGround() )
+			return this;
+		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+		Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
+		for( Entry<String,ProvaObject> e : map.entrySet() ) {
+			if( e.getValue().isGround() )
+				newMap.put(e.getKey(),e.getValue());
+			else
+				newMap.put(e.getKey(), e.getValue().cloneWithBoundVariables(variables, isConstant));
+		}
+		return ProvaMapImpl.create(newMap);
+	}
+
+	@Override
 	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
 		if( isGround() )
 			return this;

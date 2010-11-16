@@ -315,6 +315,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			message.process(prova);
 			return true;
 		}
+		if( !(data[3] instanceof ProvaConstant) )
+			return false;
 		String verb = data[3].toString();
 		ProvaLiteral lit = null;
 		ProvaList termsCopy = terms;

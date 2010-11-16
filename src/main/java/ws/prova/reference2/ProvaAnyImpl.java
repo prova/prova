@@ -66,6 +66,11 @@ public class ProvaAnyImpl extends ProvaTermImpl implements ProvaConstant, ProvaC
 	}
 
 	@Override
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+		return this;
+	}
+
+	@Override
 	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
 		return this;
 	}

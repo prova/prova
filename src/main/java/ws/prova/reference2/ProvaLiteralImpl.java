@@ -220,6 +220,29 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 	}
 
 	@Override
+	public ProvaLiteral cloneWithBoundVariables(ProvaUnification unification,
+			List<ProvaVariable> variables, List<Boolean> isConstant) {
+		ProvaLiteralImpl ret = (ProvaLiteralImpl) cloneWithBoundVariables(variables, isConstant);
+		if( ret.getMetadata()!=null )
+			copyMetadata(unification, ret);
+		return ret;
+	}
+
+	@Override
+	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+		if( terms==null )
+			return this;
+		ProvaList newTerms = (ProvaList) terms.cloneWithBoundVariables(variables, isConstant);
+		ProvaLiteralImpl newLit = new ProvaLiteralImpl(predicate,newTerms);
+		// TODO: the new literal may actually become ground
+		newLit.ground = ground;
+		newLit.line = line;
+		newLit.sourceCode = sourceCode;
+		newLit.metadata = metadata;
+		return newLit;
+	}
+
+	@Override
 	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
 		if( terms==null )
 			return this;
@@ -230,6 +253,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 		}
 		ProvaList newTerms = (ProvaList) terms.cloneWithVariables(variables);
 		ProvaLiteralImpl newLit = new ProvaLiteralImpl(predicate,newTerms);
+		// TODO: the new literal may actually become ground
 		newLit.ground = ground;
 		newLit.line = line;
 		newLit.sourceCode = sourceCode;

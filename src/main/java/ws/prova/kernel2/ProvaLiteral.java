@@ -52,4 +52,7 @@ public interface ProvaLiteral extends ProvaObject {
 
 	public void setGround(boolean ground);
 
+	public ProvaLiteral cloneWithBoundVariables(ProvaUnification unification,
+			List<ProvaVariable> variables, List<Boolean> isConstant);
+
 }
