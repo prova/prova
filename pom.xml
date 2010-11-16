@@ -5,7 +5,7 @@
 	<groupId>ws.prova</groupId>
 	<artifactId>ws.prova.compact</artifactId>
 	<name>prova</name>
-	<version>3.0.4</version>
+	<version>3.1.0</version>
 	<url>http://www.prova.ws</url>
 	<licenses>
 		<license>
@@ -83,9 +83,6 @@
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<testOutputDirectory>target/test-classes</testOutputDirectory>
 		<testResources>
-			<testResource>
-				<directory>rules</directory>
-			</testResource>
 			<testResource>
 				<directory>src/test/resources</directory>
 			</testResource>
