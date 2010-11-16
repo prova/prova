@@ -8,3 +8,4 @@ tca(X,Y) :- a(X,Z), println([fff]), cache(tca(Z,Y)).
 
 a(1,2).
 a(2,1).
+

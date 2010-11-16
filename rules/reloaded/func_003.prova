@@ -1,9 +1,9 @@
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
-gt_m([X,A],list(A)) :-
+gt_m X A : list(A) =
 	A>X,
 	!.
-gt_m([X,A],list()).
+gt_m X A : list().
 
 % This returns X0=[list,3,4]
 :- solve(
@@ -82,14 +82,14 @@ gt_m([X,A],list()).
 	)
 ).
 
-matching([A,A],list(A)) :- !.
-matching([_,_],list()).
+matching A A : list(A) = !.
+matching _ _ : list().
 
-pair([A,B],list(A,B)).
+pair A B : list(A,B).
 
 % a fractal a->Mb
-f('#',list('#',' ','#')) :- !.
-f(_,list(' ',' ',' ')).
+f '#' : list('#',' ','#') = !.
+f _ : list(' ',' ',' ').
 
 /*
 % example of an a->Mb function 

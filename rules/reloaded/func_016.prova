@@ -1,14 +1,14 @@
 % Demonstrate finding a maximum and the count of those using a state monad--admittedly, an overkill. 
 
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 % This returns:
 % SF1=[state,[[list],[2,3]]]
 :-solve(test_max(SF1)).
 
-mymax([X,[Count,Max]],[list(),[1,X]]) :- X>Max,!.
-mymax([X,[Count,X]],[list(),[CountM,X]]) :- !,CountM=Count+1.
-mymax([X,[Count,Max]],[list(),[Count,Max]]).
+mymax X [Count,Max] : list() [1,X] = X>Max, !.
+mymax X [Count,X] : list() [CountM,X] = !, CountM=Count+1.
+mymax X [Count,Max] : list() [Count,Max].
 
 test_max(X) :-
-	map([[map(mymax)],state([list(2,-2,3,-1,3,0),[[0,Integer.MIN_VALUE]]])],X).
+	map [map(mymax)] state([list(2,-2,3,-1,3,0),[[0,Integer.MIN_VALUE]]]) : X.

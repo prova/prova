@@ -1,32 +1,29 @@
+% This is upgraded to the functional syntax of Prova 3.0.4.
 % Demonstrate unfoldr-like functionality: creating a stream by iteration.
 % This is done two ways: with maybe and without.
 
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 % This returns:
 % SF1=[state,[[list,1,2,3,5],[]]]
 :-solve(test_unfoldr_1(SF1)).
 
-fibs([[],maybe(just([I,J]))],maybe(just([J,K]))) :-
-	K=I+J.
+fibs [] maybe(just([I,J])) : maybe(just([J,K])) = K=I+J.
 
-until([N,maybe(just([I,N]))],[list(N),maybe(nothing())]) :-
-	!.
-until([N,maybe(just([I,J]))],[list(J),maybe(just([I,J]))]).
+until N maybe(just([I,N])) : list(N) maybe(nothing()) = !.
+until N maybe(just([I,J])) : list(J) maybe(just([I,J])).
 
 test_unfoldr_1(X) :-
-	map([[map([fibs,until(5)])],state([list([]),maybe(just([0,1]))])],X).
+	map [map([fibs,until(5)])] state([list([]),maybe(just([0,1]))]) : X.
 
 % This returns:
 % SF2=[state,[[list,1,2,3,5],[]]]
 :-solve(test_unfoldr_2(SF2)).
 
-fibs2([[],[I,J]],[J,K]) :-
-	K=I+J.
+fibs2 [] [I,J] : J K = K=I+J.
 
-until2([N,I,N],[list(N),[]]) :-
-	!.
-until2([N,I,J],[list(J),[I,J]]).
+until2 N I N : list(N) [] = !.
+until2 N I J : list(J) [I,J].
 
 test_unfoldr_2(X) :-
-	map([[map([fibs2,until2(5)])],state([list([]),[[0,1]]])],X).
+	map [map([fibs2,until2(5)])] state([list([]),[[0,1]]]) : X.

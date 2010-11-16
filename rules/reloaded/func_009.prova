@@ -1,4 +1,4 @@
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 % This returns: V3=9, V2=4, V1=2, C1=13
 :- solve(

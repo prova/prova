@@ -1,4 +1,4 @@
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 % Demonstrate
 %    the Maybe monad,

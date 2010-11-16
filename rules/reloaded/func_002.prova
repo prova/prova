@@ -1,4 +1,4 @@
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 % Demonstrate mappings that are not functions (based on non-deterministic values)
 

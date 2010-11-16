@@ -1,5 +1,5 @@
 % To be used from ProvaFileParserTest.consult() test.
 
-:- eval(consult("rules/reloaded/consult_include.prova")).
+:- eval(consult("consult_include.prova")).
 
 :- solve(a(1)).

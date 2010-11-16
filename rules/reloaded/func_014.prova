@@ -1,19 +1,17 @@
 % Demonstrate unfoldr-like functionality: creating a stream by iteration.
 % Pass a counter to 'maybe' to implement 'take', returning the specified number of results in a list.
 
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 % This returns:
 % SF1=[state,[[list,1,2,3,5,8],[]]]
 :-solve(test_unfoldr_1(SF1)).
 
-fibs([[],maybe(just(N,[I,J]))],maybe(just(N,[J,K]))) :-
+fibs [] maybe(just(N,[I,J])) : maybe(just(N,[J,K])) =
 	K=I+J.
 
-take([N,maybe(just(N,[I,J]))],[list(J),maybe(nothing())]) :-
-	!.
-take([N,maybe(just(K,[I,J]))],[list(J),maybe(just(K1,[I,J]))]) :-
-	K1=K+1.
+take N maybe(just(N,[I,J])) : list(J) maybe(nothing()) = !.
+take N maybe(just(K,[I,J])) : list(J) maybe(just(K1,[I,J])) = K1=K+1.
 
 test_unfoldr_1(X) :-
-	map([[map([fibs,take(5)])],state([list([]),maybe(just(1,[0,1]))])],X).
+	map [map([fibs,take(5)])] state([list([]),maybe(just(1,[0,1]))]) : X.

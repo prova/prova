@@ -53,3 +53,4 @@ p6(X,Y):-
 	@src(Y) @label(rule3)
 	r2(X).
 :-solve(p6(X9,Src9)).
+

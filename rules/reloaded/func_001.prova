@@ -1,5 +1,5 @@
 % These tests do not explicitly use monads, all map applications are done per-element
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 %%% filter: select even numbers
 :- solve(filter([even,[1,2,3,4,5]],L1)).

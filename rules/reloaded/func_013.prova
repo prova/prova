@@ -8,7 +8,7 @@
 % {s=3}
 % SF3=[state,[[list,1,3,5],[]]]
 
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 :- solve(test_unfoldr_3(SF3)).
 
@@ -31,24 +31,24 @@ accept([[],maybe(just([I]))],[list(J),maybe(just([I]))]) :-
 	println([{s:J}]).
 
 % Skip -> Skip
-hadd([list(),M],[list(),M]) :- !.
+hadd list() M : list() M = !.
 % Done -> Done
-hadd([L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+hadd L maybe(nothing()) : L maybe(nothing()) = !.
 % Emit the sum of history with current as new event and replace history with current
-hadd([list(J),maybe(just([I]))],[list(K),maybe(just([J]))]) :-
+hadd list(J) maybe(just([I])) : list(K) maybe(just([J])) =
 	K=I+J.
 
 % This defines a Haskell Stream just like in the Coutts' or Gibbons papers.
 % list(N) emits a new head (from the alphabet) while maybe holds the new data
 %    to be used as a past history when more data arrives or Nothing for termination.
 % Skip -> Skip
-cond([N,list(),M],[list(),M]) :- !.
+cond N list() M : list() M = !.
 % Done -> Done
-cond([N,L,maybe(nothing())],[L,maybe(nothing())]) :- !.
+cond N L maybe(nothing()) : L maybe(nothing()) = !.
 % Termination reached -> Done
-cond([N,list(N),maybe(just([J]))],[list(N),maybe(nothing())]) :- !.
+cond N list(N) maybe(just([J])) : list(N) maybe(nothing()) = !.
 % New data
-cond([N,list(K),maybe(just([J]))],[list(K),maybe(just([J]))]).
+cond N list(K) maybe(just([J])) : list(K) maybe(just([J])).
 
 % In the main, this could be formalized as (x is Cartesian product):
 % Exists s.(s->1+Integer x s) x s
@@ -57,4 +57,4 @@ cond([N,list(K),maybe(just([J]))],[list(K),maybe(just([J]))]).
 % Note that our approach is general enough to cover Coutts' Skip easily as we can emit 0 or more new data.
 % For example, list() denotes a Skip.
 test_unfoldr_3(X) :-
-	map([[map([accept,hadd,cond(5)])],state([list([]),maybe(just([0]))])],X).
+	map [map([accept,hadd,cond(5)])] state([list([]),maybe(just([0]))]) : X.

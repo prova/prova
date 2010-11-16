@@ -2,7 +2,7 @@
 % Demonstrate the utility predicates "init_join" and "join" that allow parallel streams of processing to be joined.
 % These predicates reside in utils.prova and should be consulted from there.
 
-:- eval(consult("rules/reloaded/utils.prova")).
+:- eval(consult("utils.prova")).
 
 :- eval(process_join()).
 

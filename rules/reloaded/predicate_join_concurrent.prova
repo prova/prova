@@ -1,6 +1,6 @@
 % For Prova Reloaded
 
-:- eval(consult("rules/reloaded/utils.prova")). 
+:- eval(consult("utils.prova")). 
 
 :- eval(predicate_join_concurrent()). 
 

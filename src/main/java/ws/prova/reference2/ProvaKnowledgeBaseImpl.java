@@ -28,6 +28,8 @@ import ws.prova.kernel2.ProvaResolutionInferenceEngine;
 import ws.prova.kernel2.ProvaResultSet;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaRuleSet;
+import ws.prova.kernel2.ProvaUnification;
+import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.exchange.ProvaSolution;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.cache.ProvaCacheState;
@@ -123,6 +125,8 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	private NavigableSet<String> cachePredicateSymbols;
 	
 	private final Map<String,List<ProvaRuleSet>> srcMap = new HashMap<String,List<ProvaRuleSet>>();
+
+	private Object context;
 
 	public ProvaKnowledgeBaseImpl() {
 		predicates = new ConcurrentHashMap<String,ProvaPredicate>();
@@ -265,6 +269,11 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 
 	@Override
 	public List<ProvaSolution[]> consultSyncInternal(ProvaReagent prova, String src, String key, Object[] objects) {
+		if( context==null ) {
+			context = src.substring(0,src.lastIndexOf('/')+1);
+		} else {
+			src = context + src;
+		}
 		List<ProvaSolution[]> results = new ArrayList<ProvaSolution[]>(); 
 		ProvaResultSet resultSet = new ProvaResultSetImpl();
 		ProvaParserImpl parser = new ProvaParserImpl(key, objects);
@@ -604,6 +613,30 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		//    so no variables' collection will be required
 		return new ProvaRuleImpl(0,head,combinedBody);
 //		return generateRule(head,combinedBody);
+	}
+
+	@Override
+	public ProvaRule generateGoal(ProvaUnification unification, ProvaDerivationNode node, ProvaLiteral[] newGoals,
+			ProvaLiteral[] body, int offset, List<ProvaVariable> variables) {
+		int bodyLength = body==null ? 0 : body.length;
+		int newGoalsLength = newGoals==null ? 0 : newGoals.length;
+		ProvaLiteral[] combinedBody = new ProvaLiteral[newGoalsLength+bodyLength-1-offset];
+		List<Boolean> isConstant = new ArrayList<Boolean>(1);
+		isConstant.add(true);
+		int i=0;
+		for( ; i<newGoalsLength; i++ ) {
+			if( "cut".equals(newGoals[i].getPredicate().getSymbol()) ) {
+				ProvaVariablePtr any = (ProvaVariablePtr) newGoals[i].getTerms().getFixed()[0];
+				variables.get(any.getIndex()).setAssigned(ProvaConstantImpl.create(node));
+			}
+			isConstant.set(0,true);
+			combinedBody[i] = (ProvaLiteral) newGoals[i].cloneWithBoundVariables(unification, variables, isConstant);
+			if( isConstant.get(0) )
+				combinedBody[i].setGround(true);
+		}
+		for( int j=1+offset; j<body.length; j++,i++ )
+			combinedBody[i] = body[j];
+		return new ProvaRuleImpl(0, null, combinedBody, variables);
 	}
 
 	@Override

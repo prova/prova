@@ -2,7 +2,7 @@
 % Demonstrate a simple variant of stream fusion like functionality.
 % This test extends func_010.prova by running zip on two lists.
 
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 % This returns:
 % SF2=[state,[[list,10,10,370],390]]

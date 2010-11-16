@@ -4,56 +4,56 @@
 % or
 %   ProvaFunctionalProgrammingTest.func_reactive_unfoldr_iteration_perf_large()
 
-:- eval(consult('rules/reloaded/functional.prova')).
+:- eval(consult('functional.prova')).
 
 :- eval(test_unfoldr_iteration(SFC)).
 
 % Monadic 'GE' filter returning an empty list if the condition does not hold, and A, if it does
-ge_m([A,X],list(A)) :-
+ge_m A X : list(A) =
 	A>=X,
 	!.
-ge_m([A,X],list()).
+ge_m A X : list().
 
 % Retrieve state given XID
-get_state([Map,XID],N) :-
+get_state Map XID : N =
 	Map.containsKey(XID),
 	!,
 	N=Map.get(XID).
-get_state([Map,XID],0).
+get_state Map XID : 0.
 
 % Only one reaction is active for all partitions.
 % The state is de-multiplexed given the conversation-id XID.
 % The pipeline is then executed only once per inbound event.
 % At the end of the pipeline run, the state is updated in the Map.
-accept_([[],maybe(just([]))],[list(J),maybe(just([XID,N,Map]))]) :-
+accept_ [] maybe(just([])) : list(J) maybe(just([XID,N,Map])) =
 	Map=java.util.concurrent.ConcurrentHashMap(),
 	rcvMult(XID,async,From,data,{s:J}),
-	get_state([Map,XID],N).
+	get_state Map XID : N.
 %,
 %	println([XID,":| ",{s:J},Map,N]).
 
-filter_([F,list(),M],[list(),M]) :- !.
-filter_([F,L,maybe(nothing())],[L,maybe(nothing())]) :- !.
-filter_([F,list(J),M],[X,M]) :- derive([[F],J,X]).
+filter_ F list() M : list() M = !.
+filter_ F L maybe(nothing()) : L maybe(nothing()) = !.
+filter_ F list(J) M : X M = derive([[F],J,X]).
 
-count_([list(),maybe(just([XID,N,Map]))],[list(),maybe(just([XID,0,Map]))]) :- !.
-count_([L,maybe(nothing())],[L,maybe(nothing())]) :- !.
-count_([list(J),maybe(just([XID,N,Map]))],[list(J),maybe(just([XID,N1,Map]))]) :- N1=N+1.
+count_ list() maybe(just([XID,N,Map])) : list() maybe(just([XID,0,Map])) = !.
+count_ L maybe(nothing()) : L maybe(nothing()) = !.
+count_ list(J) maybe(just([XID,N,Map])) : list(J) maybe(just([XID,N1,Map])) = N1=N+1.
 
-cond_([R,list(),M],[list(),M]) :- !.
-cond_([R,L,maybe(nothing())],[L,maybe(nothing())]) :- !.
-cond_([N,list(J),maybe(just([XID,N,Map]))],[list(N),maybe(just([XID,NM1,Map]))]) :- !,NM1=N-1.
-cond_([R,list(J),M],[list(),M]).
+cond_ R list() M : list() M = !.
+cond_ R L maybe(nothing()) : L maybe(nothing()) = !.
+cond_ N list(J) maybe(just([XID,N,Map])) : list(N) maybe(just([XID,NM1,Map])) = !, NM1=N-1.
+cond_ R list(J) M : list() M.
 
-update_([L,maybe(nothing())],[L,maybe(nothing())]) :- !.
-update_([L,maybe(just([XID,N,Map]))],[L,maybe(just([XID,N,Map]))]) :-
+update_ L maybe(nothing()) : L maybe(nothing()) = !.
+update_ L maybe(just([XID,N,Map])) : L maybe(just([XID,N,Map])) =
 	Map.put(XID,N)
 %	,println(["Added: ",Map])
 	.
 
-emit_([list(),M],[list(),maybe(nothing())]) :- !.
-emit_([L,maybe(nothing())],[L,maybe(nothing())]) :- !.
-emit_([list(N),maybe(just([XID,NM1,Map]))],[list(N),maybe(nothing())]) :-
+emit_ list() M : list() maybe(nothing()) = !.
+emit_ L maybe(nothing()) : L maybe(nothing()) = !.
+emit_ list(N) maybe(just([XID,NM1,Map])) : list(N) maybe(nothing()) =
 %	sendMsg(XID,async,0,data,{result:N}),
 %	println([XID,">> ",{result:N}]),
 	report().
@@ -69,4 +69,4 @@ report() :-
 
 % (emit_ . update_ . cond_(2) . count_ . filter_(ge_m(5)) . accept_) is a composition pipeline.
 test_unfoldr_iteration(X) :-
-	map([[map([accept_,filter_(ge_m(16)),count_,cond_(2),update_,emit_])],state([list([]),maybe(just([]))])],X).
+	map [map([accept_,filter_(ge_m(16)),count_,cond_(2),update_,emit_])] state([list([]),maybe(just([]))]) : X.
