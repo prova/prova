@@ -10,7 +10,7 @@
 :-solve(run(list(7,3,4,2),X)).
 
 % Stage 1: basic score
-basic([N,[H,Score]],[N,[H,ScoreM]]) :- ScoreM=Score+N.
+basic N [H,Score] : N [H,ScoreM] = ScoreM=Score+N.
 
 % Stage 2: bonus score
 bonus N [[10,10],Score] : N [[10,10],ScoreM] = !, ScoreM=Score+N+N.

@@ -1,12 +1,11 @@
 :- solve(modify({a:1,b:2},EM)).
 
-f({a:A},{a:AM}) :-
-	AM=A*2.
+f {a:A} : {a:AM} = AM=A*2.
 
-update_([E,M],EM) :-
+update_ E M : EM =
 	EM=E.clone(),
 	EM.putAll(M).
 
 modify(E,EM) :-
-	f(E,M),
-	update_([E,M],EM).
+	f E : M,
+	update_ E M : EM.

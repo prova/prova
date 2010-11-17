@@ -88,8 +88,8 @@ matching _ _ : list().
 pair A B : list(A,B).
 
 % a fractal a->Mb
-f('#',list('#',' ','#')) :- !.
-f(_,list(' ',' ',' ')).
+f '#' : list('#',' ','#') = !.
+f _ : list(' ',' ',' ').
 
 /*
 % example of an a->Mb function 

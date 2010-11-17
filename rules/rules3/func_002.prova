@@ -11,6 +11,5 @@
 
 %%% Test functions (result is always the last parameter)
 
-plusminus(X,X).
-plusminus(X,XM) :-
-	XM=-X.
+plusminus X : X.
+plusminus X : XM = XM=-X.
