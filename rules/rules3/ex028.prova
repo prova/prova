@@ -14,8 +14,8 @@ test_not() :-
 eq(S1,S2) :-
 	S1.equals(S2). 
 
-not([X|Args]) :-
-	derive([X|Args]),
+not(A) :-
+	derive(A),
 	!,
 	fail().
-not([X|Args]).
+not(_).

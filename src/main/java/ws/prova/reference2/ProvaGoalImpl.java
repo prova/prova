@@ -290,4 +290,9 @@ public class ProvaGoalImpl implements ProvaGoal {
 		return lastMatch;
 	}
 
+	@Override
+	public void updateGround() {
+		goal.updateGround( variables );
+	}
+
 }

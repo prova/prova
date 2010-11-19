@@ -217,6 +217,28 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 	}
 
 	@Override
+	public boolean updateGround(List<ProvaVariable> variables) {
+		if( ground )
+			return true;
+		ground = true;
+		for( int i=0; i<fixed.length; i++ ) {
+			if( fixed[i] instanceof ProvaVariablePtr ) {
+				ProvaObject o = variables.get(((ProvaVariablePtr) fixed[i]).getIndex()).getAssigned();
+				if( o != null )
+					fixed[i] = o;
+			}
+			if( !fixed[i].updateGround(variables) ) {
+				ground = false;
+			}
+		}
+		if( tail!=null ) {
+			if( !tail.updateGround(variables) )
+				return ground = false;
+		}
+		return ground;
+	}
+
+	@Override
 	public int collectVariables(long ruleId, List<ProvaVariable> variables) {
 		if( ground )
 			return -1;

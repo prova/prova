@@ -1,11 +1,11 @@
-not([A|X]) :-
-	derive([A|X]),
+not(A) :-
+	derive(A),
 	!,
 	fail(). 
-not([A|X]). 
+not(_). 
 
 %Try
-:- solve(queens(8,P)).
+:- solve(queens(10,P)).
 
 %queens(N,[N1,N2,...,NN]) is true if you can put a queen on an NxN
 %                         in the ith rank of the nth file, s.t. no

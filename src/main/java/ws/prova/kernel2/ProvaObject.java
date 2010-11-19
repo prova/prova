@@ -35,4 +35,6 @@ public interface ProvaObject extends Serializable {
 
 	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant);
 
+	public boolean updateGround(List<ProvaVariable> variables);
+
 }

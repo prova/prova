@@ -237,7 +237,8 @@ public class ProvaServiceTest implements EPService {
 		final String producer2_rulebase = "rules/service/stream_lambda/producer2.prova";
 		final String subscriber_rulebase = "rules/service/stream_lambda/subscriber.prova";
 		final String broker_rulebase = "rules/service/stream_lambda/broker.prova";
-		final String functional_rulebase = "rules/reloaded/functional.prova";
+		// This path must now be relative to the location of producer2
+		final String functional_rulebase = "functional.prova";
 		
 		ProvaService service = new ProvaServiceImpl();
 		service.init();
@@ -262,8 +263,8 @@ public class ProvaServiceTest implements EPService {
 		service.consult(producer, producer_rulebase, "producer1");
 		service.setGlobalConstant(producer, "$Count", count);
 
-		service.consult(producer2, functional_rulebase, "functional");
 		service.consult(producer2, producer2_rulebase, "producer2");
+		service.consult(producer2, functional_rulebase, "functional");
 		service.setGlobalConstant(producer2, "$Count", count);
 
 		service.consult(subscriber, subscriber_rulebase, "subscriber1");

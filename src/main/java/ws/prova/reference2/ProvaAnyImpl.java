@@ -1,12 +1,9 @@
 package ws.prova.reference2;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import ws.prova.kernel2.ProvaComputable;
 import ws.prova.kernel2.ProvaConstant;
-import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
@@ -93,6 +90,11 @@ public class ProvaAnyImpl extends ProvaTermImpl implements ProvaConstant, ProvaC
 	@Override
 	public boolean matched(ProvaConstant target) {
 		return true;
+	}
+
+	@Override
+	public boolean updateGround(List<ProvaVariable> variables) {
+		return false;
 	}
 
 }

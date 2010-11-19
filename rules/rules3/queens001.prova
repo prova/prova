@@ -1,8 +1,8 @@
-not([A|X]) :-
-	derive([A|X]),
+not(A) :-
+	derive(A),
 	!,
 	fail(). 
-not([A|X]). 
+not(_). 
 
 %Try
 :- solve(queens(8,P)).

@@ -162,4 +162,9 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 		return this;
 	}
 
+	@Override
+	public boolean updateGround(List<ProvaVariable> variables) {
+		return variables.get(index).getRecursivelyAssigned().updateGround(variables);
+	}
+
 }

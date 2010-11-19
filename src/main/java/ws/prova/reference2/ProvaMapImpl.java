@@ -41,6 +41,16 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 	}
 
 	@Override
+	public boolean updateGround(List<ProvaVariable> variables) {
+		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+		for( Entry<String,ProvaObject> e : map.entrySet() ) {
+			if( !e.getValue().updateGround(variables) )
+				return false;
+		}
+		return true;
+	}
+
+	@Override
 	public boolean unify(ProvaObject target, ProvaUnification unification) {
 		if( target==null )
 			return false;

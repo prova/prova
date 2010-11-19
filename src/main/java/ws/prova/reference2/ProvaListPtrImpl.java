@@ -137,4 +137,9 @@ public class ProvaListPtrImpl implements ProvaListPtr {
 		return this;
 	}
 
+	@Override
+	public boolean updateGround(List<ProvaVariable> variables) {
+		return assigned.updateGround(variables);
+	}
+
 }

@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 
 import ws.prova.kernel2.ProvaComputable;
 import ws.prova.kernel2.ProvaConstant;
-import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
@@ -144,6 +143,11 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 
 	public static ProvaObject wrap(Object o) {
 		return (o instanceof ProvaConstant) ? (ProvaConstant) o : create(o);
+	}
+
+	@Override
+	public boolean updateGround(List<ProvaVariable> variables) {
+		return true;
 	}
 
 }

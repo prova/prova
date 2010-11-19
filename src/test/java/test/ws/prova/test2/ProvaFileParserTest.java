@@ -140,7 +140,7 @@ public class ProvaFileParserTest {
 		try {
 			List<ProvaRule> rules = parser.parse(kb, resultSet, "rules/reloaded/queens001.prova");
 			// Run each goal
-			int[] numSolutions = new int[] {92};
+			int[] numSolutions = new int[] {724};
 			int i = 0;
 			for( ProvaRule rule : rules ) {
 				if( rule.getHead()==null ) {

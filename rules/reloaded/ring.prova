@@ -22,7 +22,7 @@ server(N,M) :-
 
 react(I) :-
 	IM=I+1,
-	rcvMult(I,Protocol,From,request,J),
+	rcvMult(I,async,0,request,J),
 	sendMsg(IM,async,0,request,J).
 	
 :-eval(client()).

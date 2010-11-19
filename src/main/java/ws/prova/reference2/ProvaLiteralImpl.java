@@ -354,4 +354,9 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 		this.ground = ground;
 	}
 
+	@Override
+	public boolean updateGround(List<ProvaVariable> variables) {
+		return ground = terms.updateGround(variables);
+	}
+
 }

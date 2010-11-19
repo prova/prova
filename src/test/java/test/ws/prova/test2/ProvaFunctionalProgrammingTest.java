@@ -74,7 +74,7 @@ public class ProvaFunctionalProgrammingTest {
 			}
 			long diff0 = System.currentTimeMillis()-startTime;
 			System.out.println("All messages sent in "+diff0+" ms");
-			doneSignal.await(15, TimeUnit.SECONDS);
+			doneSignal.await(1500, TimeUnit.SECONDS);
 			long diff = System.currentTimeMillis()-startTime;
 			System.out.println(count.get()+" patterns detected in "+diff+" ms");
 			// All expectedPatterns events must be detected

@@ -162,6 +162,7 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 			
             ProvaDerivationNode newNode = null;
             ProvaUnification unification = null;
+            goal.updateGround();
     		while( (unification = goal.nextUnification(kb))!=null ) {
     			boolean result = unification.unify();
     			if( !result )

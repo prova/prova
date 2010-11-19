@@ -16,6 +16,7 @@ import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
+import ws.prova.reference2.builtins.ProvaFailImpl;
 
 public class ProvaUnificationImpl implements ProvaUnification {
 
@@ -200,6 +201,8 @@ public class ProvaUnificationImpl implements ProvaUnification {
 	}
 
 	private ProvaLiteral[] rebuildNewGoals(ProvaDerivationNode node) {
+		if( target.getBody()==null || target.getBody().length==0 )
+			return new ProvaLiteral[0];
 		boolean allGround = true;
 		for( ProvaVariable var : targetVariables ) {
 			if( !var.getRecursivelyAssigned().isGround() ) {
@@ -319,8 +322,14 @@ public class ProvaUnificationImpl implements ProvaUnification {
 			return kb.generateGoal(this, node, target.getBody(), query.getBody(), query.getOffset(), targetVariables);
 		}
 		ProvaLiteral[] newGoals = rebuildNewGoals(node);
-		ProvaLiteral[] oldGoals = rebuildOldGoals(query.getBody(), query.getOffset());
-		ProvaRule newQuery = kb.generateRule(null, newGoals, oldGoals, query.getOffset());
+		ProvaLiteral[] oldGoals = null;
+		ProvaRule newQuery = null;
+		if( newGoals.length!=0 && newGoals[newGoals.length-1].getPredicate() instanceof ProvaFailImpl ) {
+			newQuery = new ProvaRuleImpl(0, null, newGoals);
+		} else {
+			oldGoals = rebuildOldGoals(query.getBody(), query.getOffset());
+			newQuery = kb.generateRule(null, newGoals, oldGoals, query.getOffset());
+		}
 		return rebuild(newQuery);
 	}
 

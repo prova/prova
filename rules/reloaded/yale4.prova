@@ -60,8 +60,8 @@ time(t3).
 time(t4).
 
 
-not([X|Args]) :-
-	derive([X|Args]),
+not(A) :-
+	derive(A),
 	!,
 	fail().
-not([X|Args]).
+not(_).

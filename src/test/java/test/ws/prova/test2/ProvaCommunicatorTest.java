@@ -284,7 +284,8 @@ public class ProvaCommunicatorTest {
 		
 		comm.setPrintWriter(ProvaNullWriter.getPrintWriter());
 
-		String src = "rules/reloaded/kk_rules001_goals.prova";
+		// This path is relative to the rulebase used in the ProvaCommunicatorImpl constructor
+		String src = "kk_rules001_goals.prova";
 
 		final int[] numSolutions = new int[] {2,0};
 		int i = 0;

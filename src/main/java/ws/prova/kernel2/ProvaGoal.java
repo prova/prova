@@ -41,4 +41,6 @@ public interface ProvaGoal {
 
 	public void update();
 
+	public void updateGround();
+
 }

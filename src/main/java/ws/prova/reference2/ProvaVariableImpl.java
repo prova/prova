@@ -288,4 +288,11 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 		return this;
 	}
 
+	@Override
+	public boolean updateGround(List<ProvaVariable> variables) {
+		if( assigned!=null )
+			return assigned.updateGround(variables);
+		return false;
+	}
+
 }
