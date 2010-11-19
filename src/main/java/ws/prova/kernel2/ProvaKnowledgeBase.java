@@ -87,6 +87,8 @@ public interface ProvaKnowledgeBase {
 	public ProvaRule generateGoal(ProvaUnification unification, ProvaDerivationNode node, ProvaLiteral[] newGoals,
 			ProvaLiteral[] body, int offset, List<ProvaVariable> variables);
 
+	public void updateContext(String filename);
+
 //	public ProvaRule generateLocalRule(ProvaReagent prova, long partitionKey,
 //			ProvaLiteral head, ProvaLiteral[] array);
 

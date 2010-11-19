@@ -268,6 +268,12 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	}
 
 	@Override
+	public void updateContext( String src ) {
+		if( context==null )
+			context = src.substring(0,src.lastIndexOf('/')+1);
+	}
+	
+	@Override
 	public List<ProvaSolution[]> consultSyncInternal(ProvaReagent prova, String src, String key, Object[] objects) {
 		if( context==null ) {
 			context = src.substring(0,src.lastIndexOf('/')+1);

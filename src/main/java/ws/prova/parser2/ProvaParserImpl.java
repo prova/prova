@@ -185,6 +185,7 @@ public class ProvaParserImpl {
 				FileReader fr = new FileReader(file);
 				in = new BufferedReader(fr);
 			}
+			kb.updateContext(filename);
 			List<ProvaRule> results = parse(kb,resultSet,in);
 			return results;
 		} finally {
