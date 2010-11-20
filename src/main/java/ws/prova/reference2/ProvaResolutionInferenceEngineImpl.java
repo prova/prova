@@ -20,6 +20,7 @@ import ws.prova.kernel2.ProvaResolutionInferenceEngine;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariablePtr;
+import ws.prova.reference2.builtins.ProvaFailImpl;
 import ws.prova.reference2.messaging.ProvaDelayedCommand;
 import ws.prova.reference2.messaging.ProvaMessengerImpl;
 
@@ -94,8 +95,7 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 			
 			ProvaLiteral goalLiteral = goal.getGoal();
 			ProvaPredicate predicate = goalLiteral.getPredicate();
-			final String symbol = predicate.getSymbol();
-			if( "fail".equals(symbol) ) {
+			if( predicate instanceof ProvaFailImpl ) {
 				if( node.getParent()==null ) {
 					node.setFailed(true);
 					return node; // fail
@@ -105,6 +105,7 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 				continue;
 			}
 
+			final String symbol = predicate.getSymbol();
 			if( symbol.equals("metadata") ) {
 				goal.updateMetadataGoal();
 				goalLiteral = goal.getGoal();
@@ -114,7 +115,7 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 			if( predicate instanceof ProvaBuiltin ) {
 				ProvaBuiltin builtin = (ProvaBuiltin) predicate;
 				List<ProvaLiteral> newLiterals = new ArrayList<ProvaLiteral>();
-				boolean result = builtin.process_(prova,node,goal,newLiterals, query);
+				boolean result = builtin.process_(prova,node,goal,newLiterals,query);
 				if( !result ) {
 					node = node.getParent();
 				} else {

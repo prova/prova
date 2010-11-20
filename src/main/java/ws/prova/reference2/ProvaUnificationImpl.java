@@ -241,6 +241,9 @@ public class ProvaUnificationImpl implements ProvaUnification {
 	}
 
 	private ProvaLiteral[] rebuildOldGoals(ProvaLiteral[] body, int offset) {
+		if( body[offset].isGround() ) {
+			return body;
+		}
 		ProvaLiteral[] goals = new ProvaLiteralImpl[body.length];
 		// Index offset contains the current goal that does not need to be rebuilt
 		for( int i=1+offset; i<body.length; i++ ) {
@@ -316,19 +319,27 @@ public class ProvaUnificationImpl implements ProvaUnification {
 	}
 
 	@Override
-	// TODO: This all needs refactoring
 	public ProvaRule generateQuery(String symbol, ProvaKnowledgeBase kb, ProvaRule query, ProvaDerivationNode node) {
-		if( /*"rcvMsg".equals(symbol) &&*/ sourceVariables.isEmpty() ) {
+		if( sourceVariables.isEmpty() ) {
 			return kb.generateGoal(this, node, target.getBody(), query.getBody(), query.getOffset(), targetVariables);
 		}
 		ProvaLiteral[] newGoals = rebuildNewGoals(node);
 		ProvaLiteral[] oldGoals = null;
 		ProvaRule newQuery = null;
 		if( newGoals.length!=0 && newGoals[newGoals.length-1].getPredicate() instanceof ProvaFailImpl ) {
+			// fail() predicate in the target body cuts the goal trail
 			newQuery = new ProvaRuleImpl(0, null, newGoals);
 		} else {
 			oldGoals = rebuildOldGoals(query.getBody(), query.getOffset());
 			newQuery = kb.generateRule(null, newGoals, oldGoals, query.getOffset());
+			if( oldGoals==query.getBody() ) {
+				// Goal was ground
+				if( newQuery.getVariables().isEmpty() ) {
+					// Target body is fully ground
+					newQuery.setVariables(sourceVariables);
+					return newQuery;
+				}
+			}
 		}
 		return rebuild(newQuery);
 	}

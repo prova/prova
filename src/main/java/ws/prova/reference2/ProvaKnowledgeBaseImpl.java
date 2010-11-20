@@ -626,7 +626,27 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 			ProvaLiteral[] body, int offset, List<ProvaVariable> variables) {
 		int bodyLength = body==null ? 0 : body.length;
 		int newGoalsLength = newGoals==null ? 0 : newGoals.length;
-		ProvaLiteral[] combinedBody = new ProvaLiteral[newGoalsLength+bodyLength-1-offset];
+		if( newGoalsLength!=0 && newGoals[newGoals.length-1].getPredicate() instanceof ProvaFailImpl ) {
+			// fail() predicate in the target body cuts the goal trail
+			ProvaLiteral[] combinedBody = new ProvaLiteral[newGoalsLength];
+			List<Boolean> isConstant = new ArrayList<Boolean>(1);
+			isConstant.add(true);
+			int i=0;
+			for( ; i<newGoalsLength; i++ ) {
+				if( "cut".equals(newGoals[i].getPredicate().getSymbol()) ) {
+					ProvaVariablePtr any = (ProvaVariablePtr) newGoals[i].getTerms().getFixed()[0];
+					variables.get(any.getIndex()).setAssigned(ProvaConstantImpl.create(node));
+				}
+				isConstant.set(0,true);
+				combinedBody[i] = (ProvaLiteral) newGoals[i].cloneWithBoundVariables(unification, variables, isConstant);
+				if( isConstant.get(0) )
+					combinedBody[i].setGround(true);
+			}
+			return new ProvaRuleImpl(0, null, combinedBody, variables);
+		}
+
+		final int length = newGoalsLength+bodyLength-1-offset;
+		ProvaLiteral[] combinedBody = new ProvaLiteral[length];
 		List<Boolean> isConstant = new ArrayList<Boolean>(1);
 		isConstant.add(true);
 		int i=0;

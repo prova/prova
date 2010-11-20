@@ -42,12 +42,13 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 
 	@Override
 	public boolean updateGround(List<ProvaVariable> variables) {
+		boolean rc = true;
 		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
 		for( Entry<String,ProvaObject> e : map.entrySet() ) {
 			if( !e.getValue().updateGround(variables) )
-				return false;
+				rc = false;
 		}
-		return true;
+		return rc;
 	}
 
 	@Override
