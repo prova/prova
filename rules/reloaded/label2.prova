@@ -1,0 +1,19 @@
+:-eval(consult('label2_include.prova')).
+
+:-solve(test1(X1,Src1)).
+
+% The q facts will be found both here and in the included module
+test1(X,Src) :-
+	% Src will report what module the fact q comes from
+	@src(Src)
+	q(X).
+	
+q(1).
+q(3).
+
+:-solve(test2(X2)).
+
+% The q facts only come from the specified module
+test2(X) :-
+	@src('label2_include.prova')
+	q(X).

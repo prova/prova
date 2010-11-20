@@ -45,7 +45,7 @@ public class ProvaConsultImpl extends ProvaBuiltinImpl {
 		List<ProvaSolution[]> resultSets = null;
 		try {
 			if( rules instanceof String ) {
-				resultSets = kb.consultSyncInternal(prova, (String) rules,"-1",null);
+				resultSets = kb.consultSyncInternal(prova,(String) rules,(String) rules,null);
 			} else if( rules instanceof BufferedReader ) {
 				resultSets = kb.consultSyncInternal(prova, (BufferedReader) rules,"-1",null);
 			} else if( rules instanceof StringBuffer ) {

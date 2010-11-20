@@ -48,7 +48,7 @@ public class ProvaBuiltins1Test {
 		org.junit.Assert.assertTrue(ans2 instanceof Map<?,?>);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void map3() {
 		final String rulebase = "rules/reloaded/map3.prova";

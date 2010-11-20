@@ -1,6 +1,7 @@
 package ws.prova.reference2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -445,6 +446,9 @@ public class ProvaRuleImpl implements ProvaRule {
 
 	@Override
 	public void setLine(int line) {
+		if( metadata==null )
+			metadata = new HashMap<String,List<Object>>();
+		metadata.put("line",Collections.<Object>singletonList(Integer.toString(line)));
 		this.line = line;
 	}
 

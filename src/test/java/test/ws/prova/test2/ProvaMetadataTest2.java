@@ -574,6 +574,22 @@ public class ProvaMetadataTest2 {
 	}
 
 	@Test
+	/**
+	 * Beginning with version 3.1.0. Demonstrate the use of @src annotation
+	 */
+	public void labels2() {
+		final String rulebase = "rules/reloaded/label2.prova";
+		
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		final int numSolutions[] = {0,3,1};
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",numSolutions[i],solutions.get(i).length);
+	}
+
+	@Test
 	public void guards() {
 		final String rulebase = "rules/reloaded/guard.prova";
 		
