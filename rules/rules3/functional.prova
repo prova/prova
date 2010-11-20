@@ -174,7 +174,7 @@ wrap [A|As] : [A|As] = !.
 wrap A : [A].
 
 % unfoldr step: consuming from no stream
-next list([]) : [] list([]) = !.
+next [list([])] : [] list([]) = !.
 
 next [list(A|As)]: A [list|As] = !.
 next [list(A|As),list(B|Bs)] : [A,B] [[list|As],[list|Bs]] = !.
