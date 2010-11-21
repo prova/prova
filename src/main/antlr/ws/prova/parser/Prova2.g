@@ -203,7 +203,7 @@ binary_operation
 		| binary_operator expr )
 	;
 
-expr	: aterm ((PLUS | MINUS) expr)?;
+expr	: aterm ((PLUS | MINUS) aterm)*;
 	
 aterm	: (MINUS? variable | number | MINUS? predicate_java_call | OPEN expr CLOSE) (( MULT | DIV | REM ) aterm)?;
 

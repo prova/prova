@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g 2010-10-30 02:25:12
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g 2010-11-21 13:24:57
 
        package ws.prova.parser;
 
@@ -94,15 +94,15 @@ public class Prova2Lexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g"; }
+    public String getGrammarFileName() { return "D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g"; }
 
     // $ANTLR start "DOT"
     public final void mDOT() throws RecognitionException {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:7:5: ( '.' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:7:7: '.'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:7:5: ( '.' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:7:7: '.'
             {
             match('.'); 
 
@@ -121,8 +121,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:8:6: ( '+' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:8:8: '+'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:8:6: ( '+' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:8:8: '+'
             {
             match('+'); 
 
@@ -141,8 +141,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:9:7: ( '-' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:9:9: '-'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:9:7: ( '-' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:9:9: '-'
             {
             match('-'); 
 
@@ -161,8 +161,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = MULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:10:6: ( '*' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:10:8: '*'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:10:6: ( '*' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:10:8: '*'
             {
             match('*'); 
 
@@ -181,8 +181,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:11:5: ( '/' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:11:7: '/'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:11:5: ( '/' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:11:7: '/'
             {
             match('/'); 
 
@@ -201,8 +201,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:12:7: ( ',' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:12:9: ','
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:12:7: ( ',' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:12:9: ','
             {
             match(','); 
 
@@ -221,8 +221,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:13:4: ( ':-' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:13:6: ':-'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:13:4: ( ':-' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:13:6: ':-'
             {
             match(":-"); 
 
@@ -242,8 +242,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = CUT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:14:5: ( '!' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:14:7: '!'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:14:5: ( '!' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:14:7: '!'
             {
             match('!'); 
 
@@ -262,8 +262,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = OPEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:15:6: ( '(' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:15:8: '('
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:15:6: ( '(' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:15:8: '('
             {
             match('('); 
 
@@ -282,8 +282,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = CLOSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:16:7: ( ')' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:16:9: ')'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:16:7: ( ')' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:16:9: ')'
             {
             match(')'); 
 
@@ -302,8 +302,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = BAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:17:5: ( '|' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:17:7: '|'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:17:5: ( '|' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:17:7: '|'
             {
             match('|'); 
 
@@ -322,8 +322,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = BRA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:18:5: ( '[' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:18:7: '['
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:18:5: ( '[' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:18:7: '['
             {
             match('['); 
 
@@ -342,8 +342,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = KET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:19:5: ( ']' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:19:7: ']'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:19:5: ( ']' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:19:7: ']'
             {
             match(']'); 
 
@@ -362,8 +362,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = EQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:20:7: ( '=' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:20:9: '='
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:20:7: ( '=' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:20:9: '='
             {
             match('='); 
 
@@ -382,8 +382,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = NOT_EQUAL1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:21:12: ( '<>' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:21:14: '<>'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:21:12: ( '<>' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:21:14: '<>'
             {
             match("<>"); 
 
@@ -403,8 +403,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = NOT_EQUAL2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:22:12: ( '!=' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:22:14: '!='
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:22:12: ( '!=' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:22:14: '!='
             {
             match("!="); 
 
@@ -424,8 +424,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:23:4: ( '<' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:23:6: '<'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:23:4: ( '<' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:23:6: '<'
             {
             match('<'); 
 
@@ -444,8 +444,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:24:4: ( '>' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:24:6: '>'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:24:4: ( '>' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:24:6: '>'
             {
             match('>'); 
 
@@ -464,8 +464,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = LE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:25:4: ( '<=' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:25:6: '<='
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:25:4: ( '<=' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:25:6: '<='
             {
             match("<="); 
 
@@ -485,8 +485,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = GE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:26:4: ( '>=' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:26:6: '>='
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:26:4: ( '>=' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:26:6: '>='
             {
             match(">="); 
 
@@ -506,8 +506,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = REM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:27:5: ( 'mod' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:27:7: 'mod'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:27:5: ( 'mod' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:27:7: 'mod'
             {
             match("mod"); 
 
@@ -527,8 +527,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = T__71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:28:7: ( ':' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:28:9: ':'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:28:7: ( ':' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:28:9: ':'
             {
             match(':'); 
 
@@ -547,8 +547,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = T__72;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:29:7: ( '@' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:29:9: '@'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:29:7: ( '@' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:29:9: '@'
             {
             match('@'); 
 
@@ -567,8 +567,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = T__73;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:30:7: ( '{' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:30:9: '{'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:30:7: ( '{' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:30:9: '{'
             {
             match('{'); 
 
@@ -587,8 +587,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = T__74;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:31:7: ( '}' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:31:9: '}'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:31:7: ( '}' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:31:9: '}'
             {
             match('}'); 
 
@@ -607,8 +607,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = T__75;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:32:7: ( '->' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:32:9: '->'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:32:7: ( '->' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:32:9: '->'
             {
             match("->"); 
 
@@ -628,11 +628,11 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = EXPONENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:2: ( 'e' ( '-' )? ( DIGIT )+ )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:4: 'e' ( '-' )? ( DIGIT )+
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:2: ( 'e' ( '-' )? ( DIGIT )+ )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:4: 'e' ( '-' )? ( DIGIT )+
             {
             match('e'); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:8: ( '-' )?
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:8: ( '-' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -641,7 +641,7 @@ public class Prova2Lexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:8: '-'
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:8: '-'
                     {
                     match('-'); 
 
@@ -650,7 +650,7 @@ public class Prova2Lexer extends Lexer {
 
             }
 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:13: ( DIGIT )+
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:13: ( DIGIT )+
             int cnt2=0;
             loop2:
             do {
@@ -664,7 +664,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:13: DIGIT
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:283:13: DIGIT
             	    {
             	    mDIGIT(); 
 
@@ -696,10 +696,10 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = LONG_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:285:14: ( ( DIGIT )+ 'L' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:285:16: ( DIGIT )+ 'L'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:285:14: ( ( DIGIT )+ 'L' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:285:16: ( DIGIT )+ 'L'
             {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:285:16: ( DIGIT )+
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:285:16: ( DIGIT )+
             int cnt3=0;
             loop3:
             do {
@@ -713,7 +713,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:285:16: DIGIT
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:285:16: DIGIT
             	    {
             	    mDIGIT(); 
 
@@ -746,10 +746,10 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = INT_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:287:12: ( ( DIGIT )+ )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:288:5: ( DIGIT )+
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:287:12: ( ( DIGIT )+ )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:288:5: ( DIGIT )+
             {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:288:5: ( DIGIT )+
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:288:5: ( DIGIT )+
             int cnt4=0;
             loop4:
             do {
@@ -763,7 +763,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:288:5: DIGIT
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:288:5: DIGIT
             	    {
             	    mDIGIT(); 
 
@@ -795,10 +795,10 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = NEWLINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:9: ( ( '%' (~ ( '\\r' | '\\n' ) )* )? ( ( '\\r' )? '\\n' )? )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:11: ( '%' (~ ( '\\r' | '\\n' ) )* )? ( ( '\\r' )? '\\n' )?
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:9: ( ( '%' (~ ( '\\r' | '\\n' ) )* )? ( ( '\\r' )? '\\n' )? )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:11: ( '%' (~ ( '\\r' | '\\n' ) )* )? ( ( '\\r' )? '\\n' )?
             {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:11: ( '%' (~ ( '\\r' | '\\n' ) )* )?
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:11: ( '%' (~ ( '\\r' | '\\n' ) )* )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -807,10 +807,10 @@ public class Prova2Lexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:12: '%' (~ ( '\\r' | '\\n' ) )*
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:12: '%' (~ ( '\\r' | '\\n' ) )*
                     {
                     match('%'); 
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:16: (~ ( '\\r' | '\\n' ) )*
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:16: (~ ( '\\r' | '\\n' ) )*
                     loop5:
                     do {
                         int alt5=2;
@@ -823,7 +823,7 @@ public class Prova2Lexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:17: ~ ( '\\r' | '\\n' )
+                    	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:17: ~ ( '\\r' | '\\n' )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -849,7 +849,7 @@ public class Prova2Lexer extends Lexer {
 
             }
 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:35: ( ( '\\r' )? '\\n' )?
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:35: ( ( '\\r' )? '\\n' )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -858,9 +858,9 @@ public class Prova2Lexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:36: ( '\\r' )? '\\n'
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:36: ( '\\r' )? '\\n'
                     {
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:36: ( '\\r' )?
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:36: ( '\\r' )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -869,7 +869,7 @@ public class Prova2Lexer extends Lexer {
                     }
                     switch (alt7) {
                         case 1 :
-                            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:36: '\\r'
+                            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:291:36: '\\r'
                             {
                             match('\r'); 
 
@@ -899,8 +899,8 @@ public class Prova2Lexer extends Lexer {
     // $ANTLR start "LC"
     public final void mLC() throws RecognitionException {
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:293:14: ( 'a' .. 'z' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:293:16: 'a' .. 'z'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:293:14: ( 'a' .. 'z' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:293:16: 'a' .. 'z'
             {
             matchRange('a','z'); 
 
@@ -915,8 +915,8 @@ public class Prova2Lexer extends Lexer {
     // $ANTLR start "UC"
     public final void mUC() throws RecognitionException {
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:295:14: ( 'A' .. 'Z' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:295:16: 'A' .. 'Z'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:295:14: ( 'A' .. 'Z' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:295:16: 'A' .. 'Z'
             {
             matchRange('A','Z'); 
 
@@ -933,8 +933,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = LCWORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:297:9: ( LC WORD )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:297:11: LC WORD
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:297:9: ( LC WORD )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:297:11: LC WORD
             {
             mLC(); 
             mWORD(); 
@@ -954,8 +954,8 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = DOLLARWORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:300:2: ( DOLLAR WORD )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:300:4: DOLLAR WORD
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:300:2: ( DOLLAR WORD )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:300:4: DOLLAR WORD
             {
             mDOLLAR(); 
             mWORD(); 
@@ -973,10 +973,10 @@ public class Prova2Lexer extends Lexer {
     // $ANTLR start "WORD"
     public final void mWORD() throws RecognitionException {
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:303:2: ( ( LC | UC | UNDERSCORE | DIGIT )* )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:303:4: ( LC | UC | UNDERSCORE | DIGIT )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:303:2: ( ( LC | UC | UNDERSCORE | DIGIT )* )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:303:4: ( LC | UC | UNDERSCORE | DIGIT )*
             {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:303:4: ( LC | UC | UNDERSCORE | DIGIT )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:303:4: ( LC | UC | UNDERSCORE | DIGIT )*
             loop9:
             do {
                 int alt9=2;
@@ -989,7 +989,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -1021,8 +1021,8 @@ public class Prova2Lexer extends Lexer {
     // $ANTLR start "UNDERSCORE"
     public final void mUNDERSCORE() throws RecognitionException {
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:306:2: ( '_' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:306:4: '_'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:306:2: ( '_' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:306:4: '_'
             {
             match('_'); 
 
@@ -1037,8 +1037,8 @@ public class Prova2Lexer extends Lexer {
     // $ANTLR start "DOLLAR"
     public final void mDOLLAR() throws RecognitionException {
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:310:2: ( '$' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:310:4: '$'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:310:2: ( '$' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:310:4: '$'
             {
             match('$'); 
 
@@ -1055,11 +1055,11 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = UCWORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:313:9: ( UC ( LC | UC | UNDERSCORE | ':' | DIGIT )* )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:313:11: UC ( LC | UC | UNDERSCORE | ':' | DIGIT )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:313:9: ( UC ( LC | UC | UNDERSCORE | ':' | DIGIT )* )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:313:11: UC ( LC | UC | UNDERSCORE | ':' | DIGIT )*
             {
             mUC(); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:313:14: ( LC | UC | UNDERSCORE | ':' | DIGIT )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:313:14: ( LC | UC | UNDERSCORE | ':' | DIGIT )*
             loop10:
             do {
                 int alt10=2;
@@ -1072,7 +1072,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<=':')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -1108,11 +1108,11 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = USWORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:315:9: ( UNDERSCORE ( LC | UC | UNDERSCORE | DIGIT )* )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:315:11: UNDERSCORE ( LC | UC | UNDERSCORE | DIGIT )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:315:9: ( UNDERSCORE ( LC | UC | UNDERSCORE | DIGIT )* )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:315:11: UNDERSCORE ( LC | UC | UNDERSCORE | DIGIT )*
             {
             mUNDERSCORE(); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:315:22: ( LC | UC | UNDERSCORE | DIGIT )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:315:22: ( LC | UC | UNDERSCORE | DIGIT )*
             loop11:
             do {
                 int alt11=2;
@@ -1125,7 +1125,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -1161,12 +1161,12 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:318:4: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:318:8: '/*' ( options {greedy=false; } : . )* '*/'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:318:4: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:318:8: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:318:13: ( options {greedy=false; } : . )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:318:13: ( options {greedy=false; } : . )*
             loop12:
             do {
                 int alt12=2;
@@ -1191,7 +1191,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:318:40: .
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:318:40: .
             	    {
             	    matchAny(); 
 
@@ -1222,10 +1222,10 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:321:4: ( ( '\\t' | ' ' | '\\u000C' )+ )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:321:6: ( '\\t' | ' ' | '\\u000C' )+
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:321:4: ( ( '\\t' | ' ' | '\\u000C' )+ )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:321:6: ( '\\t' | ' ' | '\\u000C' )+
             {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:321:6: ( '\\t' | ' ' | '\\u000C' )+
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:321:6: ( '\\t' | ' ' | '\\u000C' )+
             int cnt13=0;
             loop13:
             do {
@@ -1239,7 +1239,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:
             	    {
             	    if ( input.LA(1)=='\t'||input.LA(1)=='\f'||input.LA(1)==' ' ) {
             	        input.consume();
@@ -1278,8 +1278,8 @@ public class Prova2Lexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:323:16: ( '0' .. '9' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:323:18: '0' .. '9'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:323:16: ( '0' .. '9' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:323:18: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -1296,11 +1296,11 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = STRING1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:9: ( '\\'' ( CLEAN_STRING )* ( STRING2 ( CLEAN_STRING )* )* '\\'' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:11: '\\'' ( CLEAN_STRING )* ( STRING2 ( CLEAN_STRING )* )* '\\''
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:9: ( '\\'' ( CLEAN_STRING )* ( STRING2 ( CLEAN_STRING )* )* '\\'' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:11: '\\'' ( CLEAN_STRING )* ( STRING2 ( CLEAN_STRING )* )* '\\''
             {
             match('\''); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:16: ( CLEAN_STRING )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:16: ( CLEAN_STRING )*
             loop14:
             do {
                 int alt14=2;
@@ -1313,7 +1313,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:16: CLEAN_STRING
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:16: CLEAN_STRING
             	    {
             	    mCLEAN_STRING(); 
 
@@ -1325,7 +1325,7 @@ public class Prova2Lexer extends Lexer {
                 }
             } while (true);
 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:30: ( STRING2 ( CLEAN_STRING )* )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:30: ( STRING2 ( CLEAN_STRING )* )*
             loop16:
             do {
                 int alt16=2;
@@ -1338,10 +1338,10 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:31: STRING2 ( CLEAN_STRING )*
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:31: STRING2 ( CLEAN_STRING )*
             	    {
             	    mSTRING2(); 
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:39: ( CLEAN_STRING )*
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:39: ( CLEAN_STRING )*
             	    loop15:
             	    do {
             	        int alt15=2;
@@ -1354,7 +1354,7 @@ public class Prova2Lexer extends Lexer {
 
             	        switch (alt15) {
             	    	case 1 :
-            	    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:39: CLEAN_STRING
+            	    	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:325:39: CLEAN_STRING
             	    	    {
             	    	    mCLEAN_STRING(); 
 
@@ -1392,11 +1392,11 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = STRING2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:9: ( '\"' ( CLEAN_STRING )* ( STRING1 ( CLEAN_STRING )* )* '\"' )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:11: '\"' ( CLEAN_STRING )* ( STRING1 ( CLEAN_STRING )* )* '\"'
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:9: ( '\"' ( CLEAN_STRING )* ( STRING1 ( CLEAN_STRING )* )* '\"' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:11: '\"' ( CLEAN_STRING )* ( STRING1 ( CLEAN_STRING )* )* '\"'
             {
             match('\"'); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:15: ( CLEAN_STRING )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:15: ( CLEAN_STRING )*
             loop17:
             do {
                 int alt17=2;
@@ -1409,7 +1409,7 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt17) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:15: CLEAN_STRING
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:15: CLEAN_STRING
             	    {
             	    mCLEAN_STRING(); 
 
@@ -1421,7 +1421,7 @@ public class Prova2Lexer extends Lexer {
                 }
             } while (true);
 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:29: ( STRING1 ( CLEAN_STRING )* )*
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:29: ( STRING1 ( CLEAN_STRING )* )*
             loop19:
             do {
                 int alt19=2;
@@ -1434,10 +1434,10 @@ public class Prova2Lexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:30: STRING1 ( CLEAN_STRING )*
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:30: STRING1 ( CLEAN_STRING )*
             	    {
             	    mSTRING1(); 
-            	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:38: ( CLEAN_STRING )*
+            	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:38: ( CLEAN_STRING )*
             	    loop18:
             	    do {
             	        int alt18=2;
@@ -1450,7 +1450,7 @@ public class Prova2Lexer extends Lexer {
 
             	        switch (alt18) {
             	    	case 1 :
-            	    	    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:38: CLEAN_STRING
+            	    	    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:327:38: CLEAN_STRING
             	    	    {
             	    	    mCLEAN_STRING(); 
 
@@ -1488,7 +1488,7 @@ public class Prova2Lexer extends Lexer {
         try {
             int _type = CLEAN_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:330:2: (~ ( '\\'' | '\\\"' ) | CHAR_ESC )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:330:2: (~ ( '\\'' | '\\\"' ) | CHAR_ESC )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -1512,7 +1512,7 @@ public class Prova2Lexer extends Lexer {
             }
             switch (alt20) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:330:4: ~ ( '\\'' | '\\\"' )
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:330:4: ~ ( '\\'' | '\\\"' )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -1527,7 +1527,7 @@ public class Prova2Lexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:330:19: CHAR_ESC
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:330:19: CHAR_ESC
                     {
                     mCHAR_ESC(); 
 
@@ -1548,11 +1548,11 @@ public class Prova2Lexer extends Lexer {
         Character ret = null;
 
         try {
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:332:42: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\\\"' | '\\'' | '\\\\' ) )
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:333:5: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\\\"' | '\\'' | '\\\\' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:332:42: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\\\"' | '\\'' | '\\\\' ) )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:333:5: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\\\"' | '\\'' | '\\\\' )
             {
             match('\\'); 
-            // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:334:5: ( 'n' | 'r' | 't' | 'b' | 'f' | '\\\"' | '\\'' | '\\\\' )
+            // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:334:5: ( 'n' | 'r' | 't' | 'b' | 'f' | '\\\"' | '\\'' | '\\\\' )
             int alt21=8;
             switch ( input.LA(1) ) {
             case 'n':
@@ -1604,7 +1604,7 @@ public class Prova2Lexer extends Lexer {
 
             switch (alt21) {
                 case 1 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:334:7: 'n'
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:334:7: 'n'
                     {
                     match('n'); 
                      ret ='\n'; 
@@ -1612,7 +1612,7 @@ public class Prova2Lexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:335:7: 'r'
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:335:7: 'r'
                     {
                     match('r'); 
                      ret ='\r'; 
@@ -1620,7 +1620,7 @@ public class Prova2Lexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:336:7: 't'
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:336:7: 't'
                     {
                     match('t'); 
                      ret ='\t'; 
@@ -1628,7 +1628,7 @@ public class Prova2Lexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:337:7: 'b'
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:337:7: 'b'
                     {
                     match('b'); 
                      ret ='\b'; 
@@ -1636,7 +1636,7 @@ public class Prova2Lexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:338:7: 'f'
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:338:7: 'f'
                     {
                     match('f'); 
                      ret ='\f'; 
@@ -1644,7 +1644,7 @@ public class Prova2Lexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:339:7: '\\\"'
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:339:7: '\\\"'
                     {
                     match('\"'); 
                      ret ='\"'; 
@@ -1652,7 +1652,7 @@ public class Prova2Lexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:340:7: '\\''
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:340:7: '\\''
                     {
                     match('\''); 
                      ret ='\''; 
@@ -1660,7 +1660,7 @@ public class Prova2Lexer extends Lexer {
                     }
                     break;
                 case 8 :
-                    // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:341:7: '\\\\'
+                    // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:341:7: '\\\\'
                     {
                     match('\\'); 
                      ret ='\\'; 
@@ -1680,278 +1680,278 @@ public class Prova2Lexer extends Lexer {
     // $ANTLR end "CHAR_ESC"
 
     public void mTokens() throws RecognitionException {
-        // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:8: ( DOT | PLUS | MINUS | MULT | DIV | COMMA | IF | CUT | OPEN | CLOSE | BAR | BRA | KET | EQUAL | NOT_EQUAL1 | NOT_EQUAL2 | LT | GT | LE | GE | REM | T__71 | T__72 | T__73 | T__74 | T__75 | EXPONENT | LONG_LITERAL | INT_LITERAL | NEWLINE | LCWORD | DOLLARWORD | UCWORD | USWORD | ML_COMMENT | WS | STRING1 | STRING2 | CLEAN_STRING )
+        // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:8: ( DOT | PLUS | MINUS | MULT | DIV | COMMA | IF | CUT | OPEN | CLOSE | BAR | BRA | KET | EQUAL | NOT_EQUAL1 | NOT_EQUAL2 | LT | GT | LE | GE | REM | T__71 | T__72 | T__73 | T__74 | T__75 | EXPONENT | LONG_LITERAL | INT_LITERAL | NEWLINE | LCWORD | DOLLARWORD | UCWORD | USWORD | ML_COMMENT | WS | STRING1 | STRING2 | CLEAN_STRING )
         int alt22=39;
         alt22 = dfa22.predict(input);
         switch (alt22) {
             case 1 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:10: DOT
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:10: DOT
                 {
                 mDOT(); 
 
                 }
                 break;
             case 2 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:14: PLUS
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:14: PLUS
                 {
                 mPLUS(); 
 
                 }
                 break;
             case 3 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:19: MINUS
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:19: MINUS
                 {
                 mMINUS(); 
 
                 }
                 break;
             case 4 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:25: MULT
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:25: MULT
                 {
                 mMULT(); 
 
                 }
                 break;
             case 5 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:30: DIV
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:30: DIV
                 {
                 mDIV(); 
 
                 }
                 break;
             case 6 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:34: COMMA
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:34: COMMA
                 {
                 mCOMMA(); 
 
                 }
                 break;
             case 7 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:40: IF
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:40: IF
                 {
                 mIF(); 
 
                 }
                 break;
             case 8 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:43: CUT
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:43: CUT
                 {
                 mCUT(); 
 
                 }
                 break;
             case 9 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:47: OPEN
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:47: OPEN
                 {
                 mOPEN(); 
 
                 }
                 break;
             case 10 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:52: CLOSE
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:52: CLOSE
                 {
                 mCLOSE(); 
 
                 }
                 break;
             case 11 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:58: BAR
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:58: BAR
                 {
                 mBAR(); 
 
                 }
                 break;
             case 12 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:62: BRA
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:62: BRA
                 {
                 mBRA(); 
 
                 }
                 break;
             case 13 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:66: KET
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:66: KET
                 {
                 mKET(); 
 
                 }
                 break;
             case 14 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:70: EQUAL
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:70: EQUAL
                 {
                 mEQUAL(); 
 
                 }
                 break;
             case 15 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:76: NOT_EQUAL1
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:76: NOT_EQUAL1
                 {
                 mNOT_EQUAL1(); 
 
                 }
                 break;
             case 16 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:87: NOT_EQUAL2
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:87: NOT_EQUAL2
                 {
                 mNOT_EQUAL2(); 
 
                 }
                 break;
             case 17 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:98: LT
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:98: LT
                 {
                 mLT(); 
 
                 }
                 break;
             case 18 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:101: GT
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:101: GT
                 {
                 mGT(); 
 
                 }
                 break;
             case 19 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:104: LE
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:104: LE
                 {
                 mLE(); 
 
                 }
                 break;
             case 20 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:107: GE
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:107: GE
                 {
                 mGE(); 
 
                 }
                 break;
             case 21 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:110: REM
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:110: REM
                 {
                 mREM(); 
 
                 }
                 break;
             case 22 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:114: T__71
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:114: T__71
                 {
                 mT__71(); 
 
                 }
                 break;
             case 23 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:120: T__72
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:120: T__72
                 {
                 mT__72(); 
 
                 }
                 break;
             case 24 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:126: T__73
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:126: T__73
                 {
                 mT__73(); 
 
                 }
                 break;
             case 25 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:132: T__74
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:132: T__74
                 {
                 mT__74(); 
 
                 }
                 break;
             case 26 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:138: T__75
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:138: T__75
                 {
                 mT__75(); 
 
                 }
                 break;
             case 27 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:144: EXPONENT
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:144: EXPONENT
                 {
                 mEXPONENT(); 
 
                 }
                 break;
             case 28 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:153: LONG_LITERAL
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:153: LONG_LITERAL
                 {
                 mLONG_LITERAL(); 
 
                 }
                 break;
             case 29 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:166: INT_LITERAL
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:166: INT_LITERAL
                 {
                 mINT_LITERAL(); 
 
                 }
                 break;
             case 30 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:178: NEWLINE
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:178: NEWLINE
                 {
                 mNEWLINE(); 
 
                 }
                 break;
             case 31 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:186: LCWORD
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:186: LCWORD
                 {
                 mLCWORD(); 
 
                 }
                 break;
             case 32 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:193: DOLLARWORD
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:193: DOLLARWORD
                 {
                 mDOLLARWORD(); 
 
                 }
                 break;
             case 33 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:204: UCWORD
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:204: UCWORD
                 {
                 mUCWORD(); 
 
                 }
                 break;
             case 34 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:211: USWORD
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:211: USWORD
                 {
                 mUSWORD(); 
 
                 }
                 break;
             case 35 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:218: ML_COMMENT
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:218: ML_COMMENT
                 {
                 mML_COMMENT(); 
 
                 }
                 break;
             case 36 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:229: WS
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:229: WS
                 {
                 mWS(); 
 
                 }
                 break;
             case 37 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:232: STRING1
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:232: STRING1
                 {
                 mSTRING1(); 
 
                 }
                 break;
             case 38 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:240: STRING2
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:240: STRING2
                 {
                 mSTRING2(); 
 
                 }
                 break;
             case 39 :
-                // D:\\workspace-sts-2.3.3.M2.3.5.2-logshipper\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:248: CLEAN_STRING
+                // D:\\workspace-sts\\prova-compact\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g:1:248: CLEAN_STRING
                 {
                 mCLEAN_STRING(); 
 

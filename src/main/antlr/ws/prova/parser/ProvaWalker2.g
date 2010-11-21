@@ -344,18 +344,22 @@ scope {
 ;
 
 expr	returns [ProvaObject ret]
+@init {
+	List<String> ops = new ArrayList<String>();
+	List<ProvaObject> other = new ArrayList<ProvaObject>();
+}
 	:
-	a=aterm (op=(PLUS|MINUS) e=expr)?
+	a=aterm (op=(PLUS|MINUS) b=aterm {ops.add(op.toString()); other.add(b);})*
 	{
-		if( $op==null )
-			$ret = a;
-		else {
+		final int len = ops==null ? 0 : ops.size();
+		for( int i=0; i<len; i++ ) {
 			List list = new ArrayList();
-			list.add(ProvaConstantImpl.create(ProvaOperatorFactoryImpl.create(op.getText())));
+			list.add(ProvaConstantImpl.create(ProvaOperatorFactoryImpl.create(ops.get(i))));
 			list.add(a);
-			list.add(e);
-			$ret = ProvaListImpl.create(list);
+			list.add(other.get(i));
+			a = ProvaListImpl.create(list);
 		}
+		$ret = a;
 	};
 	
 aterm	returns [ProvaObject ret]

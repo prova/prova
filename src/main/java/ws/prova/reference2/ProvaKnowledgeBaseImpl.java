@@ -82,6 +82,7 @@ import ws.prova.reference2.builtins.ProvaParseListImpl;
 import ws.prova.reference2.builtins.ProvaParseNvImpl;
 import ws.prova.reference2.builtins.ProvaPredicateJoinExitImpl;
 import ws.prova.reference2.builtins.ProvaPredicateJoinTestImpl;
+import ws.prova.reference2.builtins.ProvaPrintImpl;
 import ws.prova.reference2.builtins.ProvaPrintlnImpl;
 import ws.prova.reference2.builtins.ProvaReadEnumImpl;
 import ws.prova.reference2.builtins.ProvaReceiveMsgImpl;
@@ -136,6 +137,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("solve", new ProvaSolveImpl(this));
 		builtins.put("fail", new ProvaFailImpl(this));
 		builtins.put("println", new ProvaPrintlnImpl(this));
+		builtins.put("print", new ProvaPrintImpl(this));
 		builtins.put("derive", new ProvaDeriveImpl(this));
 		builtins.put("gt", new ProvaGreaterImpl(this));
 		builtins.put("ge", new ProvaGreaterEqualImpl(this));
