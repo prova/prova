@@ -79,7 +79,7 @@ public class ProvaJavaFunctionImpl extends ProvaBuiltinImpl {
 			} catch (IllegalAccessException e) {
 				throw new RuntimeException(e);
 			} catch (InvocationTargetException e) {
-				throw new RuntimeException(e);
+				throw new RuntimeException(e.getCause());
 			}
 		} else {
 			// An instance call
@@ -97,7 +97,7 @@ public class ProvaJavaFunctionImpl extends ProvaBuiltinImpl {
 				} catch (IllegalAccessException e) {
 					throw new RuntimeException(e);
 				} catch (InvocationTargetException e) {
-					throw new RuntimeException(e);
+					throw new RuntimeException(e.getCause());
 				}
 			}
 		}
