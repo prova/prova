@@ -80,7 +80,7 @@ public class ProvaAtImpl extends ProvaBuiltinImpl {
 		if( olist instanceof ProvaVariable ) {
 			if( pos < 0 )
 				return false;
-			// Generate a list given its length
+			// Generate a list given the requested position
 			ProvaObject[] fixed = new ProvaObject[pos+1];
 			for( int i=0; i<pos; i++ ) {
 				fixed[i] = ProvaVariableImpl.create();

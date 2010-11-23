@@ -13,6 +13,8 @@ import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.reference2.ProvaConstantImpl;
+import ws.prova.reference2.ProvaListImpl;
+import ws.prova.reference2.ProvaVariableImpl;
 
 public class ProvaLengthImpl extends ProvaBuiltinImpl {
 
@@ -22,7 +24,7 @@ public class ProvaLengthImpl extends ProvaBuiltinImpl {
 
 	/**
 	 * Find the length of a rest-less list.
-	 * So far, this does not work as a generator of a list given its length.
+	 * If the supplied list is a free variable but the length is given, generate a list of this length.
 	 */
 	@Override
 	public boolean process(ProvaReagent prova, ProvaDerivationNode node,
@@ -34,6 +36,23 @@ public class ProvaLengthImpl extends ProvaBuiltinImpl {
 		if( data.length!=2 )
 			return false;
 		ProvaObject lt = data[0];
+		if( lt instanceof ProvaVariable ) {
+			ProvaObject out = data[1];
+			if( !(out instanceof ProvaConstant) )
+				return false;
+			Object olen = ((ProvaConstant) out).getObject();
+			if( !(olen instanceof Integer) )
+				return false;
+			int len = (Integer) olen;
+			// Generate a list given its length
+			ProvaObject[] fixed = new ProvaObject[len];
+			for( int i=0; i<len; i++ ) {
+				fixed[i] = ProvaVariableImpl.create();
+			}
+			ProvaList newList = ProvaListImpl.create(fixed, null);
+			((ProvaVariable) lt).setAssigned(newList);
+			return true;
+		}
 		if( !(lt instanceof ProvaList) )
 			return false;
 		ProvaList list = (ProvaList) lt;

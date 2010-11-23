@@ -8,6 +8,8 @@
 % L7=[3,t]
 % L8=[<20>,[2,3]|<21>]
 % L10=zz
+% L11=[<22>,<23>,<24>,<25>,<26>,<27>,<28>,<29>,<30>,<31>,<32>]
+% X=4, L12=[3|<33>], Zs=<33>
 
 :- solve(length([1,Double.D,"3"],L1)).
 :- solve(length([1,Double.D,"3"|Xs],L2)).
@@ -19,6 +21,8 @@
 :- solve(test8(L8)).
 :- solve(at([[1,-2,zz|_],-1],L9)).
 :- solve(at([[1,-2,zz],-1],L10)).
+:- solve(length(L11,11)).
+:- solve(reverse([1,[X|L12],bbb],[bbb,[4,3|Zs],1])).
 
 test3(Len) :-
 	List=[1,2,"3"],
