@@ -39,6 +39,7 @@ import ws.prova.parser2.ProvaParsingException;
 import ws.prova.reference2.builtins.ProvaAddGroupResultImpl;
 import ws.prova.reference2.builtins.ProvaAssertAImpl;
 import ws.prova.reference2.builtins.ProvaAssertImpl;
+import ws.prova.reference2.builtins.ProvaAtImpl;
 import ws.prova.reference2.builtins.ProvaAttachImpl;
 import ws.prova.reference2.builtins.ProvaBoundImpl;
 import ws.prova.reference2.builtins.ProvaByteStreamImpl;
@@ -203,6 +204,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("mklist", new ProvaMkListImpl(this));
 		builtins.put("length", new ProvaLengthImpl(this));
 		builtins.put("reverse", new ProvaReverseImpl(this));
+		builtins.put("at", new ProvaAtImpl(this));
 		builtins.put("@update_cache", new ProvaUpdateCacheImpl(this));
 		builtins.put("@temporal_rule_remove", new ProvaTemporalRuleRemoveImpl(this));
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));

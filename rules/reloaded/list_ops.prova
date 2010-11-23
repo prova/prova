@@ -1,10 +1,34 @@
+% New Prova 3.1.0 built-ins: "length", "at", and "reverse"
+%
+% This returns only these solutions (all the other goals fail):
+% D=java.lang.Double.D, L1=3
+% L3=3
+% X=X, L5=[c,X,1]
+% L6=3.14
+% L7=[3,t]
+% L8=[<20>,[2,3]|<21>]
+% L10=zz
+
 :- solve(length([1,Double.D,"3"],L1)).
 :- solve(length([1,Double.D,"3"|Xs],L2)).
 :- solve(test3(L3)).
 :- solve(length(1,L4)).
 :- solve(reverse([1,X,"c"],L5)).
+:- solve(test6(L6)).
+:- solve(test7([2|L7])).
+:- solve(test8(L8)).
+:- solve(at([[1,-2,zz|_],-1],L9)).
+:- solve(at([[1,-2,zz],-1],L10)).
 
 test3(Len) :-
 	List=[1,2,"3"],
 	length List : Len.
 
+test6(Elem) :-
+	at [1,a,3.14|Xs] 2 : Elem.
+
+test7(L) :-
+	at [1,[2,3,t],3.14|Zs] 1 : L.
+
+test8(L) :-
+	at L 1 : [2,3].

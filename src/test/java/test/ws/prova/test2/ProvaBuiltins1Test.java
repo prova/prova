@@ -21,7 +21,7 @@ public class ProvaBuiltins1Test {
 	@Test
 	public void list_ops() {
 		final String rulebase = "rules/reloaded/list_ops.prova";
-		final int[] numSolutions = new int[] {1,0,1,0,1};
+		final int[] numSolutions = new int[] {1,0,1,0,1,1,1,1,0,1};
 		
 		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
