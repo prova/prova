@@ -19,6 +19,21 @@ public class ProvaBuiltins1Test {
 	static final String kPort = null;
 
 	@Test
+	public void list_ops() {
+		final String rulebase = "rules/reloaded/list_ops.prova";
+		final int[] numSolutions = new int[] {1,0,1,0,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertTrue(solutions.get(0)[0].getNv("L1") instanceof ProvaConstant);
+		final Object ans2 = ((ProvaConstant) solutions.get(0)[0].getNv("L1")).getObject();
+		org.junit.Assert.assertTrue(ans2.equals(3));
+	}
+
+	@Test
 	public void map() {
 		final String rulebase = "rules/reloaded/map.prova";
 		final int[] numSolutions = new int[] {3};

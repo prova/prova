@@ -1,0 +1,10 @@
+:- solve(length([1,Double.D,"3"],L1)).
+:- solve(length([1,Double.D,"3"|Xs],L2)).
+:- solve(test3(L3)).
+:- solve(length(1,L4)).
+:- solve(reverse([1,X,"c"],L5)).
+
+test3(Len) :-
+	List=[1,2,"3"],
+	length List : Len.
+
