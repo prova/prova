@@ -267,9 +267,11 @@ map Fun list([]) maybe(nothing()) : list() [] = !.
 @label(experiment)
 map Fun list() M | Ms : list() M | Ms = !.
 @label(experiment)
-map Fun [SS|SSs] M | Ms : list() M | Ms =
-	element(list(),[SS|SSs]),
+map Fun [list()|SSs] M | Ms : list() M | Ms =
 	!.
+%map Fun [SS|SSs] M | Ms : list() M | Ms =
+%	element(list(),[SS|SSs]),
+%	!.
 map_list [Fun|Args] list(A) : list(B) =
 	!,
 	attach(Args,A,C),
