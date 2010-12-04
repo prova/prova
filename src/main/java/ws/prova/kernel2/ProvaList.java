@@ -35,4 +35,6 @@ public interface ProvaList extends ProvaObject {
 
 	public ProvaList copyWithBoundVariables(List<ProvaVariable> variables, List<Boolean> changed);
 
+	public void setGround(boolean ground);
+
 }

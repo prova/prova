@@ -49,8 +49,8 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 	}
 
 	@Override
-	public ProvaLiteral cloneWithBoundVariables(ProvaUnification unification,
-			List<ProvaVariable> variables, List<Boolean> isConstant) {
+	public ProvaLiteral cloneWithBoundVariables(final ProvaUnification unification,
+			final List<ProvaVariable> variables, final List<Boolean> isConstant) {
 		ProvaGuardedLiteralImpl ret = (ProvaGuardedLiteralImpl) cloneWithBoundVariables(variables, isConstant);
 		List<ProvaLiteral> newGuard = new ArrayList<ProvaLiteral>(guard.size());
 		for( ProvaLiteral g : guard )
@@ -62,7 +62,7 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 	}
 
 	@Override
-	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+	public ProvaObject cloneWithBoundVariables(final List<ProvaVariable> variables, final List<Boolean> isConstant) {
 		if( terms==null )
 			return this;
 		ProvaList newTerms = (ProvaList) terms.cloneWithBoundVariables(variables, isConstant);
@@ -76,11 +76,11 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 	}
 
 	@Override
-	public ProvaLiteral rebuild(ProvaUnification unification) {
+	public ProvaLiteral rebuild(final ProvaUnification unification) {
 		if( ground || terms==null )
 			return this;
-		ProvaList newTerms = terms.rebuild(unification);
-		List<ProvaLiteral> newGuard = new ArrayList<ProvaLiteral>(guard.size());
+		final ProvaList newTerms = terms.rebuild(unification);
+		final List<ProvaLiteral> newGuard = new ArrayList<ProvaLiteral>(guard.size());
 		for( ProvaLiteral g : guard )
 			newGuard.add(g.rebuild(unification));
 		final ProvaGuardedLiteralImpl ret = new ProvaGuardedLiteralImpl(predicate, newTerms, newGuard);
@@ -92,7 +92,7 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 	}
 
 	@Override
-	public ProvaLiteral rebuildSource(ProvaUnification unification) {
+	public ProvaLiteral rebuildSource(final ProvaUnification unification) {
 		if( ground )
 			return this;
 		List<ProvaLiteral> newGuard = new ArrayList<ProvaLiteral>(guard.size());
@@ -105,7 +105,7 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables) {
 		if( predicate.getSymbol().equals("cut") ) {
 			ProvaVariable any1 = ProvaVariableImpl.create();
 			ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
@@ -126,7 +126,7 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(long ruleId, List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final long ruleId, final List<ProvaVariable> variables) {
 		if( predicate.getSymbol().equals("cut") ) {
 			ProvaVariable any1 = ProvaVariableImpl.create();
 			ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
@@ -135,7 +135,7 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 		ProvaList newTerms = terms;
 		if( terms!=null )
 			newTerms = (ProvaList) terms.cloneWithVariables(ruleId,variables);
-		List<ProvaLiteral> newGuard = new ArrayList<ProvaLiteral>(guard.size());
+		final List<ProvaLiteral> newGuard = new ArrayList<ProvaLiteral>(guard.size());
 		for( ProvaLiteral g : guard )
 			newGuard.add((ProvaLiteral) g.cloneWithVariables(ruleId,variables));
 		ProvaGuardedLiteralImpl newLit = new ProvaGuardedLiteralImpl(predicate,newTerms,newGuard);

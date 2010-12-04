@@ -20,21 +20,21 @@ public interface ProvaObject extends Serializable {
 
 	public boolean unify(ProvaObject target, ProvaUnification unification);
 
-	public void substituteVariables(ProvaVariablePtr[] varsMap);
+	public void substituteVariables(final ProvaVariablePtr[] varsMap);
 
 	public boolean isGround();
 
-	public String toString(List<ProvaVariable> variables);
+	public String toString(final List<ProvaVariable> variables);
 
-	public ProvaObject cloneWithVariables(List<ProvaVariable> variables);
+	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables);
 
-	public ProvaObject cloneWithVariables(long ruleId,
-			List<ProvaVariable> variables);
+	public ProvaObject cloneWithVariables(final long ruleId,
+			final List<ProvaVariable> variables);
 
 	public Object computeIfExpression();
 
-	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant);
+	public ProvaObject cloneWithBoundVariables(final List<ProvaVariable> variables, final List<Boolean> isConstant);
 
-	public boolean updateGround(List<ProvaVariable> variables);
+	public boolean updateGround(final List<ProvaVariable> variables);
 
 }

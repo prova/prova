@@ -50,22 +50,22 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 		this.index = -1;
 	}
 	
-	private ProvaVariableImpl(String name) {
+	private ProvaVariableImpl(final String name) {
 		this.name = "_".equals(name) ? incName.incrementAndGet() : name;
 		this.type = Object.class;
 		this.assigned = null;
 		this.index = -1;
 	}
 
-	private ProvaVariableImpl( String name, Class<?> type ) {
+	private ProvaVariableImpl( final String name, final Class<?> type ) {
 		this.name = name;
 		this.type = type;
 		this.assigned = null;
 		this.index = -1;
 	}
 	
-	private ProvaVariableImpl(Class<?> type, ProvaObject assigned, int index,
-			long ruleId) {
+	private ProvaVariableImpl(final Class<?> type, final ProvaObject assigned, final int index,
+			final long ruleId) {
 		this.name = incName.incrementAndGet();
 		this.type = type;
 		this.assigned = assigned;
@@ -73,7 +73,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 		this.ruleId = ruleId;
 	}
 
-	private ProvaVariableImpl(String name, ProvaObject assigned) {
+	private ProvaVariableImpl(final String name, final ProvaObject assigned) {
 		this.name = name;
 		this.assigned = assigned;
 		this.type = Object.class;
@@ -135,7 +135,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	@Override
-	public int collectVariables(long ruleId, List<ProvaVariable> variables) {
+	public int collectVariables(final long ruleId, final List<ProvaVariable> variables) {
 		if( assigned!=null ) {
 			assigned.collectVariables(ruleId, variables);
 			return -1;
@@ -175,7 +175,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	@Override
-	public boolean unify(ProvaObject target, ProvaUnification unification) {
+	public boolean unify(final ProvaObject target, final ProvaUnification unification) {
 		if( target==null ) {
 			assigned = ProvaListImpl.emptyRList;
 			return true;
@@ -238,7 +238,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	@Override
-	public void substituteVariables(ProvaVariablePtr[] varsMap) {
+	public void substituteVariables(final ProvaVariablePtr[] varsMap) {
 	}
 
 	@Override
@@ -253,26 +253,26 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	@Override
-	public String toString(List<ProvaVariable> variables) {
+	public String toString(final List<ProvaVariable> variables) {
 		return toString();
 	}
 
 	@Override
-	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+	public ProvaObject cloneWithBoundVariables(final List<ProvaVariable> variables, final List<Boolean> isConstant) {
 		if( assigned!=null )
 			return assigned;
 		return this;
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables) {
 		if( assigned!=null )
 			return assigned;
 		return this;
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(long ruleId, List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final long ruleId, final List<ProvaVariable> variables) {
 		if( assigned!=null )
 			return assigned;
 		return this;
@@ -289,7 +289,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	@Override
-	public boolean updateGround(List<ProvaVariable> variables) {
+	public boolean updateGround(final List<ProvaVariable> variables) {
 		if( assigned!=null )
 			return assigned.updateGround(variables);
 		return false;

@@ -26,30 +26,30 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 
 	private boolean ground = false;
 	
-	public static ProvaList create( ProvaObject[] fixed ) {
+	public static ProvaList create( final ProvaObject[] fixed ) {
 		if( fixed.length==0 )
 			return emptyRList;
 		return new ProvaListImpl(fixed);
 	}
 	
-	public static ProvaList create( List<ProvaObject> list ) {
+	public static ProvaList create( final List<ProvaObject> list ) {
 		if( list.size()==0 )
 			return emptyRList;
 		return new ProvaListImpl(list.toArray( new ProvaObject[] {}));
 	}
 	
-	private ProvaListImpl( ProvaObject[] fixed ) {
+	private ProvaListImpl( final ProvaObject[] fixed ) {
 		this.fixed = fixed;
 //		this.tail = null;
 	}
 	
-	public static ProvaList create( ProvaObject[] fixed, ProvaObject tail ) {
+	public static ProvaList create( final ProvaObject[] fixed, final ProvaObject tail ) {
 		if( fixed.length==0 )
 			return emptyRList;
 		return new ProvaListImpl(fixed,tail);
 	}
 	
-	private ProvaListImpl( ProvaObject[] fixed, ProvaObject tail ) {
+	private ProvaListImpl( final ProvaObject[] fixed, final ProvaObject tail ) {
 		this.fixed = fixed;
 		this.tail = tail;
 	}
@@ -95,10 +95,12 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 	}
 
 	@Override
-	public void substituteVariables(ProvaVariablePtr[] varsMap) {
+	public void substituteVariables(final ProvaVariablePtr[] varsMap) {
 		if( ground )
 			return;
 		for( int i=0; i<fixed.length; i++ ) {
+			if( fixed[i].getClass()==ProvaConstantImpl.class )
+				continue;
 			if( fixed[i] instanceof ProvaVariablePtr )
 				fixed[i] = varsMap[((ProvaVariablePtr) fixed[i]).getIndex()];
 			else if( fixed[i] instanceof ProvaList || fixed[i] instanceof ProvaListPtr )
@@ -125,7 +127,7 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 	}
 
 	@Override
-	public ProvaList copyWithVariables(List<ProvaVariable> variables) {
+	public ProvaList copyWithVariables(final List<ProvaVariable> variables) {
 		final int fixedLength = fixed.length;
 		ProvaObject[] newFixed = new ProvaObject[fixedLength];
 		for( int i=0; i<fixedLength; i++ ) {
@@ -139,7 +141,7 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 	}
 
 	@Override
-	public ProvaList copyWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+	public ProvaList copyWithBoundVariables(final List<ProvaVariable> variables, final List<Boolean> isConstant) {
 		int fixedLength = fixed.length;
 		ProvaObject newTail = null;
 		if( tail!=null ) {
@@ -165,21 +167,21 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 	}
 
 	@Override
-	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> changed) {
+	public ProvaObject cloneWithBoundVariables(final List<ProvaVariable> variables, final List<Boolean> changed) {
 		if( ground )
 			return this;
 		return copyWithBoundVariables(variables, changed);
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables) {
 		if( ground )
 			return this;
 		return copyWithVariables(variables);
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(List<ProvaVariable> variables, int offset) {
+	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables, final int offset) {
 		if( ground )
 			return this;
 		final int fixedLength = fixed.length-offset;
@@ -199,7 +201,7 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(long ruleId, List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final long ruleId, final List<ProvaVariable> variables) {
 		if( ground )
 			return this;
 		final int fixedLength = fixed.length;
@@ -388,50 +390,51 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 
 	@Override
 	public ProvaList rebuild(ProvaUnification unification) {
-		if( /*ground ||*/ this==ProvaListImpl.emptyRList )
+		if( ground || this==ProvaListImpl.emptyRList )
 			return this;
 		// Rebuild the fixed part
 		final int fixedLength = fixed.length;
 		ProvaObject[] newFixed = new ProvaObject[fixedLength];
 		boolean changed = false;
 		for( int i=0; i<fixedLength; i++ ) {
-			if( fixed[i] instanceof ProvaVariablePtr ) {
+			if( fixed[i].getClass()==ProvaConstantImpl.class )
+				newFixed[i] = fixed[i];				
+			else if( fixed[i] instanceof ProvaVariablePtr ) {
 				newFixed[i] = unification.rebuild((ProvaVariablePtr) fixed[i]);
 				changed |= newFixed[i]!=fixed[i];
-				continue;
 			} else if( fixed[i] instanceof ProvaList ) {
 				newFixed[i] = ((ProvaList) fixed[i]).rebuild(unification);
 				changed |= newFixed[i]!=fixed[i];
-				continue;
 			} else if( fixed[i] instanceof ProvaMapImpl ) {
 				newFixed[i] = ((ProvaMapImpl) fixed[i]).rebuild(unification);
 				changed |= newFixed[i]!=fixed[i];
-				continue;
 			} else
 				newFixed[i] = fixed[i];
 		}
 			
 		ProvaObject newTail = null;
-		if( tail instanceof ProvaVariablePtr ) {
-			newTail = unification.rebuild((ProvaVariablePtr) tail);
-			changed |= newTail!=tail;
-		} else if( tail instanceof ProvaList ) {
-			newTail = ((ProvaList) tail).rebuild(unification);
-			changed |= newTail!=tail;
-		} else
-			newTail = tail;
-
-		if( newTail instanceof ProvaList ) {
-			changed = true;
-			if( newTail==ProvaListImpl.emptyRList )
-				newTail = null;
-			else {
-				ProvaObject[] tailFixed = ((ProvaList) newTail).getFixed();
-				ProvaObject[] newFixedExtended = new ProvaObject[fixedLength+tailFixed.length];
-				System.arraycopy(newFixed, 0, newFixedExtended, 0, newFixed.length);
-				System.arraycopy(tailFixed, 0, newFixedExtended, newFixed.length, tailFixed.length);
-				newTail = ((ProvaList) newTail).getTail();
-				newFixed = newFixedExtended;
+		if( tail!=null ) {
+			if( tail instanceof ProvaVariablePtr ) {
+				newTail = unification.rebuild((ProvaVariablePtr) tail);
+				changed |= newTail!=tail;
+			} else if( tail instanceof ProvaList ) {
+				newTail = ((ProvaList) tail).rebuild(unification);
+				changed |= newTail!=tail;
+			} else
+				newTail = tail;
+	
+			if( newTail instanceof ProvaList ) {
+				changed = true;
+				if( newTail==ProvaListImpl.emptyRList )
+					newTail = null;
+				else {
+					final ProvaObject[] tailFixed = ((ProvaList) newTail).getFixed();
+					final ProvaObject[] newFixedExtended = new ProvaObject[fixedLength+tailFixed.length];
+					System.arraycopy(newFixed, 0, newFixedExtended, 0, newFixed.length);
+					System.arraycopy(tailFixed, 0, newFixedExtended, newFixed.length, tailFixed.length);
+					newTail = ((ProvaList) newTail).getTail();
+					newFixed = newFixedExtended;
+				}
 			}
 		}
 
@@ -460,20 +463,22 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 			}
 
 			ProvaObject newTail = null;
-			if( tail instanceof ProvaVariablePtr ) {
-				newTail = unification.rebuild((ProvaVariablePtr) tail);
-			} else if( tail instanceof ProvaList ) {
-				newTail = ((ProvaList) tail).rebuild(unification);
-			} else
-				newTail = tail;
-
-			if( newTail instanceof ProvaList ) {
-				ProvaObject[] tailFixed = ((ProvaList) newTail).getFixed();
-				ProvaObject[] newFixedExtended = new ProvaObject[fixedLength+tailFixed.length];
-				System.arraycopy(newFixed, 0, newFixedExtended, 0, newFixed.length);
-				System.arraycopy(tailFixed, 0, newFixedExtended, newFixed.length, tailFixed.length);
-				newTail = ((ProvaList) newTail).getTail();
-				newFixed = newFixedExtended;
+			if( tail!=null ) {
+				if( tail instanceof ProvaVariablePtr ) {
+					newTail = unification.rebuild((ProvaVariablePtr) tail);
+				} else if( tail instanceof ProvaList ) {
+					newTail = ((ProvaList) tail).rebuild(unification);
+				} else
+					newTail = tail;
+	
+				if( newTail instanceof ProvaList ) {
+					final ProvaObject[] tailFixed = ((ProvaList) newTail).getFixed();
+					final ProvaObject[] newFixedExtended = new ProvaObject[fixedLength+tailFixed.length];
+					System.arraycopy(newFixed, 0, newFixedExtended, 0, newFixed.length);
+					System.arraycopy(tailFixed, 0, newFixedExtended, newFixed.length, tailFixed.length);
+					newTail = ((ProvaList) newTail).getTail();
+					newFixed = newFixedExtended;
+				}
 			}
 			return new ProvaListImpl( newFixed, newTail );
 		// TODO: deal with other cases
@@ -493,12 +498,12 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 		// Rebuild the fixed part
 		ProvaObject[] newFixed = new ProvaObject[fixed.length];
 		for( int i=0; i<fixed.length; i++ ) {
-			if( fixed[i] instanceof ProvaVariablePtr ) {
+			if( fixed[i].getClass()==ProvaConstantImpl.class )
+				newFixed[i] = fixed[i];
+			else if( fixed[i] instanceof ProvaVariablePtr ) {
 				newFixed[i] = unification.rebuildSource((ProvaVariablePtr) fixed[i]);
-				continue;
 			} else if( fixed[i] instanceof ProvaList ) {
 				newFixed[i] = ((ProvaList) fixed[i]).rebuildSource(unification);
-				continue;
 			} else if( fixed[i] instanceof ProvaLiteral ) {
 				newFixed[i] = ((ProvaLiteral) fixed[i]).rebuildSource(unification);
 			} else if( fixed[i] instanceof ProvaMapImpl ) {
@@ -508,23 +513,25 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 		}
 			
 		ProvaObject newTail = null;
-		if( tail instanceof ProvaVariablePtr ) {
-			newTail = unification.rebuildSource((ProvaVariablePtr) tail);
-		} else if( tail instanceof ProvaList ) {
-			newTail = ((ProvaList) tail).rebuildSource(unification);
-		} else
-			newTail = tail;
-
-		if( newTail instanceof ProvaList ) {
-			if( newTail==ProvaListImpl.emptyRList )
-				newTail = null;
-			else {
-				ProvaObject[] tailFixed = ((ProvaList) newTail).getFixed();
-				ProvaObject[] newFixedExtended = new ProvaObject[fixed.length+tailFixed.length];
-				System.arraycopy(newFixed, 0, newFixedExtended, 0, newFixed.length);
-				System.arraycopy(tailFixed, 0, newFixedExtended, newFixed.length, tailFixed.length);
-				newTail = ((ProvaList) newTail).getTail();
-				newFixed = newFixedExtended;
+		if( tail!=null ) {
+			if( tail instanceof ProvaVariablePtr ) {
+				newTail = unification.rebuildSource((ProvaVariablePtr) tail);
+			} else if( tail instanceof ProvaList ) {
+				newTail = ((ProvaList) tail).rebuildSource(unification);
+			} else
+				newTail = tail;
+	
+			if( newTail instanceof ProvaList ) {
+				if( newTail==ProvaListImpl.emptyRList )
+					newTail = null;
+				else {
+					ProvaObject[] tailFixed = ((ProvaList) newTail).getFixed();
+					ProvaObject[] newFixedExtended = new ProvaObject[fixed.length+tailFixed.length];
+					System.arraycopy(newFixed, 0, newFixedExtended, 0, newFixed.length);
+					System.arraycopy(tailFixed, 0, newFixedExtended, newFixed.length, tailFixed.length);
+					newTail = ((ProvaList) newTail).getTail();
+					newFixed = newFixedExtended;
+				}
 			}
 		}
 
@@ -550,20 +557,22 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 			}
 
 			ProvaObject newTail = null;
-			if( tail instanceof ProvaVariablePtr ) {
-				newTail = unification.rebuildSource((ProvaVariablePtr) tail);
-			} else if( tail instanceof ProvaList ) {
-				newTail = ((ProvaList) tail).rebuildSource(unification);
-			} else
-				newTail = tail;
-
-			if( newTail instanceof ProvaList ) {
-				ProvaObject[] tailFixed = ((ProvaList) newTail).getFixed();
-				ProvaObject[] newFixedExtended = new ProvaObject[fixedLength+tailFixed.length];
-				System.arraycopy(newFixed, 0, newFixedExtended, 0, newFixed.length);
-				System.arraycopy(tailFixed, 0, newFixedExtended, newFixed.length, tailFixed.length);
-				newTail = ((ProvaList) newTail).getTail();
-				newFixed = newFixedExtended;
+			if( tail!=null ) {
+				if( tail instanceof ProvaVariablePtr ) {
+					newTail = unification.rebuildSource((ProvaVariablePtr) tail);
+				} else if( tail instanceof ProvaList ) {
+					newTail = ((ProvaList) tail).rebuildSource(unification);
+				} else
+					newTail = tail;
+	
+				if( newTail instanceof ProvaList ) {
+					ProvaObject[] tailFixed = ((ProvaList) newTail).getFixed();
+					ProvaObject[] newFixedExtended = new ProvaObject[fixedLength+tailFixed.length];
+					System.arraycopy(newFixed, 0, newFixedExtended, 0, newFixed.length);
+					System.arraycopy(tailFixed, 0, newFixedExtended, newFixed.length, tailFixed.length);
+					newTail = ((ProvaList) newTail).getTail();
+					newFixed = newFixedExtended;
+				}
 			}
 			return new ProvaListImpl( newFixed, newTail );
 		// TODO: deal with other cases
@@ -636,6 +645,11 @@ public class ProvaListImpl extends ProvaTermImpl implements ProvaList, ProvaComp
 		for( int i=0; i<newFixed.length; i++ )
 			newFixed[i] = ProvaConstantImpl.wrap(fixed[i].computeIfExpression());
 		return ProvaListImpl.create(newFixed);
+	}
+
+	@Override
+	public void setGround(boolean ground) {
+		this.ground = ground;
 	}
 
 }

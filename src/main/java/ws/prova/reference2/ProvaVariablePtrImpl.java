@@ -15,7 +15,7 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	
 	private int index;
 	
-	public ProvaVariablePtrImpl(long ruleId, int index) {
+	public ProvaVariablePtrImpl(final long ruleId, final int index) {
 		this.ruleId = ruleId;
 		this.index = index;
 	}
@@ -55,7 +55,7 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	}
 
 	@Override
-	public int collectVariables(long ruleId, List<ProvaVariable> variables) {
+	public int collectVariables(final long ruleId, final List<ProvaVariable> variables) {
 		return 0;
 	}
 
@@ -87,7 +87,7 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	}
 
 	@Override
-	public boolean unify(ProvaObject target, ProvaUnification unification) {
+	public boolean unify(final ProvaObject target, final ProvaUnification unification) {
 		ProvaObject sourceObject = unification.getVariableFromVariablePtr(this).getRecursivelyAssigned();
 //		ProvaObject sourceObject = unification.getSourceVariables().get(index).getRecursivelyAssigned();
 		ProvaObject targetObject;
@@ -101,7 +101,7 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	}
 
 	@Override
-	public boolean unifyReverse(ProvaObject target, ProvaUnification unification) {
+	public boolean unifyReverse(final ProvaObject target, final ProvaUnification unification) {
 		ProvaObject sourceObject = unification.getTargetVariables().get(index).getRecursivelyAssigned();
 		ProvaObject targetObject;
 		if( target instanceof ProvaVariablePtr ) {
@@ -130,12 +130,12 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	}
 
 	@Override
-	public String toString(List<ProvaVariable> variables) {
+	public String toString(final List<ProvaVariable> variables) {
 		return variables.get(index).toString();
 	}
 
 	@Override
-	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+	public ProvaObject cloneWithBoundVariables(final List<ProvaVariable> variables, final List<Boolean> isConstant) {
 		ProvaObject assigned = variables.get(index).getRecursivelyAssigned();
 		if( assigned instanceof ProvaVariable ) {
 			isConstant.set(0, false);
@@ -145,13 +145,13 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables) {
 		return variables.get(index).getRecursivelyAssigned().cloneWithVariables(variables);
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(long ruleId,
-			List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final long ruleId,
+			final List<ProvaVariable> variables) {
 		if( ruleId==this.ruleId )
 			return variables.get(index).getRecursivelyAssigned().cloneWithVariables(variables);
 		return this;
@@ -163,7 +163,7 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	}
 
 	@Override
-	public boolean updateGround(List<ProvaVariable> variables) {
+	public boolean updateGround(final List<ProvaVariable> variables) {
 		return variables.get(index).getRecursivelyAssigned().updateGround(variables);
 	}
 

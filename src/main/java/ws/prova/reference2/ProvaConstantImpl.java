@@ -103,7 +103,7 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 	}
 
 	@Override
-	public void substituteVariables( ProvaVariablePtr[] varsMap) {
+	public void substituteVariables( final ProvaVariablePtr[] varsMap) {
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(long ruleId, List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final long ruleId, final List<ProvaVariable> variables) {
 		return this;
 	}
 

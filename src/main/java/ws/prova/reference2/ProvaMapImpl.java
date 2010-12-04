@@ -97,8 +97,8 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 	}
 
 	@Override
-	public void substituteVariables( ProvaVariablePtr[] varsMap) {
-		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+	public void substituteVariables( final ProvaVariablePtr[] varsMap) {
+		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
 		for( Entry<String,ProvaObject> e : map.entrySet() ) {
 			ProvaObject value = e.getValue();
 			if( value instanceof ProvaVariablePtr )
@@ -110,7 +110,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 
 	@Override
 	public boolean isGround() {
-		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
 		for( Entry<String,ProvaObject> e : map.entrySet() ) {
 			if( !e.getValue().isGround() )
 				return false;
@@ -122,8 +122,8 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
 		if( isGround() )
 			return this;
-		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
-		Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
+		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+		final Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
 		for( Entry<String,ProvaObject> e : map.entrySet() ) {
 			if( e.getValue().isGround() )
 				newMap.put(e.getKey(),e.getValue());
@@ -149,11 +149,11 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(long ruleId, List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final long ruleId, final List<ProvaVariable> variables) {
 		if( isGround() )
 			return this;
-		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
-		Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
+		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+		final Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
 		for( Entry<String,ProvaObject> e : map.entrySet() ) {
 			if( e.getValue().isGround() )
 				newMap.put(e.getKey(),e.getValue());
@@ -173,21 +173,27 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		return object;
 	}
 
-	public static ProvaObject wrap(Map<?,?> m) {
-		Map<String,ProvaObject> map = new HashMap<String,ProvaObject>();
+	public static ProvaObject wrapValues(Map<?,?> m) {
+		final Map<String,ProvaObject> map = new HashMap<String,ProvaObject>();
 		for( Entry<?,?> e : m.entrySet() ) {
 			map.put(e.getKey().toString(), ProvaConstantImpl.create(e.getValue()));
 		}
 		return ProvaMapImpl.create(map);
 	}
 
+	/**
+	 * Wrap an object in a ProvaMapImpl or ProvaConstantImpl if it is a Map or any other non-Prova object.
+	 * Keep it as it is if it is already a ProvaObject.
+	 * @param o
+	 * @return
+	 */
 	public static ProvaObject wrap(Object o) {
-		return (o instanceof ProvaConstant) ? (ProvaConstant) o : create(o);
+		return (o instanceof ProvaObject) ? (ProvaObject) o : o instanceof Map ? create(o) : new ProvaConstantImpl(o);
 	}
 
 	public ProvaObject rebuild(ProvaUnification unification) {
-		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
-		Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
+		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+		final Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
 		boolean changed = false;
 		for( Entry<String,ProvaObject> e : map.entrySet() ) {
 			ProvaObject ov = e.getValue();
@@ -220,8 +226,8 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 	}
 
 	public ProvaObject rebuildSource(ProvaUnification unification) {
-		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
-		Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
+		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+		final Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
 		boolean changed = false;
 		for( Entry<String,ProvaObject> e : map.entrySet() ) {
 			ProvaObject ov = e.getValue();
@@ -254,8 +260,8 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 	}
 
 	public Object unwrap() {
-		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
-		Map<String,Object> newMap = new HashMap<String,Object>();
+		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
+		final Map<String,Object> newMap = new HashMap<String,Object>();
 		for( Entry<String,ProvaObject> e : map.entrySet() ) {
 			ProvaObject ov = e.getValue();
 			if( ov instanceof ProvaConstant )

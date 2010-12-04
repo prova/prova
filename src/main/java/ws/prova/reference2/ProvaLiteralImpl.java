@@ -110,7 +110,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 	}
 
 	@Override
-	public ProvaLiteral rebuild(ProvaUnification unification) {
+	public ProvaLiteral rebuild(final ProvaUnification unification) {
 		if( ground || terms==null )
 			return this;
 		ProvaList newTerms = terms.rebuild(unification);
@@ -220,20 +220,20 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 	}
 
 	@Override
-	public ProvaLiteral cloneWithBoundVariables(ProvaUnification unification,
-			List<ProvaVariable> variables, List<Boolean> isConstant) {
-		ProvaLiteralImpl ret = (ProvaLiteralImpl) cloneWithBoundVariables(variables, isConstant);
+	public ProvaLiteral cloneWithBoundVariables(final ProvaUnification unification,
+			final List<ProvaVariable> variables, final List<Boolean> isConstant) {
+		final ProvaLiteralImpl ret = (ProvaLiteralImpl) cloneWithBoundVariables(variables, isConstant);
 		if( ret.getMetadata()!=null )
 			copyMetadata(unification, ret);
 		return ret;
 	}
 
 	@Override
-	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
+	public ProvaObject cloneWithBoundVariables(final List<ProvaVariable> variables, final List<Boolean> isConstant) {
 		if( terms==null )
 			return this;
-		ProvaList newTerms = (ProvaList) terms.cloneWithBoundVariables(variables, isConstant);
-		ProvaLiteralImpl newLit = new ProvaLiteralImpl(predicate,newTerms);
+		final ProvaList newTerms = (ProvaList) terms.cloneWithBoundVariables(variables, isConstant);
+		final ProvaLiteralImpl newLit = new ProvaLiteralImpl(predicate,newTerms);
 		// TODO: the new literal may actually become ground
 		newLit.ground = ground;
 		newLit.line = line;
@@ -243,7 +243,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables) {
 		if( terms==null )
 			return this;
 		if( predicate.getSymbol().equals("cut") ) {
@@ -251,8 +251,8 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 			ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
 			return new ProvaLiteralImpl(predicate,lany1);
 		}
-		ProvaList newTerms = (ProvaList) terms.cloneWithVariables(variables);
-		ProvaLiteralImpl newLit = new ProvaLiteralImpl(predicate,newTerms);
+		final ProvaList newTerms = (ProvaList) terms.cloneWithVariables(variables);
+		final ProvaLiteralImpl newLit = new ProvaLiteralImpl(predicate,newTerms);
 		// TODO: the new literal may actually become ground
 		newLit.ground = ground;
 		newLit.line = line;
@@ -262,7 +262,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 	}
 
 	@Override
-	public ProvaObject cloneWithVariables(long ruleId, List<ProvaVariable> variables) {
+	public ProvaObject cloneWithVariables(final long ruleId, final List<ProvaVariable> variables) {
 		if( terms==null )
 			return this;
 		if( predicate.getSymbol().equals("cut") ) {
@@ -270,8 +270,8 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 			ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
 			return new ProvaLiteralImpl(predicate,lany1);
 		}
-		ProvaList newTerms = (ProvaList) terms.cloneWithVariables(ruleId,variables);
-		ProvaLiteralImpl newLit = new ProvaLiteralImpl(predicate,newTerms);
+		final ProvaList newTerms = (ProvaList) terms.cloneWithVariables(ruleId,variables);
+		final ProvaLiteralImpl newLit = new ProvaLiteralImpl(predicate,newTerms);
 		newLit.ground = ground;
 		newLit.line = line;
 		newLit.sourceCode = sourceCode;
@@ -352,6 +352,8 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 	@Override
 	public void setGround(boolean ground) {
 		this.ground = ground;
+		if( ground && terms!=null )
+			terms.setGround(true);
 	}
 
 	@Override

@@ -219,4 +219,32 @@ public class ProvaFileParserTest {
 		}
 	}
 
+//	@Test
+	public void queens_sir() {
+		ProvaKnowledgeBase kb = new ProvaKnowledgeBaseImpl();
+		ProvaResultSet resultSet = new ProvaResultSetImpl();
+		ProvaParserImpl parser = new ProvaParserImpl("rules/reloaded/queens.prova", new Object[] {});
+		try {
+			List<ProvaRule> rules = parser.parse(kb, resultSet, "rules/reloaded/queens.prova");
+			// Run each goal
+			int[] numSolutions = new int[] {724};
+			int i = 0;
+			for( ProvaRule rule : rules ) {
+				if( rule.getHead()==null ) {
+					ProvaResolutionInferenceEngine engine = new ProvaResolutionInferenceEngineImpl(kb, rule);
+					engine.run();
+
+					org.junit.Assert.assertEquals(numSolutions[i++],resultSet.getSolutions().size());
+					resultSet.getSolutions().clear();
+				}
+			}
+		} catch (ProvaParsingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

@@ -12,9 +12,9 @@ public interface ProvaLiteral extends ProvaObject {
 
 	public ProvaList getTerms();
 
-	public ProvaLiteral rebuild(ProvaUnification unification);
+	public ProvaLiteral rebuild(final ProvaUnification unification);
 
-	public ProvaLiteral rebuildSource(ProvaUnification unification);
+	public ProvaLiteral rebuildSource(final ProvaUnification unification);
 
 	public void addClause(ProvaRule clause);
 

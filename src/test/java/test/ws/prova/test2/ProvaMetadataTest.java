@@ -103,7 +103,7 @@ public class ProvaMetadataTest {
 
 		try {
 			synchronized(this) {
-				wait(3000);
+				wait(3500);
 				org.junit.Assert.assertEquals(2,successfulOrders.get());
 				org.junit.Assert.assertEquals(1,successfulCancels.get());
 				org.junit.Assert.assertEquals(1,failedCancels.get());

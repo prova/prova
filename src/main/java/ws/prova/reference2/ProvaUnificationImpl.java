@@ -124,7 +124,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 		return sourcePredicate.equals(targetPredicate) && sourceLiteral.unify(targetLiteral, this);
 	}
 
-	private boolean matchMetadata(ProvaLiteral sourceLiteral, ProvaRule target) {
+	private boolean matchMetadata(final ProvaLiteral sourceLiteral, final ProvaRule target) {
 		Map<String,List<Object>> sourceMetadata = sourceLiteral.getMetadata();
 		if( sourceMetadata==null || sourceMetadata.size()==0 )
 			// No source metadata or only line number
@@ -200,7 +200,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 		return goals;
 	}
 
-	private ProvaLiteral[] rebuildNewGoals(ProvaDerivationNode node) {
+	private ProvaLiteral[] rebuildNewGoals(final ProvaDerivationNode node) {
 		if( target.getBody()==null || target.getBody().length==0 )
 			return new ProvaLiteral[0];
 		boolean allGround = true;
@@ -211,15 +211,18 @@ public class ProvaUnificationImpl implements ProvaUnification {
 			}
 		}
 		final ProvaLiteral[] body = target.getGuardedBody(source.getBody()[0]);
-		int bodyLength = body==null ? 0 : body.length;
-		ProvaLiteral[] goals = new ProvaLiteralImpl[bodyLength];
+		final int bodyLength = body==null ? 0 : body.length;
+		final ProvaLiteral[] goals = new ProvaLiteralImpl[bodyLength];
 		for( int i=0; i<bodyLength; i++ ) {
 			if( "cut".equals(body[i].getPredicate().getSymbol()) ) {
-				ProvaVariablePtr any = (ProvaVariablePtr) body[i].getTerms().getFixed()[0];
+				final ProvaVariablePtr any = (ProvaVariablePtr) body[i].getTerms().getFixed()[0];
+				final ProvaConstantImpl cutnode = ProvaConstantImpl.create(node);
 				if( any.getRuleId()==source.getRuleId() )
-					sourceVariables.get(any.getIndex()).setAssigned(ProvaConstantImpl.create(node));
+					sourceVariables.get(any.getIndex()).setAssigned(cutnode);
 				else
-					targetVariables.get(any.getIndex()).setAssigned(ProvaConstantImpl.create(node));
+					targetVariables.get(any.getIndex()).setAssigned(cutnode);
+				goals[i] = new ProvaLiteralImpl(body[i].getPredicate(),ProvaListImpl.create( new ProvaObject[] {cutnode}));
+				continue;
 			}
 			goals[i] = body[i].rebuild(this);
 			if( allGround )
@@ -229,10 +232,10 @@ public class ProvaUnificationImpl implements ProvaUnification {
 	}
 
 	@Override
-	public ProvaLiteral[] rebuildOldGoals(ProvaLiteral[] body) {
+	public ProvaLiteral[] rebuildOldGoals(final ProvaLiteral[] body) {
 		if( !isSourceSubstituted() )
 			return body;
-		ProvaLiteral[] goals = new ProvaLiteralImpl[body.length];
+		final ProvaLiteral[] goals = new ProvaLiteralImpl[body.length];
 		// Index 0 contains the current goal that does not need to be rebuilt
 		for( int i=1; i<body.length; i++ ) {
 			goals[i] = body[i].rebuildSource(this);
@@ -240,11 +243,11 @@ public class ProvaUnificationImpl implements ProvaUnification {
 		return goals;
 	}
 
-	private ProvaLiteral[] rebuildOldGoals(ProvaLiteral[] body, int offset) {
-		if( body[offset].isGround() ) {
+	private ProvaLiteral[] rebuildOldGoals(final ProvaLiteral[] body, final int offset) {
+		if( body[offset].isGround() )
 			return body;
-		}
-		ProvaLiteral[] goals = new ProvaLiteralImpl[body.length];
+
+		final ProvaLiteral[] goals = new ProvaLiteralImpl[body.length];
 		// Index offset contains the current goal that does not need to be rebuilt
 		for( int i=1+offset; i<body.length; i++ ) {
 			goals[i] = body[i].rebuildSource(this);
@@ -260,16 +263,20 @@ public class ProvaUnificationImpl implements ProvaUnification {
 	}
 
 	@Override
-	public ProvaVariable getVariableFromVariablePtr(ProvaVariablePtr variablePtr) {
+	public ProvaVariable getVariableFromVariablePtr(final ProvaVariablePtr variablePtr) {
 		if( variablePtr.getRuleId()==sourceRuleId )
 			return sourceVariables.get(variablePtr.getIndex());
 		return targetVariables.get(variablePtr.getIndex());
 	}
 
 	@Override
-	public ProvaObject rebuild(ProvaVariablePtr variablePtr) {
-		ProvaVariable variable = getVariableFromVariablePtr(variablePtr);
-		ProvaObject assigned = variable.getRecursivelyAssigned();
+	public ProvaObject rebuild(final ProvaVariablePtr variablePtr) {
+		final ProvaVariable variable = getVariableFromVariablePtr(variablePtr);
+//		if( variable.getAssigned()==null && variablePtr.getRuleId()==sourceRuleId )
+//			return variablePtr;
+		final ProvaObject assigned = variable.getRecursivelyAssigned();
+		if( assigned.getClass()==ProvaConstantImpl.class )
+			return assigned;
 		if( assigned instanceof ProvaVariable ) {
 			if( ((ProvaVariable) assigned).getRuleId()==targetRuleId ) {
 				// This is a target variable so add it to the source variables
@@ -293,9 +300,14 @@ public class ProvaUnificationImpl implements ProvaUnification {
 	}
 
 	@Override
-	public ProvaObject rebuildSource(ProvaVariablePtr variablePtr) {
-		ProvaVariable variable = getVariableFromVariablePtr(variablePtr);
-		ProvaObject assigned = variable.getRecursivelyAssigned();
+	public ProvaObject rebuildSource(final ProvaVariablePtr variablePtr) {
+		final ProvaVariable variable = getVariableFromVariablePtr(variablePtr);
+		final ProvaObject assigned = variable.getRecursivelyAssigned();
+		
+		if( assigned==variable && variablePtr.getRuleId()==sourceRuleId )
+			return variablePtr;
+		if( assigned.getClass()==ProvaConstantImpl.class )
+			return assigned;
 		if( assigned instanceof ProvaVariable ) {
 			if( ((ProvaVariable) assigned).getRuleId()==targetRuleId ) {
 				// This is a target variable so add it to the source variables
@@ -323,7 +335,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 		if( sourceVariables.isEmpty() ) {
 			return kb.generateGoal(this, node, target.getBody(), query.getBody(), query.getOffset(), targetVariables);
 		}
-		ProvaLiteral[] newGoals = rebuildNewGoals(node);
+		final ProvaLiteral[] newGoals = rebuildNewGoals(node);
 		ProvaLiteral[] oldGoals = null;
 		ProvaRule newQuery = null;
 		if( newGoals.length!=0 && newGoals[newGoals.length-1].getPredicate() instanceof ProvaFailImpl ) {
@@ -344,12 +356,12 @@ public class ProvaUnificationImpl implements ProvaUnification {
 		return rebuild(newQuery);
 	}
 
-	private ProvaRule rebuild(ProvaRule newQuery) {
-		int size = sourceVariables.size();
+	private ProvaRule rebuild(final ProvaRule newQuery) {
+		final int size = sourceVariables.size();
 		if( size==0 )
 			return newQuery;
-		ProvaVariablePtr[] varsMap = new ProvaVariablePtr[size];
-		List<ProvaVariable> newVariables = newQuery.getVariables();
+		final ProvaVariablePtr[] varsMap = new ProvaVariablePtr[size];
+		final List<ProvaVariable> newVariables = newQuery.getVariables();
 		int index = 0;
 		for( int i=0; i<size; i++ ) {
 			if( sourceVariables.get(i).getAssigned()==null ) {
