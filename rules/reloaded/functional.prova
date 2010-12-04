@@ -187,12 +187,12 @@ map _ [] : [] =
 %%% map definition for the State monad
 map F [state|L] : Z =
 	!,
-	map_state F [state|L] : Z.
+	map_state F L : Z.
 	
-map_state lambda(A,Fun) state([A,S]) : state([VM,SM]) =
+map_state lambda(A,Fun) [[A,S]] : state([VM,SM]) =
 	!,
 	derive([[Fun],S,[VM,SM]]).
-map_state Fun state([V,S]) : state([VM,SM]) =
+map_state Fun [[V,S]] : state([VM,SM]) =
 	!,
 	derive([[Fun(V)],S,[VM,SM]]).
 

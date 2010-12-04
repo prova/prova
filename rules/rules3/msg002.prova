@@ -7,7 +7,7 @@ msg002() :-
 	rcvMsg(XID,self,From,inform,a(I)),
 	println(["Received: ",rcvMsg(XID,self,From,inform,a(I))],"").
 msg002() :-
-	for([1,2],I),
+	for 1 2 : I,
 	sendMsg(XID,self,0,inform,a(I)),
 	println(["Sent: ",sendMsg(XID,self,0,inform,a(I))],"").
 

@@ -1,5 +1,5 @@
 :- solve(test_read_enum_1(Line)).
 
 test_read_enum_1(Line) :-
-	fopen($File,Reader),
-	read_enum(Reader,Line).
+	fopen $File : Reader,
+	read_enum Reader : Line.

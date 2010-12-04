@@ -3,7 +3,7 @@
 msg001() :-
 	println(["==========Messaging test 001=========="]),
 
-	for([1,4],I),
+	for 1 4 : I,
 	sendMsg(XID,self,0,inform,a(I)),
 	println(["Sent: ",sendMsg(XID,self,0,inform,a(I))],"").
 

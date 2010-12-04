@@ -4,8 +4,8 @@
 
 test_tokenize_enum_1(Value) :-
 	% non-deterministically enumerate delimited tokens in a string
-	tokenize_enum([$Text,"\t"],Value).
+	tokenize_enum $Text "\t" : Value.
 
 test_tokenize_enum_2(tt) :-
 	% non-deterministically enumerate delimited tokens in a string
-	tokenize_enum([$Text,"\t"],tt).
+	tokenize_enum $Text "\t" : tt.

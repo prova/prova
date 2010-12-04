@@ -20,7 +20,7 @@
 
 client() :-
 	switch_thread(),
-	for [1,4] : I,
+	for 1 4 : I,
 	element(XID,[p,q]),
 	sendMsg(XID,async,0,data,{s:I}).
 	

@@ -1,5 +1,5 @@
 :- solve(test_read_enum_1(Line)).
 
 test_read_enum_1(Line) :-
-	fopen("./read_enum.prova",Reader),
-	read_enum(Reader,Line).
+	fopen "./read_enum.prova" : Reader,
+	read_enum Reader : Line.

@@ -1,4 +1,4 @@
-% Since Prova 2.0 Reloaded, January 10, 2009
+% Since Prova 3.1.0, November 30, 2010
 % Demonstrate
 %   - message passing between parallel threads.
 
@@ -7,7 +7,7 @@
 async_002() :-
 	println(["==========async test 002=========="]),
 
-	for(I,1,3),
+	for 1 3 : I,
 	switch_thread(),
 	split(I).
 
@@ -40,13 +40,6 @@ split(3) :-
 switch_thread() :-
 	sendMsgSync(XID,task,0,switch,[]),
 	rcvMsg(XID,task,From,switch,[]).
-
-for(From,From,From) :- !.
-for(From,From,To) :-
-	From<=To.
-for(I,From,To) :-
-	From2=From+1,
-	for(I,From2,To).
 
 % One of possible outputs:
 % ==========async test 002==========

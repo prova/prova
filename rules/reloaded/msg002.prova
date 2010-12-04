@@ -10,16 +10,9 @@ msg002() :-
 	println(["Received: ",rcvMsg(XID,self,From,inform,a(I))],""),
 	$Count.incrementAndGet().
 msg002() :-
-	for(I,1,2),
+	for 1 2 : I,
 	sendMsg(XID,self,0,inform,a(I)),
 	println(["Sent: ",sendMsg(XID,self,0,inform,a(I))],"").
-
-for(From,From,From) :- !.
-for(From,From,To) :-
-	From<=To.
-for(I,From,To) :-
-	From2=From+1,
-	for(I,From2,To).
 
 % This outputs:
 % ==========Messaging test 002==========

@@ -12,6 +12,6 @@ msg004() :-
 	println(["Received: ",rcvMult(XID,async,From,inform,a(I))],""),
 	$Count.incrementAndGet().
 msg004() :-
-	for([1,20],I),
+	for 1 20 : I,
 	sendMsg(XID,async,0,inform,a(I)),
 	println(["Sent: ",sendMsg(XID,async,0,inform,a(I))],"").

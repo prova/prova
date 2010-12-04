@@ -1,8 +1,8 @@
 :- solve(test_parse_list("abc:-12a234",L)).
 
 test_parse_list(In,L) :-
-	parse_list([In,"(?:(\w*):|)(-?\d*\w?)-?(\d*)"],L).
+	parse_list In "(?:(\w*):|)(-?\d*\w?)-?(\d*)" : L.
 test_parse_list(In,[T|Ts]) :-
-	parse_list([In,"(?:(\w*):|)(-?\d*\w?)-?(\d*)"],[T|Ts]).
+	parse_list In "(?:(\w*):|)(-?\d*\w?)-?(\d*)" : [T|Ts].
 test_parse_list(In,L) :-
-	parse_list([In,"(?:(\w*):|)(-?\d*\w?)-?(\d*)"],ttt).
+	parse_list In "(?:(\w*):|)(-?\d*\w?)-?(\d*)" : ttt.

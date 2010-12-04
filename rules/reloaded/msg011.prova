@@ -13,7 +13,7 @@ msg011() :-
 	Count=$Count,
 	Count.incrementAndGet().
 msg011() :-
-	for([1,2],I),
+	for 1 2 : I,
 	sendMsg(XID,self,0,inform,{a->1,b->I}),
 	println(["Sent: ",sendMsg(XID,self,0,inform,{a->1,b->I})],"").
 
