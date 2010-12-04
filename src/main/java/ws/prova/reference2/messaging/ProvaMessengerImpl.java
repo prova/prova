@@ -1082,7 +1082,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			ProvaConstantImpl.create("osgi"),
 			ProvaConstantImpl.create(agent),
 			ProvaConstantImpl.create(verb),
-			payload instanceof Map<?,?> ? ProvaMapImpl.wrap((Map<?,?>) payload) : ProvaConstantImpl.create(payload)
+			payload instanceof Map<?,?> ? ProvaMapImpl.wrapValues((Map<?,?>) payload) : ProvaMapImpl.wrap(payload)
 		});
 		ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", terms);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,

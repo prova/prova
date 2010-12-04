@@ -48,7 +48,7 @@ public class ProvaFcalcImpl implements ProvaOperator {
 			} catch (IllegalAccessException e) {
 				throw new RuntimeException(e);
 			} catch (InvocationTargetException e) {
-				throw new RuntimeException(e);
+				throw new RuntimeException(e.getCause());
 			}
 			return ret;
 		} else {
@@ -61,7 +61,7 @@ public class ProvaFcalcImpl implements ProvaOperator {
 			} catch (IllegalAccessException e) {
 				throw new RuntimeException(e);
 			} catch (InvocationTargetException e) {
-				throw new RuntimeException(e);
+				throw new RuntimeException(e.getCause());
 			}
 		}
 	}

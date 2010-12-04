@@ -206,22 +206,21 @@ public class ProvaServiceImpl implements ProvaService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void send(String xid, String dest, String agent, String verb, Object content, EPService callback) {
-		if( content instanceof ProvaList ) {
-			send(dest, (ProvaList) content);
-			return;
-		}
-		if( !(content instanceof Map<?, ?>) )
-			throw new IllegalArgumentException();
 		if( callback!=this ) {
 			EPService callback0 = callbacks.get(agent);
 			if( callback0==null ) {
 				callbacks.put(agent, callback);
 			}
 		}
-		Map<String, Object> payload = (Map<String, Object>) content;
 		if( "present".equals(verb) ) {
 			// Ask the subscriber to start receiving the stream
-			String topic = payload.get("topic").toString();
+			String topic = null;
+			if( content instanceof ProvaList ) {
+				topic = ((ProvaConstant) ((ProvaList) content).getFixed()[0]).getObject().toString();
+			} else {
+				Map<String, Object> payload = (Map<String, Object>) content;
+				topic = payload.get("topic").toString();
+			}
 			if( log.isDebugEnabled() )
 				log.debug("Subscriber "+dest+" to receive stream on "+topic);
 			// Register the mapping
@@ -235,14 +234,15 @@ public class ProvaServiceImpl implements ProvaService {
 				if( engine==null )
 					log.error("Subscriber "+target+" not present");
 				else {
-					engine.addMsg(xid, agent, verb, payload);
+					engine.addMsg(xid, agent, verb, content);
 					if( log.isDebugEnabled() )
-						log.debug("Sent: "+payload+" to "+target);
+						log.debug("Sent: "+content+" to "+target);
 				}
 			}
 			return;
 		} else if( "unregister".equals(verb) ) {
 			// Purge the subscription
+			Map<String, Object> payload = (Map<String, Object>) content;
 			String topic = payload.get("topic").toString();
 			unregisterMapping(topic, dest);
 			// This message will be forwarded to the subscriber informing them of lease expiration
@@ -252,9 +252,9 @@ public class ProvaServiceImpl implements ProvaService {
 		ProvaCommunicator engine = engines.get(dest);
 		if( engine==null )
 			throw new RuntimeException("No engine instance "+dest);
-		engine.addMsg(xid, agent, verb, payload);
+		engine.addMsg(xid, agent, verb, content);
 		if( log.isDebugEnabled() )
-			log.debug("Sent: "+payload+" to "+dest);
+			log.debug("Sent: "+content+" to "+dest);
 	}
 
 	@Override

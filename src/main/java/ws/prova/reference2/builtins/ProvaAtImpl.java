@@ -30,7 +30,7 @@ public class ProvaAtImpl extends ProvaBuiltinImpl {
 	 * Find element at the specified position in a list.
 	 * If the supplied position is -1, assume the request is for the last element in the list.
 	 * If the target element is already supplied, unify it against the element we find at the specified position.
-	 * If the input list is a free variable, generate a list of free variables given the supplied positive length.
+	 * If the input list is a free variable, generate a list of free variables that includes the supplied positive position.
 	 */
 	@Override
 	public boolean process(ProvaReagent prova, ProvaDerivationNode node,

@@ -17,6 +17,7 @@ import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
+import ws.prova.reference2.ProvaMapImpl;
 
 public class ProvaJavaPredicateImpl extends ProvaBuiltinImpl {
 
@@ -53,7 +54,10 @@ public class ProvaJavaPredicateImpl extends ProvaBuiltinImpl {
 				ProvaVariablePtr varPtr = (ProvaVariablePtr) argObject;
 				argObject = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
 			}
-			if( argObject instanceof ProvaConstant ) {
+			if( argObject instanceof ProvaMapImpl ) {
+				final ProvaMapImpl map = (ProvaMapImpl) ((ProvaMapImpl) argObject).cloneWithVariables(variables);
+				args.add( map.getObject() );
+			} else if( argObject instanceof ProvaConstant ) {
 				args.add(((ProvaConstant) argObject).getObject());
 			} else {
 				args.add(argObject);

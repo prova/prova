@@ -68,7 +68,7 @@ public class ProvaFunctionalProgrammingTest {
 						ProvaConstantImpl.create("async"),
 						ProvaConstantImpl.create(0),
 						ProvaConstantImpl.create("data"),
-						ProvaMapImpl.wrap(payload1)
+						ProvaMapImpl.wrapValues(payload1)
 				});
 				prova.addMsg(terms);
 			}
@@ -116,7 +116,7 @@ public class ProvaFunctionalProgrammingTest {
 						ProvaConstantImpl.create("async"),
 						ProvaConstantImpl.create(0),
 						ProvaConstantImpl.create("data"),
-						ProvaMapImpl.wrap(payload1)
+						ProvaMapImpl.wrapValues(payload1)
 				});
 				prova.addMsg(terms);
 			}

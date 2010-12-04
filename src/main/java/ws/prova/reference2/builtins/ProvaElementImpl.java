@@ -19,6 +19,7 @@ import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.reference2.ProvaConstantImpl;
 import ws.prova.reference2.ProvaListImpl;
 import ws.prova.reference2.ProvaLiteralImpl;
+import ws.prova.reference2.ProvaMapImpl;
 import ws.prova.reference2.ProvaPredicateImpl;
 import ws.prova.reference2.ProvaRuleImpl;
 import ws.prova.agent2.ProvaReagent;
@@ -178,13 +179,8 @@ public class ProvaElementImpl extends ProvaBuiltinImpl {
 		return false;
 	}
 
-	private ProvaObject getElement(Object element) {
-		ProvaObject obj = null;
-		if( element instanceof ProvaObject )
-			obj = (ProvaObject) element;
-		else
-			obj = ProvaConstantImpl.create(element);
-		return obj;
+	private ProvaObject getElement(final Object element) {
+		return ProvaMapImpl.wrap(element);
 	}
 
 	@Override
