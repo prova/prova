@@ -3,6 +3,7 @@ package ws.prova.reference2.messaging;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.ReentrantLock;
@@ -18,6 +19,8 @@ import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.messaging.ProvaWorkflows;
 import ws.prova.reference2.ProvaConstantImpl;
+import ws.prova.reference2.ProvaListImpl;
+import ws.prova.reference2.ProvaMapImpl;
 import ws.prova.reference2.ProvaRuleImpl;
 import ws.prova.reference2.ProvaUnificationImpl;
 
@@ -27,7 +30,7 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 
 	private ProvaKnowledgeBase kb;
 
-	private ConcurrentMap<String,List<List<ProvaList>>> join_record = new ConcurrentHashMap<String, List<List<ProvaList>>>();
+	private ConcurrentMap<String,List<List<ProvaObject>>> join_record = new ConcurrentHashMap<String, List<List<ProvaObject>>>();
 
 	private ConcurrentMap<String,Object[]> predicate_join_record = new ConcurrentHashMap<String,Object[]>();
 
@@ -44,21 +47,31 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 		ProvaList terms = literal.getTerms();
 		ProvaList termsCopy = (ProvaList) terms.cloneWithVariables(variables);
 		ProvaObject[] data = termsCopy.getFixed();
-		if( !(data[0] instanceof ProvaConstant) || !(data[1] instanceof ProvaConstant) || !(data[2] instanceof ProvaList) )
+		if( !(data[0] instanceof ProvaConstant) || !(data[1] instanceof ProvaConstant) )
 			return false;
 		// Key is XID+JoinID
 		String key = ((ProvaConstant) data[0]).getObject().toString() + ((ProvaConstant) data[1]).getObject().toString(); 
 		if( join_record.containsKey(key) )
 			return false;
-		ProvaObject[] expectedList = ((ProvaList) data[2]).getFixed();
-		List<ProvaList> waiting = new ArrayList<ProvaList>();
-		for( ProvaObject expected : expectedList ) {
-			if( !(expected instanceof ProvaList) )
+		ProvaObject[] expectedList = null;
+		if( data[2].getClass()==ProvaConstantImpl.class && ((ProvaConstant) data[2]).getObject() instanceof List ) {
+			final List list = (List) ((ProvaConstant) data[2]).getObject();
+			final List<ProvaObject> wrappedList = new ArrayList<ProvaObject>();
+			for( Object o : list ) {
+				wrappedList.add( ProvaMapImpl.wrap(o));
+			}
+			expectedList = (ProvaObject[]) wrappedList.toArray(new ProvaObject[wrappedList.size()]);
+		} else {
+			if( !(data[2] instanceof ProvaList) )
 				return false;
-			waiting.add((ProvaList) expected);
+			expectedList = ((ProvaList) data[2]).getFixed();
 		}
-		List<ProvaList> complete = new ArrayList<ProvaList>();
-		List<List<ProvaList>> record = new ArrayList<List<ProvaList>>();
+		List<ProvaObject> waiting = new ArrayList<ProvaObject>();
+		for( ProvaObject expected : expectedList ) {
+			waiting.add(expected);
+		}
+		List<ProvaObject> complete = new ArrayList<ProvaObject>();
+		List<List<ProvaObject>> record = new ArrayList<List<ProvaObject>>();
 		record.add(waiting);
 		record.add(complete);
 		join_record.put(key,record);
@@ -73,25 +86,25 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 		ProvaList termsCopy = (ProvaList) terms.cloneWithVariables(variables);
 		ProvaObject[] data = termsCopy.getFixed();
 		if( !(data[1] instanceof ProvaConstant) || !(data[2] instanceof ProvaConstant) 
-				|| !(data[3] instanceof ProvaList) || !(data[4] instanceof ProvaVariable))
+				|| !(data[4] instanceof ProvaVariable))
 			return false;
 		// Key is XID+JoinID
 		String key = ((ProvaConstant) data[1]).getObject().toString() + ((ProvaConstant) data[2]).getObject().toString(); 
-		List<List<ProvaList>> waitingAndComplete = join_record.get(key);
+		List<List<ProvaObject>> waitingAndComplete = join_record.get(key);
 		if( waitingAndComplete==null )
 			return false;
-		ProvaLiteral goalLit = kb.generateLiteral("pred1",(ProvaList) data[3]);
+		ProvaLiteral goalLit = kb.generateLiteral("pred1",ProvaListImpl.create(new ProvaObject[] {data[3]}));
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] {goalLit});
-		for (ListIterator<ProvaList> iter = waitingAndComplete.get(0).listIterator(); iter.hasNext();) {
-			ProvaList t = (ProvaList) iter.next().cloneWithVariables(variables);
-			ProvaLiteral lit = kb.generateLiteral("pred1",t);
+		for (ListIterator<ProvaObject> iter = waitingAndComplete.get(0).listIterator(); iter.hasNext();) {
+			ProvaObject t = iter.next().cloneWithVariables(variables);
+			ProvaLiteral lit = kb.generateLiteral("pred1",ProvaListImpl.create(new ProvaObject[] {t}));
 			ProvaRule rule = ProvaRuleImpl.createVirtualRule(1, lit, null);
 			ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule);
 			boolean result = unification.unify();
 			if( !result )
 				continue;
 			iter.remove();
-			waitingAndComplete.get(1).add((ProvaList) data[3]);
+			waitingAndComplete.get(1).add(data[3]);
 			if (waitingAndComplete.get(0).isEmpty()) {
 				join_record.remove(key);
 				((ProvaVariable) data[4]).setAssigned(ProvaConstantImpl.create(waitingAndComplete.get(1)));
