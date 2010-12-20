@@ -301,21 +301,27 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 	protected synchronized boolean sendGroupResults(List<Object> results, ProvaKnowledgeBase kb, ProvaReagent prova) {
 		ProvaList content = null;
 		if( isGroupFailed() ) {
-			if( results.size()==0 )
-				return false;
 			// TODO: Is it always timeout here?
 			if( log.isDebugEnabled() )
 				log.debug("Timeout group results: "+results);
-			// TODO: Need to deal with the case when there are no results
 			content = ProvaListImpl.create(new ProvaObject[] {ProvaConstantImpl.create(results)});
-			final Object last = results.get(results.size()-1);
-			if( last instanceof ProvaList )
-				lastReaction = ((ProvaList) last).shallowCopy();
-			else
-				lastReaction = this.resultRemoveEntry.getReaction();
-			lastReaction.getFixed()[3] = ProvaConstantImpl.create("timeout");
-			if( numEmitted!=0 )
-				results.clear();
+			if( results.isEmpty() ) {
+				// Timeout and no results
+				if( timeoutRemoveEntries!=null && !timeoutRemoveEntries.isEmpty() ) {
+					lastReaction = timeoutRemoveEntries.get(0).getReaction();
+					lastReaction.getFixed()[1] = ProvaConstantImpl.create("async");
+					lastReaction.getFixed()[2] = ProvaConstantImpl.create(0);
+				}
+			} else {
+				final Object last = results.get(results.size()-1);
+				if( last instanceof ProvaList )
+					lastReaction = ((ProvaList) last).shallowCopy();
+				else
+					lastReaction = this.resultRemoveEntry.getReaction();
+				lastReaction.getFixed()[3] = ProvaConstantImpl.create("timeout");
+				if( numEmitted!=0 )
+					results.clear();
+			}
 		} else {
 			if( log.isDebugEnabled() )
 				log.debug("Group results: "+results);

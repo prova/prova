@@ -60,4 +60,5 @@ acquire(XID,S) :-
 acquire(XID,S) :-
 	@or(acquire)
 	rcvMsg(XID,Protocol,_,timeout,Events),
-	println(["Service ",S," could not be acquired"]).
+	println(["Service ",S," could not be acquired"]),
+	$TimeoutCount.incrementAndGet().

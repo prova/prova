@@ -65,6 +65,8 @@ public class ProvaMetadataTest {
 		Map<String,Object> globals = new HashMap<String,Object>();
 		AtomicInteger count = new AtomicInteger();
 		globals.put("$Count", count);
+		AtomicInteger timeoutCount = new AtomicInteger();
+		globals.put("$TimeoutCount", timeoutCount);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 		final int numSolutions[] = {0,0};
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
@@ -76,7 +78,8 @@ public class ProvaMetadataTest {
 		try {
 			synchronized(this) {
 				wait(2500);
-				org.junit.Assert.assertEquals(7,count.get());
+				org.junit.Assert.assertEquals("Incorrect number of patterns",4,count.get());
+				org.junit.Assert.assertEquals("Incorrect number of timeouts",6,timeoutCount.get());
 			}
 		} catch (Exception e) {
 		}
@@ -104,9 +107,9 @@ public class ProvaMetadataTest {
 		try {
 			synchronized(this) {
 				wait(3500);
-				org.junit.Assert.assertEquals(2,successfulOrders.get());
-				org.junit.Assert.assertEquals(1,successfulCancels.get());
-				org.junit.Assert.assertEquals(1,failedCancels.get());
+				org.junit.Assert.assertEquals("Incorrect number of successful orders",2,successfulOrders.get());
+				org.junit.Assert.assertEquals("Incorrect number of successful cancels",1,successfulCancels.get());
+				org.junit.Assert.assertEquals("Incorrect number of failed cancels",1,failedCancels.get());
 			}
 		} catch (Exception e) {
 		}
@@ -134,9 +137,9 @@ public class ProvaMetadataTest {
 		try {
 			synchronized(this) {
 				wait(2000);
-				org.junit.Assert.assertEquals(2,successfulOrders.get());
-				org.junit.Assert.assertEquals(1,successfulCancels.get());
-				org.junit.Assert.assertEquals(1,failedCancels.get());
+				org.junit.Assert.assertEquals("Incorrect number of successful orders",2,successfulOrders.get());
+				org.junit.Assert.assertEquals("Incorrect number of successful cancels",1,successfulCancels.get());
+				org.junit.Assert.assertEquals("Incorrect number of failed cancels",1,failedCancels.get());
 			}
 		} catch (Exception e) {
 		}

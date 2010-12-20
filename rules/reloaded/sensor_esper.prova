@@ -42,8 +42,8 @@ server_1(Sensor,Limit) :-
 server_1(Sensor,Limit) :-
 	@and(g1)
 	rcvMsg(Sensor,Protocol,From,timeout,Events),
-	$Count.incrementAndGet(),
-	println(["Timeout detected: ",Events]).
+	$TimeoutCount.incrementAndGet(),
+	println(["Timeout detected (",Sensor,"): ",Events]).
 
 :- eval(client()). 
 

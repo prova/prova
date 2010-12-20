@@ -35,6 +35,8 @@ public class ProvaMetadataTest2 {
 		AtomicInteger count = new AtomicInteger();
 		Map<String,Object> globals = new HashMap<String,Object>();
 		globals.put("$Count", count);
+		AtomicInteger timeoutCount = new AtomicInteger();
+		globals.put("$TimeoutCount", timeoutCount);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 		final int numSolutions[] = {0,0,0};
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
@@ -47,6 +49,7 @@ public class ProvaMetadataTest2 {
 			synchronized(this) {
 				wait(4000);
 				org.junit.Assert.assertEquals("Incorrect number of services acquired",2,count.get());
+				org.junit.Assert.assertEquals("Incorrect number of timeouts",1,timeoutCount.get());
 			}
 		} catch (Exception e) {
 		}
