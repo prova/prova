@@ -54,4 +54,22 @@ public class ProvaExpressionsTest {
 		org.junit.Assert.assertTrue((Integer)ans2==-1);
 	}
 
+	/**
+	 * Issue PROVA-75: Fields extracted from Prova maps cannot be used in the right-hand side of binary expressions
+	 */
+	@Test
+	public void expr003() {
+		final String rulebase = "rules/reloaded/expr003.prova";
+		final int[] numSolutions = new int[] {1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(1,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertTrue(solutions.get(0)[0].getNv("A") instanceof ProvaConstant);
+		final Object ans1 = ((ProvaConstant) solutions.get(0)[0].getNv("A")).getObject();
+		org.junit.Assert.assertEquals(ans1,"yes");
+	}
+
 }

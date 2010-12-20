@@ -14,6 +14,8 @@ public class ProvaBinaryEqualsImpl implements ProvaBinaryOperator {
 		Object n2 = a2.computeIfExpression();
 		if( n2==null )
 			return false;
+		if( n2.getClass()==ProvaConstantImpl.class )
+			n2 = ((ProvaConstant) n2).getObject();
 		if( o1 instanceof ProvaVariable ) {
 			((ProvaVariable) o1).setAssigned(ProvaConstantImpl.create(n2));
 			return true;

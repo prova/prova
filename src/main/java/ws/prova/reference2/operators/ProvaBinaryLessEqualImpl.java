@@ -4,6 +4,7 @@ import ws.prova.kernel2.ProvaComputable;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaVariable;
+import ws.prova.reference2.ProvaConstantImpl;
 
 public class ProvaBinaryLessEqualImpl implements ProvaBinaryOperator {
 
@@ -14,6 +15,8 @@ public class ProvaBinaryLessEqualImpl implements ProvaBinaryOperator {
 		}
 		Object oa1 = ((ProvaConstant) o1).getObject();
 		Object oa2 = a2.compute();
+		if( oa2.getClass()==ProvaConstantImpl.class )
+			oa2 = ((ProvaConstant) oa2).getObject();
 		if( !(oa1 instanceof Number) || !(oa2 instanceof Number) )
 			return false;
 		Number na1 = (Number) oa1;

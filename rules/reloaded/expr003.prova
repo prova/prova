@@ -1,0 +1,7 @@
+:-solve(expr003({f1:a,f2:b},A)).
+
+expr003(Map,yes) :-
+	println(["==========expr003=========="]),
+	a=Map.get(f1),
+	!.
+expr003(Map,no).
