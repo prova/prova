@@ -52,9 +52,4 @@ public class ProvaExpressionLiteralImpl extends ProvaBuiltinImpl {
 		return bo.evaluate(a1, (ProvaComputable) a2);
 	}
 
-	@Override
-	public int getArity() {
-		return 3;
-	}
-
 }

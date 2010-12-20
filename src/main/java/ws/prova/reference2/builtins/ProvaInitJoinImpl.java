@@ -22,9 +22,4 @@ public class ProvaInitJoinImpl extends ProvaBuiltinImpl {
 		return prova.getWorkflows().init_join(literal, newLiterals, query);
 	}
 
-	@Override
-	public int getArity() {
-		return 3;
-	}
-
 }

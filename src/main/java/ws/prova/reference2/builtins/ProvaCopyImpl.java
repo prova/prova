@@ -90,9 +90,4 @@ public class ProvaCopyImpl extends ProvaBuiltinImpl {
 		}
 	}
 
-	@Override
-	public int getArity() {
-		return 2;
-	}
-
 }

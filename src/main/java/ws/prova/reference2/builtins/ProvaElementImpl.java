@@ -183,9 +183,4 @@ public class ProvaElementImpl extends ProvaBuiltinImpl {
 		return ProvaMapImpl.wrap(element);
 	}
 
-	@Override
-	public int getArity() {
-		return 2;
-	}
-
 }

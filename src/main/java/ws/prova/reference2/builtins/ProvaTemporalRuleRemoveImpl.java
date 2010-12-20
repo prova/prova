@@ -43,9 +43,4 @@ public class ProvaTemporalRuleRemoveImpl extends ProvaBuiltinImpl {
 		}
 	}
 
-	@Override
-	public int getArity() {
-		return 3;
-	}
-
 }

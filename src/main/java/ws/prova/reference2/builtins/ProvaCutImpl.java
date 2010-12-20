@@ -26,9 +26,4 @@ public class ProvaCutImpl extends ProvaBuiltinImpl {
 		return "cut";
 	}
 
-	@Override
-	public int getArity() {
-		return 1;
-	}
-
 }

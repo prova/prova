@@ -22,9 +22,4 @@ public class ProvaSpawnImpl extends ProvaBuiltinImpl {
 		return prova.getMessenger().spawn(literal, newLiterals, query);
 	}
 
-	@Override
-	public int getArity() {
-		return 4;
-	}
-
 }

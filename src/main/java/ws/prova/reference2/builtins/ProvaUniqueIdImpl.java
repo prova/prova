@@ -42,9 +42,4 @@ public class ProvaUniqueIdImpl extends ProvaBuiltinImpl {
 		return false;
 	}
 
-	@Override
-	public int getArity() {
-		return 1;
-	}
-
 }

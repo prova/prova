@@ -80,9 +80,4 @@ public class ProvaTokenizeListImpl extends ProvaBuiltinImpl {
 		return true;
 	}
 
-	@Override
-	public int getArity() {
-		return 2;
-	}
-
 }

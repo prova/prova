@@ -34,9 +34,4 @@ public class ProvaFreeImpl extends ProvaBuiltinImpl {
 		return lt instanceof ProvaVariable;
 	}
 
-	@Override
-	public int getArity() {
-		return 1;
-	}
-
 }

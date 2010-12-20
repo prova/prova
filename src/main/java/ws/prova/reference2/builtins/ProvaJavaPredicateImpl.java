@@ -84,9 +84,4 @@ public class ProvaJavaPredicateImpl extends ProvaBuiltinImpl {
 		return rc instanceof Boolean ? (Boolean) rc : true;
 	}
 
-	@Override
-	public int getArity() {
-		return 3;
-	}
-
 }

@@ -111,9 +111,4 @@ public class ProvaAttachImpl extends ProvaBuiltinImpl {
 		   return out; 
 		} 
 	
-	@Override
-	public int getArity() {
-		return 3;
-	}
-
 }

@@ -34,9 +34,4 @@ public class ProvaAddGroupResultImpl extends ProvaBuiltinImpl {
 		}
 	}
 
-	@Override
-	public int getArity() {
-		return 5;
-	}
-
 }

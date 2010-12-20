@@ -61,9 +61,4 @@ public class ProvaConsultImpl extends ProvaBuiltinImpl {
 		}
 	}
 
-	@Override
-	public int getArity() {
-		return 1;
-	}
-
 }

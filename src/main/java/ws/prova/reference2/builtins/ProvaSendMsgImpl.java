@@ -22,9 +22,4 @@ public class ProvaSendMsgImpl extends ProvaBuiltinImpl {
 		return prova.getMessenger().sendMsg(literal, newLiterals, query);
 	}
 
-	@Override
-	public int getArity() {
-		return 5;
-	}
-
 }

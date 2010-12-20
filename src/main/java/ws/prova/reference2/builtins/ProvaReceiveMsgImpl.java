@@ -21,9 +21,4 @@ public class ProvaReceiveMsgImpl extends ProvaBuiltinImpl {
 		return prova.getMessenger().rcvMsg(goal, newLiterals, query, false);
 	}
 
-	@Override
-	public int getArity() {
-		return 5;
-	}
-
 }

@@ -38,9 +38,4 @@ public class ProvaRetractAllImpl extends ProvaBuiltinImpl {
 		return retracted;
 	}
 
-	@Override
-	public int getArity() {
-		return 1;
-	}
-
 }

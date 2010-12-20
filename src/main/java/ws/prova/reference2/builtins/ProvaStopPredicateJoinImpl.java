@@ -22,9 +22,4 @@ public class ProvaStopPredicateJoinImpl extends ProvaBuiltinImpl {
 		return prova.getWorkflows().stop_predicate_join(literal, newLiterals, query);
 	}
 
-	@Override
-	public int getArity() {
-		return 2;
-	}
-
 }

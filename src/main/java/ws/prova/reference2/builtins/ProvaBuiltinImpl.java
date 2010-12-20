@@ -55,7 +55,9 @@ public abstract class ProvaBuiltinImpl implements ProvaBuiltin {
 	}
 
 	@Override
-	abstract public int getArity();
+	public int getArity() {
+		throw new UnsupportedOperationException("Method is not used for built-ins");
+	}
 
 	@Override
 	public ProvaRuleSet getClauseSet() {

@@ -81,9 +81,4 @@ public class ProvaReverseImpl extends ProvaBuiltinImpl {
 		return false;
 	}
 
-	@Override
-	public int getArity() {
-		return 2;
-	}
-
 }

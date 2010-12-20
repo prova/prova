@@ -117,9 +117,4 @@ public class ProvaJavaFunctionImpl extends ProvaBuiltinImpl {
 		return true;
 	}
 
-	@Override
-	public int getArity() {
-		return 5;
-	}
-
 }

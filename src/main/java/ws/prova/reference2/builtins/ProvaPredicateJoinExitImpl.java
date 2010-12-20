@@ -22,9 +22,4 @@ public class ProvaPredicateJoinExitImpl extends ProvaBuiltinImpl {
 		return prova.getWorkflows().predicate_join_exit(literal, newLiterals, query);
 	}
 
-	@Override
-	public int getArity() {
-		return 3;
-	}
-
 }
