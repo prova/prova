@@ -45,9 +45,6 @@ public class ProvaUnificationTest {
 		ProvaLiteral lit3 = kb.generateLiteral("pred2",l4);
 		ProvaRule rule = kb.generateRule(lit1, new ProvaLiteral[] {lit3});
 		
-		System.out.println(goal.toString());
-		System.out.println(rule.toString());
-		
 		ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule);
 		boolean result = unification.unify();
 		
@@ -211,8 +208,8 @@ public class ProvaUnificationTest {
 
 	/**
 	 * Unify
-	 *		goal: pred1(X,[1|Z]|Z)
-	 *		rule: pred1(V,[1,2,3],2,3|U):-pred2(V|U).
+	 * 		goal: pred1([V,[1,2,3],2,3|U]):-pred2([V|U])  
+	 * 		rule: pred1([X,[1|Z]|Z])
 	 */
 	@Test
 	public void unifyEmptyListTest() {
@@ -236,10 +233,11 @@ public class ProvaUnificationTest {
 		ProvaList l5 = ProvaListImpl.create( new ProvaObject[] {v}, u);
 		ProvaLiteral lit2 = kb.generateLiteral("pred2",l5);
 		ProvaRule rule = kb.generateRule(lit1, new ProvaLiteral[] {lit2});
-		
+
+		System.out.println(rule.toString()+"  "+goal.toString());
 		ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule);
 		boolean result = unification.unify();
-		
+
 		org.junit.Assert.assertTrue(result);
 		
 		int countSourceSubstitutions = 0;
