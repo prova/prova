@@ -16,11 +16,11 @@ import ws.prova.reference2.ProvaUnificationImpl;
 import ws.prova.reference2.ProvaVariableImpl;
 
 public class ProvaUnificationTest {
-
 	/**
 	 * Unify
-	 *		goal: pred1(X,[2|A]|Z)
-	 *		rule: pred1(V,Y,3,Y,U):-pred2(V,Y|U).
+	 *  goal: pred1([X,[2|A]|Z])
+	 *  rule: pred1([V,Y,3,Y,U]):-pred2([V,Y|U])
+	 *		
 	 */
 	@Test
 	public void unifyTest1() {
@@ -44,6 +44,9 @@ public class ProvaUnificationTest {
 		ProvaList l4 = ProvaListImpl.create( new ProvaObject[] {v,y}, u);
 		ProvaLiteral lit3 = kb.generateLiteral("pred2",l4);
 		ProvaRule rule = kb.generateRule(lit1, new ProvaLiteral[] {lit3});
+		
+		System.out.println(goal.toString());
+		System.out.println(rule.toString());
 		
 		ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule);
 		boolean result = unification.unify();
