@@ -1,4 +1,4 @@
-CP=$CLASSPATH:target/ws.prova.compact-3.0.1.jar
+CP=$CLASSPATH:target/ws.prova.compact-3.1.3.jar
 
 for j in lib; do
     for i in `ls $j`; do
