@@ -31,6 +31,10 @@ import ws.prova.kernel2.ProvaRuleSet;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.exchange.ProvaSolution;
+import ws.prova.fub.database.builtins.ProvaDBOpenBuiltinImpl;
+import ws.prova.fub.database.builtins.ProvaLocationBuiltinImpl;
+import ws.prova.fub.database.builtins.ProvaSQLSelectBuiltinImpl;
+import ws.prova.fub.rdf.builtins.ProvaSparqlSelectBuiltinImpl;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.cache.ProvaCacheState;
 import ws.prova.kernel2.cache.ProvaLocalAnswers;
@@ -209,6 +213,10 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("@temporal_rule_remove", new ProvaTemporalRuleRemoveImpl(this));
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
+		builtins.put("sparql_select", new ProvaSparqlSelectBuiltinImpl(this));
+		builtins.put("location", new ProvaLocationBuiltinImpl(this));
+		builtins.put("dbopen", new ProvaDBOpenBuiltinImpl(this));
+		builtins.put("sql_select", new ProvaSQLSelectBuiltinImpl(this));
 
 		initRules();
 		
