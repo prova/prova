@@ -78,17 +78,6 @@
 				<enabled>false</enabled>
 			</releases>
 		</pluginRepository>
-		<pluginRepository>
-			<id>ops4j.snapshots</id>
-			<name>Maven Pax Plugins Snapshot Repository</name>
-			<url>http://repository.ops4j.org/mvn-snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</pluginRepository>
 	</pluginRepositories>
 	<build>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
@@ -191,11 +180,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.ops4j</groupId>
-				<artifactId>maven-pax-plugin</artifactId>
-				<version>1.4</version>
 			</plugin>
 		</plugins>
 		<!--
