@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,18 +35,19 @@ import ws.prova.exchange.ProvaSolution;
 import ws.prova.fub.database.builtins.ProvaDBOpenBuiltinImpl;
 import ws.prova.fub.database.builtins.ProvaLocationBuiltinImpl;
 import ws.prova.fub.database.builtins.ProvaSQLSelectBuiltinImpl;
-import ws.prova.fub.rdf.builtins.ProvaSparqlSelectBuiltinImpl;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.cache.ProvaCacheState;
 import ws.prova.kernel2.cache.ProvaLocalAnswers;
 import ws.prova.parser2.ProvaParserImpl;
 import ws.prova.parser2.ProvaParsingException;
+import ws.prova.plugin.registry.impl.ProvaPluginRegistryImpl;
 import ws.prova.reference2.builtins.ProvaAddGroupResultImpl;
 import ws.prova.reference2.builtins.ProvaAssertAImpl;
 import ws.prova.reference2.builtins.ProvaAssertImpl;
 import ws.prova.reference2.builtins.ProvaAtImpl;
 import ws.prova.reference2.builtins.ProvaAttachImpl;
 import ws.prova.reference2.builtins.ProvaBoundImpl;
+import ws.prova.reference2.builtins.ProvaBuiltinImpl;
 import ws.prova.reference2.builtins.ProvaByteStreamImpl;
 import ws.prova.reference2.builtins.ProvaCacheImpl;
 import ws.prova.reference2.builtins.ProvaCaptureEnumImpl;
@@ -213,11 +215,16 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("@temporal_rule_remove", new ProvaTemporalRuleRemoveImpl(this));
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
-		builtins.put("sparql_select", new ProvaSparqlSelectBuiltinImpl(this));
 		builtins.put("location", new ProvaLocationBuiltinImpl(this));
 		builtins.put("dbopen", new ProvaDBOpenBuiltinImpl(this));
 		builtins.put("sql_select", new ProvaSQLSelectBuiltinImpl(this));
 
+		Collection<ProvaBuiltin> additional_builtins = ProvaPluginRegistryImpl.getAdditionBuiltins();
+		for(ProvaBuiltin builtin : additional_builtins) {
+			builtins.put(builtin.getSymbol(), builtin);
+			builtin.setKnowledgeBase(this);
+		}
+		
 		initRules();
 		
 	}
