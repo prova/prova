@@ -207,12 +207,10 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 				((ProvaVariable) target).setAssigned(this);
 				return true;
 			}
-			//TODO: commenting out the following makes some tests fail...
-			//      
-			//if( ((ProvaVariable) target).isSubtypeOf(this, unification) ) {
-				//assigned = target;
-				//return true;
-			//}
+			if( ((ProvaVariable) target).isSubtypeOf(this, unification) ) {
+				assigned = target;
+				return true;
+			}
 			return false;
 //			if( !((ProvaVariable) target).getType().isAssignableFrom(type) )
 //				return false;

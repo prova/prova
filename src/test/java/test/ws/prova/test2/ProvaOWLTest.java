@@ -24,32 +24,19 @@ public class ProvaOWLTest {
 	public void create()
 	{
 		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_RULE_INF);
-		OntClass bauer = model.createClass(namespace+"bauer");
-		OntClass schachfigur = model.createClass(namespace+"schachfigur");
-
-		// ein bauer ist eine schachfigur
-		schachfigur.addSubClass(bauer);
-
-		// horst ist ein bauer
-		Individual horst = bauer.createIndividual(namespace+"horst");
+		OntClass pawn = model.createClass(namespace+"pawn");
+		OntClass chesspiece = model.createClass(namespace+"chesspiece");
+		OntClass rook= model.createClass(namespace+"rook");
 		
+		pawn.addSuperClass(chesspiece);
+		rook.addSuperClass(chesspiece);
 		
-		// how to retrieve a resource without knowing the namespace:
-//		String base_namespace=model.getNsPrefixURI("");
-	//	System.out.println(base_namespace);
-		//bauer=model.getOntClass(base_namespace+"bauer");
-		
-		
-		// einmal bauer immer bauer
-		org.junit.Assert.assertTrue(bauer.hasSuperClass(bauer));
-		
-		// also ist bauer horst eine schachfigur
-		org.junit.Assert.assertTrue(horst.hasOntClass(schachfigur));
+		org.junit.Assert.assertTrue(pawn.hasSuperClass(pawn));
+		org.junit.Assert.assertTrue(pawn.hasSuperClass(chesspiece));
 		
 		boolean succesfulWrite=true;
 		try
 		{
-			
 			model.write(new FileOutputStream("rules/ont/testOntology.rdf"), "RDF/XML-ABBREV");
 		}
 		catch(Exception e)
@@ -70,7 +57,7 @@ public class ProvaOWLTest {
 		try {
 			ProvaCommunicator pc=new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 			Assert.assertTrue(pc.getReagent().getKb().getOntologyModel()!=null);
-			Assert.assertTrue(pc.getInitializationSolutions().get(0).length==3);
+			Assert.assertEquals(3,pc.getInitializationSolutions().get(0).length);
 
 		} catch (Exception e) {
 			e.printStackTrace();
