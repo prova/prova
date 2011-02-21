@@ -1,9 +1,9 @@
 package ws.prova.reference2.messaging;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.ReentrantLock;
@@ -22,7 +22,7 @@ import ws.prova.reference2.ProvaConstantImpl;
 import ws.prova.reference2.ProvaListImpl;
 import ws.prova.reference2.ProvaMapImpl;
 import ws.prova.reference2.ProvaRuleImpl;
-import ws.prova.reference2.ProvaUnificationImplNew;
+import ws.prova.reference2.ProvaUnificationImpl;
 
 public class ProvaWorkflowsImpl implements ProvaWorkflows {
 
@@ -99,7 +99,7 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 			ProvaObject t = iter.next().cloneWithVariables(variables);
 			ProvaLiteral lit = kb.generateLiteral("pred1",ProvaListImpl.create(new ProvaObject[] {t}));
 			ProvaRule rule = ProvaRuleImpl.createVirtualRule(1, lit, null);
-			ProvaUnificationImplNew unification = new ProvaUnificationImplNew(goal, rule);
+			ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule, kb.getOntologyModel());
 			boolean result = unification.unify();
 			if( !result )
 				continue;
@@ -199,7 +199,7 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 					ProvaList t = (ProvaList) iter.next().cloneWithVariables(variables);
 					ProvaLiteral lit = kb.generateLiteral("pred1",t);
 					ProvaRule rule = ProvaRuleImpl.createVirtualRule(1, lit, null);
-					ProvaUnificationImplNew unification = new ProvaUnificationImplNew(goal, rule);
+					ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule, kb.getOntologyModel());
 					boolean result = unification.unify();
 					if( !result )
 						continue;
