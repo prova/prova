@@ -2,9 +2,10 @@ package test.ws.prova.test2;
 
 import java.io.FileOutputStream;
 
+
 import ws.prova.api2.ProvaCommunicator;
 import ws.prova.api2.ProvaCommunicatorImpl;
-import org.junit.Test;
+import org.junit.*;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -58,7 +59,7 @@ public class ProvaOWLTest {
 		}
 		finally
 		{
-			org.junit.Assert.assertTrue(succesfulWrite);
+			Assert.assertTrue(succesfulWrite);
 		}
 	}
 		
@@ -68,7 +69,8 @@ public class ProvaOWLTest {
 		final String rulebase = "rules/reloaded/ontology_test.prova";
 		try {
 			ProvaCommunicator pc=new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
-			org.junit.Assert.assertTrue(pc.getInitializationSolutions().get(0).length==3);
+			Assert.assertTrue(pc.getReagent().getKb().getOntologyModel()!=null);
+			Assert.assertTrue(pc.getInitializationSolutions().get(0).length==3);
 
 		} catch (Exception e) {
 			e.printStackTrace();
