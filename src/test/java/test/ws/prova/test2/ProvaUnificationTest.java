@@ -2,6 +2,7 @@ package test.ws.prova.test2;
 
 import org.junit.Test;
 
+
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaList;
@@ -12,7 +13,7 @@ import ws.prova.kernel2.ProvaVariable;
 import ws.prova.reference2.ProvaConstantImpl;
 import ws.prova.reference2.ProvaKnowledgeBaseImpl;
 import ws.prova.reference2.ProvaListImpl;
-import ws.prova.reference2.ProvaUnificationImplNew;
+import ws.prova.reference2.ProvaUnificationImpl;
 import ws.prova.reference2.ProvaVariableImpl;
 
 public class ProvaUnificationTest {
@@ -45,7 +46,7 @@ public class ProvaUnificationTest {
 		ProvaLiteral lit3 = kb.generateLiteral("pred2",l4);
 		ProvaRule rule = kb.generateRule(lit1, new ProvaLiteral[] {lit3});
 		
-		ProvaUnificationImplNew unification = new ProvaUnificationImplNew(goal, rule);
+		ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule,kb);
 		boolean result = unification.unify();
 		
 		org.junit.Assert.assertTrue(result);
@@ -108,7 +109,7 @@ public class ProvaUnificationTest {
 		ProvaLiteral lit3 = kb.generateLiteral("pred2",l4);
 		ProvaRule rule = kb.generateRule(lit1, new ProvaLiteral[] {lit3});
 		
-		ProvaUnificationImplNew unification = new ProvaUnificationImplNew(goal, rule);
+		ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule,kb);
 		boolean result = unification.unify();
 		
 		org.junit.Assert.assertTrue(result);
@@ -171,7 +172,7 @@ public class ProvaUnificationTest {
 		ProvaLiteral lit3 = kb.generateLiteral("pred2",l4);
 		ProvaRule rule = kb.generateRule(lit1, new ProvaLiteral[] {lit3});
 		
-		ProvaUnificationImplNew unification = new ProvaUnificationImplNew(goal, rule);
+		ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule, kb);
 		boolean result = unification.unify();
 		
 		org.junit.Assert.assertTrue(result);
@@ -235,7 +236,7 @@ public class ProvaUnificationTest {
 		ProvaRule rule = kb.generateRule(lit1, new ProvaLiteral[] {lit2});
 
 		System.out.println(rule.toString()+"  "+goal.toString());
-		ProvaUnificationImplNew unification = new ProvaUnificationImplNew(goal, rule);
+		ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule, kb);
 		boolean result = unification.unify();
 
 		org.junit.Assert.assertTrue(result);
@@ -299,7 +300,7 @@ public class ProvaUnificationTest {
 		ProvaLiteral lit2 = kb.generateLiteral("pred2",l5);
 		ProvaRule rule = kb.generateRule(lit1, new ProvaLiteral[] {lit2});
 		
-		ProvaUnificationImplNew unification = new ProvaUnificationImplNew(goal, rule);
+		ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule,kb);
 		boolean result = unification.unify();
 		
 		org.junit.Assert.assertTrue(result);

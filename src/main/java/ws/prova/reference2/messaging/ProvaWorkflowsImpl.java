@@ -99,7 +99,7 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 			ProvaObject t = iter.next().cloneWithVariables(variables);
 			ProvaLiteral lit = kb.generateLiteral("pred1",ProvaListImpl.create(new ProvaObject[] {t}));
 			ProvaRule rule = ProvaRuleImpl.createVirtualRule(1, lit, null);
-			ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule, kb.getOntologyModel());
+			ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule, kb);
 			boolean result = unification.unify();
 			if( !result )
 				continue;
@@ -199,7 +199,7 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 					ProvaList t = (ProvaList) iter.next().cloneWithVariables(variables);
 					ProvaLiteral lit = kb.generateLiteral("pred1",t);
 					ProvaRule rule = ProvaRuleImpl.createVirtualRule(1, lit, null);
-					ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule, kb.getOntologyModel());
+					ProvaUnificationImpl unification = new ProvaUnificationImpl(goal, rule, kb);
 					boolean result = unification.unify();
 					if( !result )
 						continue;
