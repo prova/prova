@@ -2,6 +2,8 @@ package ws.prova.kernel2;
 
 import java.util.List;
 
+import com.hp.hpl.jena.ontology.OntModel;
+
 public interface ProvaUnification {
 
 	public boolean unify();
@@ -32,5 +34,7 @@ public interface ProvaUnification {
 			ProvaDerivationNode node);
 
 	public boolean targetUnchanged();
+	
+	public OntModel getOntologyModel();
 
 }

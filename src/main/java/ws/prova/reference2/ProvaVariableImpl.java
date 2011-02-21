@@ -3,6 +3,12 @@ package ws.prova.reference2;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.commons.logging.Log;
+
+import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntModel;
+
+import test.ws.prova.test2.ProvaOWLTest;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaUnification;
@@ -16,6 +22,8 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	private Object name;
 	
 	private Class<?> type;
+	
+	private String semanticEntity;
 	
 	// The term that this variable is assigned to
 	private ProvaObject assigned;
@@ -51,6 +59,9 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 	
 	private ProvaVariableImpl(final String name) {
+		int idx=name.indexOf(':');
+		if(idx>0)
+			semanticEntity=name.substring(idx+1);
 		this.name = "_".equals(name) ? incName.incrementAndGet() : name;
 		this.type = Object.class;
 		this.assigned = null;
@@ -58,6 +69,9 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	private ProvaVariableImpl( final String name, final Class<?> type ) {
+		int idx=name.indexOf(':');
+		if(idx>0)
+			semanticEntity=name.substring(idx+1);
 		this.name = name;
 		this.type = type;
 		this.assigned = null;
@@ -65,12 +79,13 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 	
 	private ProvaVariableImpl(final Class<?> type, final ProvaObject assigned, final int index,
-			final long ruleId) {
+			final long ruleId, final String semanticEntity) {
 		this.name = incName.incrementAndGet();
 		this.type = type;
 		this.assigned = assigned;
 		this.index = index;
 		this.ruleId = ruleId;
+		this.semanticEntity=semanticEntity;
 	}
 
 	private ProvaVariableImpl(final String name, final ProvaObject assigned) {
@@ -96,6 +111,12 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	@Override
 	public Class<?> getType() {
 		return type;
+	}
+	
+	@Override
+	public String getSemanticEntity()
+	{
+		return semanticEntity;
 	}
 
 	@Override
@@ -164,13 +185,13 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	
 	@Override
 	public ProvaVariable clone() {
-		ProvaVariableImpl newVariable = new ProvaVariableImpl(type,assigned,index,ruleId);
+		ProvaVariableImpl newVariable = new ProvaVariableImpl(type,assigned,index,ruleId,semanticEntity);
 		return newVariable;
 	}
 
 	@Override
 	public ProvaVariable clone(long ruleId) {
-		ProvaVariableImpl newVariable = new ProvaVariableImpl(type,assigned,index,ruleId);
+		ProvaVariableImpl newVariable = new ProvaVariableImpl(type,assigned,index,ruleId,semanticEntity);
 		return newVariable;
 	}
 
@@ -181,15 +202,17 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 			return true;
 		}
 		if( target instanceof ProvaVariable ) {
-			final Class<?> targetType = ((ProvaVariable) target).getType();
-			if( targetType.isAssignableFrom(type) ) {
+			if(this.isSubtypeOf((ProvaVariable)target, unification))
+			{
 				((ProvaVariable) target).setAssigned(this);
 				return true;
 			}
-			if( type.isAssignableFrom(targetType) ) {
-				assigned = target;
-				return true;
-			}
+			//TODO: commenting out the following makes some tests fail...
+			//      
+			//if( ((ProvaVariable) target).isSubtypeOf(this, unification) ) {
+				//assigned = target;
+				//return true;
+			//}
 			return false;
 //			if( !((ProvaVariable) target).getType().isAssignableFrom(type) )
 //				return false;
@@ -205,6 +228,25 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 			}
 		}
 		assigned = target;
+		return true;
+	}
+	
+	public final boolean isSubtypeOf(ProvaVariable target, ProvaUnification unification)
+	{
+		final Class<?> targetType = target.getType();
+		if(!targetType.isAssignableFrom(type))
+			return false;
+		OntModel m=unification.getOntologyModel();
+		if(m!=null)
+		{
+			// TODO: hardcoded namespace! find a solution!!!
+			OntClass goalClass=m.getOntClass(ProvaOWLTest.namespace+this.semanticEntity),
+			         targetClass=m.getOntClass(ProvaOWLTest.namespace+target.getSemanticEntity());
+			if(goalClass==null||targetClass==null)
+				return true;
+			if(goalClass!=null&&targetClass!=null&&!goalClass.hasSuperClass(targetClass))
+				return false;
+		}
 		return true;
 	}
 

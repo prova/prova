@@ -1,14 +1,18 @@
 package ws.prova.kernel2;
 
 import java.io.BufferedReader;
+
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+import com.hp.hpl.jena.ontology.OntModel;
+
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.exchange.ProvaSolution;
 import ws.prova.kernel2.cache.ProvaCacheState;
+
 
 public interface ProvaKnowledgeBase {
 
@@ -88,6 +92,10 @@ public interface ProvaKnowledgeBase {
 			ProvaLiteral[] body, int offset, List<ProvaVariable> variables);
 
 	public void updateContext(String filename);
+	
+	public void setOntologyModel(OntModel m);
+	
+	public OntModel getOntologyModel();
 
 //	public ProvaRule generateLocalRule(ProvaReagent prova, long partitionKey,
 //			ProvaLiteral head, ProvaLiteral[] array);

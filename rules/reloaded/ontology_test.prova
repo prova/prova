@@ -1,0 +1,14 @@
+p(0):-owl_typing( "file:///home/martin/workspace/sf/rules/ont/testOntology.rdf" ).
+
+istAusHolz(X:schachfigur).
+istEinLandwirt(X:bauer).
+
+:-solve(p(X)).
+% should be X=1,2,3.
+
+p(1):-istAusHolz(X:bauer).
+p(2):-istAusHolz(X:schachfigur).
+p(3):-istEinLandwirt(X:bauer).
+p(4):-istEinLandwirt(X:schachfigur).
+
+

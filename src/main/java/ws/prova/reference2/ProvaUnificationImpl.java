@@ -1,8 +1,11 @@
 package ws.prova.reference2;
 
 import java.util.List;
+
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.hp.hpl.jena.ontology.OntModel;
 
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaDerivationNode;
@@ -17,6 +20,8 @@ import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.reference2.builtins.ProvaFailImpl;
+
+
 
 public class ProvaUnificationImpl implements ProvaUnification {
 
@@ -34,7 +39,10 @@ public class ProvaUnificationImpl implements ProvaUnification {
 
 	private List<ProvaList> meta;
 	
-	public ProvaUnificationImpl(ProvaRule source, ProvaRule target) {
+	private OntModel ontologyModel;
+	
+	public ProvaUnificationImpl(ProvaRule source, ProvaRule target,OntModel ontologyModel) {
+		this.ontologyModel=ontologyModel;
 		init(source,target,true);
 	}
 	
@@ -393,6 +401,12 @@ public class ProvaUnificationImpl implements ProvaUnification {
 	public void setMeta(List<ProvaList> meta) {
 		if( meta!=null )
 			this.meta = meta;
+	}
+	
+	@Override
+	public OntModel getOntologyModel()
+	{
+		return ontologyModel;
 	}
 
 }

@@ -1,6 +1,7 @@
 package ws.prova.reference2;
 
 import java.io.BufferedReader;
+
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
+
+import com.hp.hpl.jena.ontology.OntModel;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaBuiltin;
@@ -41,78 +44,7 @@ import ws.prova.kernel2.cache.ProvaLocalAnswers;
 import ws.prova.parser2.ProvaParserImpl;
 import ws.prova.parser2.ProvaParsingException;
 import ws.prova.plugin.registry.impl.ProvaPluginRegistryImpl;
-import ws.prova.reference2.builtins.ProvaAddGroupResultImpl;
-import ws.prova.reference2.builtins.ProvaAssertAImpl;
-import ws.prova.reference2.builtins.ProvaAssertImpl;
-import ws.prova.reference2.builtins.ProvaAtImpl;
-import ws.prova.reference2.builtins.ProvaAttachImpl;
-import ws.prova.reference2.builtins.ProvaBoundImpl;
-import ws.prova.reference2.builtins.ProvaBuiltinImpl;
-import ws.prova.reference2.builtins.ProvaByteStreamImpl;
-import ws.prova.reference2.builtins.ProvaCacheImpl;
-import ws.prova.reference2.builtins.ProvaCaptureEnumImpl;
-import ws.prova.reference2.builtins.ProvaCloneImpl;
-import ws.prova.reference2.builtins.ProvaConcatImpl;
-import ws.prova.reference2.builtins.ProvaConstructorImpl;
-import ws.prova.reference2.builtins.ProvaConsultImpl;
-import ws.prova.reference2.builtins.ProvaCopyImpl;
-import ws.prova.reference2.builtins.ProvaCopyStreamImpl;
-import ws.prova.reference2.builtins.ProvaDeriveImpl;
-import ws.prova.reference2.builtins.ProvaElementImpl;
-import ws.prova.reference2.builtins.ProvaEqualsImpl;
-import ws.prova.reference2.builtins.ProvaEqualsMinusImpl;
-import ws.prova.reference2.builtins.ProvaExpressionLiteralImpl;
-import ws.prova.reference2.builtins.ProvaFailImpl;
-import ws.prova.reference2.builtins.ProvaFopenImpl;
-import ws.prova.reference2.builtins.ProvaFreeImpl;
-import ws.prova.reference2.builtins.ProvaGreaterEqualImpl;
-import ws.prova.reference2.builtins.ProvaGreaterImpl;
-import ws.prova.reference2.builtins.ProvaIamImpl;
-import ws.prova.reference2.builtins.ProvaInitJoinImpl;
-import ws.prova.reference2.builtins.ProvaInitPredicateJoinImpl;
-import ws.prova.reference2.builtins.ProvaInsertImpl;
-import ws.prova.reference2.builtins.ProvaJavaFunctionImpl;
-import ws.prova.reference2.builtins.ProvaJavaPredicateImpl;
-import ws.prova.reference2.builtins.ProvaJoinTestImpl;
-import ws.prova.reference2.builtins.ProvaLengthImpl;
-import ws.prova.reference2.builtins.ProvaLessEqualImpl;
-import ws.prova.reference2.builtins.ProvaLessImpl;
-import ws.prova.reference2.builtins.ProvaListenImpl;
-import ws.prova.reference2.builtins.ProvaMatchImpl;
-import ws.prova.reference2.builtins.ProvaMathAddImpl;
-import ws.prova.reference2.builtins.ProvaMathDivideImpl;
-import ws.prova.reference2.builtins.ProvaMathMultiplyImpl;
-import ws.prova.reference2.builtins.ProvaMathRemainderImpl;
-import ws.prova.reference2.builtins.ProvaMathSubtractImpl;
-import ws.prova.reference2.builtins.ProvaMkListImpl;
-import ws.prova.reference2.builtins.ProvaNotEqualsImpl;
-import ws.prova.reference2.builtins.ProvaParseListImpl;
-import ws.prova.reference2.builtins.ProvaParseNvImpl;
-import ws.prova.reference2.builtins.ProvaPredicateJoinExitImpl;
-import ws.prova.reference2.builtins.ProvaPredicateJoinTestImpl;
-import ws.prova.reference2.builtins.ProvaPrintImpl;
-import ws.prova.reference2.builtins.ProvaPrintlnImpl;
-import ws.prova.reference2.builtins.ProvaReadEnumImpl;
-import ws.prova.reference2.builtins.ProvaReceiveMsgImpl;
-import ws.prova.reference2.builtins.ProvaReceiveMsgPImpl;
-import ws.prova.reference2.builtins.ProvaReceiveMultImpl;
-import ws.prova.reference2.builtins.ProvaRetractAllImpl;
-import ws.prova.reference2.builtins.ProvaRetractImpl;
-import ws.prova.reference2.builtins.ProvaReverseImpl;
-import ws.prova.reference2.builtins.ProvaSendMsgImpl;
-import ws.prova.reference2.builtins.ProvaSendMsgSyncImpl;
-import ws.prova.reference2.builtins.ProvaSolveImpl;
-import ws.prova.reference2.builtins.ProvaSpawnImpl;
-import ws.prova.reference2.builtins.ProvaStopPredicateJoinImpl;
-import ws.prova.reference2.builtins.ProvaTemporalRuleRemoveImpl;
-import ws.prova.reference2.builtins.ProvaTokenizeEnumImpl;
-import ws.prova.reference2.builtins.ProvaTokenizeListImpl;
-import ws.prova.reference2.builtins.ProvaTypeImpl;
-import ws.prova.reference2.builtins.ProvaUnescapeImpl;
-import ws.prova.reference2.builtins.ProvaUniqueIdImpl;
-import ws.prova.reference2.builtins.ProvaUnlistenImpl;
-import ws.prova.reference2.builtins.ProvaUpdateCacheImpl;
-import ws.prova.reference2.builtins.ProvaUpdateImpl;
+import ws.prova.reference2.builtins.*;
 import ws.prova.reference2.cache.ProvaCachedLiteralImpl;
 
 public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
@@ -137,6 +69,8 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	private final Map<String,List<ProvaRuleSet>> srcMap = new HashMap<String,List<ProvaRuleSet>>();
 
 	private Object context;
+	
+	private OntModel ontologyModel;
 
 	public ProvaKnowledgeBaseImpl() {
 		predicates = new ConcurrentHashMap<String,ProvaPredicate>();
@@ -218,6 +152,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("location", new ProvaLocationBuiltinImpl(this));
 		builtins.put("dbopen", new ProvaDBOpenBuiltinImpl(this));
 		builtins.put("sql_select", new ProvaSQLSelectBuiltinImpl(this));
+		builtins.put("owl_typing", new ProvaOWLTypingImpl(this));
 
 		Collection<ProvaBuiltin> additional_builtins = ProvaPluginRegistryImpl.getAdditionBuiltins();
 		for(ProvaBuiltin builtin : additional_builtins) {
@@ -801,5 +736,18 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 			ruleset.removeClausesBySrc(src);
 		srcMap.remove(src);
 	}
+	
+	@Override
+	public void setOntologyModel(OntModel m)
+	{
+		ontologyModel=m;
+	}
+	
+	@Override
+	public OntModel getOntologyModel()
+	{
+		return ontologyModel;
+	}
+
 
 }

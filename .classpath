@@ -5,7 +5,7 @@
 			<attribute name="com.springsource.server.ide.jdt.core.test.classpathentry" value="false"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="ws/prova/reference2/ProvaResolutionInferenceEngineNewImpl.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="com.springsource.server.ide.jdt.core.test.classpathentry" value="false"/>
 		</attributes>

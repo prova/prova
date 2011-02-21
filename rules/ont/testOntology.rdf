@@ -1,0 +1,12 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:j.0="test://"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <owl:Class rdf:about="test://schachfigur"/>
+  <owl:Class rdf:about="test://bauer">
+    <rdfs:subClassOf rdf:resource="test://schachfigur"/>
+  </owl:Class>
+  <j.0:bauer rdf:about="test://horst"/>
+</rdf:RDF>

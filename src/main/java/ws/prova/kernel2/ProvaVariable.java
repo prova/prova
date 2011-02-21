@@ -5,6 +5,8 @@ public interface ProvaVariable extends ProvaObject, ProvaComputable {
 	public Object getName();
 
 	public Class<?> getType();
+	
+	public String getSemanticEntity();
 
 	public void setAssigned(ProvaObject assigned);
 
@@ -23,5 +25,6 @@ public interface ProvaVariable extends ProvaObject, ProvaComputable {
 	public void setIndex(int size);
 
 	public ProvaVariable clone(long ruleId);
-
+	
+	public boolean isSubtypeOf(ProvaVariable target, ProvaUnification unification);
 }

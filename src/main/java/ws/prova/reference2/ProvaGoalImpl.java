@@ -183,7 +183,7 @@ public class ProvaGoalImpl implements ProvaGoal {
 			ProvaRule clone = query.cloneRule(!singleClause);
 			final ProvaUnificationImpl unification = new ProvaUnificationImpl(
 					clone,
-					rule);
+					rule,kb.getOntologyModel());
 			unification.setMeta(meta);
 			return unification;
 		}
