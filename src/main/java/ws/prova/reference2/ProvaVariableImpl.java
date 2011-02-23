@@ -229,17 +229,25 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 		return true;
 	}
 	
+	/**
+	 * Check if the target variable is a supertype of this variable
+	 * in regarding the associated java type and the OWL type.
+	 */
 	public final boolean isSubtypeOf(ProvaVariable target, ProvaUnification unification)
 	{
+		//check java type:
 		final Class<?> targetType = target.getType();
 		if(!targetType.isAssignableFrom(type))
 			return false;
+		
+		// check OWL type:
 		OntModel m=unification.getOntologyModel();
 		if(m!=null)
 		{
-			// TODO: hardcoded namespace! find a solution!!!
-			OntClass goalClass=m.getOntClass(ProvaOWLTest.namespace+this.semanticEntity),
-			         targetClass=m.getOntClass(ProvaOWLTest.namespace+target.getSemanticEntity());
+			// if we have an ontology loaded, we use the URIs to 
+			// retrieve the classes and check if they are compatible:
+			OntClass goalClass=m.getOntClass(m.expandPrefix(this.semanticEntity)),
+			         targetClass=m.getOntClass(m.expandPrefix(target.getSemanticEntity()));
 			if(goalClass==null||targetClass==null)
 				return true;
 			if(goalClass!=null&&targetClass!=null&&!goalClass.hasSuperClass(targetClass))
