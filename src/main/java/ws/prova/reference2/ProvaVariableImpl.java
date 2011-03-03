@@ -8,7 +8,6 @@ import org.apache.commons.logging.Log;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 
-import test.ws.prova.test2.ProvaOWLTest;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaUnification;
