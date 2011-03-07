@@ -51,6 +51,7 @@ import ws.prova.reference2.builtins.ProvaConstructorImpl;
 import ws.prova.reference2.builtins.ProvaConsultImpl;
 import ws.prova.reference2.builtins.ProvaCopyImpl;
 import ws.prova.reference2.builtins.ProvaCopyStreamImpl;
+import ws.prova.reference2.builtins.ProvaDBOpenImpl;
 import ws.prova.reference2.builtins.ProvaDeriveImpl;
 import ws.prova.reference2.builtins.ProvaElementImpl;
 import ws.prova.reference2.builtins.ProvaEqualsImpl;
@@ -72,6 +73,7 @@ import ws.prova.reference2.builtins.ProvaLengthImpl;
 import ws.prova.reference2.builtins.ProvaLessEqualImpl;
 import ws.prova.reference2.builtins.ProvaLessImpl;
 import ws.prova.reference2.builtins.ProvaListenImpl;
+import ws.prova.reference2.builtins.ProvaLocationImpl;
 import ws.prova.reference2.builtins.ProvaMatchImpl;
 import ws.prova.reference2.builtins.ProvaMathAddImpl;
 import ws.prova.reference2.builtins.ProvaMathDivideImpl;
@@ -93,6 +95,7 @@ import ws.prova.reference2.builtins.ProvaReceiveMultImpl;
 import ws.prova.reference2.builtins.ProvaRetractAllImpl;
 import ws.prova.reference2.builtins.ProvaRetractImpl;
 import ws.prova.reference2.builtins.ProvaReverseImpl;
+import ws.prova.reference2.builtins.ProvaSQLSelectImpl;
 import ws.prova.reference2.builtins.ProvaSendMsgImpl;
 import ws.prova.reference2.builtins.ProvaSendMsgSyncImpl;
 import ws.prova.reference2.builtins.ProvaSolveImpl;
@@ -209,6 +212,9 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("@temporal_rule_remove", new ProvaTemporalRuleRemoveImpl(this));
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
+		builtins.put("location", new ProvaLocationImpl(this));
+		builtins.put("dbopen", new ProvaDBOpenImpl(this));
+		builtins.put("sql_select", new ProvaSQLSelectImpl(this));
 
 		initRules();
 		
