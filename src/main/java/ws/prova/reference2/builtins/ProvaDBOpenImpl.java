@@ -6,8 +6,6 @@ import org.apache.log4j.Logger;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.database.DatabaseConnection;
-import ws.prova.database.LocationStore;
-import ws.prova.database.LocationStore.Location;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaDerivationNode;
 import ws.prova.kernel2.ProvaGoal;
@@ -16,6 +14,7 @@ import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaLiteral;
 import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaRule;
+import ws.prova.kernel2.ProvaRuleSet;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.reference2.ProvaConstantImpl;
 import ws.prova.reference2.builtins.ProvaBuiltinImpl;
@@ -75,10 +74,42 @@ public class ProvaDBOpenImpl extends ProvaBuiltinImpl {
 		String identifier = data[0].toString();
 		ProvaVariable dbvar = (ProvaVariable) data[1];
 		
-		// Get location
-		LocationStore ls = LocationStore.INSTANCE;
-		Location location = ls.getLocation(identifier);
-		if(location == null) {
+		// Get the location
+		String jdbc_uri = null;
+		String user = null;
+		String password = null;
+		
+		ProvaRuleSet location_clauses = kb.getPredicates("location", 5);
+		for(ProvaRule clause : location_clauses.getClauses()) {
+			ProvaLiteral fact = clause.getHead();
+			ProvaObject[] locterms = ((ProvaList) fact.getTerms().cloneWithVariables(variables)).getFixed();
+			// Ignore the first term
+			
+			// Second term must match the identifier
+			if(!(locterms[1] instanceof ProvaConstant))
+				continue;	// TODO is this an error?
+			if(locterms[1].toString().equals(identifier)) {
+			
+				// Third term is the jdbc uri
+				if(!(locterms[2] instanceof ProvaConstant))
+					continue;	// TODO is this an error?
+				jdbc_uri = locterms[2].toString();
+				
+				// Fourth term is the username
+				if(!(locterms[3] instanceof ProvaConstant))
+					continue;	// TODO is this an error?
+				user = locterms[3].toString();
+				
+				// Fifth term is the password
+				if(!(locterms[4] instanceof ProvaConstant))
+					continue;	// TODO is this an error?
+				password = locterms[4].toString();
+			
+				// Ok, good to go
+				break;
+			}
+		}
+		if((jdbc_uri == null) || (user == null) || (password == null)) {
 			if(log.isDebugEnabled())
 				log.debug("Error: Could not find location '" + identifier + "'.");
 			return false;
@@ -86,10 +117,10 @@ public class ProvaDBOpenImpl extends ProvaBuiltinImpl {
 		
 		// debug logging
 		if(log.isDebugEnabled())
-			log.debug("Opening connection to database " + location.jdbc_uri + ".");
+			log.debug("Opening connection to database " + jdbc_uri + ".");
 		
 		// Create a JDBC connection
-		DatabaseConnection conn = new DatabaseConnection(location);
+		DatabaseConnection conn = new DatabaseConnection(jdbc_uri, user, password);
 		if(!conn.open())
 			// Error output is in DatabaseConnection.
 			return false;	

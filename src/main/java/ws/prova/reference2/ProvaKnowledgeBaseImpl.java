@@ -73,7 +73,6 @@ import ws.prova.reference2.builtins.ProvaLengthImpl;
 import ws.prova.reference2.builtins.ProvaLessEqualImpl;
 import ws.prova.reference2.builtins.ProvaLessImpl;
 import ws.prova.reference2.builtins.ProvaListenImpl;
-import ws.prova.reference2.builtins.ProvaLocationImpl;
 import ws.prova.reference2.builtins.ProvaMatchImpl;
 import ws.prova.reference2.builtins.ProvaMathAddImpl;
 import ws.prova.reference2.builtins.ProvaMathDivideImpl;
@@ -212,7 +211,6 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("@temporal_rule_remove", new ProvaTemporalRuleRemoveImpl(this));
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
-		builtins.put("location", new ProvaLocationImpl(this));
 		builtins.put("dbopen", new ProvaDBOpenImpl(this));
 		builtins.put("sql_select", new ProvaSQLSelectImpl(this));
 

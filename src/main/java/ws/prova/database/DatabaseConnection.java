@@ -7,18 +7,20 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import ws.prova.database.LocationStore.Location;
-
 public class DatabaseConnection {
 	
 	private static Logger log = Logger.getLogger(DatabaseConnection.class);
-	private final Location location;
+	private final String jdbc_uri;
+	private final String user;
+	private final String password;
 	private Connection connection;
-	
-	public DatabaseConnection(Location l) {
-		location = l;
+		
+	public DatabaseConnection(String jdbc_uri, String user, String password) {
+		this.jdbc_uri = jdbc_uri;
+		this.user = user;
+		this.password = password;
 	}
-	
+
 	public boolean open() {
 		if(!initDriver())
 			return false;
@@ -43,17 +45,16 @@ public class DatabaseConnection {
 	}
 	
 	protected boolean initDriver() {
-		String uri = location.jdbc_uri;
 		String driver_class = null;
-		if (uri.indexOf("mysql") > 0) {
+		if (jdbc_uri.indexOf("mysql") > 0) {
 			driver_class = "com.mysql.jdbc.Driver";
-		} else if (uri.indexOf("hsqldb") > 0) {
+		} else if (jdbc_uri.indexOf("hsqldb") > 0) {
 			driver_class = "org.hsqldb.jdbcDriver";
-		} else if (uri.indexOf("microsoft") > 0) {
+		} else if (jdbc_uri.indexOf("microsoft") > 0) {
 			driver_class = "com.microsoft.jdbc.sqlserver.SQLServerDriver";
-		} else if (uri.indexOf("oracle") > 0) {
+		} else if (jdbc_uri.indexOf("oracle") > 0) {
 			driver_class = "oracle.jdbc.driver.OracleDriver";
-		} else if (uri.indexOf("postgresql") > 0) {
+		} else if (jdbc_uri.indexOf("postgresql") > 0) {
 			driver_class = "org.postgresql.Driver";
 		} else {
 			if(log.isDebugEnabled())
@@ -82,11 +83,11 @@ public class DatabaseConnection {
 	
 	protected boolean openConnection() {
 		Properties p = new Properties();
-		p.put("user", location.user);
-		p.put("password", location.password);
+		p.put("user", user);
+		p.put("password", password);
 		
 		try {
-			connection = DriverManager.getConnection(location.jdbc_uri, p);
+			connection = DriverManager.getConnection(jdbc_uri, p);
 		} catch (SQLException e) {
 			if(log.isDebugEnabled())
 				log.debug("Error: Could not establish database connection. ", e);

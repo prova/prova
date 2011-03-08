@@ -1,11 +1,10 @@
 :- eval(databasetest_01()).
+:- eval(databasetest_02()).
+
+location(database,testdb1,"jdbc:hsqldb:mem:bikestore","sa","").
 
 databasetest_01() :-
 	println(["==========================databasetest_01=========================="]),
-	location(database,testdb,"jdbc:hsqldb:mem:bikestore","sa",""),
-	dbopen(testdb,DB),
-	issue_query(DB).
-
-issue_query(DB) :-
+	dbopen(testdb1,DB),
 	sql_select(DB,bikes,[[manufacturer,Man],[model,Mod]]),
 	println([Man,": ",Mod]).
