@@ -34,7 +34,7 @@ import ws.prova.reference2.ProvaRuleImpl;
  * Syntax (for now):
  * sql_select(DB,table,[[column,Var],[column2,Var2],...])
  * 
- * corresponding to the SQL SELECT statement
+ * equivalent to the SQL statement
  * SELECT column,column2,... FROM TABLE;
  * 
  * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
@@ -58,24 +58,25 @@ public class ProvaSQLSelectImpl extends ProvaBuiltinImpl {
 		ProvaList terms = (ProvaList) literal.getTerms();
 		ProvaObject[] data = terms.getFixed();
 		
-		// Check that there are at least two parameter
-		if(data.length <= 1) {
-			// No query given means false, no variable/constant means true.
-			if(data.length == 0) {
+		// Check that there are at least three parameter
+		if(data.length <= 2) {
+			// No db connection or table name given means failure,
+			if(data.length <= 1) {
 				if(log.isDebugEnabled())
 					log.debug("Syntax error. First parameter should be a string (select query).");
 				return false;
 			}
+			// no columns is okay but we don't need to process the query.
 			return true;
 		}
 		
-		// Let deriving classes parse some terms
-		if(!processTerms(terms, variables))
+		// Parse leading terms (db connection, table name) and create a SQLSelectQuery from it
+		SQLSelectQuery select_query = createQuery(terms, variables);
+		if(select_query == null) {
+			if(log.isDebugEnabled())
+				log.debug("Could not parse query terms.");
 			return false;
-		
-		// Create a generic SelectQuery instance
-		// TODO only select given columns
-		SQLSelectQuery select_query = new SQLSelectQuery(connection, "SELECT * FROM \"" + table + "\"");
+		}
 			
 		// Execute query
 		ResultSet results = null;
@@ -110,11 +111,90 @@ public class ProvaSQLSelectImpl extends ProvaBuiltinImpl {
 
 		return true;		
 	}
+	
+	/**
+	 * @return the SQLSelectQuery instance or <code>null</code> if something failed.
+	 */
+	protected SQLSelectQuery createQuery(ProvaList terms, List<ProvaVariable> variables) {
+		ProvaObject[] data = ((ProvaList) terms.cloneWithVariables(variables)).getFixed();
+		
+		if(!(data[0] instanceof ProvaConstant)) {
+			if(log.isDebugEnabled())
+				log.debug("Syntax error. First parameter should be a constant (Database connection).");
+			return null;
+		}
+		
+		Object conn = ((ProvaConstant) data[0]).getObject();
+		if(!(conn instanceof DatabaseConnection)) {
+			if(log.isDebugEnabled())
+				log.debug("Syntax error. First parameter should be a the database connection.");
+			return null;	
+		}
+		// Save the connection
+		connection = (DatabaseConnection) conn;
+		
+		if(!(data[1] instanceof ProvaConstant)) {
+			if(log.isDebugEnabled())
+				log.debug("Syntax error. Second parameter should be a string (table name).");
+			return null;
+		}
+		
+		// Save the table name
+		table = ((ProvaConstant) data[1]).toString();
+		
+		// Retrieve the column names
+		LinkedList<String> columns = new LinkedList<String>();
+		
+		ProvaObject l = data[data.length - 1];
+		if(!(l instanceof ProvaList)) {
+			if(log.isDebugEnabled())
+				log.debug("Error: last term should be a list.");
+			return null;
+		}
+		ProvaObject[] params = ((ProvaList) l).getFixed();
+		for(int i = 0; i < params.length; ++i) {
+			ProvaObject p = params[i];
+	
+			if(p instanceof ProvaVariablePtr) {
+				ProvaVariablePtr varPtr = (ProvaVariablePtr) p;
+				p = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+			}
+			
+			if(p instanceof ProvaList) {
+				// TODO more syntax checking?
+				columns.add(((ProvaConstant) ((ProvaList) p).getFixed()[0]).toString());
+			} else {
+				// p is !instanceof ProvaList. Probably syntax error or old syntax.
+				// TODO other parameter types (java.util.List for the remaining fields?)
+				if(log.isDebugEnabled())
+					log.debug("Syntax error: Term " + i + " in list is not a list.");
+				return null;
+			}
+			
+		}
+		
+		// Create SQL query
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT ");
+		for(int i = 0; i < (columns.size() - 1); ++i) {
+			sb.append("\"");
+			sb.append(columns.get(i));
+			sb.append("\", ");
+		}
+		sb.append("\"");
+		sb.append(columns.get(columns.size() - 1));
+		sb.append("\" FROM \"");
+		sb.append(table);
+		sb.append("\"");
+		
+		return new SQLSelectQuery(connection, sb.toString());
+	}
 
+	
 	/**
 	 * @return >0 if something matched, 0 if not, -1 on failure
 	 */
-	final private int processResults(ResultSet results, ProvaObject[] data, 
+	protected int processResults(ResultSet results, ProvaObject[] data, 
 			ProvaPredicate pred, List<ProvaVariable> variables) {
 		int matches = 0;
 		
@@ -222,36 +302,6 @@ public class ProvaSQLSelectImpl extends ProvaBuiltinImpl {
 		return matches;
 	}
 	
-	public boolean processTerms(ProvaList terms, List<ProvaVariable> variables) {
-		ProvaObject[] data = ((ProvaList) terms.cloneWithVariables(variables)).getFixed();
-		
-		if(!(data[0] instanceof ProvaConstant)) {
-			if(log.isDebugEnabled())
-				log.debug("Syntax error. First parameter should be a constant (Database connection).");
-			return false;
-		}
-		
-		Object conn = ((ProvaConstant) data[0]).getObject();
-		if(!(conn instanceof DatabaseConnection)) {
-			if(log.isDebugEnabled())
-				log.debug("Syntax error. First parameter should be a the database connection.");
-			return false;	
-		}
-		// Save the connection
-		connection = (DatabaseConnection) conn;
-		
-		if(!(data[1] instanceof ProvaConstant)) {
-			if(log.isDebugEnabled())
-				log.debug("Syntax error. Second parameter should be a string (table name).");
-			return false;
-		}
-		
-		// Save the table name
-		table = ((ProvaConstant) data[1]).toString();
-		
-		return true;
-	}
-
 	@Override
 	public int getArity() {
 		return 3;
