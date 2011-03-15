@@ -1,5 +1,4 @@
 :- eval(databasetest_01()).
-:- eval(databasetest_02()).
 
 location(database,testdb1,"jdbc:hsqldb:mem:bikestore","sa","").
 
