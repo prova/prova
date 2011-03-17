@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,7 @@ import ws.prova.kernel2.cache.ProvaCacheState;
 import ws.prova.kernel2.cache.ProvaLocalAnswers;
 import ws.prova.parser2.ProvaParserImpl;
 import ws.prova.parser2.ProvaParsingException;
+import ws.prova.plugin.registry.impl.ProvaPluginRegistryImpl;
 import ws.prova.reference2.builtins.ProvaAddGroupResultImpl;
 import ws.prova.reference2.builtins.ProvaAssertAImpl;
 import ws.prova.reference2.builtins.ProvaAssertImpl;
@@ -210,6 +212,12 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
 
+		Collection<ProvaBuiltin> additional_builtins = ProvaPluginRegistryImpl.getAdditionBuiltins();
+		for(ProvaBuiltin builtin : additional_builtins) {
+			builtins.put(builtin.getSymbol(), builtin);
+			builtin.setKnowledgeBase(this);
+		}
+		
 		initRules();
 		
 	}
