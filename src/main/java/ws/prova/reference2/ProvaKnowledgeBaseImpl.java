@@ -40,7 +40,6 @@ import ws.prova.kernel2.cache.ProvaCacheState;
 import ws.prova.kernel2.cache.ProvaLocalAnswers;
 import ws.prova.parser2.ProvaParserImpl;
 import ws.prova.parser2.ProvaParsingException;
-import ws.prova.plugin.registry.impl.ProvaPluginRegistryImpl;
 import ws.prova.reference2.builtins.*;
 import ws.prova.reference2.cache.ProvaCachedLiteralImpl;
 
@@ -148,12 +147,6 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
 		builtins.put("owl_typing", new ProvaOWLTypingImpl(this));
 
-		Collection<ProvaBuiltin> additional_builtins = ProvaPluginRegistryImpl.getAdditionBuiltins();
-		for(ProvaBuiltin builtin : additional_builtins) {
-			builtins.put(builtin.getSymbol(), builtin);
-			builtin.setKnowledgeBase(this);
-		}
-		
 		initRules();
 		
 	}
