@@ -57,10 +57,28 @@ public class ProvaOWLTest {
 		try {
 			ProvaCommunicator pc=new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 			Assert.assertTrue(pc.getReagent().getKb().getOntologyModel()!=null);
-			Assert.assertEquals(3,pc.getInitializationSolutions().get(0).length);
+			Assert.assertEquals(3,pc.getInitializationSolutions().get(1).length);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void test2()
+	{
+		final String rulebase = "rules/reloaded/typedOWL.prova";
+		try {
+			ProvaCommunicator pc=new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+			Assert.assertTrue(pc.getReagent().getKb().getOntologyModel()!=null);
+			Assert.assertEquals(4,pc.getInitializationSolutions().size());
+			Assert.assertEquals(1,pc.getInitializationSolutions().get(1).length);
+			Assert.assertEquals(2,pc.getInitializationSolutions().get(2).length);
+			Assert.assertEquals(2,pc.getInitializationSolutions().get(3).length);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

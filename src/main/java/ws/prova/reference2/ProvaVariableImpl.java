@@ -58,9 +58,9 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 	
 	private ProvaVariableImpl(final String name) {
-		int idx=name.indexOf(':');
+		int idx=name.indexOf("^^");
 		if(idx>0)
-			semanticEntity=name.substring(idx+1);
+			semanticEntity=name.substring(idx+2);
 		this.name = "_".equals(name) ? incName.incrementAndGet() : name;
 		this.type = Object.class;
 		this.assigned = null;
@@ -68,9 +68,9 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	private ProvaVariableImpl( final String name, final Class<?> type ) {
-		int idx=name.indexOf(':');
+		int idx=name.indexOf("^^");
 		if(idx>0)
-			semanticEntity=name.substring(idx+1);
+			semanticEntity=name.substring(idx+2);
 		this.name = name;
 		this.type = type;
 		this.assigned = null;

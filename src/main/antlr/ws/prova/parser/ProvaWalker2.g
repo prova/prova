@@ -761,8 +761,18 @@ constant returns [ProvaConstant ret]
 //	;
 
 string	returns [String ret]
-	:	s1=STRING1 {$ret=s1.toString().substring(1,s1.toString().length()-1);}
-		| s2=STRING2 {$ret=s2.toString().substring(1,s2.toString().length()-1);}
+	:	s1=STRING1 {
+			if( s1.toString().endsWith("\\'") )
+				$ret=s1.toString().substring(1,s1.toString().length()-1);
+			else
+				$ret = s1.toString();
+		}
+		| s2=STRING2 {
+			if( s2.toString().endsWith("\"") )
+				$ret=s2.toString().substring(1,s2.toString().length()-1);
+			else
+				$ret = s2.toString();
+		}
 ;
 
 mstring	returns [String ret]

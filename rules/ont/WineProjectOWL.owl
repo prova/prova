@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://www.owl-ontologies.com/unnamed.owl#"
+  xml:base="http://www.owl-ontologies.com/unnamed.owl">
+  <owl:Ontology rdf:about=""/>
+  <owl:Class rdf:ID="Red_Wine">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Wine"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Rotwein">
+    <owl:differentFrom>
+      <owl:Class rdf:ID="White_Wine"/>
+    </owl:differentFrom>
+    <owl:differentFrom>
+      <owl:Class rdf:ID="Rose_Wine"/>
+    </owl:differentFrom>
+    <owl:sameAs rdf:resource="#Red_Wine"/>
+    <rdfs:subClassOf rdf:resource="#Wine"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Rose_Wine">
+    <owl:differentFrom rdf:resource="#Rotwein"/>
+    <rdfs:subClassOf rdf:resource="#Wine"/>
+  </owl:Class>
+  <owl:Class rdf:about="#White_Wine">
+    <rdfs:subClassOf rdf:resource="#Wine"/>
+    <owl:differentFrom rdf:resource="#Rotwein"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="Color">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Wine"/>
+  </owl:DatatypeProperty>
+  <Red_Wine rdf:ID="ChiChi">
+    <owl:sameAs>
+      <Rotwein rdf:ID="Chianti">
+        <Color rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Red</Color>
+        <owl:sameAs rdf:resource="#ChiChi"/>
+      </Rotwein>
+    </owl:sameAs>
+  </Red_Wine>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 1.3, Build 212)  http://protege.stanford.edu -->

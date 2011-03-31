@@ -294,7 +294,7 @@ fragment LC 	:	'a'..'z';
 
 fragment UC 	:	'A'..'Z';
 
-LCWORD 	:	LC WORD;
+LCWORD 	:	LC WORD ('^^' (LC WORD ':')? UCWORD)?;
 
 DOLLARWORD
 	:	DOLLAR WORD;
@@ -310,7 +310,7 @@ fragment DOLLAR
 	:	'$'
 	;
 
-UCWORD 	:	UC (LC | UC | UNDERSCORE | ':' | DIGIT)*;
+UCWORD 	:	UC (LC | UC | UNDERSCORE | ':' | '^' | DIGIT)*;
 
 USWORD 	:	UNDERSCORE (LC | UC | UNDERSCORE | DIGIT)*;
 
@@ -322,9 +322,9 @@ WS : ( '\t' | ' ' | '\u000C' )+ { $channel = HIDDEN; } ;
 
 fragment DIGIT	: '0'..'9' ;
 
-STRING1	:	'\'' CLEAN_STRING* (STRING2 CLEAN_STRING*)* '\'';
+STRING1	:	'\'' CLEAN_STRING* (STRING2 CLEAN_STRING*)* '\'' ('^^' (LC WORD ':')? UCWORD)?;
 
-STRING2	:	'"' CLEAN_STRING* (STRING1 CLEAN_STRING*)* '"';
+STRING2	:	'"' CLEAN_STRING* (STRING1 CLEAN_STRING*)* '"' ('^^' (LC WORD ':')? UCWORD)?;
 
 CLEAN_STRING
 	:	~('\''|'\"') | CHAR_ESC;
