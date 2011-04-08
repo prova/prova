@@ -5,9 +5,11 @@ import java.util.List;
 import ws.prova.kernel2.ProvaComputable;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaObject;
+import ws.prova.kernel2.ProvaType;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
+import ws.prova.reference2.typing.ProvaAnyTypeImpl;
 
 public class ProvaAnyImpl extends ProvaTermImpl implements ProvaConstant, ProvaComputable {
 
@@ -95,6 +97,12 @@ public class ProvaAnyImpl extends ProvaTermImpl implements ProvaConstant, ProvaC
 	@Override
 	public boolean updateGround(List<ProvaVariable> variables) {
 		return false;
+	}
+	
+	@Override
+	public ProvaType getType()
+	{
+		return ProvaAnyTypeImpl.singleton;
 	}
 
 }

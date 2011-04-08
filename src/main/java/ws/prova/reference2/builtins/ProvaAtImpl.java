@@ -83,10 +83,10 @@ public class ProvaAtImpl extends ProvaBuiltinImpl {
 			// Generate a list given the requested position
 			ProvaObject[] fixed = new ProvaObject[pos+1];
 			for( int i=0; i<pos; i++ ) {
-				fixed[i] = ProvaVariableImpl.create();
+				fixed[i] = kb.generateVariable("");
 			}
 			fixed[pos] = out;
-			ProvaList newList = ProvaListImpl.create(fixed, ProvaVariableImpl.create());
+			ProvaList newList = ProvaListImpl.create(fixed, kb.generateVariable(""));
 			((ProvaVariable) olist).setAssigned(newList);
 			return true;
 		}

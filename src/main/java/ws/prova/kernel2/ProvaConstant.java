@@ -7,5 +7,7 @@ public interface ProvaConstant extends ProvaObject {
 	public void setObject(Object object);
 
 	public boolean matched(ProvaConstant target);
+	
+	public ProvaType getType();
 
 }

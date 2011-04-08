@@ -7,9 +7,13 @@ import java.util.Map.Entry;
 import ws.prova.kernel2.ProvaComputable;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaObject;
+import ws.prova.kernel2.ProvaType;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
+import ws.prova.reference2.typing.ProvaAnyTypeImpl;
+import ws.prova.reference2.typing.ProvaJavaTypeImpl;
+import ws.prova.reference2.typing.ProvaOWLTypeImpl;
 
 public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, ProvaComputable {
 
@@ -17,12 +21,20 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 
 	protected Object object;
 	
+	private ProvaType type;
+	
 	public static ProvaConstantImpl create(Object object) {
 		return new ProvaConstantImpl(object);
 	}
 
-	protected ProvaConstantImpl(Object object) {
-		this.object = object;
+	protected ProvaConstantImpl(Object object) 
+	{
+		this(object,new ProvaJavaTypeImpl(object.getClass()));
+	}
+	
+	protected ProvaConstantImpl(Object object, ProvaType t) {
+		this.object=object;
+		this.type=t;	
 	}
 
 	@Override
@@ -33,6 +45,12 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 	@Override
 	public Object getObject() {
 		return object;
+	}
+	
+	@Override
+	public ProvaType getType()
+	{
+		return type;
 	}
 
 	@Override
@@ -75,13 +93,8 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 	public boolean unify(ProvaObject target, ProvaUnification unification) {
 		if( target==null )
 			return false;
-		if( target instanceof ProvaConstant ) {
-			// The target is a constant
-			ProvaConstant targetConstant = (ProvaConstant) target;
-			// TODO: deal with types later
-			Object targetObject = targetConstant.getObject();
-			return object.equals(targetObject);
-		}
+		if( target instanceof ProvaConstant )
+			return this.object.equals(((ProvaConstant)target).getObject());
 		if( target instanceof ProvaVariable )
 			return ((ProvaVariable) target).unify(this, unification);
 		if( target instanceof ProvaVariablePtr ) {

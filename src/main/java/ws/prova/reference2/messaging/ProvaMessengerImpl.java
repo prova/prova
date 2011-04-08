@@ -534,8 +534,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			}
 			final ProvaObject poXID = data[0];
 			final ProvaObject poProtocol = data[1];
-			ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol : ProvaVariableImpl.create("CtlProtocol");
-			ProvaVariable ctlFrom = ProvaVariableImpl.create("CtlFrom");
+			ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol : kb.generateVariable("CtlProtocol");
+			ProvaVariable ctlFrom = kb.generateVariable("CtlFrom");
 			ProvaGroup dynamic = null;
 			ProvaRule temporalRule = null;
 			ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
@@ -933,8 +933,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			ProvaLiteral head = null;
 			ProvaLiteral headControl = null;
 			synchronized (kb) {
-				ProvaVariable ctlProtocol = ProvaVariableImpl.create("CtlProtocol");
-				ProvaVariable ctlFrom = ProvaVariableImpl.create("CtlFrom");
+				ProvaVariable ctlProtocol = kb.generateVariable("CtlProtocol");
+				ProvaVariable ctlFrom = kb.generateVariable("CtlFrom");
 				
 				ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
 						tid, ctlProtocol, ctlFrom, ProvaConstantImpl.create("eof"),

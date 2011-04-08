@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import ws.prova.kernel2.ProvaGoal;
+import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaLiteral;
 import ws.prova.kernel2.ProvaObject;
@@ -34,11 +35,14 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 
 	protected int line;
 	
+	protected ProvaKnowledgeBase kb;
+	
 	public static ThreadLocal<Map<Object, ProvaObject>> tlVars = new ThreadLocal<Map<Object, ProvaObject>>();
 
 	public ProvaLiteralImpl(ProvaPredicate predicate, ProvaList terms) {
 		this.predicate = predicate;
 		this.terms = terms;
+		this.kb = predicate.getKnowledgeBase();
 	}
 
 	public ProvaLiteralImpl(ProvaPredicate predicate, ProvaList terms,
@@ -46,6 +50,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 		this.predicate = predicate;
 		this.terms = terms;
 		this.metadata = metadata;
+		this.kb = predicate.getKnowledgeBase();
 	}
 
 	@Override
@@ -247,7 +252,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 		if( terms==null )
 			return this;
 		if( predicate.getSymbol().equals("cut") ) {
-			ProvaVariable any1 = ProvaVariableImpl.create();
+			ProvaVariable any1 = kb.generateVariable("");
 			ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
 			return new ProvaLiteralImpl(predicate,lany1);
 		}
@@ -266,7 +271,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 		if( terms==null )
 			return this;
 		if( predicate.getSymbol().equals("cut") ) {
-			ProvaVariable any1 = ProvaVariableImpl.create();
+			ProvaVariable any1 = kb.generateVariable("");
 			ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
 			return new ProvaLiteralImpl(predicate,lany1);
 		}
@@ -318,7 +323,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 				String str = (String) value;
 				if( str.length()!=0 && Character.isUpperCase(str.charAt(0)) )
 					metaVariables.add(ProvaListImpl.create(
-							new ProvaObject[] {ProvaConstantImpl.create(str), ProvaVariableImpl.create(str)}));
+							new ProvaObject[] {ProvaConstantImpl.create(str), kb.generateVariable(str)}));
 			}
 		}
 		return metaVariables.size()==0 ? null : metaVariables;

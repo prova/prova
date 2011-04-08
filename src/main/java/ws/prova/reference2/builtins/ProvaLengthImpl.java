@@ -47,7 +47,7 @@ public class ProvaLengthImpl extends ProvaBuiltinImpl {
 			// Generate a list given its length
 			ProvaObject[] fixed = new ProvaObject[len];
 			for( int i=0; i<len; i++ ) {
-				fixed[i] = ProvaVariableImpl.create();
+				fixed[i] = kb.generateVariable("");
 			}
 			ProvaList newList = ProvaListImpl.create(fixed, null);
 			((ProvaVariable) lt).setAssigned(newList);

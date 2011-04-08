@@ -28,18 +28,18 @@ public class ProvaUnificationTest {
 		ProvaKnowledgeBase kb = new ProvaKnowledgeBaseImpl();
 		
 		ProvaConstant c2 = ProvaConstantImpl.create(2);
-		ProvaVariable a = ProvaVariableImpl.create("A");
+		ProvaVariable a = ProvaKnowledgeBaseTest.kb.generateVariable("A");
 		ProvaList l1 = ProvaListImpl.create( new ProvaObject[] {c2},a);
-		ProvaVariable x = ProvaVariableImpl.create("X");
-		ProvaVariable z = ProvaVariableImpl.create("Z");
+		ProvaVariable x = ProvaKnowledgeBaseTest.kb.generateVariable("X");
+		ProvaVariable z = ProvaKnowledgeBaseTest.kb.generateVariable("Z");
 		ProvaList l2 = ProvaListImpl.create( new ProvaObject[] {x,l1},z);
 		ProvaLiteral query = kb.generateLiteral("pred1",l2);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] {query});
 		
-		ProvaVariable v = ProvaVariableImpl.create("V");
-		ProvaVariable y = ProvaVariableImpl.create("Y");
+		ProvaVariable v = ProvaKnowledgeBaseTest.kb.generateVariable("V");
+		ProvaVariable y = ProvaKnowledgeBaseTest.kb.generateVariable("Y");
 		ProvaConstant c4 = ProvaConstantImpl.create(3);
-		ProvaVariable u = ProvaVariableImpl.create("U");
+		ProvaVariable u = ProvaKnowledgeBaseTest.kb.generateVariable("U");
 		ProvaList l3 = ProvaListImpl.create( new ProvaObject[] {v,y,c4,y,u});
 		ProvaLiteral lit1 = kb.generateLiteral("pred1",l3);
 		ProvaList l4 = ProvaListImpl.create( new ProvaObject[] {v,y}, u);
@@ -91,18 +91,18 @@ public class ProvaUnificationTest {
 		ProvaKnowledgeBase kb = new ProvaKnowledgeBaseImpl();
 		
 		ProvaConstant c2 = ProvaConstantImpl.create(2);
-		ProvaVariable a = ProvaVariableImpl.create("A");
+		ProvaVariable a = ProvaKnowledgeBaseTest.kb.generateVariable("A");
 		ProvaList l1 = ProvaListImpl.create( new ProvaObject[] {c2},a);
-		ProvaVariable x = ProvaVariableImpl.create("X");
-		ProvaVariable z = ProvaVariableImpl.create("Z");
+		ProvaVariable x = ProvaKnowledgeBaseTest.kb.generateVariable("X");
+		ProvaVariable z = ProvaKnowledgeBaseTest.kb.generateVariable("Z");
 		ProvaList l2 = ProvaListImpl.create( new ProvaObject[] {x,l1},z);
 		ProvaLiteral query = kb.generateLiteral("pred1",l2);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] {query});
 		
-		ProvaVariable v = ProvaVariableImpl.create("V");
-		ProvaVariable y = ProvaVariableImpl.create("Y");
+		ProvaVariable v = ProvaKnowledgeBaseTest.kb.generateVariable("V");
+		ProvaVariable y = ProvaKnowledgeBaseTest.kb.generateVariable("Y");
 		ProvaConstant c4 = ProvaConstantImpl.create(3);
-		ProvaVariable u = ProvaVariableImpl.create("U");
+		ProvaVariable u = ProvaKnowledgeBaseTest.kb.generateVariable("U");
 		ProvaList l3 = ProvaListImpl.create( new ProvaObject[] {v,y,c4,y,u});
 		ProvaLiteral lit1 = kb.generateLiteral("pred1",l3);
 		ProvaList l4 = ProvaListImpl.create( new ProvaObject[] {v}, y);
@@ -154,18 +154,18 @@ public class ProvaUnificationTest {
 		ProvaKnowledgeBase kb = new ProvaKnowledgeBaseImpl();
 		
 		ProvaConstant c2 = ProvaConstantImpl.create(2);
-		ProvaVariable a = ProvaVariableImpl.create("A");
+		ProvaVariable a = ProvaKnowledgeBaseTest.kb.generateVariable("A");
 		ProvaList l1 = ProvaListImpl.create( new ProvaObject[] {c2},a);
-		ProvaVariable x = ProvaVariableImpl.create("X");
+		ProvaVariable x = ProvaKnowledgeBaseTest.kb.generateVariable("X");
 		ProvaConstant c3 = ProvaConstantImpl.create(3);
-		ProvaVariable z = ProvaVariableImpl.create("Z");
+		ProvaVariable z = ProvaKnowledgeBaseTest.kb.generateVariable("Z");
 		ProvaList l2 = ProvaListImpl.create( new ProvaObject[] {x,l1,c3},z);
 		ProvaLiteral query = kb.generateLiteral("pred1",l2);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] {query});
 		
-		ProvaVariable v = ProvaVariableImpl.create("V");
-		ProvaVariable y = ProvaVariableImpl.create("Y");
-		ProvaVariable u = ProvaVariableImpl.create("U");
+		ProvaVariable v = ProvaKnowledgeBaseTest.kb.generateVariable("V");
+		ProvaVariable y = ProvaKnowledgeBaseTest.kb.generateVariable("Y");
+		ProvaVariable u = ProvaKnowledgeBaseTest.kb.generateVariable("U");
 		ProvaList l3 = ProvaListImpl.create( new ProvaObject[] {v,y}, u);
 		ProvaLiteral lit1 = kb.generateLiteral("pred1",l3);
 		ProvaList l4 = ProvaListImpl.create( new ProvaObject[] {v,y}, u);
@@ -217,9 +217,9 @@ public class ProvaUnificationTest {
 		ProvaKnowledgeBase kb = new ProvaKnowledgeBaseImpl();
 		
 		ProvaConstant c1 = ProvaConstantImpl.create(1);
-		ProvaVariable z = ProvaVariableImpl.create("Z");
+		ProvaVariable z = ProvaKnowledgeBaseTest.kb.generateVariable("Z");
 		ProvaList l1 = ProvaListImpl.create( new ProvaObject[] {c1},z);
-		ProvaVariable x = ProvaVariableImpl.create("X");
+		ProvaVariable x = ProvaKnowledgeBaseTest.kb.generateVariable("X");
 		ProvaList l2 = ProvaListImpl.create( new ProvaObject[] {x,l1},z);
 		ProvaLiteral query = kb.generateLiteral("pred1",l2);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] {query});
@@ -227,8 +227,8 @@ public class ProvaUnificationTest {
 		ProvaConstant c2 = ProvaConstantImpl.create(2);
 		ProvaConstant c3 = ProvaConstantImpl.create(3);
 		ProvaList l3 = ProvaListImpl.create( new ProvaObject[] {c1,c2,c3} );
-		ProvaVariable v = ProvaVariableImpl.create("V");
-		ProvaVariable u = ProvaVariableImpl.create("U");
+		ProvaVariable v = ProvaKnowledgeBaseTest.kb.generateVariable("V");
+		ProvaVariable u = ProvaKnowledgeBaseTest.kb.generateVariable("U");
 		ProvaList l4 = ProvaListImpl.create( new ProvaObject[] {v,l3,c2,c3}, u);
 		ProvaLiteral lit1 = kb.generateLiteral("pred1",l4);
 		ProvaList l5 = ProvaListImpl.create( new ProvaObject[] {v}, u);
@@ -281,9 +281,9 @@ public class ProvaUnificationTest {
 		ProvaKnowledgeBase kb = new ProvaKnowledgeBaseImpl();
 		
 		ProvaConstant c1 = ProvaConstantImpl.create(1);
-		ProvaVariable z = ProvaVariableImpl.create("Z");
+		ProvaVariable z = ProvaKnowledgeBaseTest.kb.generateVariable("Z");
 		ProvaList l1 = ProvaListImpl.create( new ProvaObject[] {c1},z);
-		ProvaVariable x = ProvaVariableImpl.create("X");
+		ProvaVariable x = ProvaKnowledgeBaseTest.kb.generateVariable("X");
 		ProvaList l2 = ProvaListImpl.create( new ProvaObject[] {x,l1},z);
 		ProvaLiteral query = kb.generateLiteral("pred1",l2);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] {query});
@@ -292,8 +292,8 @@ public class ProvaUnificationTest {
 		ProvaConstant c3 = ProvaConstantImpl.create(3);
 		ProvaConstant c4 = ProvaConstantImpl.create(4);
 		ProvaList l3 = ProvaListImpl.create( new ProvaObject[] {c1,c2,c3,c4} );
-		ProvaVariable v = ProvaVariableImpl.create("V");
-		ProvaVariable u = ProvaVariableImpl.create("U");
+		ProvaVariable v = ProvaKnowledgeBaseTest.kb.generateVariable("V");
+		ProvaVariable u = ProvaKnowledgeBaseTest.kb.generateVariable("U");
 		ProvaList l4 = ProvaListImpl.create( new ProvaObject[] {v,l3,c2,c3}, u);
 		ProvaLiteral lit1 = kb.generateLiteral("pred1",l4);
 		ProvaList l5 = ProvaListImpl.create( new ProvaObject[] {v}, u);

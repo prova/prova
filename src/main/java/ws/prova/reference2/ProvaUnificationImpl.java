@@ -21,6 +21,7 @@ import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.reference2.builtins.ProvaFailImpl;
+import ws.prova.reference2.builtins.ProvaOWLTypingImpl;
 
 
 
@@ -40,10 +41,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 
 	private List<ProvaList> meta;
 	
-	private OntModel ontologyModel;
-	
 	public ProvaUnificationImpl(ProvaRule source, ProvaRule target, ProvaKnowledgeBase kb) {
-		this.ontologyModel=kb.getOntologyModel();
 		init(source,target,true);
 	}
 	
@@ -393,7 +391,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 				&&
 				(!(var.getAssigned() instanceof ProvaVariable)
 				||
-				var.getType()!=((ProvaVariable) var.getAssigned()).getType()))
+				var.getType().equals(((ProvaVariable) var.getAssigned()).getType())))
 				return false;
 		}
 		return true;
@@ -404,10 +402,4 @@ public class ProvaUnificationImpl implements ProvaUnification {
 			this.meta = meta;
 	}
 	
-	@Override
-	public OntModel getOntologyModel()
-	{
-		return ontologyModel;
-	}
-
 }

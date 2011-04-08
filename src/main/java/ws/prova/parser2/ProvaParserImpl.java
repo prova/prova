@@ -119,7 +119,7 @@ public class ProvaParserImpl {
             if( log.isDebugEnabled() )
             	log.debug(tree.toStringTree());
             CommonTreeNodeStream nodes = new CommonTreeNodeStream( adaptor, tree );
-            ProvaWalker2 walker = new ProvaWalker2(nodes);
+            ProvaWalker2 walker = new ProvaWalker2(kb, nodes);
             walker.setErrorReporter(errorReporter);
             List<List<?>> results = walker.rulebase();
             for( List result : results ) {

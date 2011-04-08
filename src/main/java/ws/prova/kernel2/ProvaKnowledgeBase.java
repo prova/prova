@@ -23,7 +23,13 @@ public interface ProvaKnowledgeBase {
 	public ProvaRuleSet getPredicates(String symbol, int arity);
 
 	public ConcurrentMap<String, ProvaPredicate> getPredicates();
-
+	
+	public ProvaConstant generateTypedConstant(Object o);
+	
+	public ProvaVariable generateVariable(String name);
+	
+	public ProvaVariable generateJavaTypeVariable(String name, Class<?> javaType);
+		
 	public ProvaLiteral generateLiteral(String symbol, ProvaList terms);
 
 	public ProvaRule generateRule(ProvaLiteral head, ProvaLiteral[] body);
@@ -92,10 +98,11 @@ public interface ProvaKnowledgeBase {
 			ProvaLiteral[] body, int offset, List<ProvaVariable> variables);
 
 	public void updateContext(String filename);
-	
+
 	public void setOntologyModel(OntModel m);
 	
 	public OntModel getOntologyModel();
+
 
 //	public ProvaRule generateLocalRule(ProvaReagent prova, long partitionKey,
 //			ProvaLiteral head, ProvaLiteral[] array);

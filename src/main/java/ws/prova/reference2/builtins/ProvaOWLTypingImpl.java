@@ -16,6 +16,8 @@ import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.kernel2.ProvaKnowledgeBase;
+import ws.prova.reference2.ProvaKnowledgeBaseImpl;
+import ws.prova.reference2.typing.ProvaOWLTypeImpl;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
@@ -52,7 +54,7 @@ public class ProvaOWLTypingImpl extends ProvaBuiltinImpl {
 			ProvaGoal goal, List<ProvaLiteral> newLiterals, ProvaRule query) {
 		
 		
-		/*** this is the code to retrieve the actual argument ****/
+		/*** this is the code to retrieve the first argument ****/
 		ProvaLiteral literal = goal.getGoal();
 		List<ProvaVariable> variables = query.getVariables();
 		ProvaList terms = literal.getTerms();

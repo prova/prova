@@ -13,14 +13,15 @@ import ws.prova.reference2.ProvaVariableImpl;
 
 public class ProvaKnowledgeBaseTest {
 
+	static ProvaKnowledgeBase kb = new ProvaKnowledgeBaseImpl();
+	
 	@Test
 	public void countRulesForPredicate() {
-		ProvaKnowledgeBase kb = new ProvaKnowledgeBaseImpl();
 		
-		ProvaVariable v1 = ProvaVariableImpl.create("v1");
-		ProvaVariable v2 = ProvaVariableImpl.create("v2");
-		ProvaVariable v3 = ProvaVariableImpl.create("v3");
-		ProvaVariable v4 = ProvaVariableImpl.create("v4");
+		ProvaVariable v1 = ProvaKnowledgeBaseTest.kb.generateVariable("v1");
+		ProvaVariable v2 = ProvaKnowledgeBaseTest.kb.generateVariable("v2");
+		ProvaVariable v3 = ProvaKnowledgeBaseTest.kb.generateVariable("v3");
+		ProvaVariable v4 = ProvaKnowledgeBaseTest.kb.generateVariable("v4");
 		ProvaList l1 = ProvaListImpl.create( new ProvaObject[] {v2},v3);
 		ProvaList l2 = ProvaListImpl.create( new ProvaObject[] {v1,l1,v4});
 		

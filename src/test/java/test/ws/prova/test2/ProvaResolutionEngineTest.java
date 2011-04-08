@@ -29,8 +29,8 @@ public class ProvaResolutionEngineTest {
 
 		// Define goal (this should be part of the way solve is encoded by the parser)
 		ProvaConstant c1 = ProvaConstantImpl.create(1);
-		ProvaVariable x = ProvaVariableImpl.create("X");
-		ProvaVariable z = ProvaVariableImpl.create("Z");
+		ProvaVariable x = ProvaKnowledgeBaseTest.kb.generateVariable("X");
+		ProvaVariable z = ProvaKnowledgeBaseTest.kb.generateVariable("Z");
 		ProvaList l1 = ProvaListImpl.create( new ProvaObject[] {x,c1,z});
 		ProvaLiteral query = kb.generateLiteral("pred1",l1);
 		// "solve" works by accepting pairs of variable (name,value) pairs
@@ -50,9 +50,9 @@ public class ProvaResolutionEngineTest {
 		ProvaLiteral lit2 = kb.generateLiteral("pred1",l2);
 		ProvaRule rule1 = kb.generateRule(lit2, null);
 
-		ProvaVariable x1 = ProvaVariableImpl.create("X");
-		ProvaVariable y1 = ProvaVariableImpl.create("Y");
-		ProvaVariable z1 = ProvaVariableImpl.create("Z");
+		ProvaVariable x1 = ProvaKnowledgeBaseTest.kb.generateVariable("X");
+		ProvaVariable y1 = ProvaKnowledgeBaseTest.kb.generateVariable("Y");
+		ProvaVariable z1 = ProvaKnowledgeBaseTest.kb.generateVariable("Z");
 		ProvaList l3 = ProvaListImpl.create( new ProvaObject[] {x1,y1,z1});
 		ProvaLiteral lit3 = kb.generateLiteral("pred1",l3);
 		ProvaList l4 = ProvaListImpl.create( new ProvaObject[] {x1,y1,c1});
@@ -65,12 +65,12 @@ public class ProvaResolutionEngineTest {
 		ProvaLiteral lit2a = kb.generateLiteral("pred1",l2a);
 		ProvaRule rule1a = kb.generateRule(lit2a, null);
 
-		ProvaVariable x2 = ProvaVariableImpl.create("X");
+		ProvaVariable x2 = ProvaKnowledgeBaseTest.kb.generateVariable("X");
 		ProvaList l5 = ProvaListImpl.create( new ProvaObject[] {c1,c3,x2});
 		ProvaLiteral lit5 = kb.generateLiteral("pred2",l5);
 		ProvaRule rule3 = kb.generateRule(lit5, null);
 		
-		ProvaVariable x3 = ProvaVariableImpl.create("X");
+		ProvaVariable x3 = ProvaKnowledgeBaseTest.kb.generateVariable("X");
 		ProvaList l6 = ProvaListImpl.create( new ProvaObject[] {c1,x3,c1});
 		ProvaLiteral lit6 = kb.generateLiteral("pred2",l6);
 		ProvaRule rule4 = kb.generateRule(lit6, null);
@@ -90,7 +90,7 @@ public class ProvaResolutionEngineTest {
 		// Define goal (this should be part of the way solve is encoded by the parser)
 		ProvaConstant c1 = ProvaConstantImpl.create(1);
 		ProvaConstant c4 = ProvaConstantImpl.create(4);
-		ProvaVariable p = ProvaVariableImpl.create("P");
+		ProvaVariable p = ProvaKnowledgeBaseTest.kb.generateVariable("P");
 		ProvaList l1 = ProvaListImpl.create( new ProvaObject[] {c1,p});
 		ProvaLiteral query = kb.generateLiteral("queens",l1);
 		// "solve" works by accepting pairs of variable (name,value) pairs
@@ -101,11 +101,11 @@ public class ProvaResolutionEngineTest {
 		ProvaLiteral solveBuiltin = kb.generateLiteral("solve",ls);
 		ProvaRule goalRule = kb.generateGoal(new ProvaLiteral[] {query,solveBuiltin});
 
-		ProvaVariable n1 = ProvaVariableImpl.create("N");
-		ProvaVariable qs1 = ProvaVariableImpl.create("Qs");
+		ProvaVariable n1 = ProvaKnowledgeBaseTest.kb.generateVariable("N");
+		ProvaVariable qs1 = ProvaKnowledgeBaseTest.kb.generateVariable("Qs");
 		ProvaList l3 = ProvaListImpl.create( new ProvaObject[] {n1,qs1});
 		ProvaLiteral lit3 = kb.generateLiteral("queens",l3);
-		ProvaVariable ns1 = ProvaVariableImpl.create("Ns");
+		ProvaVariable ns1 = ProvaKnowledgeBaseTest.kb.generateVariable("Ns");
 		ProvaList l4 = ProvaListImpl.create( new ProvaObject[] {c1,n1,ns1});
 		ProvaLiteral lit4 = kb.generateLiteral("range",l4);
 		ProvaList lEmpty = ProvaListImpl.create( new ProvaObject[] {});
@@ -113,13 +113,13 @@ public class ProvaResolutionEngineTest {
 		ProvaLiteral lit4a = kb.generateLiteral("queens",l4a);
 		ProvaRule rule2 = kb.generateRule(lit3, new ProvaLiteral[] {lit4,lit4a});
 
-		ProvaVariable n2 = ProvaVariableImpl.create("N");
+		ProvaVariable n2 = ProvaKnowledgeBaseTest.kb.generateVariable("N");
 		ProvaList l2a = ProvaListImpl.create( new ProvaObject[] {n2});
 		ProvaList l2 = ProvaListImpl.create( new ProvaObject[] {n2,n2,l2a});
 		ProvaLiteral lit2 = kb.generateLiteral("range",l2);
 		ProvaRule rule1 = kb.generateRule(lit2, null);
 
-		ProvaVariable q5 = ProvaVariableImpl.create("Q");
+		ProvaVariable q5 = ProvaKnowledgeBaseTest.kb.generateVariable("Q");
 		ProvaList l5 = ProvaListImpl.create( new ProvaObject[] {q5,lEmpty,q5});
 		ProvaLiteral lit5 = kb.generateLiteral("queens",l5);
 		ProvaRule rule5 = kb.generateRule(lit5, null);

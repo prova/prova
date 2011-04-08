@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 
 import ws.prova.api2.ProvaCommunicator;
 import ws.prova.api2.ProvaCommunicatorImpl;
+import ws.prova.reference2.typing.ProvaOWLTypeImpl;
+
 import org.junit.*;
 
 import com.hp.hpl.jena.ontology.Individual;

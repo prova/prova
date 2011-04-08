@@ -48,6 +48,8 @@ public class ProvaGoalImpl implements ProvaGoal {
 	private List<ProvaList> meta;
 	
 	private ProvaRule lastMatch;
+	
+	private ProvaKnowledgeBase kb;
 
 	public ProvaGoalImpl(ProvaRule query) {
 		this.query = query;
@@ -55,6 +57,7 @@ public class ProvaGoalImpl implements ProvaGoal {
 		this.goal = query.getTop();
 		this.goal.setGoal(this);
 		this.predicate = goal.getPredicate();
+		this.kb=predicate.getKnowledgeBase();
 //		for( int i=0; i<query.getOffset(); i++ )
 //			this.iterator.next();
 	}
@@ -274,7 +277,13 @@ public class ProvaGoalImpl implements ProvaGoal {
 			String name = pair.getFixed()[0].toString();
 			if( name.equals(reference) ) {
 				final ProvaObject data = pair.getFixed()[1];
-				return data instanceof ProvaConstant ? ((ProvaConstant) data).getObject() : ProvaVariableImpl.create(name, data);
+				if (data instanceof ProvaConstant)
+					return ((ProvaConstant) data).getObject();
+				else
+				{
+					ProvaVariable v = kb.generateVariable(name);
+					v.setAssigned(data);
+				}
 			}
 		}
 		return reference;

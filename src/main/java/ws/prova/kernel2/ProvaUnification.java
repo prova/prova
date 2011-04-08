@@ -34,7 +34,5 @@ public interface ProvaUnification {
 			ProvaDerivationNode node);
 
 	public boolean targetUnchanged();
-	
-	public OntModel getOntologyModel();
 
 }

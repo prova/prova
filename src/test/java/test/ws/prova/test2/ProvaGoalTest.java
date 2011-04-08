@@ -36,8 +36,8 @@ public class ProvaGoalTest {
 		ProvaKnowledgeBase kb = new ProvaKnowledgeBaseImpl();
 		
 		ProvaConstant c1 = ProvaConstantImpl.create(1);
-		ProvaVariable x = ProvaVariableImpl.create("X");
-		ProvaVariable z = ProvaVariableImpl.create("Z");
+		ProvaVariable x = ProvaKnowledgeBaseTest.kb.generateVariable("X");
+		ProvaVariable z = ProvaKnowledgeBaseTest.kb.generateVariable("Z");
 		ProvaList l1 = ProvaListImpl.create( new ProvaObject[] {x,c1,z});
 		ProvaLiteral query = kb.generateLiteral("pred1",l1);
 		ProvaRule goalRule = kb.generateGoal(new ProvaLiteral[] {query});
@@ -48,9 +48,9 @@ public class ProvaGoalTest {
 		ProvaLiteral lit2 = kb.generateLiteral("pred1",l2);
 		ProvaRule rule1 = kb.generateRule(lit2, null);
 
-		ProvaVariable x1 = ProvaVariableImpl.create("X");
-		ProvaVariable y1 = ProvaVariableImpl.create("Y");
-		ProvaVariable z1 = ProvaVariableImpl.create("Z");
+		ProvaVariable x1 = ProvaKnowledgeBaseTest.kb.generateVariable("X");
+		ProvaVariable y1 = ProvaKnowledgeBaseTest.kb.generateVariable("Y");
+		ProvaVariable z1 = ProvaKnowledgeBaseTest.kb.generateVariable("Z");
 		ProvaList l3 = ProvaListImpl.create( new ProvaObject[] {x1,y1,z1});
 		ProvaLiteral lit3 = kb.generateLiteral("pred1",l3);
 		ProvaList l4 = ProvaListImpl.create( new ProvaObject[] {x1,y1,c1});
@@ -59,12 +59,12 @@ public class ProvaGoalTest {
 		ProvaLiteral lit4a = kb.generateLiteral("pred2",l4a);
 		ProvaRule rule2 = kb.generateRule(lit3, new ProvaLiteral[] {lit4,lit4a});
 
-		ProvaVariable x2 = ProvaVariableImpl.create("X");
+		ProvaVariable x2 = ProvaKnowledgeBaseTest.kb.generateVariable("X");
 		ProvaList l5 = ProvaListImpl.create( new ProvaObject[] {c1,c3,x2});
 		ProvaLiteral lit5 = kb.generateLiteral("pred2",l5);
 		ProvaRule rule3 = kb.generateRule(lit5, null);
 		
-		ProvaVariable x3 = ProvaVariableImpl.create("X");
+		ProvaVariable x3 = ProvaKnowledgeBaseTest.kb.generateVariable("X");
 		ProvaList l6 = ProvaListImpl.create( new ProvaObject[] {c1,x3,c1});
 		ProvaLiteral lit6 = kb.generateLiteral("pred2",l6);
 		ProvaRule rule4 = kb.generateRule(lit6, null);

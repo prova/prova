@@ -37,6 +37,7 @@ public class ProvaTemporalRuleRemoveImpl extends ProvaBuiltinImpl {
 			try {
 				prova.getMessenger().removeTemporalRule(predicate,predicate2,key,true,reaction,literal.getMetadata());
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new RuntimeException(e);
 			}
 			return true;

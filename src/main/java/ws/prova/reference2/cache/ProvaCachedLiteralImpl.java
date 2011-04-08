@@ -56,7 +56,7 @@ public class ProvaCachedLiteralImpl extends ProvaLiteralImpl implements ProvaCac
 		if( terms==null )
 			return this;
 		if( predicate.getSymbol().equals("cut") ) {
-			ProvaVariable any1 = ProvaVariableImpl.create();
+			ProvaVariable any1 = kb.generateVariable("");
 			ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
 			return new ProvaLiteralImpl(predicate,lany1);
 		}

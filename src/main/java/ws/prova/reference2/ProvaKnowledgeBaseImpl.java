@@ -34,6 +34,7 @@ import ws.prova.kernel2.ProvaResolutionInferenceEngine;
 import ws.prova.kernel2.ProvaResultSet;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaRuleSet;
+import ws.prova.kernel2.ProvaType;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.exchange.ProvaSolution;
@@ -44,6 +45,9 @@ import ws.prova.parser2.ProvaParserImpl;
 import ws.prova.parser2.ProvaParsingException;
 import ws.prova.reference2.builtins.*;
 import ws.prova.reference2.cache.ProvaCachedLiteralImpl;
+import ws.prova.reference2.typing.ProvaAnyTypeImpl;
+import ws.prova.reference2.typing.ProvaJavaTypeImpl;
+import ws.prova.reference2.typing.ProvaOWLTypeImpl;
 
 public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 
@@ -69,7 +73,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	private Object context;
 	
 	private OntModel ontologyModel;
-
+	
 	public ProvaKnowledgeBaseImpl() {
 		predicates = new ConcurrentHashMap<String,ProvaPredicate>();
 		globals = new ConcurrentHashMap<String,ProvaConstant>();
@@ -307,7 +311,47 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	public ConcurrentMap<String,ProvaPredicate> getPredicates() {
 		return predicates;
 	}
+	
+	@Override
+	public ProvaConstant generateTypedConstant(Object o) {
+		final int idx;
+		ProvaType type;
+		if(o instanceof String && (idx=((String)o).indexOf("^^"))>0)
+				return new ProvaConstantImpl(o, new ProvaOWLTypeImpl(this, ((String)o).substring(idx+2)));
+		else
+			return new ProvaConstantImpl(o);
+	}
 
+
+	@Override
+	public ProvaVariable generateVariable(String str)
+	{
+		final int idx;
+		final Object name;
+		final ProvaType type;
+		
+		if(str.length()==0 || "_".equals(str))
+		{
+			name=ProvaVariableImpl.incName.incrementAndGet();
+			type=ProvaAnyTypeImpl.singleton;
+		}
+		else
+		{
+			name=str;
+			if((idx=str.indexOf("^^"))>0)
+				type=new ProvaOWLTypeImpl(this, str.substring(idx+2));
+			else
+				type = ProvaAnyTypeImpl.singleton;
+		}
+		return new ProvaVariableImpl(this,name,type);
+	}
+	
+	@Override
+	public ProvaVariable generateJavaTypeVariable(String name, Class<?> javaType)
+	{
+		return new ProvaVariableImpl(this, name, new ProvaJavaTypeImpl(javaType));			
+	}
+		
 	@Override
 	public ProvaLiteral generateLiteral(String symbol, ProvaList terms) {
 		ProvaBuiltin builtin = builtins.get(symbol);
@@ -728,16 +772,14 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	}
 	
 	@Override
-	public void setOntologyModel(OntModel m)
+	public void setOntologyModel(OntModel m) 
 	{
-		ontologyModel=m;
+		this.ontologyModel=m;	
 	}
 	
 	@Override
-	public OntModel getOntologyModel()
-	{
+	public OntModel getOntologyModel() {
 		return ontologyModel;
 	}
-
-
+	
 }

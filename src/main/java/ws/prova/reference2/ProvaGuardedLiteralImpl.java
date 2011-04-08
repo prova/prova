@@ -107,7 +107,7 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 	@Override
 	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables) {
 		if( predicate.getSymbol().equals("cut") ) {
-			ProvaVariable any1 = ProvaVariableImpl.create();
+			ProvaVariable any1 = kb.generateVariable("");
 			ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
 			return new ProvaLiteralImpl(predicate,lany1);
 		}
@@ -128,7 +128,7 @@ public class ProvaGuardedLiteralImpl extends ProvaLiteralImpl implements
 	@Override
 	public ProvaObject cloneWithVariables(final long ruleId, final List<ProvaVariable> variables) {
 		if( predicate.getSymbol().equals("cut") ) {
-			ProvaVariable any1 = ProvaVariableImpl.create();
+			ProvaVariable any1 = kb.generateVariable("");
 			ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
 			return new ProvaLiteralImpl(predicate,lany1);
 		}

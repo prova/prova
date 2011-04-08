@@ -266,6 +266,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 				try {
 					ProvaReagentImpl.this.submitSyncInternal(goal);
 				} catch (RuntimeException e) {
+					e.printStackTrace();
 					log.error("Runtime Java exception: " + e);
 				}
 			}
