@@ -1,0 +1,17 @@
+% Test sparql select with FROM clause
+
+:- solve(test01(X, Y)).
+
+test01(URL, Type) :-
+	QueryString = '
+		PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		SELECT ?contributor ?url ?type
+			FROM <http://teymourian.de/bloggers.rdf>
+			WHERE {
+				?contributor foaf:name "Bob DuCharme" .
+				?contributor foaf:weblog ?url .
+				?contributor rdf:type ?type .
+			}
+	',
+	sparql_select(QueryString,[url(URL),type(Type)]).

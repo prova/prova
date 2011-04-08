@@ -15,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import jena.sparql;
+
 import org.apache.log4j.Logger;
 
 import com.hp.hpl.jena.ontology.OntModel;
@@ -146,6 +148,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
 		builtins.put("owl_typing", new ProvaOWLTypingImpl(this));
+		builtins.put("sparql_select", new ProvaSparqlSelectImpl(this));
 
 		initRules();
 		
