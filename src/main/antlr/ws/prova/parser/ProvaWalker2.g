@@ -185,9 +185,9 @@ function_call returns [List ret]
 	:
 	^(FUNCTION_CALL pred=predicate params=list_body result=list_body) {
 		if( Character.isUpperCase(pred.charAt(0)) )
-			$ret.add(ProvaVariableImpl.create(pred));
+			$ret.add(ProvaParserImpl.tlKB.get().generateVariable(pred));
 		else
-			$ret.add(ProvaConstantImpl.create(pred));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(pred));
 		ProvaObject p = params;
 		if( params.getFixed().length==1 )
 			p = params.getFixed()[0];
@@ -210,7 +210,7 @@ literal returns [ProvaLiteral ret]
 		$ret.setLine($rel.getLine());
 		List<ProvaObject> metaVariables = $ret.addMetadata(m);
 		if( metaVariables!=null ) {
-			metaVariables.add(0,ProvaConstantImpl.create(pred));
+			metaVariables.add(0,ProvaParserImpl.tlKB.get().generateTypedConstant(pred));
 			metaVariables.add(1,(ProvaList) r.get(1));
 			ProvaList metaList = ProvaListImpl.create( metaVariables );
 			$ret = ProvaParserImpl.tlKB.get().generateLiteral("metadata",metaList,g);
@@ -229,7 +229,7 @@ literal returns [ProvaLiteral ret]
 		$ret.addMetadata(m);
 	}
 	| ^(cu=CUT c=cut) {
-		ProvaVariable any1 = ProvaVariableImpl.create();
+		ProvaVariable any1 = ProvaParserImpl.tlKB.get().generateVariable("");
 		ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
 		$ret = ProvaParserImpl.tlKB.get().generateLiteral("cut",lany1);
 		$ret.setLine($cu.getLine());
@@ -254,7 +254,7 @@ semantic_attachment returns [List<ProvaObject> ret]
 			ProvaConstant symbolConstant = (ProvaConstant) pjc.remove(0);
 			ProvaList pl = ProvaListImpl.create(pjc.toArray(new ProvaObject[0]));
 			String method = symbolConstant.equals("s")?"scalc":"pcalc";
-			$ret.add(ProvaConstantImpl.create(method));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(method));
 			$ret.add(pl);
 		}
 		| bo=binary_operation {
@@ -290,42 +290,42 @@ scope {
 			EQUAL (
 			cjc=constructor_java_call {
 				$ret=new java.util.ArrayList<ProvaObject>();
-				$ret.add(ProvaConstantImpl.create("construct"));
+				$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("construct"));
 				$ret.add(cjc.get(0));
 				$ret.add(lt);
 				$ret.add(cjc.get(1));
 			}
 			| pl=prova_list {
 				$ret=new java.util.ArrayList<ProvaObject>();
-				$ret.add(ProvaConstantImpl.create("equals"));
+				$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("equals"));
 				$ret.add(lt);
 				$ret.add(pl);
 			}
 			| c=constant {
 				$ret=new java.util.ArrayList<ProvaObject>();
-				$ret.add(ProvaConstantImpl.create("equals"));
+				$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("equals"));
 				$ret.add(lt);
 				$ret.add(c);
 			}
 			// TODO: minus
 			| e=expr {
 				$ret=new java.util.ArrayList<ProvaObject>();
-				$ret.add(ProvaConstantImpl.create("expr_literal"));
-				$ret.add(ProvaConstantImpl.create(ProvaBinaryOperatorFactoryImpl.create("=")));
+				$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("expr_literal"));
+				$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaBinaryOperatorFactoryImpl.create("=")));
 				$ret.add(lt);
 				$ret.add(e);
 			}
 			)
 		| not_equal c=constant {
 			$ret=new java.util.ArrayList<ProvaObject>();
-			$ret.add(ProvaConstantImpl.create("ne"));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("ne"));
 			$ret.add(lt);
 			$ret.add(c);
 		}
 		| bo=binary_operator e=expr {
 			$ret=new java.util.ArrayList<ProvaObject>();
-			$ret.add(ProvaConstantImpl.create("expr_literal"));
-			$ret.add(ProvaConstantImpl.create(ProvaBinaryOperatorFactoryImpl.create(bo)));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("expr_literal"));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaBinaryOperatorFactoryImpl.create(bo)));
 			$ret.add(lt);
 			$ret.add(e);
 		}
@@ -354,7 +354,7 @@ expr	returns [ProvaObject ret]
 		final int len = ops==null ? 0 : ops.size();
 		for( int i=0; i<len; i++ ) {
 			List list = new ArrayList();
-			list.add(ProvaConstantImpl.create(ProvaOperatorFactoryImpl.create(ops.get(i))));
+			list.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.create(ops.get(i))));
 			list.add(a);
 			list.add(other.get(i));
 			a = ProvaListImpl.create(list);
@@ -370,7 +370,7 @@ aterm	returns [ProvaObject ret]
 			if( m==null ) {
 				if( pjc!=null ) {
 					List plist = new java.util.ArrayList<ProvaObject>();
-					plist.add(ProvaConstantImpl.create(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
+					plist.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
 					plist.add(pjc.get(1));
 					plist.add(pjc.get(3));
 					$ret = ProvaListImpl.create(plist);
@@ -378,10 +378,10 @@ aterm	returns [ProvaObject ret]
 					$ret = v==null ? (n==null ? e : n) : v;
 			} else {
 				List list = new ArrayList();
-				list.add(ProvaConstantImpl.create(ProvaOperatorFactoryImpl.create("neg")));
+				list.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.create("neg")));
 				if( pjc!=null ) {
 					List plist = new java.util.ArrayList<ProvaObject>();
-					plist.add(ProvaConstantImpl.create(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
+					plist.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
 					plist.add(pjc.get(1));
 					plist.add(pjc.get(3));
 					list.add(ProvaListImpl.create(plist));
@@ -391,10 +391,10 @@ aterm	returns [ProvaObject ret]
 			}
 		} else {
 			List list = new ArrayList();
-			list.add(ProvaConstantImpl.create(ProvaOperatorFactoryImpl.create(op.getText())));
+			list.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.create(op.getText())));
 			if( pjc!=null ) {
 				List plist = new java.util.ArrayList<ProvaObject>();
-				plist.add(ProvaConstantImpl.create(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
+				plist.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
 				plist.add(pjc.get(1));
 				plist.add(pjc.get(3));
 				list.add(ProvaListImpl.create(plist));
@@ -417,7 +417,7 @@ constructor_java_call	returns [List<ProvaObject> ret]
 			Class<?> type = ProvaClassUtils.findClass((String) o.toString());
 			if( type==null )
 				throw new RecognitionException();
-			$ret.add(ProvaConstantImpl.create(type));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(type));
 			} ) a=args {
 			$ret.add(a);
 		}
@@ -457,9 +457,9 @@ instance_call returns [List<ProvaObject> ret]
 			//   but can be reclassified as a static call if v is a constant
 			//   representing a class from a default package java.lang or ws.prova
 			String s = (v instanceof ProvaVariable || v instanceof ProvaGlobalConstantImpl || (v instanceof ProvaConstant && !(((ProvaConstant) v).getObject() instanceof Class<?>)))?"":"s";
-			$ret.add(ProvaConstantImpl.create(s));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(s));
 			$ret.add(v);
-			$ret.add(ProvaConstantImpl.create($l.text));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant($l.text));
 		}
 ;
 
@@ -469,9 +469,9 @@ static_call returns [List<ProvaObject> ret]
 }
 	:	qjc=qualified_java_class l=LCWORD {
 			// Prefix set to "s" to signal that the predicate_java_call is a static one
-			$ret.add(ProvaConstantImpl.create("s"));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("s"));
 			$ret.add(qjc);
-			$ret.add(ProvaConstantImpl.create($l.text));
+			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant($l.text));
 		}
 ;
 
@@ -499,7 +499,7 @@ relation returns [List ret]
 }
 	:	^(PREDICATE p=predicate l=list_body) {
 			if( Character.isUpperCase(p.charAt(0)) )
-				$ret.add(ProvaVariableImpl.create(p));
+				$ret.add(ProvaParserImpl.tlKB.get().generateVariable(p));
 			else
 				$ret.add(p);
 			$ret.add(l);
@@ -523,13 +523,13 @@ predicate returns [String ret]
 
 func	returns [ProvaObject ret]
 	:	l=LCWORD {
-			$ret=ProvaConstantImpl.create(l.toString());
+			$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(l.toString());
 		}
 		| u=UCWORD {
-			$ret=ProvaVariableImpl.create(u.toString());
+			$ret=ProvaParserImpl.tlKB.get().generateVariable(u.toString());
 		}
 		| s=string {
-			$ret=ProvaConstantImpl.create(s);
+			$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(s);
 		}
 		| tv=typed_variable {
 			$ret=tv;
@@ -597,7 +597,7 @@ scope {
 	Class type = ProvaClassUtils.findClass((String) $qualified_java_class::s);
 	if( type==null )
 		throw new RecognitionException();
-	$ret=ProvaConstantImpl.create(/*$qualified_java_class::s*/type);
+	$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(/*$qualified_java_class::s*/type);
 }
 	:	^(QUALIFIED_JAVA_CLASS ((l=LCWORD d=DOT) {$qualified_java_class::s+=l.toString()+d.toString();})+ u=UCWORD) {
 			$qualified_java_class::s+=u.toString();
@@ -622,9 +622,9 @@ typed_variable returns [ProvaObject ret]
 				field = type.getField(w.toString()).get(null);
 			} catch( Exception e1 ) {}
 			if( field!=null )
-				$ret=ProvaConstantImpl.create(field);
+				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(field);
 			else
-				$ret=ProvaVariableImpl.create(w.toString(),type);
+				$ret=ProvaParserImpl.tlKB.get().generateJavaTypeVariable(w.toString(),type);
 		}
 		// a field in a class
 		| ^(TYPED_VARIABLE u=UCWORD l=LCWORD) {
@@ -641,7 +641,7 @@ typed_variable returns [ProvaObject ret]
 				} catch( Exception e1 ) {
 					throw new RecognitionException();
 				}
-				$ret=ProvaConstantImpl.create(field);
+				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(field);
 			} catch( Exception e ) {
 				throw new RecognitionException();
 			}
@@ -660,9 +660,9 @@ typed_variable returns [ProvaObject ret]
 					field = type.getField(w.toString()).get(null);
 				} catch( Exception e1 ) {}
 				if( field!=null )
-					$ret=ProvaConstantImpl.create(field);
+					$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(field);
 				else
-					$ret=ProvaVariableImpl.create(w.toString(),type);
+					$ret=ProvaParserImpl.tlKB.get().generateJavaTypeVariable(w.toString(),type);
 			} catch( Exception e ) {
 				throw new RecognitionException();
 			}
@@ -703,13 +703,13 @@ variable returns [ProvaObject ret]
 //			if( type!=null )
 //				$ret=ProvaConstantImpl.create(type);
 //			else
-			$ret=ProvaVariableImpl.create(u.toString());
+			$ret=ProvaParserImpl.tlKB.get().generateVariable(u.toString());
 		}
 		| usw=USWORD {
 			if( usw.toString().length()==1 )
-				$ret=ProvaVariableImpl.create(usw.toString());
+				$ret=ProvaParserImpl.tlKB.get().generateVariable(usw.toString());
 			else
-				$ret=ProvaConstantImpl.create(ProvaParserImpl.tlObjects.get()[Integer.parseInt(usw.toString().substring(1))]);
+				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaParserImpl.tlObjects.get()[Integer.parseInt(usw.toString().substring(1))]);
 		}
 		| tv=typed_variable {$ret=tv;}
 		| gc=DOLLARWORD {$ret=ProvaParserImpl.tlKB.get().generateGlobalConstant(gc.toString());}
@@ -739,13 +739,13 @@ constant returns [ProvaConstant ret]
 		d=LCWORD {
 			Object sd = d.toString();
 			if( "false".equals(sd) )
-				$ret=ProvaConstantImpl.create(java.lang.Boolean.FALSE);
+				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(java.lang.Boolean.FALSE);
 			else if ("true".equals(sd) )
-				$ret=ProvaConstantImpl.create(java.lang.Boolean.TRUE);
+				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(java.lang.Boolean.TRUE);
 			else
 				$ret=ProvaParserImpl.tlKB.get().generateGlobalConstant((String) sd);
 		}
-		| s=string {$ret=ProvaConstantImpl.create(s.toString());}
+		| s=string {$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(s.toString());}
 		| qjc=qualified_java_class {
 			$ret = qjc;
 			// A minor hack:
@@ -762,7 +762,7 @@ constant returns [ProvaConstant ret]
 
 string	returns [String ret]
 	:	s1=STRING1 {
-			if( s1.toString().endsWith("\\'") )
+			if( s1.toString().endsWith("'") )
 				$ret=s1.toString().substring(1,s1.toString().length()-1);
 			else
 				$ret = s1.toString();
@@ -799,13 +799,13 @@ float_literal 	returns [String ret]
 number returns [ProvaConstant ret]
 	:	m='-'? p=pos_number {
 			if( m==null ) {
-				$ret=ProvaConstantImpl.create(p);
+				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(p);
 			} else if( p instanceof Integer ) {
-				$ret=ProvaConstantImpl.create(-((Integer) p));
+				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(-((Integer) p));
 			} else if( p instanceof Long ) {
-				$ret=ProvaConstantImpl.create(-((Long) p));
+				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(-((Long) p));
 			} else if( p instanceof Double ) {
-				$ret=ProvaConstantImpl.create(-((Double) p));
+				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(-((Double) p));
 			}
 		}
 ;

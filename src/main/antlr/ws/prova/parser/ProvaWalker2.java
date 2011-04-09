@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g 2011-03-31 17:58:28
+// $ANTLR 3.3 Nov 30, 2010 12:45:30 C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g 2011-04-09 09:33:31
 
 	package ws.prova.parser;
 	import java.util.List;
@@ -10,7 +10,6 @@
 	import java.util.HashMap;
 	
 	import ws.prova.util2.ProvaClassUtils;
-import ws.prova.kernel2.ProvaKnowledgeBase;
 	import ws.prova.kernel2.ProvaObject;
 	import ws.prova.kernel2.ProvaConstant;
 	import ws.prova.kernel2.ProvaVariable;
@@ -118,15 +117,12 @@ public class ProvaWalker2 extends TreeParser {
     // delegates
     // delegators
 
-    
-    private ProvaKnowledgeBase kb;
 
-        public ProvaWalker2(ProvaKnowledgeBase kb, TreeNodeStream input) {
-            this(kb, input, new RecognizerSharedState());
+        public ProvaWalker2(TreeNodeStream input) {
+            this(input, new RecognizerSharedState());
         }
-        public ProvaWalker2(ProvaKnowledgeBase kb, TreeNodeStream input, RecognizerSharedState state) {
-        	super(input, state);
-            this.kb=kb;
+        public ProvaWalker2(TreeNodeStream input, RecognizerSharedState state) {
+            super(input, state);
              
         }
         
@@ -922,9 +918,9 @@ public class ProvaWalker2 extends TreeParser {
             match(input, Token.UP, null); 
 
             		if( Character.isUpperCase(pred.charAt(0)) )
-            			ret.add(kb.generateVariable(pred));
+            			ret.add(ProvaParserImpl.tlKB.get().generateVariable(pred));
             		else
-            			ret.add(kb.generateTypedConstant(pred));
+            			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(pred));
             		ProvaObject p = params;
             		if( params.getFixed().length==1 )
             			p = params.getFixed()[0];
@@ -1067,7 +1063,7 @@ public class ProvaWalker2 extends TreeParser {
                     		ret.setLine(rel.getLine());
                     		List<ProvaObject> metaVariables = ret.addMetadata(m);
                     		if( metaVariables!=null ) {
-                    			metaVariables.add(0,kb.generateTypedConstant(pred));
+                    			metaVariables.add(0,ProvaParserImpl.tlKB.get().generateTypedConstant(pred));
                     			metaVariables.add(1,(ProvaList) r.get(1));
                     			ProvaList metaList = ProvaListImpl.create( metaVariables );
                     			ret = ProvaParserImpl.tlKB.get().generateLiteral("metadata",metaList,g);
@@ -1200,7 +1196,7 @@ public class ProvaWalker2 extends TreeParser {
 
                     match(input, Token.UP, null); 
 
-                    		ProvaVariable any1 = kb.generateVariable("");
+                    		ProvaVariable any1 = ProvaParserImpl.tlKB.get().generateVariable("");
                     		ProvaList lany1 = ProvaListImpl.create( new ProvaObject[] {any1});
                     		ret = ProvaParserImpl.tlKB.get().generateLiteral("cut",lany1);
                     		ret.setLine(cu.getLine());
@@ -1329,7 +1325,7 @@ public class ProvaWalker2 extends TreeParser {
                     			ProvaConstant symbolConstant = (ProvaConstant) pjc.remove(0);
                     			ProvaList pl = ProvaListImpl.create(pjc.toArray(new ProvaObject[0]));
                     			String method = symbolConstant.equals("s")?"scalc":"pcalc";
-                    			ret.add(kb.generateTypedConstant(method));
+                    			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(method));
                     			ret.add(pl);
                     		
 
@@ -1588,7 +1584,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
                             				ret =new java.util.ArrayList<ProvaObject>();
-                            				ret.add(kb.generateTypedConstant("construct"));
+                            				ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("construct"));
                             				ret.add(cjc.get(0));
                             				ret.add(lt);
                             				ret.add(cjc.get(1));
@@ -1606,7 +1602,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
                             				ret =new java.util.ArrayList<ProvaObject>();
-                            				ret.add(kb.generateTypedConstant("equals"));
+                            				ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("equals"));
                             				ret.add(lt);
                             				ret.add(pl);
                             			
@@ -1623,7 +1619,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
                             				ret =new java.util.ArrayList<ProvaObject>();
-                            				ret.add(kb.generateTypedConstant("equals"));
+                            				ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("equals"));
                             				ret.add(lt);
                             				ret.add(c);
                             			
@@ -1640,8 +1636,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
                             				ret =new java.util.ArrayList<ProvaObject>();
-                            				ret.add(kb.generateTypedConstant("expr_literal"));
-                            				ret.add(kb.generateTypedConstant(ProvaBinaryOperatorFactoryImpl.create("=")));
+                            				ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("expr_literal"));
+                            				ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaBinaryOperatorFactoryImpl.create("=")));
                             				ret.add(lt);
                             				ret.add(e);
                             			
@@ -1669,7 +1665,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
                     			ret =new java.util.ArrayList<ProvaObject>();
-                    			ret.add(kb.generateTypedConstant("ne"));
+                    			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("ne"));
                     			ret.add(lt);
                     			ret.add(c);
                     		
@@ -1691,8 +1687,8 @@ public class ProvaWalker2 extends TreeParser {
 
 
                     			ret =new java.util.ArrayList<ProvaObject>();
-                    			ret.add(kb.generateTypedConstant("expr_literal"));
-                    			ret.add(kb.generateTypedConstant(ProvaBinaryOperatorFactoryImpl.create(bo)));
+                    			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("expr_literal"));
+                    			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaBinaryOperatorFactoryImpl.create(bo)));
                     			ret.add(lt);
                     			ret.add(e);
                     		
@@ -1786,7 +1782,7 @@ public class ProvaWalker2 extends TreeParser {
             		final int len = ops==null ? 0 : ops.size();
             		for( int i=0; i<len; i++ ) {
             			List list = new ArrayList();
-            			list.add(kb.generateTypedConstant(ProvaOperatorFactoryImpl.create(ops.get(i))));
+            			list.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.create(ops.get(i))));
             			list.add(a);
             			list.add(other.get(i));
             			a = ProvaListImpl.create(list);
@@ -2020,7 +2016,7 @@ public class ProvaWalker2 extends TreeParser {
             			if( m==null ) {
             				if( pjc!=null ) {
             					List plist = new java.util.ArrayList<ProvaObject>();
-            					plist.add(kb.generateTypedConstant(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
+            					plist.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
             					plist.add(pjc.get(1));
             					plist.add(pjc.get(3));
             					ret = ProvaListImpl.create(plist);
@@ -2028,10 +2024,10 @@ public class ProvaWalker2 extends TreeParser {
             					ret = v==null ? (n==null ? e : n) : v;
             			} else {
             				List list = new ArrayList();
-            				list.add(kb.generateTypedConstant(ProvaOperatorFactoryImpl.create("neg")));
+            				list.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.create("neg")));
             				if( pjc!=null ) {
             					List plist = new java.util.ArrayList<ProvaObject>();
-            					plist.add(kb.generateTypedConstant(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
+            					plist.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
             					plist.add(pjc.get(1));
             					plist.add(pjc.get(3));
             					list.add(ProvaListImpl.create(plist));
@@ -2041,10 +2037,10 @@ public class ProvaWalker2 extends TreeParser {
             			}
             		} else {
             			List list = new ArrayList();
-            			list.add(kb.generateTypedConstant(ProvaOperatorFactoryImpl.create(op.getText())));
+            			list.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.create(op.getText())));
             			if( pjc!=null ) {
             				List plist = new java.util.ArrayList<ProvaObject>();
-            				plist.add(kb.generateTypedConstant(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
+            				plist.add(ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaOperatorFactoryImpl.createFunctionCall(pjc.get(0),pjc.get(2))));
             				plist.add(pjc.get(1));
             				plist.add(pjc.get(3));
             				list.add(ProvaListImpl.create(plist));
@@ -2190,7 +2186,7 @@ public class ProvaWalker2 extends TreeParser {
                     			Class<?> type = ProvaClassUtils.findClass((String) o.toString());
                     			if( type==null )
                     				throw new RecognitionException();
-                    			ret.add(kb.generateTypedConstant(type));
+                    			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(type));
                     			
 
                     }
@@ -2448,9 +2444,9 @@ public class ProvaWalker2 extends TreeParser {
             			//   but can be reclassified as a static call if v is a constant
             			//   representing a class from a default package java.lang or ws.prova
             			String s = (v instanceof ProvaVariable || v instanceof ProvaGlobalConstantImpl || (v instanceof ProvaConstant && !(((ProvaConstant) v).getObject() instanceof Class<?>)))?"":"s";
-            			ret.add(kb.generateTypedConstant(s));
+            			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(s));
             			ret.add(v);
-            			ret.add(kb.generateTypedConstant((l!=null?l.getText():null)));
+            			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant((l!=null?l.getText():null)));
             		
 
             }
@@ -2494,9 +2490,9 @@ public class ProvaWalker2 extends TreeParser {
             l=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_static_call1064); 
 
             			// Prefix set to "s" to signal that the predicate_java_call is a static one
-            			ret.add(kb.generateTypedConstant("s"));
+            			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant("s"));
             			ret.add(qjc);
-            			ret.add(kb.generateTypedConstant((l!=null?l.getText():null)));
+            			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant((l!=null?l.getText():null)));
             		
 
             }
@@ -2635,7 +2631,7 @@ public class ProvaWalker2 extends TreeParser {
             match(input, Token.UP, null); 
 
             			if( Character.isUpperCase(p.charAt(0)) )
-            				ret.add(kb.generateVariable(p));
+            				ret.add(ProvaParserImpl.tlKB.get().generateVariable(p));
             			else
             				ret.add(p);
             			ret.add(l);
@@ -2785,7 +2781,7 @@ public class ProvaWalker2 extends TreeParser {
                     {
                     l=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_func1198); 
 
-                    			ret =kb.generateTypedConstant(l.toString());
+                    			ret =ProvaParserImpl.tlKB.get().generateTypedConstant(l.toString());
                     		
 
                     }
@@ -2795,7 +2791,7 @@ public class ProvaWalker2 extends TreeParser {
                     {
                     u=(CommonTree)match(input,UCWORD,FOLLOW_UCWORD_in_func1208); 
 
-                    			ret =kb.generateVariable(u.toString());
+                    			ret =ProvaParserImpl.tlKB.get().generateVariable(u.toString());
                     		
 
                     }
@@ -2809,7 +2805,7 @@ public class ProvaWalker2 extends TreeParser {
                     state._fsp--;
 
 
-                    			ret =kb.generateTypedConstant(s);
+                    			ret =ProvaParserImpl.tlKB.get().generateTypedConstant(s);
                     		
 
                     }
@@ -3455,7 +3451,7 @@ public class ProvaWalker2 extends TreeParser {
             	Class type = ProvaClassUtils.findClass((String) ((qualified_java_class_scope)qualified_java_class_stack.peek()).s);
             	if( type==null )
             		throw new RecognitionException();
-            	ret =kb.generateTypedConstant(/*((qualified_java_class_scope)qualified_java_class_stack.peek()).s*/type);
+            	ret =ProvaParserImpl.tlKB.get().generateTypedConstant(/*((qualified_java_class_scope)qualified_java_class_stack.peek()).s*/type);
 
         }
         catch (RecognitionException re) {
@@ -3632,9 +3628,9 @@ public class ProvaWalker2 extends TreeParser {
                     				field = type.getField(w.toString()).get(null);
                     			} catch( Exception e1 ) {}
                     			if( field!=null )
-                    				ret =kb.generateTypedConstant(field);
+                    				ret =ProvaParserImpl.tlKB.get().generateTypedConstant(field);
                     			else
-                    				ret =kb.generateJavaTypeVariable(w.toString(),type);
+                    				ret =ProvaParserImpl.tlKB.get().generateJavaTypeVariable(w.toString(),type);
                     		
 
                     }
@@ -3663,7 +3659,7 @@ public class ProvaWalker2 extends TreeParser {
                     				} catch( Exception e1 ) {
                     					throw new RecognitionException();
                     				}
-                    				ret =kb.generateTypedConstant(field);
+                    				ret =ProvaParserImpl.tlKB.get().generateTypedConstant(field);
                     			} catch( Exception e ) {
                     				throw new RecognitionException();
                     			}
@@ -3694,9 +3690,9 @@ public class ProvaWalker2 extends TreeParser {
                     					field = type.getField(w.toString()).get(null);
                     				} catch( Exception e1 ) {}
                     				if( field!=null )
-                    					ret =kb.generateTypedConstant(field);
+                    					ret =ProvaParserImpl.tlKB.get().generateTypedConstant(field);
                     				else
-                    					ret =kb.generateJavaTypeVariable(w.toString(),type);
+                    					ret =ProvaParserImpl.tlKB.get().generateJavaTypeVariable(w.toString(),type);
                     			} catch( Exception e ) {
                     				throw new RecognitionException();
                     			}
@@ -3931,9 +3927,9 @@ public class ProvaWalker2 extends TreeParser {
                     //			// Allow class lookup from pseudo-instance call
                     //			Class<?> type = ProvaClassUtils.findClass("java.lang."+u);
                     //			if( type!=null )
-                    //				ret =kb.generateTypedConstant(type);
+                    //				ret =ProvaConstantImpl.create(type);
                     //			else
-                    			ret =kb.generateVariable(u.toString());
+                    			ret =ProvaParserImpl.tlKB.get().generateVariable(u.toString());
                     		
 
                     }
@@ -3944,9 +3940,9 @@ public class ProvaWalker2 extends TreeParser {
                     usw=(CommonTree)match(input,USWORD,FOLLOW_USWORD_in_variable1731); 
 
                     			if( usw.toString().length()==1 )
-                    				ret =kb.generateVariable(usw.toString());
+                    				ret =ProvaParserImpl.tlKB.get().generateVariable(usw.toString());
                     			else
-                    				ret =kb.generateTypedConstant(ProvaParserImpl.tlObjects.get()[Integer.parseInt(usw.toString().substring(1))]);
+                    				ret =ProvaParserImpl.tlKB.get().generateTypedConstant(ProvaParserImpl.tlObjects.get()[Integer.parseInt(usw.toString().substring(1))]);
                     		
 
                     }
@@ -4148,9 +4144,9 @@ public class ProvaWalker2 extends TreeParser {
 
                     			Object sd = d.toString();
                     			if( "false".equals(sd) )
-                    				ret =kb.generateTypedConstant(java.lang.Boolean.FALSE);
+                    				ret =ProvaParserImpl.tlKB.get().generateTypedConstant(java.lang.Boolean.FALSE);
                     			else if ("true".equals(sd) )
-                    				ret =kb.generateTypedConstant(java.lang.Boolean.TRUE);
+                    				ret =ProvaParserImpl.tlKB.get().generateTypedConstant(java.lang.Boolean.TRUE);
                     			else
                     				ret =ProvaParserImpl.tlKB.get().generateGlobalConstant((String) sd);
                     		
@@ -4165,7 +4161,7 @@ public class ProvaWalker2 extends TreeParser {
 
                     state._fsp--;
 
-                    ret =kb.generateTypedConstant(s.toString());
+                    ret =ProvaParserImpl.tlKB.get().generateTypedConstant(s.toString());
 
                     }
                     break;
@@ -4183,7 +4179,7 @@ public class ProvaWalker2 extends TreeParser {
                     			// 	we need the class itself, not its name, to be inserted
                     			// This is guaranteed to succeed
                     			//Class type = ProvaClassUtils.findClass((String) qjc.getObject());
-                    			//ret = kb.generateTypedConstant(type);
+                    			//ret = ProvaConstantImpl.create(type);
                     		
 
                     }
@@ -4233,7 +4229,7 @@ public class ProvaWalker2 extends TreeParser {
                     {
                     s1=(CommonTree)match(input,STRING1,FOLLOW_STRING1_in_string1881); 
 
-                    			if( s1.toString().endsWith("\\'") )
+                    			if( s1.toString().endsWith("'") )
                     				ret =s1.toString().substring(1,s1.toString().length()-1);
                     			else
                     				ret = s1.toString();
@@ -4504,13 +4500,13 @@ public class ProvaWalker2 extends TreeParser {
 
 
             			if( m==null ) {
-            				ret =kb.generateTypedConstant(p);
+            				ret =ProvaParserImpl.tlKB.get().generateTypedConstant(p);
             			} else if( p instanceof Integer ) {
-            				ret =kb.generateTypedConstant(-((Integer) p));
+            				ret =ProvaParserImpl.tlKB.get().generateTypedConstant(-((Integer) p));
             			} else if( p instanceof Long ) {
-            				ret =kb.generateTypedConstant(-((Long) p));
+            				ret =ProvaParserImpl.tlKB.get().generateTypedConstant(-((Long) p));
             			} else if( p instanceof Double ) {
-            				ret =kb.generateTypedConstant(-((Double) p));
+            				ret =ProvaParserImpl.tlKB.get().generateTypedConstant(-((Double) p));
             			}
             		
 

@@ -119,10 +119,10 @@ public class ProvaParserImpl {
             if( log.isDebugEnabled() )
             	log.debug(tree.toStringTree());
             CommonTreeNodeStream nodes = new CommonTreeNodeStream( adaptor, tree );
-            ProvaWalker2 walker = new ProvaWalker2(kb, nodes);
+            ProvaWalker2 walker = new ProvaWalker2(nodes);
             walker.setErrorReporter(errorReporter);
             List<List<?>> results = walker.rulebase();
-            for( List result : results ) {
+            for( List<?> result : results ) {
             	rules.add((ProvaRule) result.get(2));
 //				// Accumulate goals and clauses for subsequent commit
 //				temp_kb.insert_item(result.toArray());

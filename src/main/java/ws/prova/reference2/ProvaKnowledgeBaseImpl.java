@@ -1,11 +1,9 @@
 package ws.prova.reference2;
 
 import java.io.BufferedReader;
-
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,13 +13,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import jena.sparql;
-
 import org.apache.log4j.Logger;
 
-import com.hp.hpl.jena.ontology.OntModel;
-
 import ws.prova.agent2.ProvaReagent;
+import ws.prova.exchange.ProvaSolution;
 import ws.prova.kernel2.ProvaBuiltin;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaDerivationNode;
@@ -36,18 +31,91 @@ import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaRuleSet;
 import ws.prova.kernel2.ProvaType;
 import ws.prova.kernel2.ProvaUnification;
-import ws.prova.kernel2.ProvaVariablePtr;
-import ws.prova.exchange.ProvaSolution;
 import ws.prova.kernel2.ProvaVariable;
+import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.kernel2.cache.ProvaCacheState;
 import ws.prova.kernel2.cache.ProvaLocalAnswers;
 import ws.prova.parser2.ProvaParserImpl;
 import ws.prova.parser2.ProvaParsingException;
-import ws.prova.reference2.builtins.*;
+import ws.prova.reference2.builtins.ProvaAddGroupResultImpl;
+import ws.prova.reference2.builtins.ProvaAssertAImpl;
+import ws.prova.reference2.builtins.ProvaAssertImpl;
+import ws.prova.reference2.builtins.ProvaAtImpl;
+import ws.prova.reference2.builtins.ProvaAttachImpl;
+import ws.prova.reference2.builtins.ProvaBoundImpl;
+import ws.prova.reference2.builtins.ProvaByteStreamImpl;
+import ws.prova.reference2.builtins.ProvaCacheImpl;
+import ws.prova.reference2.builtins.ProvaCaptureEnumImpl;
+import ws.prova.reference2.builtins.ProvaCloneImpl;
+import ws.prova.reference2.builtins.ProvaConcatImpl;
+import ws.prova.reference2.builtins.ProvaConstructorImpl;
+import ws.prova.reference2.builtins.ProvaConsultImpl;
+import ws.prova.reference2.builtins.ProvaCopyImpl;
+import ws.prova.reference2.builtins.ProvaCopyStreamImpl;
+import ws.prova.reference2.builtins.ProvaDeriveImpl;
+import ws.prova.reference2.builtins.ProvaElementImpl;
+import ws.prova.reference2.builtins.ProvaEqualsImpl;
+import ws.prova.reference2.builtins.ProvaEqualsMinusImpl;
+import ws.prova.reference2.builtins.ProvaExpressionLiteralImpl;
+import ws.prova.reference2.builtins.ProvaFailImpl;
+import ws.prova.reference2.builtins.ProvaFopenImpl;
+import ws.prova.reference2.builtins.ProvaFreeImpl;
+import ws.prova.reference2.builtins.ProvaGreaterEqualImpl;
+import ws.prova.reference2.builtins.ProvaGreaterImpl;
+import ws.prova.reference2.builtins.ProvaIamImpl;
+import ws.prova.reference2.builtins.ProvaInitJoinImpl;
+import ws.prova.reference2.builtins.ProvaInitPredicateJoinImpl;
+import ws.prova.reference2.builtins.ProvaInsertImpl;
+import ws.prova.reference2.builtins.ProvaJavaFunctionImpl;
+import ws.prova.reference2.builtins.ProvaJavaPredicateImpl;
+import ws.prova.reference2.builtins.ProvaJoinTestImpl;
+import ws.prova.reference2.builtins.ProvaLengthImpl;
+import ws.prova.reference2.builtins.ProvaLessEqualImpl;
+import ws.prova.reference2.builtins.ProvaLessImpl;
+import ws.prova.reference2.builtins.ProvaListenImpl;
+import ws.prova.reference2.builtins.ProvaMatchImpl;
+import ws.prova.reference2.builtins.ProvaMathAddImpl;
+import ws.prova.reference2.builtins.ProvaMathDivideImpl;
+import ws.prova.reference2.builtins.ProvaMathMultiplyImpl;
+import ws.prova.reference2.builtins.ProvaMathRemainderImpl;
+import ws.prova.reference2.builtins.ProvaMathSubtractImpl;
+import ws.prova.reference2.builtins.ProvaMkListImpl;
+import ws.prova.reference2.builtins.ProvaNotEqualsImpl;
+import ws.prova.reference2.builtins.ProvaOWLTypingImpl;
+import ws.prova.reference2.builtins.ProvaParseListImpl;
+import ws.prova.reference2.builtins.ProvaParseNvImpl;
+import ws.prova.reference2.builtins.ProvaPredicateJoinExitImpl;
+import ws.prova.reference2.builtins.ProvaPredicateJoinTestImpl;
+import ws.prova.reference2.builtins.ProvaPrintImpl;
+import ws.prova.reference2.builtins.ProvaPrintlnImpl;
+import ws.prova.reference2.builtins.ProvaReadEnumImpl;
+import ws.prova.reference2.builtins.ProvaReceiveMsgImpl;
+import ws.prova.reference2.builtins.ProvaReceiveMsgPImpl;
+import ws.prova.reference2.builtins.ProvaReceiveMultImpl;
+import ws.prova.reference2.builtins.ProvaRetractAllImpl;
+import ws.prova.reference2.builtins.ProvaRetractImpl;
+import ws.prova.reference2.builtins.ProvaReverseImpl;
+import ws.prova.reference2.builtins.ProvaSendMsgImpl;
+import ws.prova.reference2.builtins.ProvaSendMsgSyncImpl;
+import ws.prova.reference2.builtins.ProvaSolveImpl;
+import ws.prova.reference2.builtins.ProvaSparqlSelectImpl;
+import ws.prova.reference2.builtins.ProvaSpawnImpl;
+import ws.prova.reference2.builtins.ProvaStopPredicateJoinImpl;
+import ws.prova.reference2.builtins.ProvaTemporalRuleRemoveImpl;
+import ws.prova.reference2.builtins.ProvaTokenizeEnumImpl;
+import ws.prova.reference2.builtins.ProvaTokenizeListImpl;
+import ws.prova.reference2.builtins.ProvaTypeImpl;
+import ws.prova.reference2.builtins.ProvaUnescapeImpl;
+import ws.prova.reference2.builtins.ProvaUniqueIdImpl;
+import ws.prova.reference2.builtins.ProvaUnlistenImpl;
+import ws.prova.reference2.builtins.ProvaUpdateCacheImpl;
+import ws.prova.reference2.builtins.ProvaUpdateImpl;
 import ws.prova.reference2.cache.ProvaCachedLiteralImpl;
 import ws.prova.reference2.typing.ProvaAnyTypeImpl;
 import ws.prova.reference2.typing.ProvaJavaTypeImpl;
 import ws.prova.reference2.typing.ProvaOWLTypeImpl;
+
+import com.hp.hpl.jena.ontology.OntModel;
 
 public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 
@@ -315,7 +383,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	@Override
 	public ProvaConstant generateTypedConstant(Object o) {
 		final int idx;
-		ProvaType type;
+//		ProvaType type;
 		if(o instanceof String && (idx=((String)o).indexOf("^^"))>0)
 				return new ProvaConstantImpl(o, new ProvaOWLTypeImpl(this, ((String)o).substring(idx+2)));
 		else

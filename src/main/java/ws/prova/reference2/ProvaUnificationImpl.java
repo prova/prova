@@ -1,12 +1,8 @@
 package ws.prova.reference2;
 
 import java.util.List;
-
-
 import java.util.Map;
 import java.util.Map.Entry;
-
-import com.hp.hpl.jena.ontology.OntModel;
 
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaDerivationNode;
@@ -21,9 +17,6 @@ import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.reference2.builtins.ProvaFailImpl;
-import ws.prova.reference2.builtins.ProvaOWLTypingImpl;
-
-
 
 public class ProvaUnificationImpl implements ProvaUnification {
 

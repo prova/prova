@@ -26,4 +26,9 @@ public class ProvaJavaTypeImpl extends ProvaTypeBase {
 	{
 		return javaClass.getCanonicalName();
 	}
+	
+	public boolean equals( final ProvaJavaTypeImpl other ) {
+		return other.javaClass == javaClass;
+	}
+	
 }

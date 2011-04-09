@@ -3,11 +3,6 @@ package ws.prova.reference2;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.apache.commons.logging.Log;
-
-import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
-
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaObject;
@@ -15,10 +10,8 @@ import ws.prova.kernel2.ProvaType;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
-import ws.prova.reference2.builtins.ProvaNotEqualsImpl;
 import ws.prova.reference2.typing.ProvaAnyTypeImpl;
 import ws.prova.reference2.typing.ProvaJavaTypeImpl;
-import ws.prova.reference2.typing.ProvaOWLTypeImpl;
 
 public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 
@@ -247,7 +240,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	@Override
 	public boolean equals( Object o ) {
 		ProvaVariableImpl var = (ProvaVariableImpl) o;
-		return var.name.equals(name) && var.type==type;
+		return var.name.equals(name) && var.type.equals(type);
 	}
 
 	@Override

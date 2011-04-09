@@ -283,6 +283,7 @@ public class ProvaGoalImpl implements ProvaGoal {
 				{
 					ProvaVariable v = kb.generateVariable(name);
 					v.setAssigned(data);
+					return v;
 				}
 			}
 		}

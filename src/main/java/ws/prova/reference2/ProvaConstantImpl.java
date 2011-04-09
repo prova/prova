@@ -11,9 +11,7 @@ import ws.prova.kernel2.ProvaType;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
-import ws.prova.reference2.typing.ProvaAnyTypeImpl;
 import ws.prova.reference2.typing.ProvaJavaTypeImpl;
-import ws.prova.reference2.typing.ProvaOWLTypeImpl;
 
 public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, ProvaComputable {
 

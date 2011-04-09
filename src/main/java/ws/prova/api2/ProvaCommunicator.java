@@ -3,12 +3,11 @@ package ws.prova.api2;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
 import ws.prova.agent2.ProvaReagent;
+import ws.prova.exchange.ProvaSolution;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.messaging.ProvaMessenger;
-import ws.prova.exchange.ProvaSolution;
 
 public interface ProvaCommunicator {
 

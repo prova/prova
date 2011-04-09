@@ -12,6 +12,7 @@ import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 
+@SuppressWarnings("unchecked")
 public class ProvaMapImpl extends ProvaConstantImpl {
 
 	private static final long serialVersionUID = -4660675788561894085L;

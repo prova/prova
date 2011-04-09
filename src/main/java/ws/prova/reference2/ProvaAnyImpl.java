@@ -13,6 +13,8 @@ import ws.prova.reference2.typing.ProvaAnyTypeImpl;
 
 public class ProvaAnyImpl extends ProvaTermImpl implements ProvaConstant, ProvaComputable {
 
+	private static final long serialVersionUID = 7016037740166390035L;
+
 	public static ProvaAnyImpl create() {
 		return new ProvaAnyImpl();
 	}
