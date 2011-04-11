@@ -7,8 +7,4 @@
 		init-method="init" destroy-method="destroy">
 	</bean>
 
-	<bean id="provaPluginRegistry" class="ws.prova.plugin.registry.impl.ProvaPluginRegistryImpl"
-		init-method="init" destroy-method="destroy">
-	</bean>
-
 </beans>

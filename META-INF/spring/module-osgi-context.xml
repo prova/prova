@@ -7,7 +7,4 @@
 	<service ref="provaService" 
 		interface="ws.prova.service.ProvaService" />
 		
-	<service ref="provaPluginRegistry" 
-		interface="ws.prova.plugin.registry.ProvaPluginRegistry" />
-
 </beans:beans>
