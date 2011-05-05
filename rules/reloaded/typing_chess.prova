@@ -1,5 +1,4 @@
-:-eval(owl_typing("file:rules/ont/testOntology.rdf","ns","test://")).
-% p(0):-owl_typing( "file:///home/martin/workspace/sf/rules/ont/testOntology.rdf", "ns","test://" ).
+p(0):-eval(owl_typing("file:rules/ont/testOntology.rdf")).
 
 isChesspiece(X^^ns:chesspiece).
 isRook(X^^ns:rook).
@@ -9,7 +8,7 @@ isRook(X^^ns:rook).
 
 p(1):-isChesspiece(X^^ns:pawn),println([X]).
 p(2):-isRook(X^^ns:chesspiece).
-p(3):-isRook(X^^ns:Rook).
+p(3):-@forall(X,"ns:rook") isRook(X).
 p(4):-isRook(X^^ns:pawn).
 
 % Causes an exception

@@ -6,60 +6,66 @@ import java.util.concurrent.atomic.AtomicLong;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaObject;
-import ws.prova.kernel2.ProvaType;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
+import ws.prova.kernel2.typing.ProvaType;
 import ws.prova.reference2.typing.ProvaAnyTypeImpl;
 import ws.prova.reference2.typing.ProvaJavaTypeImpl;
 
+/**
+ * The variable class...
+ *
+ */
 public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 
 	private static final long serialVersionUID = 7501612596168443208L;
 
-	private Object name;
+	// Variable name - either string or number
+	final private Object name;
 	
-	private ProvaType type;
+	final private ProvaType type;
 	
-	// The term that this variable is assigned to
+	// The term assigned to this variable
 	private ProvaObject assigned;
 
 	// Where this variable is in the rule's variables
+	// TODO: Is there need for this??
 	private int index;
 	
+	// Unique ID of the rule this variable belongs to.
+	// Used by ProvaUnification to tell target from goal variables.
 	private long ruleId;
-	
-	private ProvaKnowledgeBase kb;
-	
+
+	// Working copies of variables get a number of this counter instead of a string name:
 	protected static AtomicLong incName = new AtomicLong(0);
 
-	/*
-	public static ProvaVariable create() {
-		return new ProvaVariableImpl();
-	}
 
-	public static ProvaVariable create(String name) {
-		return new ProvaVariableImpl(name);
-	}
-
-	public static ProvaVariable create(String name, Class<?> type) {
-		return new ProvaVariableImpl(name, type);
-	}
-
-	public static ProvaVariableImpl create(String name, ProvaObject assigned) {
-		return new ProvaVariableImpl(name, assigned);
-	}
-	*/
-	
-	protected ProvaVariableImpl(final ProvaKnowledgeBase kb, final Object name, final ProvaType type)
+	/**
+	 * Constructor for blank variables.
+	 * Constructors are private, instances are created by ProvaKnowledgeBase methods.
+	 * 
+	 * @param name the name
+	 * @param type the type
+	 */
+	protected ProvaVariableImpl(final Object name, final ProvaType type)
 	{
-		this.kb=kb;
 		this.name=name;
 		this.type=type;
 		this.assigned = null;
 		this.index = -1;
 	}
 	
+
+	/**
+	 * Constructor used by clone.
+	 * Constructors are private, instances are created by ProvaKnowledgeBase methods.
+	 * 
+	 * @param type the type
+	 * @param assigned assigned object
+	 * @param index  the variables index in its rule
+	 * @param ruleId ID of the rule this variable belongs to
+	 */
 	private ProvaVariableImpl(final ProvaType type, final ProvaObject assigned, final int index,
 			final long ruleId) {
 		this.name = incName.incrementAndGet();
@@ -67,10 +73,6 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 		this.assigned = assigned;
 		this.index = index;
 		this.ruleId = ruleId;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Override
@@ -103,6 +105,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 		return index;
 	}
 
+
 	@Override
 	public ProvaObject getRecursivelyAssigned() {
 		if( assigned instanceof ProvaConstant )
@@ -118,6 +121,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 			assigned = recursivelyAssigned;
 		return recursivelyAssigned;
 	}
+
 
 	@Override
 	public int collectVariables(final long ruleId, final List<ProvaVariable> variables) {
@@ -141,11 +145,6 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 			return assigned.computeSize();
 		return -1;
 	}
-
-//	@Override
-//	public void collectVariables(long ruleId, Vector<ProvaVariable> variables, int offset) {
-//		collectVariables(ruleId, variables);
-//	}
 	
 	@Override
 	public ProvaVariable clone() {
@@ -162,19 +161,25 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	@Override
 	public boolean unify(final ProvaObject target, final ProvaUnification unification) {
 	
+		// Unification with nothing:
 		if( target==null ) {
 			assigned = ProvaListImpl.emptyRList;
 			return true;
 		}
 		
+		// Unification with variable:
 		if( target instanceof ProvaVariable ) 
 		{
 			ProvaVariable targetVar = (ProvaVariable)target;
+			
+			// assign goal var to target var if possible: 
 			if(this.type.isSubtypeOf(targetVar.getType()))
 			{
 				targetVar.setAssigned(this);
 				return true;
 			}
+			
+			// else assign target var to goal var if possible:
 			if(targetVar.getType().isSubtypeOf(this.type))
 			{
 				assigned = target;
@@ -182,17 +187,25 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 			}
 		}
 	
+		// Unification with constant:
 		else if( target instanceof ProvaConstant ) 
 		{
 			ProvaConstant targetConst = (ProvaConstant) target;
+			
+			// ProvaAnyImpl (_): unification succeeds but no assignment takes place
 			if( targetConst instanceof ProvaAnyImpl )
 				return true;
+			
+			// normal constant: assign if types are compatible
 			if(targetConst.getType().isSubtypeOf(this.type))
 			{
 				assigned = target;
 				return true;
 			}
 		}
+		
+		// Unification with something else:
+		// no type checking. TODO: maybe there should be...
 		else if(new ProvaJavaTypeImpl(target.getClass()).isSubtypeOf(this.type))
 			// TODO: don't create this object here
 		{
@@ -200,6 +213,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 			return true;		
 		}
 		
+		// nothing worked out:
 		return false;
 	
 	}	

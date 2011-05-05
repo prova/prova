@@ -2,6 +2,8 @@ package ws.prova.kernel2;
 
 import java.util.List;
 
+import ws.prova.kernel2.typing.ProvaType;
+
 import com.hp.hpl.jena.ontology.OntModel;
 
 public interface ProvaUnification {
@@ -34,5 +36,7 @@ public interface ProvaUnification {
 			ProvaDerivationNode node);
 
 	public boolean targetUnchanged();
+
+	public ProvaType getTypeFromMetadata(String variableName);
 
 }

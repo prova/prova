@@ -7,10 +7,10 @@ import java.util.Map.Entry;
 import ws.prova.kernel2.ProvaComputable;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaObject;
-import ws.prova.kernel2.ProvaType;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
+import ws.prova.kernel2.typing.ProvaType;
 import ws.prova.reference2.typing.ProvaJavaTypeImpl;
 
 public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, ProvaComputable {

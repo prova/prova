@@ -38,7 +38,6 @@ public interface ProvaLiteral extends ProvaObject {
 
 	public List<Object> getMetadata(String property);
 
-	public List<ProvaObject> addMetadata(Map<String, List<Object>> m);
 
 	public Map<String, List<Object>> getMetadata();
 
@@ -54,5 +53,7 @@ public interface ProvaLiteral extends ProvaObject {
 
 	public ProvaLiteral cloneWithBoundVariables(ProvaUnification unification,
 			List<ProvaVariable> variables, List<Boolean> isConstant);
+
+	public List<ProvaObject> addMetadata(Map<String, List<Object>> m);
 
 }

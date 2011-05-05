@@ -1,6 +1,7 @@
 package ws.prova.reference2;
 
 import java.io.BufferedReader;
+
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -29,12 +30,13 @@ import ws.prova.kernel2.ProvaResolutionInferenceEngine;
 import ws.prova.kernel2.ProvaResultSet;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaRuleSet;
-import ws.prova.kernel2.ProvaType;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.kernel2.cache.ProvaCacheState;
 import ws.prova.kernel2.cache.ProvaLocalAnswers;
+import ws.prova.kernel2.typing.ProvaOntology;
+import ws.prova.kernel2.typing.ProvaType;
 import ws.prova.parser2.ProvaParserImpl;
 import ws.prova.parser2.ProvaParsingException;
 import ws.prova.reference2.builtins.ProvaAddGroupResultImpl;
@@ -115,7 +117,6 @@ import ws.prova.reference2.typing.ProvaAnyTypeImpl;
 import ws.prova.reference2.typing.ProvaJavaTypeImpl;
 import ws.prova.reference2.typing.ProvaOWLTypeImpl;
 
-import com.hp.hpl.jena.ontology.OntModel;
 
 public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 
@@ -140,7 +141,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 
 	private Object context;
 	
-	private OntModel ontologyModel;
+	private ProvaOntology ontology;
 	
 	public ProvaKnowledgeBaseImpl() {
 		predicates = new ConcurrentHashMap<String,ProvaPredicate>();
@@ -398,7 +399,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		final Object name;
 		final ProvaType type;
 		
-		if(str.length()==0 || "_".equals(str))
+		if(str.length()==0 || "_".equals(str)) // TODO: "_" => ProvaAnyImpl ??
 		{
 			name=ProvaVariableImpl.incName.incrementAndGet();
 			type=ProvaAnyTypeImpl.singleton;
@@ -411,13 +412,13 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 			else
 				type = ProvaAnyTypeImpl.singleton;
 		}
-		return new ProvaVariableImpl(this,name,type);
+		return new ProvaVariableImpl(name,type);
 	}
 	
 	@Override
 	public ProvaVariable generateJavaTypeVariable(String name, Class<?> javaType)
 	{
-		return new ProvaVariableImpl(this, name, new ProvaJavaTypeImpl(javaType));			
+		return new ProvaVariableImpl(name, new ProvaJavaTypeImpl(javaType));			
 	}
 		
 	@Override
@@ -840,14 +841,14 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	}
 	
 	@Override
-	public void setOntologyModel(OntModel m) 
+	public void setOntology(ProvaOntology o)
 	{
-		this.ontologyModel=m;	
+		this.ontology=o;
 	}
 	
 	@Override
-	public OntModel getOntologyModel() {
-		return ontologyModel;
+	public ProvaOntology getOntology()
+	{
+		return this.ontology;
 	}
-	
 }

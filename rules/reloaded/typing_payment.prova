@@ -1,0 +1,45 @@
+% Capital expenses
+
+% In many organizations it common to treat capital and revenue/expense funding separately. While there can be organization-specific 
+% subdivisions of these (e.g. different ring-fenced revenue accounts) the notion of capital as opposed to other expenditure is 
+% common across many organizations and legal jurisdictions. In the UK it is recognized for taxation purposes though defined 
+% by case law rather than by statute.
+
+% Since this categorization is so common we support it directly in the payments ontology by providing a SKOS concept scheme 
+% payment:payment:expenditure-type) containing just two concepts (payment:capital and payment:revenue) which are both in that 
+% scheme as also typed as payment:ExpenditureType (a subclass of skos:Concept) for ease of access.
+
+
+:-eval(owl_typing( "http://reference.data.gov.uk/def/payment#", 	% owl file from the web
+                   "payment", 						% namespace prefix
+                   "http://reference.data.gov.uk/def/payment#" )	% namespace of the ontology
+					).
+                   
+% capital is an individual in Ontolgy and has the type of classes "ExpenditureCategory", "Concept" and "Resource"
+% the class "ExpenditureLine" is subclass of class "Observation"
+
+isCapital(X^^payment:capital).
+isExpenditureCategory(X^^payment:ExpenditureCategory).
+isConcept(X^^payment:Concept).
+isResource(X^^payment:Resource).
+isExpenditureLine(X^^payment:ExpenditureLine).
+isObservation(X^^payment:Observation).
+
+
+isExpenditureCategory(c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1).
+isExpenditureLine(c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1).
+
+
+:-solve(testType(X)).
+
+testType(X):-
+	X^^payment:ExpenditureLine = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
+	isObservation(X^^payment:ExpenditureLine ), 
+	println(["Is Observation"]).
+
+% X has the type of an individual and so it gets the type of its types (superclasses)
+testType(X):-
+	X^^payment:capital = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
+	isExpenditureCategory(X^^payment:capital), 
+	println(["Is Capital"]).
+

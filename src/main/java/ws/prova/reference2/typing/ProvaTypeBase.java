@@ -1,6 +1,6 @@
 package ws.prova.reference2.typing;
 
-import ws.prova.kernel2.ProvaType;
+import ws.prova.kernel2.typing.ProvaType;
 
 public abstract class ProvaTypeBase implements ProvaType {
 

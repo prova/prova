@@ -241,13 +241,6 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
     	return rc;
     }
 
-	public void setKb(ProvaKnowledgeBase kb) {
-		this.kb = kb;
-	}
-
-	public ProvaKnowledgeBase getKb() {
-		return kb;
-	}
 
 	@Override
 	public void setReagent(ProvaReagent prova) {

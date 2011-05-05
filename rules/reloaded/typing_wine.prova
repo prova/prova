@@ -9,14 +9,8 @@
 % 
 % ------------------------------------------------------------------------------------------------------
 
-%:-eval(consult('ContractLog/owl.prova')).
-
 % import external type system (T-Box model) and individual fact base (A-Box)
-:-eval(owl_typing("file:rules/ont/WineProjectOWL.owl","default","")).
-
-% use external owl reasoner
-% for a list of available reasoners see OWL2PROVA.java
-%reasoner("owl").
+:-eval(owl_typing("file:rules/ont/WineProjectOWL.owl")) .
 
 % ground DL facts
 p(X^^default:White_Wine) :- q(X^^default:White_Wine).

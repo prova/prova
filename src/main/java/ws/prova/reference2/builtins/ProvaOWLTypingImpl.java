@@ -16,7 +16,9 @@ import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.kernel2.ProvaKnowledgeBase;
+import ws.prova.kernel2.typing.ProvaOntology;
 import ws.prova.reference2.ProvaKnowledgeBaseImpl;
+import ws.prova.reference2.typing.ProvaCachedOntologyImpl;
 import ws.prova.reference2.typing.ProvaOWLTypeImpl;
 
 import com.hp.hpl.jena.ontology.OntModel;
@@ -33,7 +35,6 @@ import com.hp.hpl.jena.ontology.OntClass;
  * first argument is the name of the OWL file to be loaded.
  * the following (optional) arguments specify additional prefix/namespace mappings.
  *
- * TODO: is the knowledgebase the right place to store the model?
  * TODO: importing a second model overwrites the first one...
  * 
  * @author martin
@@ -53,53 +54,51 @@ public class ProvaOWLTypingImpl extends ProvaBuiltinImpl {
 	public boolean process(ProvaReagent prova, ProvaDerivationNode node,
 			ProvaGoal goal, List<ProvaLiteral> newLiterals, ProvaRule query) {
 		
+		String url, languageURI;
 		
-		/*** this is the code to retrieve the first argument ****/
+		/*** this is the code to retrieve the arguments ****/
 		ProvaLiteral literal = goal.getGoal();
 		List<ProvaVariable> variables = query.getVariables();
 		ProvaList terms = literal.getTerms();
 		ProvaObject[] data = terms.getFixed();
-		ProvaObject lt = data[0];
-		if(data.length%2==0)
+		if(data.length<1||data.length>2)
 		{
 			throw new RuntimeException("invalid number of parameters!");
 		}
-		if( lt instanceof ProvaVariablePtr ) {
-			ProvaVariablePtr varPtr = (ProvaVariablePtr) lt;
-			lt = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+		ProvaObject d = data[0];
+		if( d instanceof ProvaVariablePtr ) {
+			ProvaVariablePtr varPtr = (ProvaVariablePtr) d;
+			d = variables.get(varPtr.getIndex()).getRecursivelyAssigned();	 
 		}
-		String filename = ((ProvaConstant) lt).getObject().toString();
+		url= ((ProvaConstant) d).getObject().toString();
+		
+		if(data.length>1)
+		{
+			d=data[1];
+			if( d instanceof ProvaVariablePtr ) {
+				ProvaVariablePtr varPtr = (ProvaVariablePtr) d;
+				d = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+			}
+			languageURI=((ProvaConstant) d).getObject().toString();
+		}
+		else
+			languageURI="http://www.w3.org/TR/owl-features/#term_OWLDL";
+		
+		
 		/***********************************************************/
 
 		
+
 		/* read the model: */
-		
-		//TODO: deal with different encodings, file formats, exceptions...
-		OntModel m=ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_RULE_INF);
-		m.read(filename);
-		
-		
-		/* add user defined prefixes: */
-		
-		// TODO: do we even need this feature? 
-		// usually prefixes are defined in the OWL-file...
-		
-		for(int i=1;i<data.length;i+=2)
+		ProvaOntology ont = kb.getOntology();
+		if(ont==null)
 		{
-			
-			try
-			{
-				String prefix =(String)((ProvaConstant)data[i]).getObject(),
-					namespace =(String)((ProvaConstant)data[i+1]).getObject();
-				m.setNsPrefix(prefix, namespace);
-			}
-			catch(ClassCastException e)
-			{
-				throw new RuntimeException("only strings allowed in OWL prefix mapping parameters");	
-			}
+			ont=new ProvaCachedOntologyImpl(languageURI);
+			kb.setOntology(ont);
 		}
-		m.setNsPrefixes(m);
-		kb.setOntologyModel(m);
+
+		ont.addOntology(url);
+
 		return false;
 	}
 

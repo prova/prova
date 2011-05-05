@@ -16,6 +16,7 @@ import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
+import ws.prova.kernel2.typing.ProvaType;
 import ws.prova.reference2.builtins.ProvaFailImpl;
 
 public class ProvaUnificationImpl implements ProvaUnification {
@@ -340,7 +341,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 		ProvaRule newQuery = null;
 		if( newGoals.length!=0 && newGoals[newGoals.length-1].getPredicate() instanceof ProvaFailImpl ) {
 			// fail() predicate in the target body cuts the goal trail
-			newQuery = new ProvaRuleImpl(0, null, newGoals);
+		newQuery = kb.generateRule(0, null, newGoals);
 		} else {
 			oldGoals = rebuildOldGoals(query.getBody(), query.getOffset());
 			newQuery = kb.generateRule(null, newGoals, oldGoals, query.getOffset());
@@ -393,6 +394,13 @@ public class ProvaUnificationImpl implements ProvaUnification {
 	public void setMeta(List<ProvaList> meta) {
 		if( meta!=null )
 			this.meta = meta;
+	}
+
+	@Override
+	public ProvaType getTypeFromMetadata(String variableName) {
+		source.getMetadata("forall");
+		System.out.println("blub");
+		return null;
 	}
 	
 }

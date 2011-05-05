@@ -2,6 +2,7 @@ package ws.prova.kernel2;
 
 import java.io.BufferedReader;
 
+
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import com.hp.hpl.jena.ontology.OntModel;
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.exchange.ProvaSolution;
 import ws.prova.kernel2.cache.ProvaCacheState;
+import ws.prova.kernel2.typing.ProvaOntology;
 
 
 public interface ProvaKnowledgeBase {
@@ -99,9 +101,9 @@ public interface ProvaKnowledgeBase {
 
 	public void updateContext(String filename);
 
-	public void setOntologyModel(OntModel m);
+	public void setOntology(ProvaOntology o);
 	
-	public OntModel getOntologyModel();
+	public ProvaOntology getOntology();
 
 
 //	public ProvaRule generateLocalRule(ProvaReagent prova, long partitionKey,

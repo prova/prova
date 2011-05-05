@@ -1,4 +1,4 @@
-package ws.prova.kernel2;
+package ws.prova.kernel2.typing;
 
 public interface ProvaType {
 	public boolean isSubtypeOf(ProvaType t);
