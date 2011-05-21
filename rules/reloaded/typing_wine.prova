@@ -23,7 +23,6 @@ a(Y^^default:White_Wine).
 :-solve(a(X^^default:Wine)).
 
 % typed variables in complex terms
-c(b(X^^default_Red_Wine)).
+c(b(X^^default:Red_Wine)).
 c(b('Chardonnay'^^default:White_Wine)).
 :-solve(c(b(X^^default:Wine))).
-

@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g 2011-05-21 17:45:29
+// $ANTLR 3.3 Nov 30, 2010 12:45:30 C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\Prova2.g 2011-05-21 21:35:45
 
        package ws.prova.parser;
 
@@ -665,7 +665,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: metadata, list_body0, LCWORD, literals, list_body0
+            // elements: literals, LCWORD, metadata, list_body0, list_body0
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -777,7 +777,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: list_body0, predicate, list_body0
+            // elements: list_body0, list_body0, predicate
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -998,7 +998,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: relation, query_predicate
+            // elements: query_predicate, relation
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1489,7 +1489,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: LCWORD, value
+            // elements: value, LCWORD
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1923,7 +1923,7 @@ public class Prova2Parser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: relation, metadata, guard
+                    // elements: guard, relation, metadata
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2047,7 +2047,7 @@ public class Prova2Parser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: metadata, guard, semantic_attachment
+                    // elements: guard, semantic_attachment, metadata
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2148,7 +2148,7 @@ public class Prova2Parser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: function_call, metadata
+                    // elements: metadata, function_call
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2511,7 +2511,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: predicate, list_body
+            // elements: list_body, predicate
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2868,7 +2868,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: terms0, list_tail
+            // elements: list_tail, terms0
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3550,7 +3550,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: term, mstring
+            // elements: mstring, term
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5195,7 +5195,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: static_call, args
+            // elements: args, static_call
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5974,7 +5974,7 @@ public class Prova2Parser extends Parser {
 
 
                     // AST REWRITE
-                    // elements: word, UCWORD
+                    // elements: UCWORD, word
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -6150,7 +6150,7 @@ public class Prova2Parser extends Parser {
 
 
             // AST REWRITE
-            // elements: LCWORD, qualified_java_class
+            // elements: qualified_java_class, LCWORD
             // token labels: 
             // rule labels: retval
             // token list labels: 

@@ -267,7 +267,7 @@ mstring		:
 constant	:
 	LCWORD | SLCWORD | string | qualified_java_class;
 	
-SLCWORD	:	LC+ '^^' ~(' '|'\t'|','|')')*;
+SLCWORD	:	LC+ '^^' ~(' '|'\t'|','|')')+;
 
 string	:	STRING1 | STRING2;
 
@@ -312,7 +312,7 @@ fragment DOLLAR
 	:	'$'
 	;
 
-UCWORD 	:	UC (LC | UC | UNDERSCORE | ':' | '^' | DIGIT)*;
+UCWORD 	:	UC (LC | UC | UNDERSCORE | ':' | DIGIT)* ('^^' ~(' '|'\t'|','|')')+)?;
 
 USWORD 	:	UNDERSCORE (LC | UC | UNDERSCORE | DIGIT)*;
 
@@ -324,9 +324,9 @@ WS : ( '\t' | ' ' | '\u000C' )+ { $channel = HIDDEN; } ;
 
 fragment DIGIT	: '0'..'9' ;
 
-STRING1	:	'\'' CLEAN_STRING* (STRING2 CLEAN_STRING*)* '\'' ('^^' (LC WORD ':')? UCWORD)?;
+STRING1	:	'\'' CLEAN_STRING* (STRING2 CLEAN_STRING*)* '\'' ('^^' ~(' '|'\t'|','|')')+)?;
 
-STRING2	:	'"' CLEAN_STRING* (STRING1 CLEAN_STRING*)* '"' ('^^' (LC WORD ':')? UCWORD)?;
+STRING2	:	'"' CLEAN_STRING* (STRING1 CLEAN_STRING*)* '"' ('^^' ~(' '|'\t'|','|')')+)?;
 
 CLEAN_STRING
 	:	~('\''|'\"') | CHAR_ESC;
