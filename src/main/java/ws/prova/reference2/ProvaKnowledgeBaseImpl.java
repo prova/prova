@@ -778,7 +778,8 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	@Override
 	public ProvaConstant generateGlobalConstant(String name) {
 		if( !name.startsWith("$") ) {
-			return ProvaConstantImpl.create(name);
+			// TODO [Alex] Assuming this is the intent
+			return generateTypedConstant(name);
 		}
 		ProvaConstant oldGlobal = globals.get(name);
 		if( oldGlobal!=null )

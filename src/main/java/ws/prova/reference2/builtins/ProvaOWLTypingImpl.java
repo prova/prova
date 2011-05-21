@@ -63,7 +63,7 @@ public class ProvaOWLTypingImpl extends ProvaBuiltinImpl {
 		ProvaObject[] data = terms.getFixed();
 		if(data.length<1||data.length>2)
 		{
-			throw new RuntimeException("invalid number of parameters!");
+			throw new IllegalArgumentException("Invalid number of parameters in owl_typing");
 		}
 		ProvaObject d = data[0];
 		if( d instanceof ProvaVariablePtr ) {

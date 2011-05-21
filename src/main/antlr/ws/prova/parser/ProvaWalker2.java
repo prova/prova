@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g 2011-04-09 09:33:31
+// $ANTLR 3.3 Nov 30, 2010 12:45:30 C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g 2011-05-21 17:50:07
 
 	package ws.prova.parser;
 	import java.util.List;
@@ -38,14 +38,14 @@ import java.util.ArrayList;
 
 public class ProvaWalker2 extends TreeParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DOT", "PLUS", "MINUS", "MULT", "DIV", "COMMA", "IF", "CUT", "OPEN", "CLOSE", "BAR", "BRA", "KET", "EQUAL", "NOT_EQUAL1", "NOT_EQUAL2", "LT", "GT", "LE", "GE", "CLAUSE", "RULEBASE", "STATEMENT", "QUERY", "LITERAL", "METADATA", "RELATION", "SEMANTIC_ATTACHMENT", "ARITHMETIC_RELATION", "PREDICATE", "TERM", "INSTANCE_JAVA_CALL", "STATIC_JAVA_CALL", "LIST_BODY", "PROVA_LIST", "ARGS", "TYPED_VARIABLE", "USWORD", "QUALIFIED_JAVA_CLASS", "ANNOTATION", "REM", "DOLLARWORD", "GUARD", "ATERM", "EXPR", "PROVA_MAP", "KEY_VALUE", "FUNCTION", "FUNCTION_CALL", "NEWLINE", "LCWORD", "UCWORD", "INT_LITERAL", "LONG_LITERAL", "STRING1", "STRING2", "EXPONENT", "DIGIT", "LC", "UC", "WORD", "DOLLAR", "UNDERSCORE", "ML_COMMENT", "WS", "CLEAN_STRING", "CHAR_ESC", "':'", "'@'", "'{'", "'}'", "'->'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DOT", "PLUS", "MINUS", "MULT", "DIV", "COMMA", "IF", "CUT", "OPEN", "CLOSE", "BAR", "BRA", "KET", "EQUAL", "NOT_EQUAL1", "NOT_EQUAL2", "LT", "GT", "LE", "GE", "CLAUSE", "RULEBASE", "STATEMENT", "QUERY", "LITERAL", "METADATA", "RELATION", "SEMANTIC_ATTACHMENT", "ARITHMETIC_RELATION", "PREDICATE", "TERM", "INSTANCE_JAVA_CALL", "STATIC_JAVA_CALL", "LIST_BODY", "PROVA_LIST", "ARGS", "TYPED_VARIABLE", "USWORD", "QUALIFIED_JAVA_CLASS", "ANNOTATION", "REM", "DOLLARWORD", "GUARD", "ATERM", "EXPR", "PROVA_MAP", "KEY_VALUE", "FUNCTION", "FUNCTION_CALL", "NEWLINE", "LCWORD", "UCWORD", "INT_LITERAL", "LONG_LITERAL", "SLCWORD", "LC", "STRING1", "STRING2", "EXPONENT", "DIGIT", "UC", "WORD", "DOLLAR", "UNDERSCORE", "ML_COMMENT", "WS", "CLEAN_STRING", "CHAR_ESC", "':'", "'@'", "'{'", "'}'", "'->'"
     };
     public static final int EOF=-1;
-    public static final int T__71=71;
     public static final int T__72=72;
     public static final int T__73=73;
     public static final int T__74=74;
     public static final int T__75=75;
+    public static final int T__76=76;
     public static final int DOT=4;
     public static final int PLUS=5;
     public static final int MINUS=6;
@@ -100,19 +100,20 @@ public class ProvaWalker2 extends TreeParser {
     public static final int UCWORD=55;
     public static final int INT_LITERAL=56;
     public static final int LONG_LITERAL=57;
-    public static final int STRING1=58;
-    public static final int STRING2=59;
-    public static final int EXPONENT=60;
-    public static final int DIGIT=61;
-    public static final int LC=62;
-    public static final int UC=63;
-    public static final int WORD=64;
-    public static final int DOLLAR=65;
-    public static final int UNDERSCORE=66;
-    public static final int ML_COMMENT=67;
-    public static final int WS=68;
-    public static final int CLEAN_STRING=69;
-    public static final int CHAR_ESC=70;
+    public static final int SLCWORD=58;
+    public static final int LC=59;
+    public static final int STRING1=60;
+    public static final int STRING2=61;
+    public static final int EXPONENT=62;
+    public static final int DIGIT=63;
+    public static final int UC=64;
+    public static final int WORD=65;
+    public static final int DOLLAR=66;
+    public static final int UNDERSCORE=67;
+    public static final int ML_COMMENT=68;
+    public static final int WS=69;
+    public static final int CLEAN_STRING=70;
+    public static final int CHAR_ESC=71;
 
     // delegates
     // delegators
@@ -660,7 +661,7 @@ public class ProvaWalker2 extends TreeParser {
                 int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( (LA9_0==MINUS||(LA9_0>=LCWORD && LA9_0<=STRING2)) ) {
+                if ( (LA9_0==MINUS||(LA9_0>=LCWORD && LA9_0<=LONG_LITERAL)||(LA9_0>=STRING1 && LA9_0<=STRING2)) ) {
                     alt9=1;
                 }
 
@@ -918,14 +919,14 @@ public class ProvaWalker2 extends TreeParser {
             match(input, Token.UP, null); 
 
             		if( Character.isUpperCase(pred.charAt(0)) )
-            			ret.add(ProvaParserImpl.tlKB.get().generateVariable(pred));
+            			ret.add(ProvaVariableImpl.create(pred));
             		else
-            			ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(pred));
+            			ret.add(ProvaConstantImpl.create(pred));
             		ProvaObject p = params;
-            		if( params.getFixed().length==1 )
+            		if( params.getFixed().length==1 && params.getTail()==null )
             			p = params.getFixed()[0];
             		ProvaObject o = result;
-            		if( result.getFixed().length==1 )
+            		if( result.getFixed().length==1 && result.getTail()==null )
             			o = result.getFixed()[0];
             		ret.add(ProvaListImpl.create(new ProvaObject[] {p,o},null));
             	
@@ -1303,7 +1304,7 @@ public class ProvaWalker2 extends TreeParser {
             if ( ((LA18_0>=INSTANCE_JAVA_CALL && LA18_0<=STATIC_JAVA_CALL)) ) {
                 alt18=1;
             }
-            else if ( (LA18_0==MINUS||LA18_0==PROVA_LIST||(LA18_0>=TYPED_VARIABLE && LA18_0<=QUALIFIED_JAVA_CLASS)||LA18_0==DOLLARWORD||(LA18_0>=LCWORD && LA18_0<=STRING2)) ) {
+            else if ( (LA18_0==MINUS||LA18_0==PROVA_LIST||(LA18_0>=TYPED_VARIABLE && LA18_0<=QUALIFIED_JAVA_CLASS)||LA18_0==DOLLARWORD||(LA18_0>=LCWORD && LA18_0<=SLCWORD)||(LA18_0>=STRING1 && LA18_0<=STRING2)) ) {
                 alt18=2;
             }
             else {
@@ -1526,7 +1527,7 @@ public class ProvaWalker2 extends TreeParser {
                 {
                 int LA21_2 = input.LA(2);
 
-                if ( (LA21_2==QUALIFIED_JAVA_CLASS||LA21_2==LCWORD||(LA21_2>=STRING1 && LA21_2<=STRING2)) ) {
+                if ( (LA21_2==QUALIFIED_JAVA_CLASS||LA21_2==LCWORD||LA21_2==SLCWORD||(LA21_2>=STRING1 && LA21_2<=STRING2)) ) {
                     alt21=2;
                 }
                 else if ( (LA21_2==MINUS||LA21_2==OPEN||(LA21_2>=INSTANCE_JAVA_CALL && LA21_2<=STATIC_JAVA_CALL)||(LA21_2>=TYPED_VARIABLE && LA21_2<=USWORD)||LA21_2==DOLLARWORD||(LA21_2>=UCWORD && LA21_2<=LONG_LITERAL)) ) {
@@ -2960,7 +2961,7 @@ public class ProvaWalker2 extends TreeParser {
                 int alt34=2;
                 int LA34_0 = input.LA(1);
 
-                if ( (LA34_0==MINUS||LA34_0==PROVA_LIST||(LA34_0>=TYPED_VARIABLE && LA34_0<=QUALIFIED_JAVA_CLASS)||LA34_0==DOLLARWORD||LA34_0==PROVA_MAP||(LA34_0>=LCWORD && LA34_0<=STRING2)) ) {
+                if ( (LA34_0==MINUS||LA34_0==PROVA_LIST||(LA34_0>=TYPED_VARIABLE && LA34_0<=QUALIFIED_JAVA_CLASS)||LA34_0==DOLLARWORD||LA34_0==PROVA_MAP||(LA34_0>=LCWORD && LA34_0<=SLCWORD)||(LA34_0>=STRING1 && LA34_0<=STRING2)) ) {
                     alt34=1;
                 }
 
@@ -3092,6 +3093,7 @@ public class ProvaWalker2 extends TreeParser {
             switch ( input.LA(1) ) {
             case QUALIFIED_JAVA_CLASS:
             case LCWORD:
+            case SLCWORD:
             case STRING1:
             case STRING2:
                 {
@@ -3214,7 +3216,7 @@ public class ProvaWalker2 extends TreeParser {
                 {
                 int LA39_1 = input.LA(2);
 
-                if ( ((LA39_1>=TYPED_VARIABLE && LA39_1<=QUALIFIED_JAVA_CLASS)||LA39_1==DOLLARWORD||(LA39_1>=LCWORD && LA39_1<=UCWORD)||(LA39_1>=STRING1 && LA39_1<=STRING2)) ) {
+                if ( ((LA39_1>=TYPED_VARIABLE && LA39_1<=QUALIFIED_JAVA_CLASS)||LA39_1==DOLLARWORD||(LA39_1>=LCWORD && LA39_1<=UCWORD)||LA39_1==SLCWORD||(LA39_1>=STRING1 && LA39_1<=STRING2)) ) {
                     alt39=1;
                 }
                 else if ( ((LA39_1>=INT_LITERAL && LA39_1<=LONG_LITERAL)) ) {
@@ -3234,6 +3236,7 @@ public class ProvaWalker2 extends TreeParser {
             case DOLLARWORD:
             case LCWORD:
             case UCWORD:
+            case SLCWORD:
             case STRING1:
             case STRING2:
                 {
@@ -3287,7 +3290,7 @@ public class ProvaWalker2 extends TreeParser {
                     int alt38=2;
                     int LA38_0 = input.LA(1);
 
-                    if ( (LA38_0==QUALIFIED_JAVA_CLASS||LA38_0==LCWORD||(LA38_0>=STRING1 && LA38_0<=STRING2)) ) {
+                    if ( (LA38_0==QUALIFIED_JAVA_CLASS||LA38_0==LCWORD||LA38_0==SLCWORD||(LA38_0>=STRING1 && LA38_0<=STRING2)) ) {
                         alt38=1;
                     }
                     else if ( ((LA38_0>=TYPED_VARIABLE && LA38_0<=USWORD)||LA38_0==DOLLARWORD||LA38_0==UCWORD) ) {
@@ -4099,7 +4102,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
     // $ANTLR start "constant"
-    // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:735:1: constant returns [ProvaConstant ret] : (d= LCWORD | s= string | qjc= qualified_java_class );
+    // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:735:1: constant returns [ProvaConstant ret] : (d= ( LCWORD | SLCWORD ) | s= string | qjc= qualified_java_class );
     public final ProvaConstant constant() throws RecognitionException {
         ProvaConstant ret = null;
 
@@ -4110,10 +4113,11 @@ public class ProvaWalker2 extends TreeParser {
 
 
         try {
-            // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:736:2: (d= LCWORD | s= string | qjc= qualified_java_class )
+            // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:736:2: (d= ( LCWORD | SLCWORD ) | s= string | qjc= qualified_java_class )
             int alt46=3;
             switch ( input.LA(1) ) {
             case LCWORD:
+            case SLCWORD:
                 {
                 alt46=1;
                 }
@@ -4138,9 +4142,18 @@ public class ProvaWalker2 extends TreeParser {
 
             switch (alt46) {
                 case 1 :
-                    // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:739:3: d= LCWORD
+                    // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:739:3: d= ( LCWORD | SLCWORD )
                     {
-                    d=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_constant1839); 
+                    d=(CommonTree)input.LT(1);
+                    if ( input.LA(1)==LCWORD||input.LA(1)==SLCWORD ) {
+                        input.consume();
+                        state.errorRecovery=false;
+                    }
+                    else {
+                        MismatchedSetException mse = new MismatchedSetException(null,input);
+                        throw mse;
+                    }
+
 
                     			Object sd = d.toString();
                     			if( "false".equals(sd) )
@@ -4156,7 +4169,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 2 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:748:5: s= string
                     {
-                    pushFollow(FOLLOW_string_in_constant1849);
+                    pushFollow(FOLLOW_string_in_constant1854);
                     s=string();
 
                     state._fsp--;
@@ -4168,7 +4181,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 3 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:749:5: qjc= qualified_java_class
                     {
-                    pushFollow(FOLLOW_qualified_java_class_in_constant1859);
+                    pushFollow(FOLLOW_qualified_java_class_in_constant1864);
                     qjc=qualified_java_class();
 
                     state._fsp--;
@@ -4227,7 +4240,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 1 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:764:4: s1= STRING1
                     {
-                    s1=(CommonTree)match(input,STRING1,FOLLOW_STRING1_in_string1881); 
+                    s1=(CommonTree)match(input,STRING1,FOLLOW_STRING1_in_string1886); 
 
                     			if( s1.toString().endsWith("'") )
                     				ret =s1.toString().substring(1,s1.toString().length()-1);
@@ -4240,7 +4253,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 2 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:770:5: s2= STRING2
                     {
-                    s2=(CommonTree)match(input,STRING2,FOLLOW_STRING2_in_string1891); 
+                    s2=(CommonTree)match(input,STRING2,FOLLOW_STRING2_in_string1896); 
 
                     			if( s2.toString().endsWith("\"") )
                     				ret =s2.toString().substring(1,s2.toString().length()-1);
@@ -4294,7 +4307,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 1 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:779:4: s= string
                     {
-                    pushFollow(FOLLOW_string_in_mstring1909);
+                    pushFollow(FOLLOW_string_in_mstring1914);
                     s=string();
 
                     state._fsp--;
@@ -4306,7 +4319,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 2 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:780:5: l= LCWORD
                     {
-                    l=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_mstring1919); 
+                    l=(CommonTree)match(input,LCWORD,FOLLOW_LCWORD_in_mstring1924); 
                     ret =l.toString();
 
                     }
@@ -4346,7 +4359,7 @@ public class ProvaWalker2 extends TreeParser {
                 if ( (LA49_1==DOT) ) {
                     alt49=3;
                 }
-                else if ( (LA49_1==EOF||LA49_1==UP||(LA49_1>=PLUS && LA49_1<=DIV)||(LA49_1>=OPEN && LA49_1<=CLOSE)||(LA49_1>=EQUAL && LA49_1<=GE)||(LA49_1>=INSTANCE_JAVA_CALL && LA49_1<=STATIC_JAVA_CALL)||LA49_1==PROVA_LIST||(LA49_1>=TYPED_VARIABLE && LA49_1<=QUALIFIED_JAVA_CLASS)||(LA49_1>=REM && LA49_1<=GUARD)||LA49_1==PROVA_MAP||(LA49_1>=LCWORD && LA49_1<=STRING2)) ) {
+                else if ( (LA49_1==EOF||LA49_1==UP||(LA49_1>=PLUS && LA49_1<=DIV)||(LA49_1>=OPEN && LA49_1<=CLOSE)||(LA49_1>=EQUAL && LA49_1<=GE)||(LA49_1>=INSTANCE_JAVA_CALL && LA49_1<=STATIC_JAVA_CALL)||LA49_1==PROVA_LIST||(LA49_1>=TYPED_VARIABLE && LA49_1<=QUALIFIED_JAVA_CLASS)||(LA49_1>=REM && LA49_1<=GUARD)||LA49_1==PROVA_MAP||(LA49_1>=LCWORD && LA49_1<=SLCWORD)||(LA49_1>=STRING1 && LA49_1<=STRING2)) ) {
                     alt49=1;
                 }
                 else {
@@ -4369,7 +4382,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 1 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:784:4: i= INT_LITERAL
                     {
-                    i=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_pos_number1937); 
+                    i=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_pos_number1942); 
                     ret =Integer.parseInt(i.toString());
 
                     }
@@ -4377,7 +4390,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 2 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:785:5: l= LONG_LITERAL
                     {
-                    l=(CommonTree)match(input,LONG_LITERAL,FOLLOW_LONG_LITERAL_in_pos_number1947); 
+                    l=(CommonTree)match(input,LONG_LITERAL,FOLLOW_LONG_LITERAL_in_pos_number1952); 
                     String s = l.toString(); ret =Long.parseLong(s.substring(0,s.length()-1));
 
                     }
@@ -4385,7 +4398,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 3 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:786:5: f= float_literal
                     {
-                    pushFollow(FOLLOW_float_literal_in_pos_number1957);
+                    pushFollow(FOLLOW_float_literal_in_pos_number1962);
                     f=float_literal();
 
                     state._fsp--;
@@ -4421,9 +4434,9 @@ public class ProvaWalker2 extends TreeParser {
             // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:791:2: (i1= INT_LITERAL DOT i2= INT_LITERAL (e= EXPONENT )? )
             // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:791:4: i1= INT_LITERAL DOT i2= INT_LITERAL (e= EXPONENT )?
             {
-            i1=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1977); 
-            match(input,DOT,FOLLOW_DOT_in_float_literal1979); 
-            i2=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1983); 
+            i1=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1982); 
+            match(input,DOT,FOLLOW_DOT_in_float_literal1984); 
+            i2=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_float_literal1988); 
             // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:791:38: (e= EXPONENT )?
             int alt50=2;
             int LA50_0 = input.LA(1);
@@ -4435,7 +4448,7 @@ public class ProvaWalker2 extends TreeParser {
                 case 1 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:791:39: e= EXPONENT
                     {
-                    e=(CommonTree)match(input,EXPONENT,FOLLOW_EXPONENT_in_float_literal1988); 
+                    e=(CommonTree)match(input,EXPONENT,FOLLOW_EXPONENT_in_float_literal1993); 
 
                     }
                     break;
@@ -4486,14 +4499,14 @@ public class ProvaWalker2 extends TreeParser {
                 case 1 :
                     // C:\\workspace-sts\\prova-compact-sw\\src\\main\\antlr\\ws\\prova\\parser\\ProvaWalker2.g:800:5: m= '-'
                     {
-                    m=(CommonTree)match(input,MINUS,FOLLOW_MINUS_in_number2010); 
+                    m=(CommonTree)match(input,MINUS,FOLLOW_MINUS_in_number2015); 
 
                     }
                     break;
 
             }
 
-            pushFollow(FOLLOW_pos_number_in_number2015);
+            pushFollow(FOLLOW_pos_number_in_number2020);
             p=pos_number();
 
             state._fsp--;
@@ -4537,8 +4550,8 @@ public class ProvaWalker2 extends TreeParser {
         "\1\30\1\2\1\35\1\2\2\uffff\1\53\1\2\1\66\5\3\1\70\3\3\1\70\1\41"+
         "\2\3";
     static final String DFA7_maxS =
-        "\1\30\1\2\1\66\1\2\2\uffff\1\53\1\2\1\66\5\73\1\71\2\73\1\53\1"+
-        "\70\1\66\1\74\1\73";
+        "\1\30\1\2\1\66\1\2\2\uffff\1\53\1\2\1\66\5\75\1\71\2\75\1\53\1"+
+        "\70\1\66\1\76\1\75";
     static final String DFA7_acceptS =
         "\4\uffff\1\1\1\2\20\uffff";
     static final String DFA7_specialS =
@@ -4553,21 +4566,28 @@ public class ProvaWalker2 extends TreeParser {
             "\1\7",
             "\1\10",
             "\1\11",
-            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\1\14\1\15",
-            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\1\14\1\15",
-            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\1\14\1\15",
-            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\1\14\1\15",
-            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\1\14\1\15",
+            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\2\uffff\1"+
+            "\14\1\15",
+            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\2\uffff\1"+
+            "\14\1\15",
+            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\2\uffff\1"+
+            "\14\1\15",
+            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\2\uffff\1"+
+            "\14\1\15",
+            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\2\uffff\1"+
+            "\14\1\15",
             "\1\17\1\20",
-            "\1\21\1\22\1\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\1\14"+
-            "\1\15",
-            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\1\14\1\15",
+            "\1\21\1\22\1\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\2\uffff"+
+            "\1\14\1\15",
+            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\2\uffff\1"+
+            "\14\1\15",
             "\1\23\47\uffff\1\7",
             "\1\24",
             "\1\4\24\uffff\1\5",
-            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\1\14\1\15"+
-            "\1\25",
-            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\1\14\1\15"
+            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\2\uffff\1"+
+            "\14\1\15\1\25",
+            "\1\21\2\uffff\1\16\57\uffff\1\12\1\13\1\17\1\20\2\uffff\1"+
+            "\14\1\15"
     };
 
     static final short[] DFA7_eot = DFA.unpackEncodedString(DFA7_eotS);
@@ -4610,14 +4630,14 @@ public class ProvaWalker2 extends TreeParser {
     static final String DFA20_minS =
         "\1\6\1\2\1\3\3\uffff\1\66\1\uffff\1\4\1\66\2\3";
     static final String DFA20_maxS =
-        "\1\73\1\2\1\56\3\uffff\1\66\1\uffff\1\4\1\67\1\3\1\56";
+        "\1\75\1\2\1\56\3\uffff\1\66\1\uffff\1\4\1\67\1\3\1\56";
     static final String DFA20_acceptS =
         "\3\uffff\1\2\1\3\1\4\1\uffff\1\1\4\uffff";
     static final String DFA20_specialS =
         "\14\uffff}>";
     static final String[] DFA20_transitionS = {
             "\1\5\5\uffff\1\5\26\uffff\2\5\1\uffff\1\3\1\uffff\2\5\1\1\2"+
-            "\uffff\1\5\10\uffff\1\4\1\2\2\5\2\4",
+            "\uffff\1\5\10\uffff\1\4\1\2\2\5\1\4\1\uffff\2\4",
             "\1\6",
             "\1\5\1\uffff\4\5\36\uffff\1\7\4\uffff\1\5\1\uffff\1\5",
             "",
@@ -4672,24 +4692,24 @@ public class ProvaWalker2 extends TreeParser {
         "\1\6\3\3\1\uffff\1\3\1\2\2\uffff\1\52\1\66\1\2\2\3\1\66\2\3\1\4"+
         "\1\66\1\3\1\66\3\3";
     static final String DFA35_maxS =
-        "\4\73\1\uffff\1\73\1\2\2\uffff\2\67\1\2\2\3\1\66\2\73\1\4\1\67"+
-        "\1\3\1\67\2\3\1\73";
+        "\4\75\1\uffff\1\75\1\2\2\uffff\2\67\1\2\2\3\1\66\2\75\1\4\1\67"+
+        "\1\3\1\67\2\3\1\75";
     static final String DFA35_acceptS =
         "\4\uffff\1\1\2\uffff\1\3\1\2\17\uffff";
     static final String DFA35_specialS =
         "\30\uffff}>";
     static final String[] DFA35_transitionS = {
             "\1\4\37\uffff\1\4\1\uffff\1\6\2\4\2\uffff\1\4\3\uffff\1\7\4"+
-            "\uffff\1\1\1\5\2\4\1\2\1\3",
+            "\uffff\1\1\1\5\3\4\1\uffff\1\2\1\3",
             "\1\4\2\uffff\1\4\37\uffff\1\4\1\10\3\4\2\uffff\1\4\3\uffff"+
-            "\1\4\4\uffff\6\4",
+            "\1\4\4\uffff\5\4\1\uffff\2\4",
             "\1\4\2\uffff\1\4\37\uffff\1\4\1\10\3\4\2\uffff\1\4\3\uffff"+
-            "\1\4\4\uffff\6\4",
+            "\1\4\4\uffff\5\4\1\uffff\2\4",
             "\1\4\2\uffff\1\4\37\uffff\1\4\1\10\3\4\2\uffff\1\4\3\uffff"+
-            "\1\4\4\uffff\6\4",
+            "\1\4\4\uffff\5\4\1\uffff\2\4",
             "",
             "\1\4\2\uffff\1\4\37\uffff\1\4\1\10\3\4\2\uffff\1\4\3\uffff"+
-            "\1\4\4\uffff\6\4",
+            "\1\4\4\uffff\5\4\1\uffff\2\4",
             "\1\11",
             "",
             "",
@@ -4700,9 +4720,9 @@ public class ProvaWalker2 extends TreeParser {
             "\1\20",
             "\1\21",
             "\1\4\2\uffff\1\4\37\uffff\1\4\1\10\3\4\2\uffff\1\4\3\uffff"+
-            "\1\4\4\uffff\6\4",
+            "\1\4\4\uffff\5\4\1\uffff\2\4",
             "\1\4\2\uffff\1\4\37\uffff\1\4\1\10\3\4\2\uffff\1\4\3\uffff"+
-            "\1\4\4\uffff\6\4",
+            "\1\4\4\uffff\5\4\1\uffff\2\4",
             "\1\22",
             "\1\21\1\23",
             "\1\24",
@@ -4710,7 +4730,7 @@ public class ProvaWalker2 extends TreeParser {
             "\1\27",
             "\1\27",
             "\1\4\2\uffff\1\4\37\uffff\1\4\1\10\3\4\2\uffff\1\4\3\uffff"+
-            "\1\4\4\uffff\6\4"
+            "\1\4\4\uffff\5\4\1\uffff\2\4"
     };
 
     static final short[] DFA35_eot = DFA.unpackEncodedString(DFA35_eotS);
@@ -4767,8 +4787,8 @@ public class ProvaWalker2 extends TreeParser {
     public static final BitSet FOLLOW_METADATA_in_metadata227 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_annotation_in_metadata232 = new BitSet(new long[]{0x0000080000000008L});
     public static final BitSet FOLLOW_ANNOTATION_in_annotation266 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_LCWORD_in_annotation270 = new BitSet(new long[]{0x0FC0000000000048L});
-    public static final BitSet FOLLOW_value_in_annotation277 = new BitSet(new long[]{0x0FC0000000000048L});
+    public static final BitSet FOLLOW_LCWORD_in_annotation270 = new BitSet(new long[]{0x33C0000000000048L});
+    public static final BitSet FOLLOW_value_in_annotation277 = new BitSet(new long[]{0x33C0000000000048L});
     public static final BitSet FOLLOW_LCWORD_in_value299 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_UCWORD_in_value309 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_string_in_value319 = new BitSet(new long[]{0x0000000000000002L});
@@ -4784,7 +4804,7 @@ public class ProvaWalker2 extends TreeParser {
     public static final BitSet FOLLOW_relation_in_literal426 = new BitSet(new long[]{0x0000400000000008L});
     public static final BitSet FOLLOW_guard_in_literal430 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_SEMANTIC_ATTACHMENT_in_literal442 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_metadata_in_literal446 = new BitSet(new long[]{0x0FC0275800000040L});
+    public static final BitSet FOLLOW_metadata_in_literal446 = new BitSet(new long[]{0x37C0275800000040L});
     public static final BitSet FOLLOW_semantic_attachment_in_literal451 = new BitSet(new long[]{0x0000400000000008L});
     public static final BitSet FOLLOW_guard_in_literal455 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_FUNCTION_in_literal467 = new BitSet(new long[]{0x0000000000000004L});
@@ -4802,28 +4822,28 @@ public class ProvaWalker2 extends TreeParser {
     public static final BitSet FOLLOW_STATIC_JAVA_CALL_in_static_java_call604 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_static_call_in_static_java_call608 = new BitSet(new long[]{0x0000008000000000L});
     public static final BitSet FOLLOW_args_in_static_java_call612 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_left_term_in_binary_operation638 = new BitSet(new long[]{0x0FC0231800FE1040L});
-    public static final BitSet FOLLOW_EQUAL_in_binary_operation645 = new BitSet(new long[]{0x0FC0275800FE1040L});
+    public static final BitSet FOLLOW_left_term_in_binary_operation638 = new BitSet(new long[]{0x33C0231800FE1040L});
+    public static final BitSet FOLLOW_EQUAL_in_binary_operation645 = new BitSet(new long[]{0x37C0275800FE1040L});
     public static final BitSet FOLLOW_constructor_java_call_in_binary_operation654 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_prova_list_in_binary_operation665 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_constant_in_binary_operation676 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_expr_in_binary_operation691 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_not_equal_in_binary_operation704 = new BitSet(new long[]{0x0C40040000000000L});
+    public static final BitSet FOLLOW_not_equal_in_binary_operation704 = new BitSet(new long[]{0x3440040000000000L});
     public static final BitSet FOLLOW_constant_in_binary_operation708 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_binary_operator_in_binary_operation718 = new BitSet(new long[]{0x0FC0231800FE1040L});
+    public static final BitSet FOLLOW_binary_operator_in_binary_operation718 = new BitSet(new long[]{0x33C0231800FE1040L});
     public static final BitSet FOLLOW_expr_in_binary_operation722 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_aterm_in_expr754 = new BitSet(new long[]{0x0000000000000062L});
-    public static final BitSet FOLLOW_set_in_expr759 = new BitSet(new long[]{0x0FC0231800FE1040L});
+    public static final BitSet FOLLOW_set_in_expr759 = new BitSet(new long[]{0x33C0231800FE1040L});
     public static final BitSet FOLLOW_aterm_in_expr767 = new BitSet(new long[]{0x0000000000000062L});
     public static final BitSet FOLLOW_MINUS_in_aterm792 = new BitSet(new long[]{0x0080230000000000L});
     public static final BitSet FOLLOW_variable_in_aterm797 = new BitSet(new long[]{0x0000100000000182L});
     public static final BitSet FOLLOW_number_in_aterm803 = new BitSet(new long[]{0x0000100000000182L});
     public static final BitSet FOLLOW_MINUS_in_aterm809 = new BitSet(new long[]{0x0000001800000000L});
     public static final BitSet FOLLOW_predicate_java_call_in_aterm814 = new BitSet(new long[]{0x0000100000000182L});
-    public static final BitSet FOLLOW_OPEN_in_aterm818 = new BitSet(new long[]{0x0FC0231800FE1040L});
+    public static final BitSet FOLLOW_OPEN_in_aterm818 = new BitSet(new long[]{0x33C0231800FE1040L});
     public static final BitSet FOLLOW_expr_in_aterm822 = new BitSet(new long[]{0x0000000000002000L});
     public static final BitSet FOLLOW_CLOSE_in_aterm824 = new BitSet(new long[]{0x0000100000000182L});
-    public static final BitSet FOLLOW_set_in_aterm830 = new BitSet(new long[]{0x0FC0231800FE1040L});
+    public static final BitSet FOLLOW_set_in_aterm830 = new BitSet(new long[]{0x33C0231800FE1040L});
     public static final BitSet FOLLOW_aterm_in_aterm840 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_variable_in_variable_or_number860 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_number_in_variable_or_number868 = new BitSet(new long[]{0x0000000000000002L});
@@ -4858,10 +4878,10 @@ public class ProvaWalker2 extends TreeParser {
     public static final BitSet FOLLOW_string_in_func1218 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_typed_variable_in_func1228 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_LIST_BODY_in_list_body1250 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_terms_in_list_body1255 = new BitSet(new long[]{0x0FC0275800000048L});
+    public static final BitSet FOLLOW_terms_in_list_body1255 = new BitSet(new long[]{0x37C0275800000048L});
     public static final BitSet FOLLOW_list_tail_in_list_body1259 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_TERM_in_terms1291 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_term_in_terms1296 = new BitSet(new long[]{0x0FC2275800000048L});
+    public static final BitSet FOLLOW_term_in_terms1296 = new BitSet(new long[]{0x37C2275800000048L});
     public static final BitSet FOLLOW_left_term_in_term1321 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_func_term_in_term1331 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_prova_map_in_term1341 = new BitSet(new long[]{0x0000000000000002L});
@@ -4869,7 +4889,7 @@ public class ProvaWalker2 extends TreeParser {
     public static final BitSet FOLLOW_variable_in_left_term1369 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_number_in_left_term1379 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_prova_list_in_left_term1389 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_right_term1418 = new BitSet(new long[]{0x0CC0270000000000L});
+    public static final BitSet FOLLOW_MINUS_in_right_term1418 = new BitSet(new long[]{0x34C0270000000000L});
     public static final BitSet FOLLOW_constant_in_right_term1424 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_variable_in_right_term1432 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_number_in_right_term1444 = new BitSet(new long[]{0x0000000000000002L});
@@ -4895,7 +4915,7 @@ public class ProvaWalker2 extends TreeParser {
     public static final BitSet FOLLOW_PROVA_MAP_in_prova_map1652 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_key_value_in_prova_map1657 = new BitSet(new long[]{0x0004000000000008L});
     public static final BitSet FOLLOW_KEY_VALUE_in_key_value1683 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_mstring_in_key_value1688 = new BitSet(new long[]{0x0FC2275800000048L});
+    public static final BitSet FOLLOW_mstring_in_key_value1688 = new BitSet(new long[]{0x37C2275800000048L});
     public static final BitSet FOLLOW_term_in_key_value1692 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_UCWORD_in_variable1721 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_USWORD_in_variable1731 = new BitSet(new long[]{0x0000000000000002L});
@@ -4905,21 +4925,21 @@ public class ProvaWalker2 extends TreeParser {
     public static final BitSet FOLLOW_list_body_in_args1773 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_variable_in_list_tail1802 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_prova_list_in_list_tail1812 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCWORD_in_constant1839 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_string_in_constant1849 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qualified_java_class_in_constant1859 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING1_in_string1881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING2_in_string1891 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_string_in_mstring1909 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCWORD_in_mstring1919 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_LITERAL_in_pos_number1937 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LONG_LITERAL_in_pos_number1947 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_float_literal_in_pos_number1957 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_LITERAL_in_float_literal1977 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_DOT_in_float_literal1979 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_INT_LITERAL_in_float_literal1983 = new BitSet(new long[]{0x1000000000000002L});
-    public static final BitSet FOLLOW_EXPONENT_in_float_literal1988 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_number2010 = new BitSet(new long[]{0x0FC0000000000040L});
-    public static final BitSet FOLLOW_pos_number_in_number2015 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_constant1839 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_string_in_constant1854 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_qualified_java_class_in_constant1864 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING1_in_string1886 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING2_in_string1896 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_string_in_mstring1914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCWORD_in_mstring1924 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_LITERAL_in_pos_number1942 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LONG_LITERAL_in_pos_number1952 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_float_literal_in_pos_number1962 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_LITERAL_in_float_literal1982 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_DOT_in_float_literal1984 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_INT_LITERAL_in_float_literal1988 = new BitSet(new long[]{0x4000000000000002L});
+    public static final BitSet FOLLOW_EXPONENT_in_float_literal1993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_number2015 = new BitSet(new long[]{0x33C0000000000040L});
+    public static final BitSet FOLLOW_pos_number_in_number2020 = new BitSet(new long[]{0x0000000000000002L});
 
 }

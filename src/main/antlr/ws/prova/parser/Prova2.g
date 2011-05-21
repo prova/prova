@@ -265,7 +265,9 @@ mstring		:
 	LCWORD | string;
 	
 constant	:
-	LCWORD | string | qualified_java_class;
+	LCWORD | SLCWORD | string | qualified_java_class;
+	
+SLCWORD	:	LC+ '^^' ~(' '|'\t'|','|')')*;
 
 string	:	STRING1 | STRING2;
 
@@ -294,7 +296,7 @@ fragment LC 	:	'a'..'z';
 
 fragment UC 	:	'A'..'Z';
 
-LCWORD 	:	LC WORD ('^^' (LC WORD ':')? UCWORD)?;
+LCWORD 	:	LC WORD;
 
 DOLLARWORD
 	:	DOLLAR WORD;

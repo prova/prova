@@ -185,14 +185,14 @@ function_call returns [List ret]
 	:
 	^(FUNCTION_CALL pred=predicate params=list_body result=list_body) {
 		if( Character.isUpperCase(pred.charAt(0)) )
-			$ret.add(ProvaParserImpl.tlKB.get().generateVariable(pred));
+			$ret.add(ProvaVariableImpl.create(pred));
 		else
-			$ret.add(ProvaParserImpl.tlKB.get().generateTypedConstant(pred));
+			$ret.add(ProvaConstantImpl.create(pred));
 		ProvaObject p = params;
-		if( params.getFixed().length==1 )
+		if( params.getFixed().length==1 && params.getTail()==null )
 			p = params.getFixed()[0];
 		ProvaObject o = result;
-		if( result.getFixed().length==1 )
+		if( result.getFixed().length==1 && result.getTail()==null )
 			o = result.getFixed()[0];
 		$ret.add(ProvaListImpl.create(new ProvaObject[] {p,o},null));
 	}
@@ -736,7 +736,7 @@ constant returns [ProvaConstant ret]
 	:	
 		//l=LCWORD {$ret=ProvaConstantImpl.create(l.toString());}
 		//| 
-		d=LCWORD {
+		d=(LCWORD | SLCWORD){
 			Object sd = d.toString();
 			if( "false".equals(sd) )
 				$ret=ProvaParserImpl.tlKB.get().generateTypedConstant(java.lang.Boolean.FALSE);

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import ws.prova.kernel2.ProvaConstant;
-import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
@@ -21,10 +20,10 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 
 	private static final long serialVersionUID = 7501612596168443208L;
 
-	// Variable name - either string or number
-	final private Object name;
+	private final ProvaType type;
 	
-	final private ProvaType type;
+	// Variable name - either string or number
+	private Object name;
 	
 	// The term assigned to this variable
 	private ProvaObject assigned;
@@ -40,6 +39,47 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	// Working copies of variables get a number of this counter instead of a string name:
 	protected static AtomicLong incName = new AtomicLong(0);
 
+
+	public static ProvaVariable create() {
+		return new ProvaVariableImpl();
+	}
+
+	public static ProvaVariable create(String name) {
+		return new ProvaVariableImpl(name);
+	}
+
+	public static ProvaVariable create(String name, ProvaType type) {
+		return new ProvaVariableImpl(name, type);
+	}
+
+	public static ProvaVariableImpl create(String name, ProvaObject assigned) {
+		return new ProvaVariableImpl(name, assigned);
+	}
+
+	private ProvaVariableImpl() {
+		this.name = incName.incrementAndGet();
+		this.type = ProvaAnyTypeImpl.singleton;
+		this.assigned = null;
+		this.index = -1;
+	}
+	
+	private ProvaVariableImpl(final String name) {
+		this.name = "_".equals(name) ? incName.incrementAndGet() : name;
+		this.type = ProvaAnyTypeImpl.singleton;
+		this.assigned = null;
+		this.index = -1;
+	}
+
+	private ProvaVariableImpl(final String name, final ProvaObject assigned) {
+		this.name = name;
+		this.assigned = assigned;
+		this.type = ProvaAnyTypeImpl.singleton;
+		this.index = -1;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	/**
 	 * Constructor for blank variables.
