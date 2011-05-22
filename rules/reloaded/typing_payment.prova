@@ -15,6 +15,8 @@
 % capital is an individual in Ontolgy and has the type of classes "ExpenditureCategory", "Concept" and "Resource"
 % the class "ExpenditureLine" is subclass of class "Observation"
 
+a(X,X).
+
 isCapital(X^^payment:capital).
 isExpenditureCategory(X^^payment:ExpenditureCategory).
 isConcept(X^^payment:Concept).
@@ -30,8 +32,10 @@ isExpenditureLine(c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_
 :-solve(testType(X)).
 
 testType(X):-
-	% [alex] Where are these coming from? subType does not find them
-	X^^payment:ExpenditureLine = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
+	% [alex] This assignment does not work as expected as there is no support for this in ProvaVariableImpl
+%	X^^payment:ExpenditureLine = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
+	% This way of doing things does not work either as such unification does not work correctly
+	a(X^^payment:ExpenditureLine,'http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1'),
 	isObservation(X^^payment:ExpenditureLine ), 
 	println(["Is Observation"]).
 
