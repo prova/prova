@@ -28,6 +28,9 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 		Model tmpModel = ModelFactory.createDefaultModel(); //TODO: maybe this needs to be an OntModel...
 		tmpModel.read(ontologyURL);
 		ontModel.add(tmpModel);
+//		ontModel.write(System.out);
+		// [alex] Prefixes from tmpModel are lost in ontModel after using add() above unless explicitly copied -- do not know why
+		ontModel.setNsPrefixes(tmpModel.getNsPrefixMap());
 	}
 	
 	

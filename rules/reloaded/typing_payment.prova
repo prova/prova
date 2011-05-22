@@ -10,10 +10,7 @@
 % scheme as also typed as payment:ExpenditureType (a subclass of skos:Concept) for ease of access.
 
 
-:-eval(owl_typing( "http://reference.data.gov.uk/def/payment#", 	% owl file from the web
-                   "payment", 						% namespace prefix
-                   "http://reference.data.gov.uk/def/payment#" )	% namespace of the ontology
-					).
+:-eval(owl_typing("http://reference.data.gov.uk/def/payment#")).
                    
 % capital is an individual in Ontolgy and has the type of classes "ExpenditureCategory", "Concept" and "Resource"
 % the class "ExpenditureLine" is subclass of class "Observation"
@@ -33,6 +30,7 @@ isExpenditureLine(c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_
 :-solve(testType(X)).
 
 testType(X):-
+	% [alex] Where are these coming from? subType does not find them
 	X^^payment:ExpenditureLine = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
 	isObservation(X^^payment:ExpenditureLine ), 
 	println(["Is Observation"]).

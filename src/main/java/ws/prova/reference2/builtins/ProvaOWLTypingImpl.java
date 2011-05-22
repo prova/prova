@@ -50,6 +50,7 @@ public class ProvaOWLTypingImpl extends ProvaBuiltinImpl {
 		this.kb=kb;
 	}
 	
+	// TODO: needs full revision
 	@Override
 	public boolean process(ProvaReagent prova, ProvaDerivationNode node,
 			ProvaGoal goal, List<ProvaLiteral> newLiterals, ProvaRule query) {
@@ -61,7 +62,7 @@ public class ProvaOWLTypingImpl extends ProvaBuiltinImpl {
 		List<ProvaVariable> variables = query.getVariables();
 		ProvaList terms = literal.getTerms();
 		ProvaObject[] data = terms.getFixed();
-		if(data.length<1||data.length>2)
+		if( data.length%2==0 )
 		{
 			throw new IllegalArgumentException("Invalid number of parameters in owl_typing");
 		}
@@ -72,16 +73,16 @@ public class ProvaOWLTypingImpl extends ProvaBuiltinImpl {
 		}
 		url= ((ProvaConstant) d).getObject().toString();
 		
-		if(data.length>1)
-		{
-			d=data[1];
-			if( d instanceof ProvaVariablePtr ) {
-				ProvaVariablePtr varPtr = (ProvaVariablePtr) d;
-				d = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
-			}
-			languageURI=((ProvaConstant) d).getObject().toString();
-		}
-		else
+//		if(data.length>1)
+//		{
+//			d=data[1];
+//			if( d instanceof ProvaVariablePtr ) {
+//				ProvaVariablePtr varPtr = (ProvaVariablePtr) d;
+//				d = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+//			}
+//			languageURI=((ProvaConstant) d).getObject().toString();
+//		}
+//		else
 			languageURI="http://www.w3.org/TR/owl-features/#term_OWLDL";
 		
 		

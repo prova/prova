@@ -1,8 +1,5 @@
 package ws.prova.reference2.typing;
 
-import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
-
 import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.typing.ProvaType;
 
