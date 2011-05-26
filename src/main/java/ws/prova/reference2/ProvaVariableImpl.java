@@ -39,48 +39,6 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	// Working copies of variables get a number of this counter instead of a string name:
 	protected static AtomicLong incName = new AtomicLong(0);
 
-
-	public static ProvaVariable create() {
-		return new ProvaVariableImpl();
-	}
-
-	public static ProvaVariable create(String name) {
-		return new ProvaVariableImpl(name);
-	}
-
-	public static ProvaVariable create(String name, ProvaType type) {
-		return new ProvaVariableImpl(name, type);
-	}
-
-	public static ProvaVariableImpl create(String name, ProvaObject assigned) {
-		return new ProvaVariableImpl(name, assigned);
-	}
-
-	private ProvaVariableImpl() {
-		this.name = incName.incrementAndGet();
-		this.type = ProvaAnyTypeImpl.singleton;
-		this.assigned = null;
-		this.index = -1;
-	}
-	
-	private ProvaVariableImpl(final String name) {
-		this.name = "_".equals(name) ? incName.incrementAndGet() : name;
-		this.type = ProvaAnyTypeImpl.singleton;
-		this.assigned = null;
-		this.index = -1;
-	}
-
-	private ProvaVariableImpl(final String name, final ProvaObject assigned) {
-		this.name = name;
-		this.assigned = assigned;
-		this.type = ProvaAnyTypeImpl.singleton;
-		this.index = -1;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	/**
 	 * Constructor for blank variables.
 	 * Constructors are private, instances are created by ProvaKnowledgeBase methods.
