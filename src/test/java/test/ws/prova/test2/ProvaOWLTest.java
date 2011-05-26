@@ -97,7 +97,7 @@ public class ProvaOWLTest {
 		try {
 			ProvaCommunicator pc=new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 			Assert.assertTrue(pc.getReagent().getKb().getOntology()!=null);
-			//Assert.assertEquals(3,pc.getInitializationSolutions().get(1).length);
+			Assert.assertEquals(3,pc.getInitializationSolutions().get(1).length);
 
 		} catch (Exception e) {
 			e.printStackTrace();

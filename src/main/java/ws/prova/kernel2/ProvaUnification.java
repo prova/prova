@@ -37,6 +37,5 @@ public interface ProvaUnification {
 
 	public boolean targetUnchanged();
 
-	public ProvaType getTypeFromMetadata(String variableName);
 
 }

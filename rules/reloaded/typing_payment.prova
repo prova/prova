@@ -15,7 +15,7 @@
 % capital is an individual in Ontolgy and has the type of classes "ExpenditureCategory", "Concept" and "Resource"
 % the class "ExpenditureLine" is subclass of class "Observation"
 
-a(X,X).
+eq(X,X).
 
 isCapital(X^^payment:capital).
 isExpenditureCategory(X^^payment:ExpenditureCategory).
@@ -32,16 +32,19 @@ isExpenditureLine(c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_
 :-solve(testType(X)).
 
 testType(X):-
-	% [alex] This assignment does not work as expected as there is no support for this in ProvaVariableImpl
-%	X^^payment:ExpenditureLine = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
-	% This way of doing things does not work either as such unification does not work correctly
-	a(X^^payment:ExpenditureLine,'http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1'),
-	isObservation(X^^payment:ExpenditureLine ), 
+	X^^payment:ExpenditureLine = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
 	println(["Is Observation"]).
 
-% X has the type of an individual and so it gets the type of its types (superclasses)
+testType(X):-
+	eq(X^^payment:ExpenditureLine,'http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1'),
+	isObservation(X^^payment:ExpenditureLine ), 
+	println(["Is Observation, too"]).
+	
+	% X has the type of an individual and so it gets the type of its types (superclasses)
 testType(X):-
 	X^^payment:capital = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
 	isExpenditureCategory(X^^payment:capital), 
 	println(["Is Capital"]).
+
+	
 

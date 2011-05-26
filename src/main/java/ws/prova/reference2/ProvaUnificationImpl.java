@@ -396,11 +396,5 @@ public class ProvaUnificationImpl implements ProvaUnification {
 			this.meta = meta;
 	}
 
-	@Override
-	public ProvaType getTypeFromMetadata(String variableName) {
-		source.getMetadata("forall");
-		System.out.println("blub");
-		return null;
-	}
 	
 }

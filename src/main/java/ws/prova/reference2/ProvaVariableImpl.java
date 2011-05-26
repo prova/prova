@@ -158,7 +158,6 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 
 	@Override
 	public boolean unify(final ProvaObject target, final ProvaUnification unification) {
-	
 		// Unification with nothing:
 		if( target==null ) {
 			assigned = ProvaListImpl.emptyRList;

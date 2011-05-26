@@ -30,16 +30,25 @@ import com.hp.hpl.jena.ontology.OntClass;
 /**
  * builtin syntax:
  * 
- * owl_typing("myOwlModel.rdf", "prefix1", "NS1", "prefix2", "NS2"...). 
+ * owl_typing("URL", ["languageURI"]). 
  * 
- * first argument is the name of the OWL file to be loaded.
- * the following (optional) arguments specify additional prefix/namespace mappings.
+ * first argument is the URI of the ontology to be loaded
+ * second argument the URI of a language supported by Jena,
+ * e.g. one of the following:
+ * 
+ * http://www.w3.org/2000/01/rdf-schema #
+ * http://www.daml.org/2001/03/daml oil #
+ * http://www.w3.org/2002/07/owl #
+ * http://www.w3.org/TR/owl-features/ # term_OWLDL
+ * http://www.w3.org/TR/owl-features/ # term_OWLLite
+ * 
+ * Default is OWL DL. 
  *
- * TODO: importing a second model overwrites the first one...
  * 
  * @author martin
  *
  */
+
 public class ProvaOWLTypingImpl extends ProvaBuiltinImpl {
 
 	final ProvaKnowledgeBase kb;
@@ -62,7 +71,7 @@ public class ProvaOWLTypingImpl extends ProvaBuiltinImpl {
 		List<ProvaVariable> variables = query.getVariables();
 		ProvaList terms = literal.getTerms();
 		ProvaObject[] data = terms.getFixed();
-		if( data.length%2==0 )
+		if( data.length<1||data.length>2 )
 		{
 			throw new IllegalArgumentException("Invalid number of parameters in owl_typing");
 		}
@@ -73,16 +82,16 @@ public class ProvaOWLTypingImpl extends ProvaBuiltinImpl {
 		}
 		url= ((ProvaConstant) d).getObject().toString();
 		
-//		if(data.length>1)
-//		{
-//			d=data[1];
-//			if( d instanceof ProvaVariablePtr ) {
-//				ProvaVariablePtr varPtr = (ProvaVariablePtr) d;
-//				d = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
-//			}
-//			languageURI=((ProvaConstant) d).getObject().toString();
-//		}
-//		else
+		if(data.length>1)
+		{
+			d=data[1];
+			if( d instanceof ProvaVariablePtr ) {
+				ProvaVariablePtr varPtr = (ProvaVariablePtr) d;
+				d = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+			}
+			languageURI=((ProvaConstant) d).getObject().toString();
+		}
+		else
 			languageURI="http://www.w3.org/TR/owl-features/#term_OWLDL";
 		
 		

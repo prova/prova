@@ -1,18 +1,26 @@
 % Note you cannot have a head of a rule with eval
-:-eval(owl_typing("file:rules/ont/chess.rdf")).
+:-eval(owl_typing("file:rules/ont/chess.rdf","http://www.w3.org/TR/owl-features/#term_OWLDL")).
 
 isChesspiece(X^^ns:chesspiece).
 isRook(X^^ns:rook).
 
 :-solve(p(X)).
-% should be X=1,2,3 ACTUALLY THE ANSWER NOW CONTAINS X=4, IS IT CORRECT?
+% should be X=1,2,3
 
 p(1):-isChesspiece(X^^ns:pawn),println([X]).
 p(2):-isRook(X^^ns:chesspiece).
 p(3):-isRook(X^^ns:rook).
 p(4):-isRook(X^^ns:pawn).
 
-% No longer causes an exception BUT IS IT CORRECT?
+% Not yet implemented:
+%p(5):-
+%   @forall(X^^ns:pawn)
+%   isRook(X).
+% (This shouldn't unify).
+% (And it doesn't, but for the wrong reasons).
+      
+
+% No longer causes an exception
 :-solve(p(N,X)).
 
 p(1,X):-
