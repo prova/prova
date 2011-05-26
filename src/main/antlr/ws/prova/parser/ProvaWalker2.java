@@ -919,7 +919,7 @@ public class ProvaWalker2 extends TreeParser {
             match(input, Token.UP, null); 
 
             		if( Character.isUpperCase(pred.charAt(0)) )
-            			ret.add(ProvaVariableImpl.create(pred));
+            			ret.add(ProvaParserImpl.tlKB.get().generateVariable(pred));
             		else
             			ret.add(ProvaConstantImpl.create(pred));
             		ProvaObject p = params;

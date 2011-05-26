@@ -35,6 +35,8 @@ public class ProvaOWLTest {
 		OntClass chesspiece = model.createClass(namespace+"chesspiece");
 		OntClass rook= model.createClass(namespace+"rook");
 		
+		model.setNsPrefix("ns", namespace);
+		
 		pawn.addSuperClass(chesspiece);
 		rook.addSuperClass(chesspiece);
 		

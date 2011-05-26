@@ -57,7 +57,6 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 			// retrieve the classes and check if they are compatible:
 			OntClass subOntClass=ontModel.getOntClass(ontModel.expandPrefix(subURI)), 
 			         supOntClass=ontModel.getOntClass(ontModel.expandPrefix(supURI));
-		
 			if(supOntClass!=null&&(subOntClass==null||!subOntClass.hasSubClass(supOntClass)))
 				return false;
 		}

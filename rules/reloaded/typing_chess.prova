@@ -1,5 +1,5 @@
 % Note you cannot have a head of a rule with eval
-:-eval(owl_typing("file:rules/ont/testOntology.rdf")).
+:-eval(owl_typing("file:rules/ont/chess.rdf")).
 
 isChesspiece(X^^ns:chesspiece).
 isRook(X^^ns:rook).
@@ -9,9 +9,7 @@ isRook(X^^ns:rook).
 
 p(1):-isChesspiece(X^^ns:pawn),println([X]).
 p(2):-isRook(X^^ns:chesspiece).
-p(3):-
-	@forall(X^^ns:rook)
-	isRook(X).
+p(3):-isRook(X^^ns:rook).
 p(4):-isRook(X^^ns:pawn).
 
 % No longer causes an exception BUT IS IT CORRECT?
