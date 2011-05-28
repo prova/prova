@@ -20,7 +20,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 
 	private static final long serialVersionUID = 7501612596168443208L;
 
-	private final ProvaType type;
+	private ProvaType type;
 	
 	// Variable name - either string or number
 	private Object name;
@@ -86,6 +86,12 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	@Override
 	public void setAssigned(ProvaObject assigned) {
 		this.assigned = assigned;
+	}
+
+	@Override
+	public void setAssignedToVariable(ProvaVariable other) {
+		this.assigned = other;
+		this.type = other.getType();
 	}
 
 	@Override
@@ -172,7 +178,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 			// assign goal var to target var if possible: 
 			if(this.type.isSubtypeOf(targetVar.getType()))
 			{
-				targetVar.setAssigned(this);
+				targetVar.setAssignedToVariable(this);
 				return true;
 			}
 			
