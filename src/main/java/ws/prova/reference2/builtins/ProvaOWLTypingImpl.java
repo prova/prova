@@ -19,7 +19,7 @@ import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.typing.ProvaOntology;
 import ws.prova.reference2.ProvaKnowledgeBaseImpl;
 import ws.prova.reference2.typing.ProvaCachedOntologyImpl;
-import ws.prova.reference2.typing.ProvaOWLTypeImpl;
+import ws.prova.reference2.typing.ProvaOntClassImpl;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;

@@ -2,6 +2,8 @@ package ws.prova.reference2.typing;
 
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 import ws.prova.kernel2.typing.ProvaOntology;
 
 import com.hp.hpl.jena.ontology.OntClass;
@@ -13,12 +15,16 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 	
 	OntModel ontModel;
 	final String languageURI;
-	final HashMap<String,Boolean> cache;
+	final HashMap<String,Boolean> subTypeCache;
+	//final HashMap<String,Boolean> hasTypeCache;
+	
+	private final static Logger log = Logger.getLogger("prova");
 	
 	public ProvaCachedOntologyImpl(String languageURI)
 	{
 		this.languageURI=languageURI;
-		this.cache=new HashMap<String, Boolean>();
+		this.subTypeCache=new HashMap<String, Boolean>();
+		//this.hasTypeCache=new HashMap<String, Boolean>();
 	}
 	
 	public void addOntology(String ontologyURL)
@@ -33,6 +39,22 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 		ontModel.setNsPrefixes(tmpModel.getNsPrefixMap());
 	}
 	
+	/*
+	public final boolean hasType(String entitiyURI, String classURI)
+	{
+		String hashString = entityURI+' '+classURI;
+		Boolean r = hasTypeCache.get(hashString);
+		if(r==null)
+		{
+			r=hasTypeNoCaching(entitiyURI,classURI);
+			hasTypeCache.put(hashString, r);
+		}
+		return r;
+		
+	}
+	
+	private final boolean hasTypeNoCaching(String entityURI, classURI)*/
+	
 	
 	public final boolean isSubtype(String subURI, String supURI)
 	{
@@ -40,26 +62,37 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 			return true;
 		
 		String hashString = subURI+' '+supURI;
-		Boolean r = cache.get(hashString);
+		Boolean r = subTypeCache.get(hashString);
 		if(r==null)
 		{
 			r=isSubtypeNoCaching(subURI,supURI);
-			cache.put(hashString, r);
+			subTypeCache.put(hashString, r);
 		}
 		return r;		
 	}
 	
 	private final boolean isSubtypeNoCaching(String subURI, String supURI)
 	{
-		if(ontModel!=null)
-		{
-			// if we have an ontology loaded, we use the URIs to 
-			// retrieve the classes and check if they are compatible:
-			OntClass subOntClass=ontModel.getOntClass(ontModel.expandPrefix(subURI)), 
-			         supOntClass=ontModel.getOntClass(ontModel.expandPrefix(supURI));
-			if(supOntClass!=null&&(subOntClass==null||!subOntClass.hasSubClass(supOntClass)))
+			if(ontModel==null)
+			{
+				log.warn("No ontology model loaded, assuming typeless.");
+				return true;
+			}
+			
+			OntClass supOntClass=ontModel.getOntClass(ontModel.expandPrefix(supURI));
+			if(supOntClass==null)
+			{
+				log.warn("Couldn't resolve "+supURI+", assuming typeless.");
+				return true;
+			}
+			
+			OntClass subOntClass=ontModel.getOntClass(ontModel.expandPrefix(subURI));
+			if(subOntClass==null)
+			{
+				log.warn("Couldn't resolve "+subURI+", assuming typeless.");
 				return false;
-		}
-		return true;
+			}
+			
+			return subOntClass.hasSuperClass(supOntClass);
 	}
 }

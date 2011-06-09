@@ -22,29 +22,34 @@ isExpenditureCategory(X^^payment:ExpenditureCategory).
 isConcept(X^^payment:Concept).
 isResource(X^^payment:Resource).
 isExpenditureLine(X^^payment:ExpenditureLine).
-isObservation(X^^payment:Observation).
+isObservation(X^^qb:Observation).
 
+:-solve(testType(X)). % Should be X=1,2,3,5.
 
-isExpenditureCategory(c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1).
-isExpenditureLine(c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1).
+	% Should succeed.
+testType(1):-
+	isExpenditureLine(X^^qb:Observation).
 
-
-:-solve(testType(X)).
-
-testType(X):-
-	X^^payment:ExpenditureLine = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
-	println(["Is Observation"]).
-
-testType(X):-
-	eq(X^^payment:ExpenditureLine,'http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1'),
-	isObservation(X^^payment:ExpenditureLine ), 
-	println(["Is Observation, too"]).
+	% Should succeed.
+testType(2):-
+	X^^payment:Observation = c^^payment:ExpenditureLine,
+	isExpenditureLine(X^^qb:Observation).
 	
-	% X has the type of an individual and so it gets the type of its types (superclasses)
-testType(X):-
-	X^^payment:capital = c^^http://www.elmbridge.gov.uk/public/finance_line_level_data_01042009-31032010/expenditure1,
-	isExpenditureCategory(X^^payment:capital), 
-	println(["Is Capital"]).
+	% Should succeed. 
+testType(3):-
+	eq(X^^qb:Observation, Y^^payment:ExpenditureLine),
+	isExpenditureLine(X^^qb:Observation).
+
+	% Should fail. 
+testType(4):-
+	isExpenditureLine(c^^qb:Observation).
+
+	% Should succeed (!!): c has the JavaType string and in terms of JavaTypes X is typeless.
+testType(5):-
+	eq(X^^payment:Observation, c).
+		
+	%Should fail.
+testType(6):-
+	eq(X^^payment:ExpenditureLine, c^^qb:Observation).	
 
 	
-

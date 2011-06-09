@@ -5,7 +5,7 @@ import java.io.FileOutputStream;
 
 import ws.prova.api2.ProvaCommunicator;
 import ws.prova.api2.ProvaCommunicatorImpl;
-import ws.prova.reference2.typing.ProvaOWLTypeImpl;
+import ws.prova.reference2.typing.ProvaOntClassImpl;
 
 import org.junit.*;
 
@@ -34,6 +34,8 @@ public class ProvaOWLTest {
 		OntClass pawn = model.createClass(namespace+"pawn");
 		OntClass chesspiece = model.createClass(namespace+"chesspiece");
 		OntClass rook= model.createClass(namespace+"rook");
+		
+		model.createIndividual(namespace+"rook1", rook);
 		
 		model.setNsPrefix("ns", namespace);
 		
@@ -66,13 +68,13 @@ public class ProvaOWLTest {
 		try {
 			ProvaCommunicator pc=new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 			Assert.assertTrue(pc.getReagent().getKb().getOntology()!=null);
-			Assert.assertEquals(3,pc.getInitializationSolutions().get(1).length);
+			Assert.assertEquals(3,pc.getInitializationSolutions().get(0).length);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+/*
 	@Test
 	public void wineTest()
 	{
@@ -89,6 +91,7 @@ public class ProvaOWLTest {
 			e.printStackTrace();
 		}
 	}
+	*/
 	
 	@Test
 	public void paymentTest()
@@ -97,10 +100,11 @@ public class ProvaOWLTest {
 		try {
 			ProvaCommunicator pc=new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 			Assert.assertTrue(pc.getReagent().getKb().getOntology()!=null);
-			Assert.assertEquals(3,pc.getInitializationSolutions().get(1).length);
+			Assert.assertEquals(4,pc.getInitializationSolutions().get(1).length);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 }

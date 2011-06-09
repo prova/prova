@@ -12,4 +12,5 @@
   <owl:Class rdf:about="test://rook">
     <rdfs:subClassOf rdf:resource="test://chesspiece"/>
   </owl:Class>
+  <ns:rook rdf:about="test://rook1"/>
 </rdf:RDF>

@@ -1,13 +1,12 @@
-% Note you cannot have a head of a rule with eval
-:-eval(owl_typing("file:rules/ont/chess.rdf","http://www.w3.org/TR/owl-features/#term_OWLDL")).
+:-solve(p(X)).
+% should be X=1,2,3
+
+p(0):-owl_typing("file:rules/ont/chess.rdf", "http://www.w3.org/TR/owl-features/#term_OWLDL").
 
 isChesspiece(X^^ns:chesspiece).
 isRook(X^^ns:rook).
 
-:-solve(p(X)).
-% should be X=1,2,3
-
-p(1):-isChesspiece(X^^ns:pawn),println([X]).
+p(1):-isChesspiece(X^^ns:pawn).
 p(2):-isRook(X^^ns:chesspiece).
 p(3):-isRook(X^^ns:rook).
 p(4):-isRook(X^^ns:pawn).
