@@ -115,7 +115,7 @@ import ws.prova.reference2.builtins.ProvaUpdateImpl;
 import ws.prova.reference2.cache.ProvaCachedLiteralImpl;
 import ws.prova.reference2.typing.ProvaAnyTypeImpl;
 import ws.prova.reference2.typing.ProvaJavaTypeImpl;
-import ws.prova.reference2.typing.ProvaOntClassImpl;
+import ws.prova.reference2.typing.ProvaOWLType;
 
 
 public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
@@ -386,7 +386,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		final int idx;
 //		ProvaType type;
 		if(o instanceof String && (idx=((String)o).indexOf("^^"))>0)
-				return new ProvaConstantImpl(o, new ProvaOntClassImpl(this, ((String)o).substring(idx+2)));
+				return new ProvaConstantImpl(o, new ProvaOWLType(this, ((String)o).substring(idx+2)));
 		else
 			return new ProvaConstantImpl(o);
 	}
@@ -408,7 +408,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		{
 			name=str;
 			if((idx=str.indexOf("^^"))>0)
-				type=new ProvaOntClassImpl(this, str.substring(idx+2));
+				type=new ProvaOWLType(this, str.substring(idx+2));
 			else
 				type = ProvaAnyTypeImpl.singleton;
 		}

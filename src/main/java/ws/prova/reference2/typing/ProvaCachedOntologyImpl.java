@@ -6,17 +6,25 @@ import org.apache.log4j.Logger;
 
 import ws.prova.kernel2.typing.ProvaOntology;
 
+import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntResource;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
+/**
+ * A ProvaOntology which caches all requests.
+ * For documentation see ProvaOntology.
+ * @author martin
+ * @see ProvaOntology
+ *
+ */
 public class ProvaCachedOntologyImpl implements ProvaOntology {
 	
 	OntModel ontModel;
 	final String languageURI;
 	final HashMap<String,Boolean> subTypeCache;
-	//final HashMap<String,Boolean> hasTypeCache;
 	
 	private final static Logger log = Logger.getLogger("prova");
 	
@@ -24,7 +32,6 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 	{
 		this.languageURI=languageURI;
 		this.subTypeCache=new HashMap<String, Boolean>();
-		//this.hasTypeCache=new HashMap<String, Boolean>();
 	}
 	
 	public void addOntology(String ontologyURL)
@@ -38,23 +45,6 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 		// [alex] Prefixes from tmpModel are lost in ontModel after using add() above unless explicitly copied -- do not know why
 		ontModel.setNsPrefixes(tmpModel.getNsPrefixMap());
 	}
-	
-	/*
-	public final boolean hasType(String entitiyURI, String classURI)
-	{
-		String hashString = entityURI+' '+classURI;
-		Boolean r = hasTypeCache.get(hashString);
-		if(r==null)
-		{
-			r=hasTypeNoCaching(entitiyURI,classURI);
-			hasTypeCache.put(hashString, r);
-		}
-		return r;
-		
-	}
-	
-	private final boolean hasTypeNoCaching(String entityURI, classURI)*/
-	
 	
 	public final boolean isSubtype(String subURI, String supURI)
 	{
@@ -86,13 +76,27 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 				return true;
 			}
 			
-			OntClass subOntClass=ontModel.getOntClass(ontModel.expandPrefix(subURI));
-			if(subOntClass==null)
+			// For constants the subURI is allowed to be a non-class individual.
+			OntResource subOntResource = ontModel.getOntResource(ontModel.expandPrefix(subURI));
+			
+			if(subOntResource==null)
 			{
+				
 				log.warn("Couldn't resolve "+subURI+", assuming typeless.");
 				return false;
 			}
 			
-			return subOntClass.hasSuperClass(supOntClass);
+			if(subOntResource.isClass())
+				return subOntResource.asClass().hasSuperClass(supOntClass);
+
+			// Non-class individual: check for class membership.
+			else if(subOntResource.isIndividual())
+				return subOntResource.asIndividual().hasOntClass(supOntClass);
+			
+			else
+			{
+				log.warn(subURI + " is neither class nor individual??? Assuming typeless.");
+				return false;
+			}
 	}
 }
