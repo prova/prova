@@ -102,7 +102,8 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			// Fail.
 			// TODO same here (kb)
 			//ProvaLiteral newLiteral = new ProvaLiteralImpl(new ProvaPredicateImpl("fail", 0, kb),null);
-			ProvaLiteral newLiteral = new ProvaLiteralImpl(new ProvaPredicateImpl("fail", 0, null),null);
+			ProvaLiteral newLiteral = new ProvaLiteralImpl(new ProvaPredicateImpl("fail", 0, null), 
+					ProvaListImpl.create(new LinkedList<ProvaObject>()));
 			newLiterals.add(newLiteral);
 		}
 
