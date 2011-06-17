@@ -18,7 +18,9 @@ married(jack).
 
 child(milo).
 
-discount(Customer, X) :- married(Customer), X=10 . 
+discount(Customer, X) :- married(Customer), X=5 . 
+discount(Customer, X) :- married(Customer), X=5 . 
+
 
 finalprice(Customer, 6) :- adult(Customer).    
 finalprice(Customer, 4) :- child(Customer).
