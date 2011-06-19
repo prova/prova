@@ -1,0 +1,35 @@
+% Prova Exercise 
+
+% Implement the rule-based pricing policy for the Berlin Zoo. Base entrance price for adults is 8 Euros, and for children 4 Euros.
+% a. Students and married couples receive a discount of 5%.
+% c. A parent with two children receives a discount of 10% for each of parent.
+
+
+:-eval(expr001()).
+
+
+expr001() :- println(["========== Prova Example =========="]), 
+           price(jack, P),
+           println(["Price=", P]," ").      
+
+adult(jack).
+adult(ann).
+adult(mary).
+
+married(jack).
+student(jack).
+child(milo).
+parent(jack,milo).
+parent(jack,tia).
+
+
+
+mainprice(Customer, X) :- adult(Customer), X=8.
+mainprice(Customer, X) :- child(Customer), X=4.
+
+
+hasTwoChild(Customer) :- parent(Customer, X), parent(Customer, Y), married(Customer). 
+
+price(Customer, X) :- married(Customer) , not(hasTwoChild(Customer)), mainprice(Customer, P), X=P-P*0.05.
+price(Customer, X) :- student(Customer), not(hasTwoChild(Customer)), mainprice(Customer, P), X=P-P*0.05.
+price(Customer, X) :- hasTwoChild(Customer), mainprice(Customer, P), X=P-P*0.1 .
