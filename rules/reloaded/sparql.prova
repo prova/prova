@@ -1,6 +1,7 @@
 % Test sparql select with FROM clause
 
 :- solve(test01(X, Y)).
+:- solve(test02('"Tim Berners-Lee"', Weblog)).
 
 test01(URL, Type) :-
 	QueryString = '
@@ -15,3 +16,15 @@ test01(URL, Type) :-
 			}
 	',
 	sparql_select(QueryString,[url(URL),type(Type)]).
+	
+test02(Name, Weblog) :-
+   QueryString = '
+     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+     SELECT ?weblog
+       FROM <http://teymourian.de/bloggers.rdf>
+       WHERE {
+         ?person foaf:name $name .
+         ?person foaf:weblog ?weblog .
+       }
+   ',
+   sparql_select(QueryString, [weblog(Weblog)], [name(Name)]).

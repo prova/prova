@@ -2,6 +2,7 @@ package ws.prova.reference2.builtins;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import org.apache.log4j.Logger;
 
@@ -67,7 +68,7 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 		if(query_string == null)
 			return false;
 		
-		// Create a generic SelectQuery instance
+		// Create a SparqlQuery instance
 		JenaSparqlQuery select_query = new JenaSparqlQuery(query_string);
 		
 		// Execute query
@@ -83,8 +84,7 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 				
 		// Create a new nameless predicate
 		//ProvaPredicate pred = new ProvaPredicateImpl("", getArity(), kb);
-		// TODO where to get reference to knowledge base?! 
-		ProvaPredicate pred = new ProvaPredicateImpl("", getArity(), null);
+		ProvaPredicate pred = new ProvaPredicateImpl("", getArity(), kb);
 		
 		// Process the results (moved to another function for readability)
 		int matches = processResults(results, data, pred, variables);
@@ -100,9 +100,7 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			newLiterals.add(newLiteral);
 		} else {
 			// Fail.
-			// TODO same here (kb)
-			//ProvaLiteral newLiteral = new ProvaLiteralImpl(new ProvaPredicateImpl("fail", 0, kb),null);
-			ProvaLiteral newLiteral = new ProvaLiteralImpl(new ProvaPredicateImpl("fail", 0, null), 
+			ProvaLiteral newLiteral = new ProvaLiteralImpl(new ProvaPredicateImpl("fail", 0, kb), 
 					ProvaListImpl.create(new LinkedList<ProvaObject>()));
 			newLiterals.add(newLiteral);
 		}
@@ -114,15 +112,9 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 		ProvaObject[] data = terms.getFixed();
 			
 		// First parameter contains the sparql query.
-		ProvaObject query_term = data[0];
+		ProvaObject query_term = resolve(data[0], variables);
 		
-		// If it is a ProvaVariablePtr, resolve to assigned constant.
-		if(query_term instanceof ProvaVariablePtr) {
-			ProvaVariablePtr varPtr = (ProvaVariablePtr) query_term;
-			query_term = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
-		}
-		
-		// If we do not have a ProvaConstant now, stop processing.
+		// If it isn't a ProvaConstant, stop processing.
 		if(!(query_term instanceof ProvaConstant)) {
 			if(log.isDebugEnabled())
 				log.debug("Syntax error. First parameter should be a string (sparql query).");
@@ -132,8 +124,51 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 		// Get string out of constant
 		String query_string = ((ProvaConstant) query_term).toString();
 		
+		// Optional third parameter can contain a list of variables to replace in query
+		if(data.length == 3) {
+			ProvaObject l = data[2];
+			if(!(l instanceof ProvaList)) {
+				if(log.isDebugEnabled())
+					log.debug("Error: third term should be a list.");
+				return null;
+			}
+			ProvaObject[] query_replacements = ((ProvaList) l).getFixed();
+			
+			for(ProvaObject replace : query_replacements) {
+				replace = resolve(replace, variables);
+				
+				if(replace instanceof ProvaList) {
+					ProvaObject[] replace_data = ((ProvaList) replace).getFixed();
+					
+					// Second term can also be a (bound) variable
+					replace_data[1] = resolve(replace_data[1], variables);
+					
+					if(!((replace_data[0] instanceof ProvaConstant) && (replace_data[1] instanceof ProvaConstant)))  {
+						if(log.isDebugEnabled())
+							log.debug("Syntax error: Inner list in replacement list must have the form 'var(Var)'.");
+						return null;
+					}
+					
+					// Get variable to replace and prefix it with '?'
+					String variable = "$" + ((ProvaConstant) replace_data[0]).toString();
+					
+					// Get replacement
+					String value = ((ProvaConstant) replace_data[1]).toString();
+					
+					// Replace in query
+					query_string = query_string.replaceAll(Matcher.quoteReplacement(variable), Matcher.quoteReplacement(value));
+					
+				} else {
+					if(log.isDebugEnabled())
+						log.debug("Syntax error: Found a element in replacement list which is not a ProvaList.");
+					return null;
+				}
+				
+			}
+		}
+		
 		if(log.isDebugEnabled())
-			log.debug("Executing query \"" + query_string + "\".");		
+			log.debug("Executing query:" + query_string);		
 		
 		return query_string;
 	}
@@ -142,11 +177,11 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			ProvaPredicate pred, List<ProvaVariable> variables) {
 		int matches = 0;
 		
-		// Last term should be a list: [var(Var),var(Var)...]
-		ProvaObject l = data[data.length - 1];
+		// Second term should be a list: [var(Var),var(Var)...]
+		ProvaObject l = data[1];
 		if(!(l instanceof ProvaList)) {
 			if(log.isDebugEnabled())
-				log.debug("Error: last term should be a list.");
+				log.debug("Error: second term should be a list.");
 			return -1;
 		}
 		ProvaObject[] params = ((ProvaList) l).getFixed();
@@ -160,11 +195,7 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			// Iterate over desired variables/constants
 			for(int i = 0; i < params.length; ++i) {
 				
-				ProvaObject current_param = params[i];
-				if(current_param instanceof ProvaVariablePtr) {
-					ProvaVariablePtr varPtr = (ProvaVariablePtr) current_param;
-					current_param = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
-				}
+				ProvaObject current_param = resolve(params[i], variables);
 							
 				// Parameter must be in the form of 'var(Var)' where 'var' is the sparql name ?var
 				// and Var is a Prova variable or constant
@@ -216,10 +247,13 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			if(matched) {
 				// Construct final terms list for new predicate
 				List<ProvaObject> final_terms_list = new LinkedList<ProvaObject>();
-				for(int i = 0; i < data.length - 1; ++i)
-					final_terms_list.add(data[i]);	
+				final_terms_list.add(data[0]);
+
 				// new terms have to be placed in a ProvaList again
 				final_terms_list.add(ProvaListImpl.create(terms_list));
+				
+				if(data.length == 3)
+					final_terms_list.add(data[2]);
 				
 				// We create a virtual fact from the knowledge we gathered, with 'pred' as its head literal.
 				ProvaList ls = ProvaListImpl.create(final_terms_list);
@@ -232,9 +266,19 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 		
 		return matches;
 	}
-
 	
-	private static class JenaSparqlQuery {
+	/*
+	 * Little helper method to resolve ProvaVariables to the constants their bound to
+	 */
+	protected ProvaObject resolve(ProvaObject o, List<ProvaVariable> variables) {
+		if(o instanceof ProvaVariablePtr) {
+			ProvaVariablePtr varPtr = (ProvaVariablePtr) o;
+			o = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+		}
+		return o;
+	}
+
+	protected static class JenaSparqlQuery {
 		
 		private String query;
 		private Query jena_query;
