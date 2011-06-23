@@ -15,11 +15,10 @@ public class ProvaJavaTypeImpl extends ProvaTypeBase {
 		return this.javaClass;
 	}
 	
-	public boolean isSubtypeOf(final ProvaType t)
+	public boolean isSupertypeOf(final ProvaType t)
 	{
-		if(t instanceof ProvaJavaTypeImpl)
-			return ((ProvaJavaTypeImpl)t).getJavaClass().isAssignableFrom(this.javaClass);
-		return true; // I am subtype of typeless
+		return (t instanceof ProvaJavaTypeImpl) &&
+			this.javaClass.isAssignableFrom(((ProvaJavaTypeImpl)t).getJavaClass());
 	}
 	
 	public String toString()

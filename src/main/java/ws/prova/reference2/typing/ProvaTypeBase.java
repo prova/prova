@@ -16,12 +16,12 @@ public abstract class ProvaTypeBase implements ProvaType {
 	}
 
 	@Override
-	public final boolean isSupertypeOf(final ProvaType t) {
-		return t.isSubtypeOf(this);
+	public final boolean isSubtypeOf(final ProvaType t) {
+		return t.isSupertypeOf(this);
 	}
 	
 	@Override
-	public abstract boolean isSubtypeOf(ProvaType t);
+	public abstract boolean isSupertypeOf(ProvaType t);
 	
 	@Override
 	public abstract String toString();

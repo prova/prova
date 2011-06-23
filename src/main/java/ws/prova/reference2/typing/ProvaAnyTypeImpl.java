@@ -9,8 +9,8 @@ public class ProvaAnyTypeImpl extends ProvaTypeBase {
 	private ProvaAnyTypeImpl() {}
 	
 	@Override
-	public boolean isSubtypeOf(ProvaType t) {
-		return (t instanceof ProvaAnyTypeImpl);
+	public boolean isSupertypeOf(ProvaType t) {
+		return true;
 	}
 	
 	public String toString()

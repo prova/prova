@@ -16,11 +16,9 @@ public class ProvaOWLType extends ProvaTypeBase {
 	}
 		
 	@Override
-	public boolean isSubtypeOf(final ProvaType t) {		
-		if(t instanceof ProvaOWLType)
-			return this.URI.equals(((ProvaOWLType) t).URI) || kb.getOntology().isSubtype(this.URI, ((ProvaOWLType)t).URI);
-		else
-			return true; // I am subtype of typeless
+	public boolean isSupertypeOf(final ProvaType t) {		
+		return (t instanceof ProvaOWLType) &&
+			kb.getOntology().isSupertype(this.URI, ((ProvaOWLType)t).URI);
 	}
 	
 	public String toString()

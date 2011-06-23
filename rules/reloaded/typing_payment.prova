@@ -24,7 +24,7 @@ isResource(X^^payment:Resource).
 isExpenditureLine(X^^payment:ExpenditureLine).
 isObservation(X^^qb:Observation).
 
-:-solve(testType(X)). % Should be X=1,2,3,5.
+:-solve(testType(X)). % Should be X=1,2,3.
 
 	% Should succeed.
 testType(1):-
@@ -44,7 +44,7 @@ testType(3):-
 testType(4):-
 	isExpenditureLine(c^^qb:Observation).
 
-	% Should succeed (!!): c has the JavaType string and in terms of JavaTypes X is typeless.
+	% Should fail.
 testType(5):-
 	eq(X^^payment:Observation, c).
 		

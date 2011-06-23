@@ -24,14 +24,14 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 	
 	OntModel ontModel;
 	final String languageURI;
-	final HashMap<String,Boolean> subTypeCache;
+	final HashMap<String,Boolean> superTypeCache;
 	
 	private final static Logger log = Logger.getLogger("prova");
 	
 	public ProvaCachedOntologyImpl(String languageURI)
 	{
 		this.languageURI=languageURI;
-		this.subTypeCache=new HashMap<String, Boolean>();
+		this.superTypeCache=new HashMap<String, Boolean>();
 	}
 	
 	public void addOntology(String ontologyURL)
@@ -46,22 +46,22 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 		ontModel.setNsPrefixes(tmpModel.getNsPrefixMap());
 	}
 	
-	public final boolean isSubtype(String subURI, String supURI)
+	public final boolean isSupertype(String supURI, String subURI)
 	{
-		if(subURI.equals(supURI))
+		if(supURI.equals(subURI))
 			return true;
 		
-		String hashString = subURI+' '+supURI;
-		Boolean r = subTypeCache.get(hashString);
+		String hashString = supURI+' '+subURI;
+		Boolean r = superTypeCache.get(hashString);
 		if(r==null)
 		{
-			r=isSubtypeNoCaching(subURI,supURI);
-			subTypeCache.put(hashString, r);
+			r=isSupertypeNoCaching(subURI,supURI);
+			superTypeCache.put(hashString, r);
 		}
 		return r;		
 	}
 	
-	private final boolean isSubtypeNoCaching(String subURI, String supURI)
+	private final boolean isSupertypeNoCaching(String supURI, String subURI)
 	{
 			if(ontModel==null)
 			{
@@ -95,7 +95,7 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 			
 			else
 			{
-				log.warn(subURI + " is neither class nor individual??? Assuming typeless.");
+				log.warn(subURI + " is neither class nor individual!? Assuming typeless.");
 				return false;
 			}
 	}
