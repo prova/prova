@@ -1,23 +1,9 @@
-
-% Knowledge Base 
-isSoftwareCompany(ibm).
-isSoftwareCompany(msft).
-
-isAutomobileCompany(opel).
-isAutomobileCompany(toyota).
-
-hasProductionIn(opel, germany).
-hasProductionIn(opel, toyota).
-
-isInteresting(Company, P):-  isAutomobileCompany(Company), hasProductionIn(Company, germany), P > 45. 
-
-
 % Event Processing Engine 
 :- eval(server()). 
 
 server() :-
 	% Start detection on each new login
-	rcvMult(XID,self,From,inform,price(Company, P))   [ isInteresting(Company, P) ],
+	rcvMult(XID,self,From,inform,price(Company, P))   [ P > 45 ],
 	println(["Event Detected: ", price(Company, P) ], "").
 		
 
