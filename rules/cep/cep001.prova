@@ -9,7 +9,7 @@ isAutomobileCompany(toyota).
 hasProductionIn(opel, germany).
 hasProductionIn(opel, toyota).
 
-isInteresting(Company, P):-  isAutomobileCompany(Company), hasProductionInGermany(Company, germany), P > 45. 
+isInteresting(Company, P):-  isAutomobileCompany(Company), hasProductionIn(Company, germany), P > 45. 
 
 
 % Event Processing Engine 
