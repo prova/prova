@@ -1,0 +1,40 @@
+
+% Knowledge Base 
+isSoftwareCompany(ibm).
+isSoftwareCompany(msft).
+
+isAutomobileCompany(opel).
+isAutomobileCompany(toyota).
+
+hasProductionIn(opel, germany).
+hasProductionIn(opel, toyota).
+
+isInteresting(Company, P):-  isAutomobileCompany(Company), hasProductionIn(Company, germany), P > 45. 
+
+
+% Event Processing Engine 
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,self,From,inform,price(Company, P))   [ isInteresting(Company, P) ],
+	println(["Event Detected: ", price(Company, P) ], "").
+		
+
+
+% Event Generator Client 
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+		
+	for 43 50 : P,
+	sendMsg(XID,self,0,inform, price(ibm, P)),
+	sendMsg(XID,self,0,inform, price(toyota, P)),
+	sendMsg(XID,self,0,inform, price(opel, P)).
+	
+	
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).
