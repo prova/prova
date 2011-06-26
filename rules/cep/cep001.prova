@@ -1,46 +1,40 @@
-% Demonstrate channels that are initially paused with @paused and then resumed with @resume.
-%
-:- eval(server()).
+
+% Knowledge Base 
+isSoftwareCompany(ibm).
+isSoftwareCompany(msft).
+
+isAutomobileCompany(opel).
+isAutomobileCompany(toyota).
+
+hasProductionIn(opel, germany).
+hasProductionIn(opel, toyota).
+
+isInteresting(Company, P):-  isAutomobileCompany(Company), hasProductionInGermany(Company, germany), P > 45. 
+
+
+% Event Processing Engine 
+:- eval(server()). 
 
 server() :-
 	% Start detection on each new login
-	rcvMult(XID,Protocol,From,request,login(User,IP)),
-	server_1(XID,User,IP).
+	rcvMult(XID,self,From,inform,price(Company, P))   [ isInteresting(Company, P) ],
+	println(["Event Detected: ", price(Company, P) ], "").
+		
 
-server_1(XID,User,IP) :-
-	@group(g1) @id(id1) @paused
-	rcvMsg(XID,Protocol,From,request,login(User,IP2)) [IP2!=IP],
-	println(["Suspicious login",User,IP,IP2]," ").
-server_1(XID,User,IP) :-
-	@group(g1)
-	rcvMsg(XID,Protocol,From,request,logout(User,IP)),
-	println(["Logout",User,IP]," ").
-server_1(XID,User,IP) :-
-	@group(g1) @resume(id1)
-	rcvMsg(XID,Protocol,From,request,update(User,IP)),
-	println(["Update",User,IP]," ").
-server_1(XID,User,IP) :-
-	@or(g1) @timeout(1000)
-	rcvMsg(XID,Protocol,From,or,Events),
-	println(["Pattern detected: ",Events," "]).
 
-:- eval(client()).
+% Event Generator Client 
+:- eval(client()). 
 
-client() :-
+client() :- 
 	% Send all the test messages from a separate thread
 	switch_thread(),
-
-	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
-	sendMsg(user1,async,0,request,login(user1,'10.10.10.10')),
-	java.lang.Thread.sleep(200L),
-	sendMsg(user2,async,0,request,login(user2,'30.30.30.30')),
-	java.lang.Thread.sleep(300L),
-	sendMsg(user1,async,0,request,logout(user1,'10.10.10.10')),
-	sendMsg(user1,async,0,request,login(user1,'20.20.20.20')),
-	sendMsg(user2,async,0,request,login(user2,'40.40.40.40')),
-	sendMsg(user2,async,0,request,update(user2,'30.30.30.30')),
-	sendMsg(user2,async,0,request,login(user2,'50.50.50.50')).
-
+		
+	for 43 50 : P,
+	sendMsg(XID,self,0,inform, price(ibm, P)),
+	sendMsg(XID,self,0,inform, price(toyota, P)),
+	sendMsg(XID,self,0,inform, price(opel, P)).
+	
+	
 switch_thread() :-
 	sendMsgSync(XID,task,0,switch,[]),
 	rcvMsg(XID,task,From,switch,[]).
