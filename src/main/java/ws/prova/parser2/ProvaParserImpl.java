@@ -128,6 +128,7 @@ public class ProvaParserImpl {
 //				temp_kb.insert_item(result.toArray());
             }
         } catch (Exception e)  {
+        	e.printStackTrace();
         	ProvaParsingException pex = errorReporter.getErrors();
         	pex.setSource(src);
         	if( pex.errors().isEmpty() ) {

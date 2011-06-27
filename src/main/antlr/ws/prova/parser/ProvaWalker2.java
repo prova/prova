@@ -3458,6 +3458,7 @@ public class ProvaWalker2 extends TreeParser {
 
         }
         catch (RecognitionException re) {
+        	re.printStackTrace();
             reportError(re);
             recover(input,re);
         }

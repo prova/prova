@@ -34,6 +34,7 @@ public class ProvaClassUtils {
 				cl = forName(var);
 			}
 		} catch (ClassNotFoundException ex) {
+			System.err.println("Java class not found: "+ex.getMessage());
 		}
 		return cl;
 	}
