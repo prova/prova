@@ -2,6 +2,7 @@
 
 :- solve(test01(X, Y)).
 :- solve(test02('"Tim Berners-Lee"', Weblog)).
+:- solve(test03(Name, "<http://dig.csail.mit.edu/breadcrumbs/blog/4>" )).
 
 test01(URL, Type) :-
 	QueryString = '
@@ -27,4 +28,19 @@ test02(Name, Weblog) :-
          ?person foaf:weblog ?weblog .
        }
    ',
-   sparql_select(QueryString, [weblog(Weblog)], [name(Name)]).
+   sparql_select(QueryString, [weblog(Weblog)],  [name(Name)] ), println(["Name " , Name ]).
+
+   
+   
+ test03(Name, Weblog) :-
+   QueryString = '
+     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+     SELECT ?name
+       FROM <http://teymourian.de/bloggers.rdf>
+       WHERE {
+         ?person foaf:name ?name .
+         ?person foaf:weblog $weblog .
+       }
+   ',
+   sparql_select(QueryString, [name(Name)] , [weblog(Weblog)] ).
+   
