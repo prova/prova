@@ -12,8 +12,6 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.ResultSetFormatter;
-import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 
 import ws.prova.agent2.ProvaReagent;
@@ -65,22 +63,16 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			}
 			return true;
 		}
-		
-		String query_string = processTerms(terms, variables);
-		if(query_string == null)
-			return false;
-		
-		if(log.isDebugEnabled())
-			log.debug("Query: "+ query_string);
-		
+				
 		// Create a SparqlQuery instance
-		JenaSparqlQuery select_query = new JenaSparqlQuery(query_string);
+		JenaSparqlQuery select_query = processTerms(terms, variables);
+		if(select_query == null)
+			return false;
 		
 		// Execute query
 		ResultSet results = null;
 		try {
 			results = select_query.execute();
-			ResultSetFormatter.out(System.out, results);
 		//} catch (QueryExecutionException e) {
 		} catch (Exception e) {
 			if(log.isDebugEnabled())
@@ -114,7 +106,7 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 		return true;
 	}
 
-	protected String processTerms(ProvaList terms, List<ProvaVariable> variables) {
+	protected JenaSparqlQuery processTerms(ProvaList terms, List<ProvaVariable> variables) {
 		ProvaObject[] data = terms.getFixed();
 			
 		// First parameter contains the sparql query.
@@ -131,7 +123,7 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 		String query_string = ((ProvaConstant) query_term).toString();
 		
 		// Optional third parameter can contain a list of variables to replace in query
-		if(data.length == 3) {
+		if(data.length >= 3) {
 			ProvaObject l = data[2];
 			if(!(l instanceof ProvaList)) {
 				if(log.isDebugEnabled())
@@ -164,7 +156,6 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 					// Replace in query
 					query_string = query_string.replaceAll(Matcher.quoteReplacement(variable), Matcher.quoteReplacement(value));
 					
-				System.out.println(query_string);
 				} else {
 					if(log.isDebugEnabled())
 						log.debug("Syntax error: Found a element in replacement list which is not a ProvaList.");
@@ -174,10 +165,23 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			}
 		}
 		
+		// (optional) 4th parameter is the sparql endpoint (SERVICE)
+		String service = null;
+		if(data.length == 4) {
+			ProvaObject o = resolve(data[3], variables);
+			if((o instanceof ProvaConstant)) {
+				service = o.toString();
+			} else {
+				if(log.isDebugEnabled())
+					log.debug("Syntax error: 4th parameter must be constant (service string).");
+				return null;
+			}
+		}
+		
 		if(log.isDebugEnabled())
 			log.debug("Executing query:" + query_string);		
 		
-		return query_string;
+		return new JenaSparqlQuery(query_string, service);
 	}
 	
 	protected int processResults(ResultSet results, ProvaObject[] data,
@@ -192,10 +196,10 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			return -1;
 		}
 		ProvaObject[] params = ((ProvaList) l).getFixed();
+		
 		// Cycle through result set
 		while (results.hasNext()) {
 			QuerySolution solution = results.next();
-			
 			boolean matched = true;
 			List<ProvaObject> terms_list = new LinkedList<ProvaObject>();
 			
@@ -288,19 +292,22 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 	protected static class JenaSparqlQuery {
 		
 		private String query;
+		private String service;
 		private Query jena_query;
 		QueryExecution jena_query_execution;
 			
-		public JenaSparqlQuery(String q) {
+		public JenaSparqlQuery(String q, String s) {
 			query = q;
-			
-			jena_query = QueryFactory.create(query, Syntax.syntaxSPARQL_11);
-			
+			service = s;
+			jena_query = QueryFactory.create(query);
 		}	
 		
 		public ResultSet execute() {
 			// Query execution
-			jena_query_execution = QueryExecutionFactory.create(jena_query);
+			if(service != null)
+				jena_query_execution = QueryExecutionFactory.sparqlService(service, jena_query);
+			else
+				jena_query_execution = QueryExecutionFactory.create(jena_query);
 			ResultSet results = jena_query_execution.execSelect();
 			return results;
 		}
