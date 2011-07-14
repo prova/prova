@@ -68,6 +68,9 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 		if(query_string == null)
 			return false;
 		
+		if(log.isDebugEnabled())
+			log.debug("Query: "+ query_string);
+		
 		// Create a SparqlQuery instance
 		JenaSparqlQuery select_query = new JenaSparqlQuery(query_string);
 		
