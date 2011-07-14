@@ -12,6 +12,8 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFormatter;
+import com.hp.hpl.jena.query.Syntax;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 
 import ws.prova.agent2.ProvaReagent;
@@ -78,6 +80,7 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 		ResultSet results = null;
 		try {
 			results = select_query.execute();
+			ResultSetFormatter.out(System.out, results);
 		//} catch (QueryExecutionException e) {
 		} catch (Exception e) {
 			if(log.isDebugEnabled())
@@ -161,6 +164,7 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 					// Replace in query
 					query_string = query_string.replaceAll(Matcher.quoteReplacement(variable), Matcher.quoteReplacement(value));
 					
+				System.out.println(query_string);
 				} else {
 					if(log.isDebugEnabled())
 						log.debug("Syntax error: Found a element in replacement list which is not a ProvaList.");
@@ -188,10 +192,10 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			return -1;
 		}
 		ProvaObject[] params = ((ProvaList) l).getFixed();
-		
 		// Cycle through result set
 		while (results.hasNext()) {
 			QuerySolution solution = results.next();
+			
 			boolean matched = true;
 			List<ProvaObject> terms_list = new LinkedList<ProvaObject>();
 			
@@ -289,7 +293,9 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 			
 		public JenaSparqlQuery(String q) {
 			query = q;
-			jena_query = QueryFactory.create(query);
+			
+			jena_query = QueryFactory.create(query, Syntax.syntaxSPARQL_11);
+			
 		}	
 		
 		public ResultSet execute() {
