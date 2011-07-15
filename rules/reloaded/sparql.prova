@@ -1,8 +1,8 @@
 % Test sparql select with FROM clause
 
-:- solve(test01(X, Y)).
-:- solve(test02('"Tim Berners-Lee"', Weblog)).
-:- solve(test03(Name, "<http://dig.csail.mit.edu/breadcrumbs/blog/4>" )).
+% :- solve(test01(X, Y)).
+% :- solve(test02('"Tim Berners-Lee"', Weblog)).
+% :- solve(test03(Name, "<http://dig.csail.mit.edu/breadcrumbs/blog/4>" )).
 :- solve(testDBpedia(Object, "<http://dbpedia.org/resource/Berlin>" )).
 
 test01(URL, Type) :-
@@ -48,19 +48,10 @@ test02(Name, Weblog) :-
    
 testDBpedia(Object, URL) :-
    QueryString = '
-     
      SELECT ?object 
        WHERE {
-        SERVICE <http://DBpedia.org/sparql>
-          { 
           $url ?p ?object .
-          }
         }
    ',
-   sparql_select(QueryString, [object(Object)] , [url(URL)] ).
-   
-   
-   
-   
-   
+   sparql_select(QueryString, [object(Object)] , [url(URL)] , "http://dbpedia.org/sparql"). 
    
