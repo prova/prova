@@ -1,0 +1,68 @@
+% A DVD rental shop provides special offers for its customers. Based on age of customers the rental shop has special prices for renting DVDs. 
+% For young customers until the age of 18 the price for DVDs is 5 Euro, for adults until the age of 68 it is 10 Euro and for retired people 
+% above the age of 68 the price is 6 Euro. 
+% The DVD shop provides different categories of movies, action, comedy, documentary, drama, horror, family, kids, etc. The shop has also special 
+% offers when the customers rent several movies together. In the case that they rent several movies at the same time and they include also one 
+% documentary movies they can get 10% discount on all of the DVDs.  
+% Write prova rules which can calculate the final total price of the DVDs for different customers. The final price rule should be able to get 
+% the age of a customer, a list of movies and calculate the Price, like  totalprice(AGE, L, Price)
+% Take a look at the Prova Program on the next page. 
+
+% The result of running the example on the next page should be 
+% # : ./run.sh exam11.prova 
+% ---------  Exam Question ---------
+% Final Price = 27
+
+
+
+% fact base 
+action(drive_Angry).
+action(ballistica).
+action(faster).
+
+comedy(mary_Poppins).
+comedy(old_Dogs).
+comedy(space_Jam).
+
+documentary(nature_Great_Hunters).
+documentary(oceans).
+documentary(arctic_Tale).
+
+drama(gang_Wars).
+drama(dead_End).
+
+horror(dinoshark).
+horror(sharktopus).
+
+family(father_Murphy).
+family(aladdin).
+
+kids(cinderella).
+kids(pinocchio).
+kids(lady_and_the_Tramp).
+
+% Rule Base
+not(A) :- derive(A), !, fail().
+not(_).
+
+:-eval(exam()).
+
+exam() :- println(["---------  Exam Question ---------"]), 
+         finalprice(24, [the_Enforcer, cinderella, oceans], Price), 
+         println(["Final Price = ", Price]).
+
+%Test if the movie list contains one documentary movie.
+hasDocumentary([H|T]):- documentary(H).
+hasDocumentary([_|T]) :- hasDocumentary(T).
+
+price(Age, P):- Age <= 18, P=5.
+price(Age, P):- Age > 18, Age<=68, P=10. 
+price(Age, P):- Age > 68, P=6. 
+
+len([],0).
+len([_|T],N) :-  len(T,M), N = M+1.
+
+finalprice(Age, L, P1) :- hasDocumentary(L), price(Age,P), len(L,N), P2=P-P* 0.10, P1=P2*N.
+finalprice(Age, L, P1) :- not(hasDocumentary(L)), price(Age,P), len(L,N), P1=P*N.
+
+

@@ -9,8 +9,7 @@
 
 
 expr001() :- println(["========== Prova Example =========="]), 
-           price(jack, P),
-           println(["Price=", P]," ").      
+       price(milo, P),    println(["Price=", P]," ").      
 
 adult(jack).
 adult(ann).
@@ -18,18 +17,22 @@ adult(mary).
 
 married(jack).
 student(jack).
+student(uta).
 child(milo).
 parent(jack,milo).
 parent(jack,tia).
 
 
+mainprice(Customer, 8).   
+mainprice(Customer, 4):- child(Customer).
 
-mainprice(Customer, X) :- adult(Customer), X=8.
-mainprice(Customer, X) :- child(Customer), X=4.
 
+hasTwoChild(Customer) :- parent(Customer, X), parent(Customer, Y). 
 
-hasTwoChild(Customer) :- parent(Customer, X), parent(Customer, Y), married(Customer). 
-
-price(Customer, X) :- married(Customer) , not(hasTwoChild(Customer)), mainprice(Customer, P), X=P-P*0.05.
-price(Customer, X) :- student(Customer), not(hasTwoChild(Customer)), mainprice(Customer, P), X=P-P*0.05.
+% Discounts 
+price(Customer, X) :- mainprice(Customer, X). 
+price(Customer, X) :- married(Customer),  mainprice(Customer, P), X=P-P*0.05 .
+price(Customer, X) :- student(Customer),  mainprice(Customer, P), X=P-P*0.05 .
 price(Customer, X) :- hasTwoChild(Customer), mainprice(Customer, P), X=P-P*0.1 .
+
+
