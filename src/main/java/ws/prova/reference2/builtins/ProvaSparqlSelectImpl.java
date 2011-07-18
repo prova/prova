@@ -263,8 +263,9 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 				// new terms have to be placed in a ProvaList again
 				final_terms_list.add(ProvaListImpl.create(terms_list));
 				
-				if(data.length == 3)
-					final_terms_list.add(data[2]);
+				// data.length can be 2 (no optional params), 3 (incl. replacement list), or 4 (with service string)
+				for(int i = 2; i < data.length; ++i)
+					final_terms_list.add(data[i]);
 				
 				// We create a virtual fact from the knowledge we gathered, with 'pred' as its head literal.
 				ProvaList ls = ProvaListImpl.create(final_terms_list);
