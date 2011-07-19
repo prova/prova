@@ -3,7 +3,8 @@
 % :- solve(test01(X, Y)).
 % :- solve(test02('"Tim Berners-Lee"', Weblog)).
 % :- solve(test03(Name, "<http://dig.csail.mit.edu/breadcrumbs/blog/4>" )).
-:- solve(testDBpedia(Object, "<http://dbpedia.org/resource/Berlin>" )).
+% :- solve(testDBpedia(Object, "<http://dbpedia.org/resource/Berlin>" )).
+:- solve(testDBpedia2(Object)).
 
 test01(URL, Type) :-
 	QueryString = '
@@ -55,3 +56,13 @@ testDBpedia(Object, URL) :-
    ',
    sparql_select(QueryString, [object(Object)] , [url(URL)] , "http://dbpedia.org/sparql"). 
    
+   
+   
+testDBpedia2(Object) :-
+   QueryString = '
+     SELECT ?object 
+       WHERE {
+         <http://dbpedia.org/resource/Berlin>  ?p ?object .
+        }
+   ',
+   sparql_select(QueryString, [object(Object)]  , "http://dbpedia.org/sparql"). 
