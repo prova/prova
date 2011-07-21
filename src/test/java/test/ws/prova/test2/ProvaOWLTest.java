@@ -107,4 +107,17 @@ public class ProvaOWLTest {
 		}
 	}
 	
+	@Test
+	public void DBpediaTest()
+	{
+		final String rulebase = "rules/reloaded/typing_dbpedia.prova";
+			
+		try {
+			ProvaCommunicator pc=new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

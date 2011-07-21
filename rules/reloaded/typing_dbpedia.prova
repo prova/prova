@@ -1,0 +1,12 @@
+:-solve(p(X)).
+
+p(0):-owl_typing("file:rules/ont/dbpedia_3.6.owl").
+
+isBuilding(X^^:Lighthouse).
+
+% Should succeed:
+p(1):-isBuilding(c^^:Lighthouse).
+
+% Should fail:
+p(2):-isBuilding(c^^:Fungus).
+
