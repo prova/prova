@@ -251,7 +251,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	@Override
 	public boolean equals( Object o ) {
 		ProvaVariableImpl var = (ProvaVariableImpl) o;
-		return var.name.equals(name) && var.type.equals(type);
+		return var.name.equals(name);
 	}
 
 	@Override
