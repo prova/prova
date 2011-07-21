@@ -199,7 +199,7 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 		
 		// Cycle through result set
 		while (results.hasNext()) {
-			QuerySolution solution = results.next();
+			QuerySolution solution = results.nextSolution();
 			boolean matched = true;
 			List<ProvaObject> terms_list = new LinkedList<ProvaObject>();
 			
