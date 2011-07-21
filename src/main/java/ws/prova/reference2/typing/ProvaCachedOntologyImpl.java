@@ -55,8 +55,9 @@ public class ProvaCachedOntologyImpl implements ProvaOntology {
 		Boolean r = superTypeCache.get(hashString);
 		if(r==null)
 		{
-			r=isSupertypeNoCaching(subURI,supURI);
-			superTypeCache.put(hashString, r);
+			r=isSupertypeNoCaching(supURI,subURI);
+			if(r)
+				superTypeCache.put(hashString, r);
 		}
 		return r;		
 	}
