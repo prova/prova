@@ -1,21 +1,30 @@
 
+interesting(Type, Type2):- Type=pop, Type2=rock. 
+
+interesting(Type, Type2):- Type=rock, Type2=pop.
+
+
 % Event Processing Engine 
 :- eval(server()). 
 
 server() :-
 	% Start detection on each new login
-	rcvMult(XID,self,From,inform, concert(Name, Type,Place, Date))[Type=metal] ,
-	sendMsg(XID,self,From,inform, concert(Name, Type, Place, Date)),
-	% println(["Event Detected: ", concert(Name, Type,Place, Date) ], ""), 
-	server_1(XID,Name, Type, Place). 
+	rcvMult(XID,self,From,inform, concert(Name, Type,Place, Date)),
+    server_1(XID).
 
+server_1(XID) :-
+	@group(g1)
+	rcvMsg(XID, self, From, inform, concert(Name, Type, Place, Date)),
+	
 
-server_1(XID,Name, Type, Place) :-
-	rcvMsg(XID,Protocol,From,request,concert(Name, Type, Palce)),
-    sendMsg(XID,self,From,inform, concert(Name, Type, Place, Date))[Type=metal], 
-    print([Name, Type, Palce]).   
-    		
-
+	@group(g1)
+	rcvMsg(XID, self, From, inform, concert(Name, Type2, Place, Date2 )) [interesting(Type, Type2), Date=Date2].
+	
+server_1(XID):-
+	@and(g1) 
+	rcvMsg(XID,Protocol,From,and,Events),
+	println(["Pattern detected: ",Events]," ").
+	
 
 % Event Generator Client 
 :- eval(client()). 
@@ -23,11 +32,15 @@ server_1(XID,Name, Type, Place) :-
 client() :- 
 	% Send all the test messages from a separate thread
 	switch_thread(),
-		
-	
-	sendMsg(XID,self,0,inform, concert(r1, rock, berlin, july23)),
-	sendMsg(XID,self,0,inform, concert(r1, rock, berlin, july22)),
-	sendMsg(XID,self,0,inform, concert(r1, pop, berlin, july23)).
+	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july22)),
+	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july17)),
+	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july23)),
+	sendMsg(main, self,0,inform, concert(r1, heep, berlin, july22)),
+	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july22)),
+	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july22)),
+	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july22)),
+	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july17)),
+	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july23)).
 	
 	
 switch_thread() :-
