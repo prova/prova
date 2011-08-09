@@ -1,0 +1,35 @@
+
+% Event Processing Engine 
+:- eval(server()). 
+
+server() :-
+	% Start detection on each new login
+	rcvMult(XID,self,From,inform, concert(Name, Type,Place, Date))[Type=metal] ,
+	sendMsg(XID,self,From,inform, concert(Name, Type, Place, Date)),
+	% println(["Event Detected: ", concert(Name, Type,Place, Date) ], ""), 
+	server_1(XID,Name, Type, Place). 
+
+
+server_1(XID,Name, Type, Place) :-
+	rcvMsg(XID,Protocol,From,request,concert(Name, Type, Palce)),
+    sendMsg(XID,self,From,inform, concert(Name, Type, Place, Date))[Type=metal], 
+    print([Name, Type, Palce]).   
+    		
+
+
+% Event Generator Client 
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+		
+	
+	sendMsg(XID,self,0,inform, concert(r1, rock, berlin, july23)),
+	sendMsg(XID,self,0,inform, concert(r1, rock, berlin, july22)),
+	sendMsg(XID,self,0,inform, concert(r1, pop, berlin, july23)).
+	
+	
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).
