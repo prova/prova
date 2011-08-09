@@ -32,17 +32,17 @@ server_1(XID):-
 client() :- 
 	% Send all the test messages from a separate thread
 	switch_thread(),
-	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july22)),
-	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july17)),
-	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july23)),
-	sendMsg(main, self,0,inform, concert(r1, heep, berlin, july22)),
-	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july15)),
-	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july22)),
-	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july22)),
-	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july15)),
-	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july22)),
-	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july17)),
-	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july23)).
+	sendMsg(XID, self,0,inform, concert(r1, pop, berlin, july22)),
+	sendMsg(XID, self,0,inform, concert(r1, pop, berlin, july17)),
+	sendMsg(XID, self,0,inform, concert(r1, rock, berlin, july23)),
+	sendMsg(XID, self,0,inform, concert(r1, heep, berlin, july22)),
+	sendMsg(XID, self,0,inform, concert(r1, rock, berlin, july15)),
+	sendMsg(XID, self,0,inform, concert(r1, rock, berlin, july22)),
+	sendMsg(XID, self,0,inform, concert(r1, rock, berlin, july22)),
+	sendMsg(XID, self,0,inform, concert(r1, pop, berlin, july15)),
+	sendMsg(XID, self,0,inform, concert(r1, rock, berlin, july22)),
+	sendMsg(XID, self,0,inform, concert(r1, rock, berlin, july17)),
+	sendMsg(XID, self,0,inform, concert(r1, pop, berlin, july23)).
 	
 	
 switch_thread() :-
