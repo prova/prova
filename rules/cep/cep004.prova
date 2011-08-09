@@ -36,8 +36,10 @@ client() :-
 	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july17)),
 	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july23)),
 	sendMsg(main, self,0,inform, concert(r1, heep, berlin, july22)),
+	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july15)),
 	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july22)),
 	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july22)),
+	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july15)),
 	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july22)),
 	sendMsg(main, self,0,inform, concert(r1, rock, berlin, july17)),
 	sendMsg(main, self,0,inform, concert(r1, pop, berlin, july23)).
