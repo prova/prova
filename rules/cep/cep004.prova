@@ -1,9 +1,4 @@
 
-interesting(Type, Type2):- Type=pop, Type2=rock. 
-
-interesting(Type, Type2):- Type=rock, Type2=pop.
-
-
 % Event Processing Engine 
 :- eval(server()). 
 
@@ -30,7 +25,7 @@ server_1(XID):-
 :- eval(client()). 
 
 client() :- 
-	% Send all the test messages from a separate thread
+% Send all the test messages from a separate thread
 	switch_thread(),
 	sendMsg(XID, self,0,inform, concert(r1, pop, berlin, july22)),
 	sendMsg(XID, self,0,inform, concert(r1, pop, berlin, july17)),
@@ -44,7 +39,10 @@ client() :-
 	sendMsg(XID, self,0,inform, concert(r1, rock, berlin, july17)),
 	sendMsg(XID, self,0,inform, concert(r1, pop, berlin, july23)).
 	
-	
+% starts the send and receive in different threads 	
 switch_thread() :-
 	sendMsgSync(XID,task,0,switch,[]),
 	rcvMsg(XID,task,From,switch,[]).
+	
+interesting(Type, Type2):- Type=pop, Type2=rock. 
+interesting(Type, Type2):- Type=rock, Type2=pop.
