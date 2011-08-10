@@ -3,19 +3,14 @@
 :- eval(server()). 
 
 server() :-
-	% Start detection on each new login
-	rcvMult(XID,self,From,inform, concert(Name, Type,Place, Date)),
-    server_1(XID).
-
-server_1(XID) :-
 	@group(g1)
-	rcvMsg(XID, self, From, inform, concert(Name, Type, Place, Date)),
-	
-
+	rcvMult(XID, self, From, inform, concert(Name, Type, Place, Date)),
+	println([Type,Place,Date]),
 	@group(g1)
-	rcvMsg(XID, self, From, inform, concert(Name, Type2, Place, Date2 )) [interesting(Type, Type2), Date=Date2].
+	rcvMsg(XID, self, From, inform, concert(Name, Type2, Place, Date2 )) [interesting(Type, Type2), Date=Date2],
+	println([Type,Place,Date]).
 	
-server_1(XID):-
+server():-
 	@and(g1) 
 	rcvMsg(XID,Protocol,From,and,Events),
 	println(["Pattern detected: ",Events]," ").
