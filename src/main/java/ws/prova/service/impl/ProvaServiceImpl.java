@@ -114,6 +114,18 @@ public class ProvaServiceImpl implements ProvaService {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	@Override
+	public void unconsult(String agent, String key) {
+		try {
+			ProvaCommunicator engine = engines.get(agent);
+			if( engine==null )
+				throw new RuntimeException("No engine instance "+agent);
+			engine.unconsultSync(key);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	@Override
 	public void send(String dest, ProvaList terms) {

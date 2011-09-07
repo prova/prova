@@ -25,6 +25,8 @@ public interface ProvaService extends ProvaMiniService, EPService {
 
 	public List<ProvaSolution[]> consult(String agent, BufferedReader in,
 			String key);
+	
+	public void unconsult(String agent, String key);
 
 	public void register(String agent, EPService epService);
 
