@@ -65,4 +65,4 @@ testDBpedia2(Object) :-
          <http://dbpedia.org/resource/Berlin>  ?p ?object .
         }
    ',
-   sparql_select(QueryString, [object(Object)]  , "http://dbpedia.org/sparql"). 
+   sparql_select(QueryString, [object(Object)]  , [] , "http://dbpedia.org/sparql"). 
