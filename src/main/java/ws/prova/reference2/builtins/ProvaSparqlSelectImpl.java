@@ -232,7 +232,12 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 							log.debug("No such variable in the select query: " + field_name + ".");
 						return -1;
 					}
-					String field = rn.toString();
+					
+					String field = null;
+					if(rn.isLiteral())
+						field = rn.asLiteral().getString();
+					else
+						field = rn.toString();
 									
 					if(param_data[1] instanceof ProvaConstant) {
 						// Only add the solution's field if it matches the constant
