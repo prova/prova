@@ -233,9 +233,9 @@ public class ProvaSparqlSelectImpl extends ProvaBuiltinImpl {
 						return -1;
 					}
 					
-					String field = null;
+					Object field = null;
 					if(rn.isLiteral())
-						field = rn.asLiteral().getString();
+						field = rn.asLiteral().getValue();
 					else
 						field = rn.toString();
 									
