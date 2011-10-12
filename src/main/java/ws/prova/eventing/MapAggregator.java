@@ -39,6 +39,10 @@ public class MapAggregator implements ProvaEventsAccumulator {
 		this.processor = aggregator.processor;
 	}
 
+	public Map<Object,CountValue> getMap() {
+		return map;
+	}
+
 	public CountValue processAt(Object key, double value) {
 		CountValue agg = map.get(key);
 		if( agg==null ) {

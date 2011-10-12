@@ -11,6 +11,14 @@ public class CountValue {
 		this.value = value;
 	}
 
+	public int getCount() {
+		return count;
+	}
+	
+	public double getValue() {
+		return value;
+	}
+	
 	@Override
 	public String toString() {
 		return "CountValue [count=" + count + ", value=" + value + "]";

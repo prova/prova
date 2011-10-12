@@ -23,6 +23,10 @@ public class MapCounter implements ProvaEventsAccumulator {
 		this.accumulationMode = counter.accumulationMode;
 		this.map = new TreeMap<Object,Long>(counter.map);
 	}
+	
+	public Map<Object,Long> getMap() {
+		return map;
+	}
 
 	public long incrementAt(Object key) {
 		Long count = map.get(key);
