@@ -30,7 +30,8 @@ test02(Name, Weblog) :-
          ?person foaf:weblog ?weblog .
        }
    ',
-   sparql_select(QueryString, [weblog(Weblog)],  [name(Name)] ), println(["Name " , Name ]).
+   sparql_select(QueryString, [weblog(Weblog)],  [name(Name)] ),
+   println(["Name ", Name ]).
 
    
    
