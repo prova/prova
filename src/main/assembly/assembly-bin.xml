@@ -54,7 +54,7 @@
 	</fileSets>
 	<files>
 		<file>
-			<source>/src/main/assembly/prova3.bat
+			<source>src/main/assembly/prova3.bat
 			</source>
 			<outputDirectory>/bin</outputDirectory>
 			<destName>prova3.bat</destName>
@@ -62,7 +62,7 @@
 			<filtered />
 		</file>
 		<file>
-			<source>/src/main/assembly/prova3.bat
+			<source>src/main/assembly/prova3.bat
 			</source>
 			<outputDirectory>/rules</outputDirectory>
 			<destName>prova3.bat</destName>
@@ -70,7 +70,7 @@
 			<filtered />
 		</file>
 		<file>
-			<source>/src/main/assembly/README
+			<source>src/main/assembly/README
 			</source>
 			<outputDirectory>/</outputDirectory>
 			<destName>README</destName>

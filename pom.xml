@@ -146,6 +146,9 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 		        <version>2.5</version>
+				<configuration>
+					<forkMode>always</forkMode>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

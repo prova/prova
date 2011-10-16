@@ -2,7 +2,7 @@
 @set PROVA_LIBS=%PROVA_HOME%/lib
 
 :: Building the Classpath
-@set CLASSPATH=%CLASSPATH%;%PROVA_HOME%/bin/ws.prova.compact-3.1.0.jar
+@set CLASSPATH=%CLASSPATH%;%PROVA_HOME%/bin/ws.prova.compact-3.1.5.jar
 @set CLASSPATH=%CLASSPATH%;%PROVA_LIBS%/com.springsource.org.apache.commons.lang.jar
 @set CLASSPATH=%CLASSPATH%;%PROVA_LIBS%/com.springsource.org.antlr.runtime.jar
 @set CLASSPATH=%CLASSPATH%;%PROVA_LIBS%/com.springsource.org.apache.commons.beanutils.jar
