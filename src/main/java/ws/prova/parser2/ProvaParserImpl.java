@@ -59,6 +59,7 @@ public class ProvaParserImpl {
 	    	String[] e = error.split(" ",3);
 	    	pex.addError(e[1], e[2]);
 	        System.err.println(error);
+		log.warn("Error parsing prova: "+error);
 	    }
 	    
 	    @Override
@@ -167,17 +168,25 @@ public class ProvaParserImpl {
 							new InputStreamReader(is));
 				} catch (Exception ex1) {
 					try {
-						is = ProvaParserImpl.class.getResourceAsStream(filename);
+						is = ProvaParserImpl.class.getClassLoader().getResourceAsStream(filename);
 						in = new BufferedReader(
 								new InputStreamReader(is));
 					} catch (Exception ex2) {
 						try {
-							// Added by Adrian :
-							// read KB / module from URL
-							URL url = new URL(filename);
-							in = new BufferedReader(new InputStreamReader(url.openStream()));
+							// not sure this is ever needed; think the above is preferred.
+							// (this one looks relative to the package in classpath.)
+							is = ProvaParserImpl.class.getResourceAsStream(filename);
+							in = new BufferedReader(
+									new InputStreamReader(is));
 						} catch (Exception ex3) {
-							throw new IOException("Cannot read from "+filename);
+							try {
+								// Added by Adrian :
+								// read KB / module from URL
+								URL url = new URL(filename);
+								in = new BufferedReader(new InputStreamReader(url.openStream()));
+							} catch (Exception ex4) {
+								throw new IOException("Cannot find "+filename);
+							}
 						}
 					}
 				}

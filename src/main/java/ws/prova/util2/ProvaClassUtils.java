@@ -10,7 +10,11 @@ public class ProvaClassUtils {
 	 * @throws ClassNotFoundException
 	 */
 	public static Class<?> forName(String className) throws ClassNotFoundException {
-		return Thread.currentThread().getContextClassLoader().loadClass(className);
+		try { 
+			return Thread.currentThread().getContextClassLoader().loadClass(className); 
+		} catch (Exception e) {
+			return ProvaClassUtils.class.getClassLoader().loadClass(className);
+		}
 	}
 
 	/**
