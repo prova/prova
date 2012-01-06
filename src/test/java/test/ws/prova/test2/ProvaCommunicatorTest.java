@@ -41,7 +41,7 @@ public class ProvaCommunicatorTest {
 		} catch (Exception e) {
 			final String localizedMessage = e.getCause().getLocalizedMessage();
 			org.junit.Assert.assertEquals(
-					"Cannot read from rules/reloaded/NOSUCHFILE.prova",
+					"Cannot find rules/reloaded/NOSUCHFILE.prova",
 					localizedMessage);
 		}
 	}
