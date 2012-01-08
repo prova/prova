@@ -218,6 +218,30 @@ public class ProvaMetadataTest {
 	}
 
 	@Test
+	public void or_common_interest() {
+		final String rulebase = "rules/reloaded/or_common_interest.prova";
+		
+		AtomicInteger count = new AtomicInteger();
+		Map<String,Object> globals = new HashMap<String,Object>();
+		globals.put("$Count", count);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		final int numSolutions[] = {0,0};
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(solutions.size(),numSolutions.length);
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",solutions.get(i).length,numSolutions[i]);
+
+		try {
+			synchronized(this) {
+				wait(3000);
+				org.junit.Assert.assertEquals("Unexpected number of detections",3,count.get());
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	@Test
 	public void and_vars() {
 		final String rulebase = "rules/reloaded/and_vars.prova";
 		

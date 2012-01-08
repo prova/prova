@@ -1,0 +1,89 @@
+% Find the music concerts which are interesting for two persons (he (id=1) and she (id=2)), which are in the same month.
+% Must be run from the test or_common_interest() in ProvaMetadataTest.java
+% 
+% This prints:
+% ==========Find music concerts that are a common interest==========
+% HisInterests = [http://dbpedia.org/resource/Pink_Floyd,http://dbpedia.org/resource/The_Framework,http://dbpedia.org/resource/The_Rocky_Horror_Picture_Show]
+% HerInterests = [http://dbpedia.org/resource/Procol_Harum,http://dbpedia.org/resource/Deep_Purple]
+% Pattern detected: {id=1, month=1, long=551651, url=http://dbpedia.org/resource/The_Rocky_Horror_Picture_Show, lat=55.55} [[[a,async,0,inform,{id=2, month=1, long=551651, url=http://dbpedia.org/resource/Deep_Purple, lat=55.55}]]]
+% Pattern detected: {id=1, month=1, long=551651, url=http://dbpedia.org/resource/The_Rocky_Horror_Picture_Show, lat=55.55} [[[a,async,0,inform,{id=2, month=1, long=551651, url=http://dbpedia.org/resource/Deep_Purple, lat=55.55}]]]
+% Pattern detected: {id=1, month=2, long=551651, url=http://dbpedia.org/resource/Pink_Floyd, lat=55.55} [[[a,async,0,inform,{id=2, month=2, long=551651, url=http://dbpedia.org/resource/Procol_Harum, lat=55.55}]]]
+
+% Event Processing Engine 
+:- eval(server()).
+
+server() :-
+    println(["==========Find music concerts that are a common interest=========="]),
+	loadHisInterests(HisInterests),
+	loadHerInterests(HerInterests),
+	println(["HisInterests = ", HisInterests]),
+	println(["HerInterests = ", HerInterests]),
+	% This is not a member of any reaction group
+	@count(-1)
+	rcvMsg(XID, async, From, inform, {id->ID1,url->URL1,lat->Lat1,long->Long1,month->Month}),
+	server_1(XID,{id->ID1,url->URL1,lat->Lat1,long->Long1,month->Month},HisInterests, HerInterests).
+
+server_1(XID,{id->ID1,url->URL1,lat->Lat1,long->Long1,month->Month},HisInterests,HerInterests) :-
+	% Admittedly, using a reaction group here is an overkill but it allows easier extension to more interesting event combinations.
+	% size(1,1) allows for multiple patterns to be emitted for each earlier event passed here as second parameter.
+	@group(g1) @size(1,1)
+	rcvMsg(XID, async, From, inform, {id->ID2,url->URL2,lat->Lat2,long->Long2,month->Month}) [ID1<ID2, interesting(URL1, URL2, HisInterests, HerInterests)].
+ server_1(XID,E1,HisInterests,HerInterests):-
+	@or(g1)
+	rcvMsg(XID,Protocol,From,or,Events),
+	$Count.incrementAndGet(),
+	println(["Pattern detected: ", E1, " ", Events]).	
+
+loadHisInterests(Agent):-
+	Agent=['http://dbpedia.org/resource/Pink_Floyd', 'http://dbpedia.org/resource/The_Framework', 'http://dbpedia.org/resource/The_Rocky_Horror_Picture_Show'].
+
+loadHerInterests(Agent):-
+	Agent=['http://dbpedia.org/resource/Procol_Harum', 'http://dbpedia.org/resource/Deep_Purple'].
+
+% loadHisInterests(Agent) :-
+%	QueryString = '
+%		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+%		PREFIX yago: <http://dbpedia.org/class/yago/>
+%    	SELECT DISTINCT ?resource
+%    	WHERE {         
+%         		?resource rdf:type yago:MusicalGroupsFromToronto .
+%   	            ?resource rdf:type  yago:CanadianAlternativeRockGroups . 
+%        }',
+%	sparql_select(QueryString, [resource(Agent)], [], "http://dbpedia.org/sparql").
+   
+% loadHerInterests(Agent) :-
+%     QueryString = '
+%   	 	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+%     	PREFIX yago: <http://dbpedia.org/class/yago/>
+%     	SELECT DISTINCT ?resource
+%       	WHERE { 
+%       		?resource rdf:type yago:RockMusicals . 
+%       		}',
+%    sparql_select(QueryString, [resource(Agent)], [], "http://dbpedia.org/sparql").  
+    
+    
+% Event Generator Client 
+:- eval(client()). 
+
+client() :- 
+	% Send all the test messages from a separate thread
+	switch_thread(),
+	sendMsg(a,async,0,inform, {id->1, url->'http://dbpedia.org/resource/The_Rocky_Horror_Picture_Show', lat->'55.55', long->'551651', month->'1'}), % his interest
+	sendMsg(a,async,0,inform,  {id->1, url->'http://dbpedia.org/resource/Pink_Floyd', lat->'55.55', long->'551651', month->'2'}), % his interest
+	sendMsg(a,async,0,inform, {id->1, url->'http://dbpedia.org/resource/The_Framework', lat->'55.55', long->'551651', month->'3'}), % his interest
+	sendMsg(a,async,0,inform, {id->2, url->'http://dbpedia.org/resource/Deep_Purple', lat->'55.55', long->'551651', month->'1'}), % her interest
+	sendMsg(a,async,0,inform, {id->2, url->'http://dbpedia.org/resource/Deep_Purple', lat->'55.55', long->'551651', month->'1'}), % her interest
+	sendMsg(a,async,0,inform, {id->2, url->'http://dbpedia.org/resource/Genesis', lat->'55.55', long->'551651', month->'1'}), % NOT her interest
+	sendMsg(a,async,0,inform, {id->2, url->'http://dbpedia.org/resource/Procol_Harum', lat->'55.55', long->'551651', month->'2'}), % her interest
+	sendMsg(a,async,0,inform,  {id->1, url->'http://dbpedia.org/resource/The_Framework', lat->'55.55', long->'551651', month->'4'}). % his interest
+	
+switch_thread() :-
+   sendMsgSync(XID,task,0,switch,[]),
+   rcvMsg(XID,task,From,switch,[]).
+	
+interesting(URL, URL2, HisInterests, HerInterests) :-
+	member(URL, HisInterests),
+	member(URL2, HerInterests). 
+
+member(X, [X|_]).                         
+member(X, [_|Tail]) :- member(X, Tail).
