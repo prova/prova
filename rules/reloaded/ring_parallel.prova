@@ -1,0 +1,38 @@
+:-eval(server(10000,100)).
+
+server(N,M) :-
+	NM1=N-1,
+	for([1,NM1],I),
+	react(I).
+server(N,M) :-
+	rcvMult(N,async,0,request,M),
+	!,
+	println(done(M)),
+	$Count.incrementAndGet(),
+	$Latch.countDown().
+server(N,M) :-
+	rcvMult(N,async,0,request,J),
+	JM=J+1,
+	sendMsg(1,async,0,request,JM),
+	$Count.incrementAndGet(),
+	0 = J mod 10,
+	println([J]).
+
+react(I) :-
+	IM=I+1,
+	rcvMult(I,async,0,request,J),
+	sendMsg(IM,async,0,request,J).
+	
+:-eval(client()).
+
+client() :-
+	sendMsg(1,async,0,request,1),
+	sendMsg(1,async,0,request,1),
+	sendMsg(1,async,0,request,1),
+	sendMsg(1,async,0,request,1),
+	sendMsg(1,async,0,request,1),
+	sendMsg(1,async,0,request,1),
+	sendMsg(1,async,0,request,1),
+	sendMsg(1,async,0,request,1),
+	sendMsg(1,async,0,request,1),
+	sendMsg(1,async,0,request,1).

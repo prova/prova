@@ -297,7 +297,7 @@ public class ProvaMessagingTest {
 
 	@Test
 	/**
-	 * Pass messages 1000 times around a ring of 1000 reagents
+	 * Pass messages 1000 times around a ring of 1000 reagents (1M messages total)
 	 */
 	public void ring() {
 		final String rulebase = "rules/reloaded/ring.prova";
@@ -305,6 +305,35 @@ public class ProvaMessagingTest {
 		AtomicLong count = new AtomicLong(0);
 		Map<String,Object> globals = new HashMap<String,Object>();
 		CountDownLatch doneSignal = new CountDownLatch(1);
+		globals.put("$Latch", doneSignal);
+		globals.put("$Count", count);
+
+		long startTime = System.currentTimeMillis();
+		
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+
+		try {
+			doneSignal.await(5000, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			org.junit.Assert.fail("Unexpected exception: "+e.getMessage());
+		}
+		long diff = (System.currentTimeMillis()-startTime) / 1000;
+		System.out.println(count.get()+" rounds complete in "+diff+" sec");
+		// All 1000 rounds around the ring must be complete
+		org.junit.Assert.assertEquals("Not all messages received in 50 seconds",1000L,count.get());
+
+	}
+
+	@Test
+	/**
+	 * Pass 10 messages concurrently 100 times each around a ring of 10000 reagents (10M messages total)
+	 */
+	public void ring_parallel() {
+		final String rulebase = "rules/reloaded/ring_parallel.prova";
+		
+		AtomicLong count = new AtomicLong(0);
+		Map<String,Object> globals = new HashMap<String,Object>();
+		CountDownLatch doneSignal = new CountDownLatch(10);
 		globals.put("$Latch", doneSignal);
 		globals.put("$Count", count);
 
