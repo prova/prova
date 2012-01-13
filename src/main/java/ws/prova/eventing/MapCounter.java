@@ -5,6 +5,8 @@ import java.util.TreeMap;
 
 public class MapCounter implements ProvaEventsAccumulator {
 
+	private static final long serialVersionUID = 7769272455398438735L;
+
 	private Map<Object,Long> map;
 	
 	private AccumulationMode accumulationMode;

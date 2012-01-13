@@ -1,6 +1,10 @@
 package ws.prova.eventing;
 
-public class CountValue {
+import java.io.Serializable;
+
+public class CountValue implements Serializable {
+
+	private static final long serialVersionUID = -8383435759562637560L;
 
 	public int count;
 	

@@ -5,6 +5,8 @@ import java.util.TreeMap;
 
 public class MapAggregator implements ProvaEventsAccumulator {
 
+	private static final long serialVersionUID = -4644372132667191024L;
+
 	private Map<Object,CountValue> map;
 	
 	private Aggregation processor;
@@ -13,6 +15,8 @@ public class MapAggregator implements ProvaEventsAccumulator {
 	
 	private class SumAggregation implements Aggregation {
 		
+		private static final long serialVersionUID = 6263950015116331352L;
+
 		@Override
 		public void process( CountValue cv, double value ) {
 			cv.count++;

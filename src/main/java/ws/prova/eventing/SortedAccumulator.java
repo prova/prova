@@ -7,6 +7,8 @@ import java.util.Map.Entry;
 
 public class SortedAccumulator implements ProvaEventsAccumulator {
 
+	private static final long serialVersionUID = 8593913229446147787L;
+
 	private TreeMap<Object,List<Object>> map;
 	
 	private Accumulation processor;

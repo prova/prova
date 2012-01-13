@@ -2,12 +2,16 @@ package ws.prova.eventing;
 
 public class Aggregator implements ProvaEventsAccumulator {
 
+	private static final long serialVersionUID = -6070105850518061308L;
+
 	private CountValue agg;
 	
 	private Aggregation processor;
 
 	private class SumAggregation implements Aggregation {
 		
+		private static final long serialVersionUID = -5934127748617778629L;
+
 		@Override
 		public void process( CountValue cv, double value ) {
 			cv.count++;

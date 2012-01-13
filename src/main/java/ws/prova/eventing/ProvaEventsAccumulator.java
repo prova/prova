@@ -1,6 +1,6 @@
 package ws.prova.eventing;
 
-public interface ProvaEventsAccumulator {
+public interface ProvaEventsAccumulator extends ProvaState {
 
 	public enum AccumulationMode {Keep,Clear};
 	
