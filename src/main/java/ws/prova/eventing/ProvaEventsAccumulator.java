@@ -8,4 +8,6 @@ public interface ProvaEventsAccumulator extends ProvaState {
 
 	public void clear();
 
+	long totalCount();
+
 }

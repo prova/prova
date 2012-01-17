@@ -7,13 +7,15 @@ public class MapAggregator implements ProvaEventsAccumulator {
 
 	private static final long serialVersionUID = -4644372132667191024L;
 
+	private long totalCount;
+	
 	private Map<Object,CountValue> map;
 	
 	private Aggregation processor;
 
 	private AccumulationMode accumulationMode;
 	
-	private class SumAggregation implements Aggregation {
+	private static class SumAggregation implements Aggregation {
 		
 		private static final long serialVersionUID = 6263950015116331352L;
 
@@ -38,11 +40,17 @@ public class MapAggregator implements ProvaEventsAccumulator {
 	}
 	
 	public MapAggregator(MapAggregator aggregator) {
+		this.totalCount = aggregator.totalCount;
 		this.accumulationMode = aggregator.accumulationMode;
 		this.map = new TreeMap<Object,CountValue>(aggregator.map);
 		this.processor = aggregator.processor;
 	}
 
+	@Override
+	public long totalCount() {
+		return totalCount;
+	}
+	
 	public Map<Object,CountValue> getMap() {
 		return map;
 	}
@@ -54,13 +62,16 @@ public class MapAggregator implements ProvaEventsAccumulator {
 			map.put(key, agg);
 		}
 		processor.process(agg, value);
+		this.totalCount++;
 		return agg;
 	}
 
 	@Override
 	public void clear() {
-		if( accumulationMode==AccumulationMode.Clear )
+		if( accumulationMode==AccumulationMode.Clear ) {
+			totalCount = 0;
 			map.clear();
+		}
 	}
 	
 	@Override

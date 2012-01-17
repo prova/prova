@@ -8,7 +8,7 @@ public class Aggregator implements ProvaEventsAccumulator {
 	
 	private Aggregation processor;
 
-	private class SumAggregation implements Aggregation {
+	private static class SumAggregation implements Aggregation {
 		
 		private static final long serialVersionUID = -5934127748617778629L;
 
@@ -28,6 +28,11 @@ public class Aggregator implements ProvaEventsAccumulator {
 	public Aggregator(Aggregator aggregator) {
 		this.agg = aggregator.agg;
 		this.processor = aggregator.processor;
+	}
+
+	@Override
+	public long totalCount() {
+		return agg.count;
 	}
 
 	public CountValue process(double value) {
