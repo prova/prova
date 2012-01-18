@@ -63,8 +63,10 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 				// There is a supplied accumulator
 				ProvaEventsAccumulator acc = (ProvaEventsAccumulator) sizeList.get(2);
 				long totalCount = acc.totalCount();
-				if( sizeList.size()==totalCount )
+				if( Long.parseLong(sizeList.get(1).toString())==totalCount ) {
 					sizeList.set(0, 0);
+					size = 0;
+				}
 			} else
 				sizeList.set(0,Integer.toString(--size));
 			if( log.isDebugEnabled() )
