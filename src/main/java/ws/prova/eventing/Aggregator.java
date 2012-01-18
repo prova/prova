@@ -1,6 +1,6 @@
 package ws.prova.eventing;
 
-public class Aggregator implements ProvaEventsAccumulator {
+public class Aggregator extends ProvaBasicEventsAccumulatorImpl {
 
 	private static final long serialVersionUID = -6070105850518061308L;
 
@@ -26,6 +26,7 @@ public class Aggregator implements ProvaEventsAccumulator {
 	}
 	
 	public Aggregator(Aggregator aggregator) {
+		super(aggregator);
 		this.agg = aggregator.agg;
 		this.processor = aggregator.processor;
 	}
@@ -53,7 +54,8 @@ public class Aggregator implements ProvaEventsAccumulator {
 
 	@Override
 	public String toString() {
-		return "Aggregator [agg=" + agg + "]";
+		return "Aggregator [count=" + agg.count
+				+ ", value=" + agg.value + "]";
 	}
 
 }

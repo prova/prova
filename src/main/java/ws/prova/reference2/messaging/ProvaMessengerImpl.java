@@ -3,6 +3,7 @@ package ws.prova.reference2.messaging;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -19,11 +20,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.agent2.ProvaThreadpoolEnum;
 import ws.prova.esb2.ProvaAgent;
+import ws.prova.eventing.ProvaEventsAccumulator;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaGoal;
 import ws.prova.kernel2.ProvaKnowledgeBase;
@@ -747,6 +750,25 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 					long period = ProvaTimeUtils.timeIntervalInMilliseconds(timerReset);
 					List<ProvaDelayedCommand> delayed = ProvaResolutionInferenceEngineImpl.delayedCommands
 							.get();
+					if( timerObject!=null && timerObject instanceof ProvaEventsAccumulator) {
+						ProvaEventsAccumulator acc = (ProvaEventsAccumulator) timerObject;
+						Date now = new Date();
+						if( acc.getDuration()!=0 ) {
+							// State passed to the operator
+							// Expected end of current timer
+							Date endDate = DateUtils.addMilliseconds(acc.getStartTime(), acc.getDuration());
+							// Time remaining in the current window
+							long timeRemaining = endDate.getTime() - now.getTime();
+							if( timeRemaining>0 )
+								delay = timeRemaining;
+							else
+								delay = 0;
+						} else {
+							// Set the accumulator's start time
+							acc.setStartTime(now);
+							acc.setDuration((int) period);
+						}
+					}
 					delayed.add(new ProvaScheduleGroupMemberCleanupImpl(xid,
 							dynamic, head.getPredicate(), headControl
 									.getPredicate(), ruleid, delay, period,

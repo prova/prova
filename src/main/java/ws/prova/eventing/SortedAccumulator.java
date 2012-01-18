@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-public class SortedAccumulator implements ProvaEventsAccumulator {
+public class SortedAccumulator extends ProvaBasicEventsAccumulatorImpl {
 
 	private static final long serialVersionUID = 8593913229446147787L;
 
@@ -37,6 +37,7 @@ public class SortedAccumulator implements ProvaEventsAccumulator {
 	}
 	
 	public SortedAccumulator(SortedAccumulator accumulator) {
+		super(accumulator);
 		this.accumulationMode = accumulator.accumulationMode;
 		this.map = new TreeMap<Object,List<Object>>(accumulator.map);
 		this.processor = accumulator.processor;
@@ -100,7 +101,8 @@ public class SortedAccumulator implements ProvaEventsAccumulator {
 
 	@Override
 	public String toString() {
-		return "SortedAccumulator [map=" + map + "]";
+		return "SortedAccumulator [totalCount="	+ totalCount()
+				+ " ,map=" + map + "]";
 	}
 
 }

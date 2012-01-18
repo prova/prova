@@ -1,10 +1,12 @@
 package ws.prova.reference2.eventing;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 
 import ws.prova.agent2.ProvaReagent;
@@ -117,6 +119,8 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 					ProvaEventsAccumulator acc = (ProvaEventsAccumulator) timerList.get(2);
 					this.results.add(acc.clone());
 					acc.clear();
+					Date now = new Date();
+					acc.setStartTime(now);
 				} else
 					this.results.add(ProvaListImpl.emptyRList);
 				this.sendGroupResults(results, kb, prova);

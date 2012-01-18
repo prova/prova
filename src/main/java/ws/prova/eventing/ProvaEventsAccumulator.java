@@ -1,5 +1,7 @@
 package ws.prova.eventing;
 
+import java.util.Date;
+
 public interface ProvaEventsAccumulator extends ProvaState {
 
 	public enum AccumulationMode {Keep,Clear};
@@ -8,6 +10,14 @@ public interface ProvaEventsAccumulator extends ProvaState {
 
 	public void clear();
 
-	long totalCount();
+	public long totalCount();
+
+	public Date getStartTime();
+	
+	public void setStartTime(Date date);
+
+	public void setDuration(int millis);
+
+	public int getDuration();
 
 }

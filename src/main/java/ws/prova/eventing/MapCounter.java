@@ -3,7 +3,7 @@ package ws.prova.eventing;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MapCounter implements ProvaEventsAccumulator {
+public class MapCounter extends ProvaBasicEventsAccumulatorImpl {
 
 	private static final long serialVersionUID = 7769272455398438735L;
 
@@ -24,6 +24,7 @@ public class MapCounter implements ProvaEventsAccumulator {
 	}
 	
 	public MapCounter(MapCounter counter) {
+		super(counter);
 		this.totalCount = counter.totalCount;
 		this.accumulationMode = counter.accumulationMode;
 		this.map = new TreeMap<Object,Long>(counter.map);
@@ -77,7 +78,8 @@ public class MapCounter implements ProvaEventsAccumulator {
 	
 	@Override
 	public String toString() {
-		return "MapCounter [count=" + totalCount + ", map=" + map + "]";
+		return "MapCounter [count=" + totalCount
+				+ ", map=" + map + "]";
 	}
 
 }
