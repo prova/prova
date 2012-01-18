@@ -113,28 +113,33 @@ flipcase C false : state([CM,true]) =
 
 @label(new)
 lambda X [] A : A = !.
+@label(rev1)
+lambda X [[Fun|Args]|Fs] Y : R =
+	!,
+	lambda2 X [[Fun|Args]|Fs] Y : R.
 @label(new)
-lambda X [[Fun|Args]|Fs] list(A|As) : R =
+lambda2 X [[Fun|Args]|Fs] list(A|As) : R =
 	!,
 	element(X,[A|As]),
 	derive([Fun,Args,B]),
 	derive([Fs,B,R]).
 @label(new)
-lambda X [[Fun|Args]|Fs] [A|As] : R =
+lambda2 X [[Fun|Args]|Fs] [A|As] : R =
 	!,
 	element(X,[A|As]),
 	derive([Fun,Args,B]),
 	derive([Fs,B,R]).
 @label(new)
-lambda X [[Fun|Args]|Fs] X : R =
+lambda2 X [[Fun|Args]|Fs] X : R =
 	!,
 	derive([Fun,Args,B]),
 	derive([Fs,B,R]).
 @label(newnew)
-lambda X [[Fun|Args]|Fs] | X : R =
+lambda2 X [[Fun|Args]|Fs] | X : R =
 	!,
 	derive([Fun,Args,B]),
 	derive([Fs,B,R]).
+
 lambda X [Fun,Arg] list(A|As) : B =
 	!,
 	element(X,[A|As]),
