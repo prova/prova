@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bundle-Version: 3.1.6
+Bundle-Version: 3.1.7
 Bundle-Name: Prova compact
 Bundle-ManifestVersion: 2
 Bundle-Description: Prova rule engine
