@@ -8,7 +8,7 @@
 % The state in each pattern instance is always accessed from the same thread.
 % In this example, there is no handling of out-of-order logins.
 %
-% This returns:
+% This returns (the order may be different due to cu#oncurrency of users u1 and u2):
 % SFBy=[state,[[list,[u2,0,10,18]],[]]]
 % SFBy=[state,[[list,[u2,1,10,18]],[]]]
 % SFBy=[state,[[list,[u1,1,10,37]],[]]]
@@ -16,7 +16,7 @@
 :- eval(consult('functional.prova')).
 
 % Prepare the patten detection before sending the test event sequence
-:- solve(run_fby(SFBy)).
+:- eval(run_fby(SFBy)).
 
 % Send the test event sequence
 :- eval(client()).
@@ -70,4 +70,6 @@ update_ list(S) maybe(just([XID,T1,T2,S0])) : list() maybe(just([XID,T1,T2,SM]))
 % Multi-valued function representing the detected patterns.
 % (update_ . delay_(8) . filter_(ge_m(5)) . accept_) is a composition pipeline executed for each inbound event.
 run_fby(X) :-
-	map [map([accept_,filter_(ge_m(16)),delay_(8),update_])] state([list([]),maybe(just())]) : X.
+	map [map([accept_,filter_(ge_m(16)),delay_(8),update_])] state([list([]),maybe(just())]) : X,
+	println([X]),
+	$Count.incrementAndGet().

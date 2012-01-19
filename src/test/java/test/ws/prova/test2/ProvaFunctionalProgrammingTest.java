@@ -133,6 +133,30 @@ public class ProvaFunctionalProgrammingTest {
 	}
 
 	/*
+	 * Demonstrate using functional stream fusion for pattern detection.
+	 * Sum the size of all purchases by User greater than 16 within 8 time units after User logs in.
+	 */
+	@Test
+	public void func_reactive_followed_by() {
+		final String rulebase = "rules/reloaded/func_fby.prova";
+		Map<String,Object> globals = new HashMap<String,Object>();
+		AtomicInteger count = new AtomicInteger();
+		globals.put("$Count", count);
+		
+		new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+
+		try {
+			synchronized(this) {
+				wait(2000);
+				org.junit.Assert.assertEquals(3,count.get());
+			}
+		} catch (Exception e) {
+			org.junit.Assert.fail("Unexpected exception: "+e.getLocalizedMessage());
+		}
+
+	}
+
+	/*
 	 * Demonstrate unfoldr-like functionality with embedded reactions.
 	 * Detect 2 consecutive events with values <= 5.
 	 */
