@@ -441,7 +441,9 @@ public class ProvaRuleImpl implements ProvaRule {
 
 	@Override
 	public Map<String, List<Object>> getMetadata() {
-		return metadata;
+		if( metadata!=null )
+			return metadata;
+		return Collections.emptyMap();
 	}
 
 	@Override
