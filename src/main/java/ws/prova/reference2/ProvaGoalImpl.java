@@ -129,7 +129,6 @@ public class ProvaGoalImpl implements ProvaGoal {
 	@Override
 	public ProvaRule next() {
 		if( extraAnswers!=null ) {
-//			System.out.println("extra answers available from a deep subgoal: "+extraAnswers);
 			ProvaPredicate pred = new ProvaPredicateImpl(predicate.getSymbol(),predicate.getArity(),predicate.getKnowledgeBase());
 			for( ProvaList answer : extraAnswers ) {
 				ProvaList ls = ProvaListImpl.create( answer.getFixed() );
@@ -145,6 +144,8 @@ public class ProvaGoalImpl implements ProvaGoal {
 		}
 		try {
 			final ProvaRule nextRule = (iterator!=null && iterator.hasNext()) ? iterator.next() : null;
+			if( nextRule!=null && !iterator.hasNext() )
+				singleClause = true;
 			return nextRule;
 		} catch( ConcurrentModificationException ignored ) {
 			// TODO: Double-check this: this happens when a temporal reaction rule is removed

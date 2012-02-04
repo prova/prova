@@ -1,0 +1,32 @@
+% Since Prova 3.1.8
+
+:- eval(server()).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% SERVER %%%%%
+%%%%%%%%%%%%%%%%%%
+
+server() :-
+	@count(-1)
+	rcvMsg(XID,Protocol,From,inform,mymsg(MSG)),
+	0 = MSG mod 10000,
+	$Latch.countDown(),
+	println([MSG]).
+
+%%%%%%%%%%%%%%%%%%
+%%%%% CLIENT %%%%%
+%%%%%%%%%%%%%%%%%%
+
+:- eval(client()).
+
+client() :-
+	switch_thread(),
+	for 1 750000 : I,
+	N = I mod 16,
+	sendMsg(N,async,0,inform,mymsg(I)),
+	0 = I mod 10000,
+	println(["=>",I]).
+
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).

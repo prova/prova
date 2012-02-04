@@ -242,6 +242,30 @@ public class ProvaMetadataTest {
 	}
 
 	@Test
+	public void cep005() {
+		final String rulebase = "rules/reloaded/cep005.prova";
+		
+		CountDownLatch latch = new CountDownLatch(75);
+		Map<String,Object> globals = new HashMap<String,Object>();
+		globals.put("$Latch", latch);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		final int numSolutions[] = {0,0};
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(solutions.size(),numSolutions.length);
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",solutions.get(i).length,numSolutions[i]);
+
+		try {
+			synchronized(this) {
+				boolean success = latch.await(60, TimeUnit.SECONDS);
+				org.junit.Assert.assertTrue("Could not receive all messages",success);
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	@Test
 	public void and_vars() {
 		final String rulebase = "rules/reloaded/and_vars.prova";
 		
