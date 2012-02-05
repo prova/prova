@@ -307,6 +307,22 @@ public class ProvaFunctionalProgrammingTest {
 	}
 
 	@Test
+	/**
+	 * Breadth-first traversal and labelling using Prova unfoldr (corecursion)
+	 */
+	public void func_breadth_first() {
+		final String rulebase = "rules/reloaded/func_020.prova";
+		final int[] numSolutions = new int[] {0,1,1,1,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length,solutions.size());
+		for( int i=0; i<numSolutions.length; i++)
+			org.junit.Assert.assertEquals(numSolutions[i],solutions.get(i).length);
+	}
+
+	@Test
 	public void func_stream_fusion_2() {
 		final String rulebase = "rules/reloaded/func_011.prova";
 		final int[] numSolutions = new int[] {0,1};

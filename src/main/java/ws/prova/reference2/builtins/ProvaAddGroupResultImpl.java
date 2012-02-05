@@ -9,7 +9,6 @@ import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaLiteral;
 import ws.prova.kernel2.ProvaRule;
-import ws.prova.kernel2.ProvaVariable;
 
 public class ProvaAddGroupResultImpl extends ProvaBuiltinImpl {
 

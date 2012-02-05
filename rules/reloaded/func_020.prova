@@ -1,0 +1,75 @@
+% Demonstrate unfoldr-like functionality:
+%     breadth-first traversing and labelling of an N-ary tree 
+% Compare this with Okasaki's functional pearl http://www.eecs.usma.edu/webs/people/okasaki/icfp00bfn.pdf
+%     and Jones and Gibbons algorithm
+
+:- eval(consult('functional.prova')).
+
+% Returns:
+% SF1=[state,[[list,a,b,c,d],[]]]
+:-solve(test_breadth_first_traversal(SF1)).
+
+trav [] maybe(just([],[])) : list() maybe(nothing()) = !.
+trav [] maybe(just([tree(X,Xs)|Es],L)) : list(X) maybe(just(Es,Ys)) =
+	!,attach(L,Xs,Ys).
+trav [] maybe(just([],L)) : list() maybe(just(L,[])).
+
+test_breadth_first_traversal(X) :-
+	map [map([trav])] state([list([]),maybe(just([tree(a,[tree(b,[tree(d,[])]),tree(c,[])])],[]))]) : X.
+
+% Returns
+% SF1=[state,[[list,[tree,a,[[tree,b,[[tree,d,[]]]],[tree,c,[]]]],[tree,b,[[tree,d,[]]]],[tree,c,[]],[tree,d,[]]],[]]]
+:-solve(test_breadth_first_traversal_2(SF2)).
+
+trav_t [] maybe(just([],[])) : list() maybe(nothing()) = !.
+trav_t [] maybe(just([tree(X,Xs)|Es],L)) : list(tree(X,Xs)) maybe(just(Es,Ys)) =
+	!,attach(L,Xs,Ys).
+trav_t [] maybe(just([],L)) : list() maybe(just(L,[])).
+
+test_breadth_first_traversal_2(X) :-
+	map [map([trav_t])] state([list([]),maybe(just([tree(a,[tree(b,[tree(d,[])]),tree(c,[])])],[]))]) : X.
+
+% Returns
+% SF1=[state,[[list,[a],[b,c],[d]],[]]]
+:-solve(test_breadth_first_traversal_3(SF3)).
+
+trav_layer [] maybe(just([],[],[])) : list() maybe(nothing()) = !.
+trav_layer [] maybe(just([tree(X,Xs)|Es],L,Z)) : list() maybe(just(Es,Ys,ZM)) =
+	!,attach(L,Xs,Ys),attach(Z,[X],ZM).
+trav_layer [] maybe(just([],L,Z)) : list(Z) maybe(just(L,[],[])).
+
+test_breadth_first_traversal_3(X) :-
+	map [map([trav_layer])] state([list([]),maybe(just([tree(a,[tree(b,[tree(d,[])]),tree(c,[])])],[],[]))]) : X.
+
+% Returns:
+% SF4=[state,[[list,[tree,0,[<7158>,<7159>]],[tree,0,[[tree,1,[<7163>]],[tree,2,[]]]],[tree,0,[[tree,1,[[tree,3,[]]]],[tree,2,[]]]]],[]]]
+:-solve(test_breadth_first_labelling(SF4)).
+
+%:- solve(list_vars([1,2,3],X)).
+
+list_vars [] : [] = !.
+list_vars [X|Xs] : [A|As] =
+	list_vars Xs : As.
+
+% All done, no more children in the queue
+label [] maybe(just([],[],_,_,T)) : list(T) maybe(nothing()) = !.
+% Root of the tree, get the original children Xs and as many new free variables Z into separate queues
+label [] maybe(just([tree(X,Xs)],[],_,0,T)) : list() maybe(just([],Xs,Z,1,tree(0,Z))) =
+	!,
+	% Generate free variables, one each for each node child
+	list_vars Xs : Z.
+% Main step: take one node tree(X,Xs) and assign a partial result tree(N,ZZs) to the first variable in the queue   
+label [] maybe(just([tree(X,Xs)|Es],L,[tree(N,ZZs)|Zs],N,T)) : list() maybe(just(Es,Ys,ZZZs,N2,T)) =
+	!,
+	% Generate free variables, one each for each node child
+	list_vars Xs : ZZs,
+	% Append them to the variables queue
+	attach(Zs,ZZs,ZZZs),
+	N2=N+1,
+	% Append the node children to the queue of lower level nodes
+	attach(L,Xs,Ys).
+% Level complete, so emit the full tree down to this level and go down
+label [] maybe(just([],Xs,Z,N,T)) : list(T) maybe(just(Xs,[],Z,N,T)).
+
+test_breadth_first_labelling(X) :-
+	map [map([label])] state([list([]),maybe(just([tree(a,[tree(b,[tree(d,[])]),tree(c,[])])],[],_,0,_))]) : X.
