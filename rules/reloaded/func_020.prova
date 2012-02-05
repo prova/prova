@@ -18,7 +18,7 @@ test_breadth_first_traversal(X) :-
 	map [map([trav])] state([list([]),maybe(just([tree(a,[tree(b,[tree(d,[])]),tree(c,[])])],[]))]) : X.
 
 % Returns
-% SF1=[state,[[list,[tree,a,[[tree,b,[[tree,d,[]]]],[tree,c,[]]]],[tree,b,[[tree,d,[]]]],[tree,c,[]],[tree,d,[]]],[]]]
+% SF2=[state,[[list,[tree,a,[[tree,b,[[tree,d,[]]]],[tree,c,[]]]],[tree,b,[[tree,d,[]]]],[tree,c,[]],[tree,d,[]]],[]]]
 :-solve(test_breadth_first_traversal_2(SF2)).
 
 trav_t [] maybe(just([],[])) : list() maybe(nothing()) = !.
@@ -30,7 +30,7 @@ test_breadth_first_traversal_2(X) :-
 	map [map([trav_t])] state([list([]),maybe(just([tree(a,[tree(b,[tree(d,[])]),tree(c,[])])],[]))]) : X.
 
 % Returns
-% SF1=[state,[[list,[a],[b,c],[d]],[]]]
+% SF3=[state,[[list,[a],[b,c],[d]],[]]]
 :-solve(test_breadth_first_traversal_3(SF3)).
 
 trav_layer [] maybe(just([],[],[])) : list() maybe(nothing()) = !.
