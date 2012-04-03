@@ -72,6 +72,7 @@ import ws.prova.reference2.builtins.ProvaLengthImpl;
 import ws.prova.reference2.builtins.ProvaLessEqualImpl;
 import ws.prova.reference2.builtins.ProvaLessImpl;
 import ws.prova.reference2.builtins.ProvaListenImpl;
+import ws.prova.reference2.builtins.ProvaMapMergeImpl;
 import ws.prova.reference2.builtins.ProvaMatchImpl;
 import ws.prova.reference2.builtins.ProvaMathAddImpl;
 import ws.prova.reference2.builtins.ProvaMathDivideImpl;
@@ -196,6 +197,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("copy_stream", new ProvaCopyStreamImpl(this));
 		builtins.put("parse_list", new ProvaParseListImpl(this));
 		builtins.put("tokenize_list", new ProvaTokenizeListImpl(this));
+		builtins.put("map_merge", new ProvaMapMergeImpl(this));
 		builtins.put("free", new ProvaFreeImpl(this));
 		builtins.put("bound", new ProvaBoundImpl(this));
 		builtins.put("type", new ProvaTypeImpl(this));

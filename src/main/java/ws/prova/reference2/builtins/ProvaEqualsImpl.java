@@ -9,10 +9,15 @@ import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaLiteral;
 import ws.prova.kernel2.ProvaObject;
+import ws.prova.kernel2.ProvaPredicate;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.reference2.ProvaGlobalConstantImpl;
+import ws.prova.reference2.ProvaListImpl;
+import ws.prova.reference2.ProvaLiteralImpl;
+import ws.prova.reference2.ProvaPredicateImpl;
+import ws.prova.reference2.ProvaRuleImpl;
 import ws.prova.agent2.ProvaReagent;
 
 public class ProvaEqualsImpl extends ProvaBuiltinImpl {
@@ -59,7 +64,16 @@ public class ProvaEqualsImpl extends ProvaBuiltinImpl {
 			}
 			return false;
 		}
-		// TODO Deal with the case when LHS is a list
+		// Deal with the case when LHS is a list
+		if( lt instanceof ProvaList && rhs instanceof ProvaList ) {
+			ProvaPredicate pred = new ProvaPredicateImpl("",1,kb);
+			ProvaLiteral lit = new ProvaLiteralImpl(pred, (ProvaList) lt);
+			ProvaRule clause = ProvaRuleImpl.createVirtualRule(1, lit, null);
+			pred.addClause(clause);
+			ProvaLiteral newLiteral = new ProvaLiteralImpl(pred, (ProvaList) rhs);
+			newLiterals.add(newLiteral);
+			return true;
+		}
 		return false;
 	}
 
