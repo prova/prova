@@ -1,4 +1,6 @@
 % Since Prova 3.1.9
+% Showing the first signature of map_merge that takes two maps and produces the result
+%    of their merging together. See the exam[ples below for details.
 
 % A union of non-intersecting maps
 % Returns: Map={id=1, desc=b, name=a}

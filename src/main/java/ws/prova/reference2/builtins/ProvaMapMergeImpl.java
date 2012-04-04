@@ -69,49 +69,100 @@ public class ProvaMapMergeImpl extends ProvaBuiltinImpl {
 				return false;
 			if (!(m[2] instanceof ProvaList))
 				return false;
-			final Map<String, ProvaObject> md = new HashMap<String, ProvaObject>();
-			md.putAll((Map<String, ProvaObject>) ((ProvaMapImpl) m[0])
-					.getObject());
-			ProvaList keysList = (ProvaList) m[1];
-			ProvaList valuesList = (ProvaList) m[2];
-			for (int n = 0; n < keysList.getFixed().length; n++) {
-				ProvaObject okey = keysList.getFixed()[n];
-				if (!(okey instanceof ProvaConstant))
+			Map<String, ProvaObject> in = (Map<String, ProvaObject>) ((ProvaMapImpl) m[0]).getObject();
+			final ProvaList valuesList = (ProvaList) m[2];
+			final Set<String> inKeys = in.keySet(); 
+			final ProvaList keysList = (ProvaList) m[1];
+			final Set<String> keys = new HashSet<String>();
+			keys.addAll(inKeys);
+			final Map<String, ProvaObject> supplied = new HashMap<String, ProvaObject>();
+			for( int i=0; i<keysList.getFixed().length; i++ ) {
+				supplied.put(keysList.getFixed()[i].toString(), valuesList.getFixed()[i]);
+			}
+			keys.retainAll(supplied.keySet());
+			if( keys.isEmpty() ) {
+				final Map<String, ProvaObject> md = new HashMap<String, ProvaObject>();
+				md.putAll(in);
+				for (int n = 0; n < keysList.getFixed().length; n++) {
+					ProvaObject okey = keysList.getFixed()[n];
+					if (!(okey instanceof ProvaConstant))
+						return false;
+					ProvaObject ovalue = valuesList.getFixed()[n];
+					md.put(okey.toString(), ovalue);
+				}
+				ProvaObject a2 = data[1];
+				if (a2 instanceof ProvaVariablePtr) {
+					ProvaVariablePtr varPtr = (ProvaVariablePtr) a2;
+					a2 = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+				}
+				if (a2 instanceof ProvaVariable) {
+					((ProvaVariable) a2).setAssigned(ProvaMapImpl.wrap(md));
+					return true;
+				}
+				if (!(a2 instanceof ProvaMapImpl))
 					return false;
-				ProvaObject ovalue = valuesList.getFixed()[n];
-				md.put(okey.toString(), ovalue);
-			}
-			ProvaObject a2 = data[1];
-			if (a2 instanceof ProvaVariablePtr) {
-				ProvaVariablePtr varPtr = (ProvaVariablePtr) a2;
-				a2 = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
-			}
-			if (a2 instanceof ProvaVariable) {
-				((ProvaVariable) a2).setAssigned(ProvaMapImpl.wrap(md));
+				final Map<String, ProvaObject> mc = (Map<String, ProvaObject>) ((ProvaMapImpl) a2)
+						.getObject();
+				if (!mc.keySet().equals(md.keySet()))
+					return false;
+				// Set up proper unification for values
+				final ProvaObject[] vals1 = new ProvaObject[mc.size()];
+				final ProvaObject[] vals2 = new ProvaObject[mc.size()];
+				int i = 0;
+				for (String key : mc.keySet()) {
+					vals1[i] = mc.get(key);
+					vals2[i++] = md.get(key);
+				}
+				final ProvaPredicate pred = new ProvaPredicateImpl("", 1, kb);
+				final ProvaLiteral lit = new ProvaLiteralImpl(pred,
+						ProvaListImpl.create(vals1));
+				final ProvaRule clause = ProvaRuleImpl.createVirtualRule(1, lit,
+						null);
+				pred.addClause(clause);
+				final ProvaLiteral newLiteral = new ProvaLiteralImpl(pred,
+						ProvaListImpl.create(vals2));
+				newLiterals.add(newLiteral);
 				return true;
 			}
-			if (!(a2 instanceof ProvaMapImpl))
-				return false;
-			final Map<String, ProvaObject> mc = (Map<String, ProvaObject>) ((ProvaMapImpl) a2)
-					.getObject();
-			if (!mc.keySet().equals(md.keySet()))
-				return false;
-			// Set up proper unification for values
-			final ProvaObject[] vals1 = new ProvaObject[mc.size()];
-			final ProvaObject[] vals2 = new ProvaObject[mc.size()];
+			// There are common keys in the set 'keys':
+			// ensure they match in both sets
+			final ProvaObject[] vals1 = new ProvaObject[keys.size()];
+			final ProvaObject[] vals2 = new ProvaObject[keys.size()];
+			final ProvaObject[] keysArray = new ProvaObject[keys.size()];
 			int i = 0;
-			for (String key : mc.keySet()) {
-				vals1[i] = mc.get(key);
-				vals2[i++] = md.get(key);
+			for (String key : keys) {
+				keysArray[i] = ProvaConstantImpl.wrap(key);
+				ProvaObject oa = in.get(key);
+				vals1[i] = oa;
+				ProvaObject ob = supplied.get(key);
+				vals2[i] = ob;
+				i++;
 			}
 			final ProvaPredicate pred = new ProvaPredicateImpl("", 1, kb);
 			final ProvaLiteral lit = new ProvaLiteralImpl(pred,
 					ProvaListImpl.create(vals1));
-			final ProvaRule clause = ProvaRuleImpl.createVirtualRule(1, lit,
-					null);
+			final ProvaRule clause = ProvaRuleImpl.createVirtualRule(1, lit, null);
 			pred.addClause(clause);
-			final ProvaLiteral newLiteral = new ProvaLiteralImpl(pred,
-					ProvaListImpl.create(vals2));
+			final ProvaList vals2list = ProvaListImpl.create(vals2);
+			ProvaLiteral newLiteral = new ProvaLiteralImpl(pred, vals2list);
+			newLiterals.add(newLiteral);
+
+			// First part of the result
+			final Map<String, ProvaObject> md = new HashMap<String, ProvaObject>();
+			for (String key : in.keySet()) {
+				if (!keys.contains(key))
+					md.put(key, in.get(key));
+			}
+			for (String key : supplied.keySet()) {
+				if (!keys.contains(key))
+					md.put(key, supplied.get(key));
+			}
+			ProvaList newArray = ProvaListImpl.create(new ProvaObject[] {
+					ProvaMapImpl.wrap(md), ProvaListImpl.create(keysArray),
+					vals2list });
+			ProvaList newArgs = ProvaListImpl.create(new ProvaObject[] { newArray,
+					data[1] });
+			newLiteral = kb.generateLiteral("map_merge", newArgs);
 			newLiterals.add(newLiteral);
 			return true;
 		}
