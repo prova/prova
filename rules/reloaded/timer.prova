@@ -21,7 +21,6 @@ registry() :-
 advertiser() :- 
 	% Send all the test messages from a separate thread
 	switch_thread(),
-	% Process all messages on the same partition
 	sendMsg(u1,async,0,update,{service:1}),
 	% Wait synchronously, could have waited asynchronously instead
 	java.lang.Thread.sleep(2000L),

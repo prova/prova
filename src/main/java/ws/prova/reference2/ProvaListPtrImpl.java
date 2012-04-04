@@ -36,8 +36,13 @@ public class ProvaListPtrImpl implements ProvaListPtr {
 	public ProvaList getAssignedWithOffset() {
 		if( offset==0 )
 			return assigned;
-		ProvaObject[] newFixed = Arrays.copyOfRange(assigned.getFixed(),offset,assigned.getFixed().length);
-		return ProvaListImpl.create(newFixed);
+		// Make sure the tail is copied across as well
+		if( offset<assigned.getFixed().length ) {
+			ProvaObject[] newFixed = Arrays.copyOfRange(assigned.getFixed(),offset,assigned.getFixed().length);
+			return ProvaListImpl.create(newFixed, assigned.getTail());
+		} else if( offset==assigned.getFixed().length )
+			return ProvaListImpl.create(null, assigned.getTail());
+		return ProvaListImpl.emptyRList;
 	}
 
 	public void setOffset(int offset) {
@@ -124,6 +129,8 @@ public class ProvaListPtrImpl implements ProvaListPtr {
 
 	@Override
 	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables) {
+		if( assigned!=null && assigned!=this )
+			return assigned.cloneWithVariables(variables);
 		throw new UnsupportedOperationException();
 	}
 

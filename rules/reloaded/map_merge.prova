@@ -57,10 +57,8 @@ test7(A,B,Map) :-
 	map_merge A B : Map.
 
 % Unification on both sides with lists as values
-% NOT WORKING YET AS Z and Zs remain unassigned due to parser issue
-%:- solve(test8({id:1,name:'a',desc:B},{name:A,desc:['b','c']},{id:X,name:'a',desc:[Z,'c']})).
+:- solve(test8({id:1,name:'a',desc:B},{name:A,desc:['b','c']},{id:X,name:'a',desc:[Z|Zs]})).
 
 test8(A,B,Map) :-
 	println(["8: A",A," B",B]),
 	map_merge A B : Map.
-

@@ -1,0 +1,7 @@
+:- solve(test(A,B)).
+
+test(A,B) :-
+	w({a:A,b:[X,Y]}),
+	B=[X,Y].
+
+w({a:1,b:[2,3]}).
