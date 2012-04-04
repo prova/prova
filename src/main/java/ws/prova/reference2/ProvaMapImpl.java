@@ -29,12 +29,13 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		int rc = -1;
 		Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
 		for( Entry<String,ProvaObject> e : map.entrySet() ) {
-			if( e.getValue() instanceof ProvaVariablePtr ) {
+			final ProvaObject value = e.getValue();
+			if( value instanceof ProvaVariablePtr ) {
 				rc = 0;
 				continue;
 			}
-			int r = e.getValue().collectVariables(ruleId, variables);
-			if( r!=-1 ) {
+			int r = value.collectVariables(ruleId, variables);
+			if( r!=-1 && !(value instanceof ProvaList) ) {
 				e.setValue(new ProvaVariablePtrImpl(ruleId, r));
 				rc = r;
 			}

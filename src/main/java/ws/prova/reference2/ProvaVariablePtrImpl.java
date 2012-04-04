@@ -2,6 +2,7 @@ package ws.prova.reference2;
 
 import java.util.List;
 
+import ws.prova.kernel2.ProvaListPtr;
 import ws.prova.kernel2.ProvaObject;
 import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
@@ -95,6 +96,9 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 			ProvaVariablePtrImpl targetPtr = (ProvaVariablePtrImpl) target;
 			targetObject = unification.getVariableFromVariablePtr(targetPtr).getRecursivelyAssigned();
 //			targetObject = unification.getTargetVariables().get(targetPtr.index).getRecursivelyAssigned();
+		} else if( target instanceof ProvaListPtr ) {
+			// Since Prova 3.1.9: variable pointer assigned to a list pointer case handled
+			targetObject = ((ProvaListPtr) target).getAssignedWithOffset();
 		} else
 			targetObject = target;
 		return sourceObject.unify(targetObject, unification);

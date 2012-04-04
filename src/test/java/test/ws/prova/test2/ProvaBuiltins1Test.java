@@ -10,6 +10,7 @@ import ws.prova.api2.ProvaCommunicator;
 import ws.prova.api2.ProvaCommunicatorImpl;
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaList;
+import ws.prova.kernel2.ProvaObject;
 import ws.prova.exchange.ProvaSolution;
 
 public class ProvaBuiltins1Test {
@@ -98,9 +99,29 @@ public class ProvaBuiltins1Test {
 	}
 
 	@Test
+	public void map_with_list_with_unbound_variables() {
+		final String rulebase = "rules/reloaded/map5.prova";
+		final int[] numSolutions = new int[] {1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(1,solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0],solutions.get(0).length);
+		org.junit.Assert.assertTrue(solutions.get(0)[0].getNv("A") instanceof ProvaConstant);
+		final Object ans2 = ((ProvaConstant) solutions.get(0)[0].getNv("A")).getObject();
+		org.junit.Assert.assertTrue(ans2 instanceof Integer);
+		long l = (Integer) ans2;
+		org.junit.Assert.assertEquals(1L, l);
+		org.junit.Assert.assertTrue(solutions.get(0)[0].getNv("B") instanceof ProvaList);
+		final ProvaObject[] fixed = ((ProvaList) solutions.get(0)[0].getNv("B")).getFixed();
+		org.junit.Assert.assertEquals(2, fixed.length);
+	}
+
+	@Test
 	public void map_merge() {
 		final String rulebase = "rules/reloaded/map_merge.prova";
-		final int[] numSolutions = new int[] {1,1,1,0,1,1,1};
+		final int[] numSolutions = new int[] {1,1,1,0,1,1,1,1};
 		
 		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
