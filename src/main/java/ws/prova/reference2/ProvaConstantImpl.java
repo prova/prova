@@ -87,6 +87,9 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 		if( target instanceof ProvaVariablePtr ) {
 			return ((ProvaVariablePtr) target).unify(this, unification);
 		}
+        if (object instanceof ProvaObject) {
+            return ((ProvaObject) object).unify(target, unification);
+        }
 		return false;
 	}
 
@@ -142,7 +145,7 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 	}
 
 	public static ProvaObject wrap(Object o) {
-		return (o instanceof ProvaConstant) ? (ProvaConstant) o : create(o);
+		return (o instanceof ProvaObject) ? (ProvaObject) o : create(o);
 	}
 
 	@Override

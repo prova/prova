@@ -14,11 +14,16 @@ import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaLiteral;
 import ws.prova.kernel2.ProvaObject;
+import ws.prova.kernel2.ProvaPredicate;
 import ws.prova.kernel2.ProvaRule;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 import ws.prova.reference2.ProvaConstantImpl;
+import ws.prova.reference2.ProvaListImpl;
+import ws.prova.reference2.ProvaLiteralImpl;
 import ws.prova.reference2.ProvaMapImpl;
+import ws.prova.reference2.ProvaPredicateImpl;
+import ws.prova.reference2.ProvaRuleImpl;
 
 public class ProvaJavaFunctionImpl extends ProvaBuiltinImpl {
 
@@ -106,12 +111,37 @@ public class ProvaJavaFunctionImpl extends ProvaBuiltinImpl {
 			}
 		}
 		if( lt instanceof ProvaVariable ) {
-			((ProvaVariable) lt).setAssigned( ProvaConstantImpl.create(ret) );
+			((ProvaVariable) lt).setAssigned( 
+					ret instanceof ProvaObject ? (ProvaObject) ret : ProvaConstantImpl.create(ret) );
 		} else if( lt instanceof ProvaConstant ) {
-			// TODO: deal with constants that wrap Java collections
+			if( ret instanceof ProvaObject ) {
+				// Send this to the unification
+				final ProvaPredicate pred = new ProvaPredicateImpl("", 1, kb);
+				final ProvaLiteral lit = new ProvaLiteralImpl(pred,
+						ProvaListImpl.create(new ProvaObject[] {(ProvaObject) ret}));
+				final ProvaRule clause = ProvaRuleImpl.createVirtualRule(1, lit,
+						null);
+				pred.addClause(clause);
+				final ProvaLiteral newLiteral = new ProvaLiteralImpl(pred,
+						ProvaListImpl.create(new ProvaObject[] {lt}));
+				newLiterals.add(newLiteral);
+				return true;
+			}
 			return ((ProvaConstant) lt).getObject().equals(ret);
 		} else if( lt instanceof ProvaList ) {
-			// TODO: not implemented
+			if( !(ret instanceof ProvaList) )
+				return false;
+			// Send this to the unification
+			final ProvaPredicate pred = new ProvaPredicateImpl("", 1, kb);
+			final ProvaLiteral lit = new ProvaLiteralImpl(pred,
+					ProvaListImpl.create(new ProvaObject[] {(ProvaObject) ret}));
+			final ProvaRule clause = ProvaRuleImpl.createVirtualRule(1, lit,
+					null);
+			pred.addClause(clause);
+			final ProvaLiteral newLiteral = new ProvaLiteralImpl(pred,
+					ProvaListImpl.create(new ProvaObject[] {lt}));
+			newLiterals.add(newLiteral);
+			return true;
 		} else
 			return false;
 		return true;

@@ -2,67 +2,38 @@
 % Showing the second signature of map_merge that takes keys and values lists separately
 %    to join the input map
 
+test(Num,In,Keys,Values,Out) :-
+	println([Num,": In",In," Keys",Keys," Values",Values]),
+	map_merge In Keys Values : Out.
+
 % A union of non-intersecting maps
 % Returns: Map={id=1, desc=b, name=a}
-:- solve(test1({id:1},[name,desc],['a','b'],Map)).
-
-test1(In,Keys,Values,Out) :-
-	println(["1: In",In," Keys",Keys," Values",Values]),
-	map_merge In Keys Values : Out.
+:- solve(test(1,{id:1},[name,desc],['a','b'],Map)).
 
 % Unify the union result with the supplied fully ground map
 % Returns: yes
-:- solve(test2({id:1},[name,desc],['a','b'],{id:1,name:'a',desc:'b'})).
-
-test2(In,Keys,Values,Out) :-
-	println(["2: In",In," Keys",Keys," Values",Values]),
-	map_merge In Keys Values : Out.
+:- solve(test(2,{id:1},[name,desc],['a','b'],{id:1,name:'a',desc:'b'})).
 
 % Unify the union result with a map containing variables in the map values
 % Returns: A=a
-:- solve(test3({id:1},[name,desc],['a','b'],{id:1,name:A,desc:'b'})).
-
-test3(In,Keys,Values,Out) :-
-	println(["3: In",In," Keys",Keys," Values",Values]),
-	map_merge In Keys Values : Out.
+:- solve(test(3,{id:1},[name,desc],['a','b'],{id:1,name:A,desc:'b'})).
 
 % No match here due to different values for the key 'name'
 % Returns: nothing
-:- solve(test4({id:1},[name,desc],['a','b'],{id:1,name:'b',desc:'b'})).
-
-test4(In,Keys,Values,Out) :-
-	println(["4: In",In," Keys",Keys," Values",Values]),
-	map_merge In Keys Values : Out.
+:- solve(test(4,{id:1},[name,desc],['a','b'],{id:1,name:'b',desc:'b'})).
 
 % Create a proper union of key,value pairs
 % Returns: Map={id=1, desc=b, name=a}
-:- solve(test5({id:1,name:'a'},[name,desc],['a','b'],Map)).
-
-test5(In,Keys,Values,Out) :-
-	println(["5: In",In," Keys",Keys," Values",Values]),
-	map_merge In Keys Values : Out.
+:- solve(test(5,{id:1,name:'a'},[name,desc],['a','b'],Map)).
 
 % Create a union with unification included so that A and B will become assigned
 % Returns: B=b, A=a, Map={id=1, desc=b, name=a}
 % TODO: does not work yet
-:- solve(test6({id:1,name:'a',desc:B},[name,desc],[A,'b'],Map)).
-
-test6(In,Keys,Values,Out) :-
-	println(["6: In",In," Keys",Keys," Values",Values]),
-	map_merge In Keys Values : Out.
+:- solve(test(6,{id:1,name:'a',desc:B},[name,desc],[A,'b'],Map)).
 
 % Unification on both sides
 % Returns: B=[b,c], A=a, X=1, Z=[b,c]
-:- solve(test7({id:1,name:'a',desc:B},[name,desc],[A,['b','c']],{id:X,name:'a',desc:Z})).
-
-test7(In,Keys,Values,Out) :-
-	println(["7: In",In," Keys",Keys," Values",Values]),
-	map_merge In Keys Values : Out.
+:- solve(test(7,{id:1,name:'a',desc:B},[name,desc],[A,['b','c']],{id:X,name:'a',desc:Z})).
 
 % Unification on both sides with lists as values
-:- solve(test8({id:1,name:'a',desc:B},[name,desc],[A,['b','c']],{id:X,name:'a',desc:[Z|Zs]})).
-
-test8(In,Keys,Values,Out) :-
-	println(["8: In",In," Keys",Keys," Values",Values]),
-	map_merge In Keys Values : Out.
-	
+:- solve(test(8,{id:1,name:'a',desc:B},[name,desc],[A,['b','c']],{id:X,name:'a',desc:[Z|Zs]})).

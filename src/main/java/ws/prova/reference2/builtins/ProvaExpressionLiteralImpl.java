@@ -27,7 +27,8 @@ public class ProvaExpressionLiteralImpl extends ProvaBuiltinImpl {
 			ProvaGoal goal, List<ProvaLiteral> newLiterals, ProvaRule query) {
 		ProvaLiteral literal = goal.getGoal();
 		List<ProvaVariable> variables = query.getVariables();
-		ProvaList terms = (ProvaList) literal.getTerms().cloneWithVariables(variables);
+		ProvaList terms = (ProvaList) literal.getTerms(); //.cloneWithVariables(variables);
+		terms.updateGround(variables);
 		ProvaObject[] data = terms.getFixed();
 		if( data.length!=3 )
 			return false;
@@ -45,11 +46,19 @@ public class ProvaExpressionLiteralImpl extends ProvaBuiltinImpl {
 		ProvaBinaryOperator bo = (ProvaBinaryOperator) olt1;
 		// LHS
 		ProvaObject a1 = data[1];
-		if( !((a1 instanceof ProvaVariable) || (a1 instanceof ProvaConstant)) )
+		if( a1 instanceof ProvaVariablePtr ) {
+			ProvaVariablePtr varPtr = (ProvaVariablePtr) a1;
+			a1 = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+		}
+		if( !((a1 instanceof ProvaVariable) || (a1 instanceof ProvaConstant) || (a1 instanceof ProvaList)) )
 			return false;
 		// Expression
 		ProvaObject a2 = data[2];
-		return bo.evaluate(a1, (ProvaComputable) a2);
+		if( a2 instanceof ProvaVariablePtr ) {
+			ProvaVariablePtr varPtr = (ProvaVariablePtr) a2;
+			a2 = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+		}
+		return bo.evaluate(kb, newLiterals, a1, (ProvaComputable) a2);
 	}
 
 }

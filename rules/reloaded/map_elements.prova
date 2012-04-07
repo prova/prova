@@ -1,0 +1,10 @@
+test(Num,Map,F,V) :-
+	println([Num,": ",V]),
+	V=Map.get(F).
+
+% Returns: X=X, Y=Y
+:- solve(test(1,{a:123,b:[X,Y]},a,123)).
+
+% Returns: X=<17>, Y=<18>, A=<19>, Z=<17>, Zs=[<18>]
+% Note that X and Z are equal and so are [Y] and Zs 
+:- solve(test(2,{a:A,b:[X,Y]},b,[Z|Zs])).
