@@ -31,7 +31,11 @@ public class ProvaFcalcImpl implements ProvaOperator {
 //				po = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
 //			} else if( !(po instanceof ProvaConstant) )
 //				return false;
-			args.add( ((ProvaConstant) po).getObject() );
+			if( po instanceof ProvaConstant ) {
+				args.add( ((ProvaConstant) po).getObject() );
+				continue;
+			}
+			args.add(po);
 		}
 		Object ret = null;
 		if( type.equals("s") ) {

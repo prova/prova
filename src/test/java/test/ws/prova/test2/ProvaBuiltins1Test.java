@@ -319,4 +319,17 @@ public class ProvaBuiltins1Test {
 		org.junit.Assert.assertTrue(solutions.get(0)[0].getNv("Groups") instanceof ProvaList);
 	}
 
+	@Test
+	public void variables_as_args() {
+		final String rulebase = "rules/reloaded/variables_as_args.prova";
+		final int[] numSolutions = new int[] {1,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length, solutions.size());
+		org.junit.Assert.assertEquals(numSolutions[0], solutions.get(0).length);
+		org.junit.Assert.assertEquals(numSolutions[1], solutions.get(1).length);
+	}
+
 }

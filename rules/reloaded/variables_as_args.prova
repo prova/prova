@@ -1,0 +1,20 @@
+% Since Prova 3.1.9
+
+% Returns: Size=2
+:- solve(test1(Size)).
+
+test1(Size) :-
+    L  = test.ws.prova.aux.ProvaListAux.createProvaList(),
+    println(["The list is: ", L]),
+    Size = test.ws.prova.aux.ProvaListAux.calculateSize(L),
+    println(["Its size is: ", Size]).
+
+% Returns: V=b
+:- solve(test2(V)).
+
+test2(V) :-
+    V  = ws.prova.reference2.ProvaVariableImpl.create(a),
+    println(["The variable name is: ", V]),
+    V=b,
+    println(["When assigned it becomes: ", V]).
+   
