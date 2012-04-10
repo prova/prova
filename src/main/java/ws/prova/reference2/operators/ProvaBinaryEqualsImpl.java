@@ -28,7 +28,7 @@ public class ProvaBinaryEqualsImpl implements ProvaBinaryOperator {
 		if( n2.getClass()==ProvaConstantImpl.class )
 			n2 = ((ProvaConstant) n2).getObject();
 		if( o1 instanceof ProvaVariable ) {
-			((ProvaVariable) o1).setAssigned(n2 instanceof ProvaObject ? (ProvaObject) n2 : ProvaConstantImpl.create(n2));
+			((ProvaVariable) o1).setAssigned(ProvaConstantImpl.wrap(n2));
 			return true;
 		}
 		if( o1 instanceof ProvaGlobalConstantImpl ) {

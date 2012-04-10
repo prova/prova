@@ -28,7 +28,6 @@ test(Num,In,Keys,Values,Out) :-
 
 % Create a union with unification included so that A and B will become assigned
 % Returns: B=b, A=a, Map={id=1, desc=b, name=a}
-% TODO: does not work yet
 :- solve(test(6,{id:1,name:'a',desc:B},[name,desc],[A,'b'],Map)).
 
 % Unification on both sides
