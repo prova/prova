@@ -47,6 +47,10 @@ options {
     public void emitErrorMessage(String msg) {
         errorReporter.reportError(msg);
     }
+    
+    private org.antlr.runtime.tree.TreeNodeStream getInput() {
+    	return input;
+    } 
 
 }
 
@@ -416,7 +420,7 @@ constructor_java_call	returns [List<ProvaObject> ret]
 		| o=UCWORD {
 			Class<?> type = ProvaClassUtils.findClass((String) o.toString());
 			if( type==null )
-				throw new RecognitionException();
+				throw new MismatchedTreeNodeException(0,getInput());
 			$ret.add(ProvaConstantImpl.create(type));
 			} ) a=args {
 			$ret.add(a);
@@ -596,7 +600,7 @@ scope {
 @after {
 	Class type = ProvaClassUtils.findClass((String) $qualified_java_class::s);
 	if( type==null )
-		throw new RecognitionException();
+		throw new MismatchedTreeNodeException(0,getInput());
 	$ret=ProvaConstantImpl.create(/*$qualified_java_class::s*/type);
 }
 	:	^(QUALIFIED_JAVA_CLASS ((l=LCWORD d=DOT) {$qualified_java_class::s+=l.toString()+d.toString();})+ u=UCWORD) {
@@ -633,17 +637,17 @@ typed_variable returns [ProvaObject ret]
 				if( type==null ) {
 					type = ProvaClassUtils.findClass("java.lang."+u.toString());
 					if( type==null )
-						throw new RecognitionException();
+						throw new MismatchedTreeNodeException(0,getInput());
 				}
 				Object field;
 				try {
 					field = type.getField(l.toString()).get(null);
 				} catch( Exception e1 ) {
-					throw new RecognitionException();
+					throw new MismatchedTreeNodeException(0,getInput());
 				}
 				$ret=ProvaConstantImpl.create(field);
 			} catch( Exception e ) {
-				throw new RecognitionException();
+				throw new MismatchedTreeNodeException(0,getInput());
 			}
 		}
 		// a field in a class or a variable of a class
@@ -653,7 +657,7 @@ typed_variable returns [ProvaObject ret]
 				if( type==null ) {
 					type = ProvaClassUtils.findClass("java.lang."+u.toString());
 					if( type==null )
-						throw new RecognitionException();
+						throw new MismatchedTreeNodeException(0,getInput());
 				}
 				Object field = null;
 				try {
@@ -664,7 +668,7 @@ typed_variable returns [ProvaObject ret]
 				else
 					$ret=ProvaVariableImpl.create(w.toString(),type);
 			} catch( Exception e ) {
-				throw new RecognitionException();
+				throw new MismatchedTreeNodeException(0,getInput());
 			}
 		}
 ;

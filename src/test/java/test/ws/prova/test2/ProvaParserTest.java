@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import ws.prova.api2.ProvaCommunicatorImpl;
 import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaResolutionInferenceEngine;
 import ws.prova.kernel2.ProvaResultSet;
@@ -18,6 +19,10 @@ import ws.prova.reference2.ProvaResolutionInferenceEngineImpl;
 import ws.prova.reference2.ProvaResultSetImpl;
 
 public class ProvaParserTest {
+
+	static final String kAgent = "prova";
+
+	static final String kPort = null;
 
 	@Test
 	public void simpleParse() {
@@ -154,6 +159,24 @@ public class ProvaParserTest {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	/**
+	 *  A non-existing class used in a Java call literal causes a ProvaParsingException
+	 * @throws ProvaParsingException
+	 */
+	@Test(expected=ProvaParsingException.class)
+	public void incorrect_java_class() throws ProvaParsingException {
+		final String rulebase = "rules/reloaded/incorrect_java_class.prova";
+		
+		try {
+			new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+	
+		} catch( RuntimeException ex ) {
+			// Note that the parsing exception is shipped out inside a RuntimeException
+			if( ex.getCause() instanceof ProvaParsingException )
+				throw (ProvaParsingException) ex.getCause();
 		}
 	}
 

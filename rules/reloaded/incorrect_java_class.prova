@@ -1,0 +1,8 @@
+% Since Prova 3.1.9
+
+% This throws a ProvaParsingException for method create
+%    as there is no class ProvaVariableImpl in the package jj 
+:- solve(test1(V)).
+
+test1(V) :-
+    V  = jj.ProvaVariableImpl.create(a).
