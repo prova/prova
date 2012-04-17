@@ -104,7 +104,17 @@ public class ProvaReagentImpl implements ProvaReagent {
 		kb = new ProvaKnowledgeBaseImpl();
 		kb.setGlobals(globals);
 
-		this.executor = Executors.newFixedThreadPool(1);
+		this.executor = Executors.newFixedThreadPool(1,new ThreadFactory() {
+
+			@Override
+			public Thread newThread(Runnable r) {
+				final Thread th = new Thread(r);
+				th.setName("Sync");
+				th.setDaemon(true);
+				return th;
+			}
+			
+		});
 		this.pool = 
 //			Executors.newFixedThreadPool(10);
 			new ThreadPoolExecutor(10, 10,
@@ -119,10 +129,10 @@ public class ProvaReagentImpl implements ProvaReagent {
 
 						@Override
 						public Thread newThread(Runnable r) {
-							Thread th = null;
-							th = new Thread(r);
+							final Thread th = new Thread(r);
 							threadId2Index.put(th.getId(), index);
 							th.setName("Async-"+(index+1));
+							th.setDaemon(true);
 							return th;
 						}
 
