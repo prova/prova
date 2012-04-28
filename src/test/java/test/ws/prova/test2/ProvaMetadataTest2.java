@@ -243,7 +243,7 @@ public class ProvaMetadataTest2 {
 
 		try {
 			synchronized(this) {
-				wait(2000);
+				wait(3000);
 				org.junit.Assert.assertEquals(6,count.get());
 				org.junit.Assert.assertEquals(1,countTimeout.get());
 			}

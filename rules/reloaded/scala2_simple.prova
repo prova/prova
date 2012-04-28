@@ -1,5 +1,4 @@
-% This test is more complciated than neceassary and it uses
-% a currently rare pattern of using rcvMult inside a reaction group
+% This test is a simplified version of scala2.prova
 
 :- eval(init_server()).
 
@@ -7,41 +6,42 @@ init_server() :-
 	$T0=java.lang.System.currentTimeMillis(),
 	$OrdersInFlight=java.util.concurrent.ConcurrentHashMap().
 
-:- eval(server()). 
+:- eval(server0()).
 
-server() :-
+server0() :-
+	rcvMult(OrderID,Protocol,Sender,request,order(Item)),
+	println(["Order",OrderID,"received"]," "),
+	$OrdersInFlight.put(OrderID,order(OrderID,Sender,Item)),
+	sendMsg(requestor,Protocol,Sender,ack,[order,OrderID]),
+	server2(OrderID,Item).
+
+:- eval(server1()).
+
+server1() :-
 	rcvMult(OrderID,Protocol,Sender,request,cancel(Item)) [false=$OrdersInFlight.containsKey(OrderID)],
 	println(["Order",OrderID,"cannot be cancelled"]," "),
 	$FailedCancels.incrementAndGet(),
 	sendMsg(requestor,async,Sender,nack,[cancel,OrderID]).
 
-server() :-
-	@group(g0)
-	rcvMult(OrderID,Protocol,Sender,request,order(Item)),
-	println(["Order",OrderID,"received"]," "),
-	$OrdersInFlight.put(OrderID,order(OrderID,Sender,Item)),
-	sendMsg(requestor,Protocol,Sender,ack,[order,OrderID]),
-	server_2(OrderID,Item).
-server() :-
-	@and(g0)
-	rcvMsg(OrderID,Protocol,Sender,and,[Order]),
-	$SuccessfulOrders.incrementAndGet(),
-	$OrdersInFlight.remove(OrderID),
-	println(["Proceed with the order as timeout for cancel is elapsed ",OrderID]).
-
-server_2(OrderID,Item) :-
-	@group(g1) @not @timeout(1000)
+server2(OrderID,Item) :-
+	@group(g1)
 	rcvMsg(OrderID,Protocol,Sender,request,cancel(Item)) [!],
 	$OrdersInFlight.remove(OrderID),
 	println(["Order",OrderID,cancelled]," "),
 	$SuccessfulCancels.incrementAndGet(),
 	sendMsg(requestor,Protocol,Sender,ack,[cancel,OrderID]).
-server_2(OrderID,Item) :-
-	@and(g1) @group(g0)
-	rcvMsg(OrderID,Protocol,Sender,and,E),
+server2(OrderID,Item) :-
+	@and(g1) @timeout(1000)
+	rcvMsg(OrderID,Protocol,Sender,and,E).
+server2(OrderID,Item) :-
+	@and(g1)
+	rcvMsg(OrderID,Protocol,Sender,timeout,E),
 	T=java.lang.System.currentTimeMillis(),
 	DT=T-$T0,
-	println([DT,": Timeout elapsed for order ",OrderID]).
+	println([DT,": Timeout elapsed for order ",OrderID]),
+	$SuccessfulOrders.incrementAndGet(),
+	$OrdersInFlight.remove(OrderID),
+	println(["Proceed with the order as timeout for cancel is elapsed ",OrderID]).
 
 :- eval(client()). 
 

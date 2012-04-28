@@ -106,10 +106,40 @@ public class ProvaMetadataTest {
 
 		try {
 			synchronized(this) {
-				wait(3500);
-				org.junit.Assert.assertEquals("Incorrect number of successful orders",2,successfulOrders.get());
-				org.junit.Assert.assertEquals("Incorrect number of successful cancels",1,successfulCancels.get());
-				org.junit.Assert.assertEquals("Incorrect number of failed cancels",1,failedCancels.get());
+				wait(5000);
+				org.junit.Assert.assertEquals("Incorrect number of successful orders",4,successfulOrders.get());
+				org.junit.Assert.assertEquals("Incorrect number of successful cancels",2,successfulCancels.get());
+				org.junit.Assert.assertEquals("Incorrect number of failed cancels",4,failedCancels.get());
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	@Test
+	public void scala2_simple() {
+		final String rulebase = "rules/reloaded/scala2_simple.prova";
+		
+		Map<String,Object> globals = new HashMap<String,Object>();
+		AtomicInteger successfulOrders = new AtomicInteger();
+		globals.put("$SuccessfulOrders", successfulOrders);
+		AtomicInteger successfulCancels = new AtomicInteger();
+		globals.put("$SuccessfulCancels", successfulCancels);
+		AtomicInteger failedCancels = new AtomicInteger();
+		globals.put("$FailedCancels", failedCancels);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		final int numSolutions[] = {0,0,0,0};
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(solutions.size(),numSolutions.length);
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",solutions.get(i).length,numSolutions[i]);
+
+		try {
+			synchronized(this) {
+				wait(5000);
+				org.junit.Assert.assertEquals("Incorrect number of successful orders",4,successfulOrders.get());
+				org.junit.Assert.assertEquals("Incorrect number of successful cancels",2,successfulCancels.get());
+				org.junit.Assert.assertEquals("Incorrect number of failed cancels",4,failedCancels.get());
 			}
 		} catch (Exception e) {
 		}
