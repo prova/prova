@@ -225,6 +225,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 				continue;
 			}
 			goals[i] = body[i].rebuild(this);
+			goals[i].setLine(body[i].getLine());
 			if( allGround )
 				goals[i].setGround(true);
 		}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.apache.log4j.Logger;
 
@@ -27,9 +29,9 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	
 	private final List<ProvaRule> clauses = new ArrayList<ProvaRule>();
 	
-	private final Map<Object,List<ProvaRule>> firstArgMap = new HashMap<Object,List<ProvaRule>>();
+	private final ConcurrentMap<Object,List<ProvaRule>> firstArgMap = new ConcurrentHashMap<Object,List<ProvaRule>>();
 
-	private final Map<String,List<ProvaRule>> srcMap = new HashMap<String,List<ProvaRule>>();
+	private final ConcurrentMap<String,List<ProvaRule>> srcMap = new ConcurrentHashMap<String,List<ProvaRule>>();
 
 	private Map<Long,ProvaRule> temporalRuleMap;
 
@@ -56,7 +58,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	/**
 	 * Now implements pre-filtering by spotting mismatched constants in the source and target arguments
 	 */
-	public synchronized List<ProvaRule> getClauses(Object key, ProvaObject[] source) {
+	public /*synchronized*/ List<ProvaRule> getClauses(Object key, ProvaObject[] source) {
 		List<ProvaRule> bound = firstArgMap.get(key);
 		List<ProvaRule> free = firstArgMap.get("@");
 		if( bound==null )
@@ -111,7 +113,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	}
 	
 	@Override
-	public synchronized void removeClauses(Object key) {
+	public /*synchronized*/ void removeClauses(Object key) {
 		if( key instanceof Long && ((Long) key)<0 ) {
 			ProvaRule rule = temporalRuleMap.remove(-((Long) key));
 			rule.setRemoved();
@@ -130,7 +132,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	 * TODO: Optimise rule storage for multi-key access
 	 */
 	@Override
-	public synchronized void removeTemporalClause(long key) {
+	public /*synchronized*/ void removeTemporalClause(long key) {
 		ProvaRule rule = temporalRuleMap.remove(-key);
 		if( rule==null )
 			return;
@@ -191,7 +193,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	}
 
 	@Override
-	public synchronized void add(ProvaRule clause) {
+	public /*synchronized*/ void add(ProvaRule clause) {
 		final Object firstArg = clause.getFirstArg();
 		if( firstArg!=null ) {
 			List<ProvaRule> rules = firstArgMap.get(firstArg);
@@ -213,7 +215,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	}
 
 	@Override
-	public synchronized void addA(ProvaRule clause) {
+	public /*synchronized*/ void addA(ProvaRule clause) {
 		final Object firstArg = clause.getFirstArg();
 		if( firstArg!=null ) {
 			List<ProvaRule> rules = firstArgMap.get(firstArg);
@@ -234,13 +236,13 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	}
 
 	@Override
-	public synchronized void addAll(ProvaRuleSet ruleSet) {
+	public /*synchronized*/ void addAll(ProvaRuleSet ruleSet) {
 		for( ProvaRule clause : ruleSet.getClauses() )
 			add(clause);
 	}
 
 	@Override
-	public synchronized void addRuleToSrc(ProvaRuleImpl rule, String src) {
+	public /*synchronized*/ void addRuleToSrc(ProvaRuleImpl rule, String src) {
 		List<ProvaRule> rules = srcMap.get(src);
 		if( rules==null ) {
 			rules = new ArrayList<ProvaRule>();
@@ -250,7 +252,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	}
 
 	@Override
-	public synchronized void removeClausesBySrc(String src) {
+	public /*synchronized*/ void removeClausesBySrc(String src) {
 		List<ProvaRule> rules = srcMap.remove(src);
 		if( rules==null )
 			return;

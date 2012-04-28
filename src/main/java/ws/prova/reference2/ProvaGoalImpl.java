@@ -159,7 +159,7 @@ public class ProvaGoalImpl implements ProvaGoal {
 			return null;
 		rule = null;
 		this.singleClause = false;
-		synchronized(kb) {
+//		synchronized(kb) {
 			rule = next();
 			while( rule!=null && rule.isRemoved() )
 				rule = next();
@@ -187,7 +187,7 @@ public class ProvaGoalImpl implements ProvaGoal {
 					rule);
 			unification.setMeta(meta);
 			return unification;
-		}
+//		}
 	}
 	
 	@Override
