@@ -1,4 +1,4 @@
-package test.ws.prova.aux;
+package test.ws.prova.helper;
 
 import ws.prova.kernel2.ProvaList;
 import ws.prova.kernel2.ProvaObject;

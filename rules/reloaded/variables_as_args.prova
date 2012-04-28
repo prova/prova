@@ -4,9 +4,9 @@
 :- solve(test1(Size)).
 
 test1(Size) :-
-    L  = test.ws.prova.aux.ProvaListAux.createProvaList(),
+    L  = test.ws.prova.helper.ProvaListAux.createProvaList(),
     println(["The list is: ", L]),
-    Size = test.ws.prova.aux.ProvaListAux.calculateSize(L),
+    Size = test.ws.prova.helper.ProvaListAux.calculateSize(L),
     println(["Its size is: ", Size]).
 
 % Returns: V=b
