@@ -769,7 +769,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	}
 
 	@Override
-	public synchronized void addClauseSetToSrc(ProvaRuleSet ruleSet, String src) {
+	public /*synchronized*/ void addClauseSetToSrc(ProvaRuleSet ruleSet, String src) {
 		List<ProvaRuleSet> rulesets = srcMap.get(src);
 		if( rulesets==null ) {
 			rulesets = new ArrayList<ProvaRuleSet>();
@@ -779,7 +779,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 	}
 
 	@Override
-	public synchronized void unconsultSync(String src) {
+	public /*synchronized*/ void unconsultSync(String src) {
 		List<ProvaRuleSet> rulesets = srcMap.get(src);
 		if( rulesets==null )
 			return;
