@@ -5,11 +5,11 @@
 :- eval(predicate_join_concurrent()). 
 
 predicate_join_concurrent() :- 
-   println(["==========predicate_join_concurrent=========="]), 
+   println(["==========predicate_join_concurrent=========="]),
+   
+   for(I,0,2),
 
-	for(I,0,2),
-
-   sendMsg(XID,async,0,request,a()), 
+   sendMsgSync(XID,async,0,request,a()), 
    rcvMsg(XID,async,Me,reply,a()), 
 
    % Initialise the predicate join: 
