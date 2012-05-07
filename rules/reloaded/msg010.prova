@@ -11,7 +11,7 @@
 %%%%%%%%%%%%%%%%%
 
 rcvMsg(XID,async,From,raw,Payload) :-
-	sendMsg(XID,async,0,lock,[]),
+	sendMsgSync(XID,async,0,lock,[]),
 	rcvMsg(XID,async,From,locked,[]),
 println(["locked:",XID]," "),
 	!,
@@ -82,7 +82,7 @@ client() :-
 	% Initialise XID so that the subsequent responses are all executed on the same thread
 	sendMsg(XID,task,0,noop,[]),
 	element(J,[1,2,3]),
-	sendMsg(XID,async,0,raw,[I,J]),
+	sendMsgSync(XID,async,0,raw,[I,J]),
 	rcvMsg(XID,async,0,raw_result,Result,J),
 	println(["Result:",I,J,Result]," "),
 	$Count.incrementAndGet().
@@ -95,7 +95,7 @@ process(XID,[I,J]) :-
 	partition_join_init(XID),
 	element(K,[1,2,3,4]),
 	% Execute on the non-partitoned 'task' thread pool
-	sendMsg(XID,task,0,run,t(I,J,K),K),
+	sendMsgSync(XID,task,0,run,t(I,J,K),K),
 	% For each response from the server, the remainder of this rule's body
 	%   runs in one and the same "conversation" thread chosen from the partitioned conversation thread pool using XID as key.
 	%   This means that there is no synchronisation required.
