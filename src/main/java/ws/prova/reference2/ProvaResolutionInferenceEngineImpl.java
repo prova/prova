@@ -79,6 +79,7 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 	}
 	
 	public ProvaDerivationNode _run() {
+		List<ProvaLiteral> newLiterals = new ArrayList<ProvaLiteral>(100);
 		tabledNodes.push(node);
 		ProvaRule query;
 		while( !tabledNodes.empty() ) {			
@@ -114,7 +115,7 @@ public class ProvaResolutionInferenceEngineImpl implements ProvaResolutionInfere
 
 			if( predicate instanceof ProvaBuiltin ) {
 				ProvaBuiltin builtin = (ProvaBuiltin) predicate;
-				List<ProvaLiteral> newLiterals = new ArrayList<ProvaLiteral>();
+				newLiterals.clear();
 				boolean result = builtin.process_(prova,node,goal,newLiterals,query);
 				if( !result ) {
 					node = node.getParent();

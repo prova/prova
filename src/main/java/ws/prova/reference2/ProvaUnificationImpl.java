@@ -367,7 +367,7 @@ public class ProvaUnificationImpl implements ProvaUnification {
 		for( int i=0; i<size; i++ ) {
 			if( sourceVariables.get(i).getAssigned()==null ) {
 				varsMap[i] = new ProvaVariablePtrImpl(0,index);
-				ProvaVariable newVariable = sourceVariables.get(i).clone();
+				ProvaVariable newVariable = sourceVariables.get(i); //.clone();
 				newVariable.setIndex(index++);
 				newVariable.setRuleId(0);
 				newVariables.add(newVariable);

@@ -31,36 +31,33 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 		return new ProvaVariableImpl();
 	}
 
-	public static ProvaVariable create(String name) {
+	public static ProvaVariable create(final String name) {
 		return new ProvaVariableImpl(name);
 	}
 
-	public static ProvaVariable create(String name, Class<?> type) {
+	public static ProvaVariable create(final String name, final Class<?> type) {
 		return new ProvaVariableImpl(name, type);
 	}
 
-	public static ProvaVariableImpl create(String name, ProvaObject assigned) {
+	public static ProvaVariableImpl create(final String name, final ProvaObject assigned) {
 		return new ProvaVariableImpl(name, assigned);
 	}
 
 	private ProvaVariableImpl() {
 		this.name = incName.incrementAndGet();
 		this.type = Object.class;
-		this.assigned = null;
 		this.index = -1;
 	}
 	
 	private ProvaVariableImpl(final String name) {
 		this.name = "_".equals(name) ? incName.incrementAndGet() : name;
 		this.type = Object.class;
-		this.assigned = null;
 		this.index = -1;
 	}
 
 	private ProvaVariableImpl( final String name, final Class<?> type ) {
 		this.name = name;
 		this.type = type;
-		this.assigned = null;
 		this.index = -1;
 	}
 	
@@ -99,7 +96,7 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	}
 
 	@Override
-	public void setAssigned(ProvaObject assigned) {
+	public void setAssigned(final ProvaObject assigned) {
 		this.assigned = assigned;
 	}
 
@@ -164,14 +161,12 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 	
 	@Override
 	public ProvaVariable clone() {
-		ProvaVariableImpl newVariable = new ProvaVariableImpl(type,assigned,index,ruleId);
-		return newVariable;
+		return new ProvaVariableImpl(type,assigned,index,ruleId);
 	}
 
 	@Override
-	public ProvaVariable clone(long ruleId) {
-		ProvaVariableImpl newVariable = new ProvaVariableImpl(type,assigned,index,ruleId);
-		return newVariable;
+	public ProvaVariable clone(final long ruleId) {
+		return new ProvaVariableImpl(type,assigned,index,ruleId);
 	}
 
 	@Override

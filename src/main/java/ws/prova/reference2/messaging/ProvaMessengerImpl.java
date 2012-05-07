@@ -59,6 +59,12 @@ import ws.prova.util2.ProvaTimeUtils;
 @SuppressWarnings("unused")
 public class ProvaMessengerImpl implements ProvaMessenger {
 
+	private static final ProvaVariable CTLPROTOCOL = ProvaVariableImpl.create("CtlProtocol");
+
+	private static final ProvaVariable CTLFROM = ProvaVariableImpl.create("CtlFrom");
+
+	private static final ProvaConstantImpl EOF = ProvaConstantImpl.create("eof");
+
 	private final static Logger log = Logger.getLogger("prova");
 
 	private ProvaReagent prova;
@@ -427,30 +433,24 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			ProvaLiteral headControl = null;
 			final boolean meta = literal.getMetadata()!=null;
 			if( !meta ) {
-				List<ProvaLiteral> body = new ArrayList<ProvaLiteral>();
-				List<ProvaLiteral> guard = literalClone.getGuard();
+				final List<ProvaLiteral> body = new ArrayList<ProvaLiteral>();
+				final List<ProvaLiteral> guard = literalClone.getGuard();
 				if (guard != null) {
 					for (ProvaLiteral g : guard)
 						body.add(g);
 				}
 				final ProvaObject poXID = data[0];
 				final ProvaObject poProtocol = data[1];
-				ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol : ProvaVariableImpl.create("CtlProtocol");
-				ProvaVariable ctlFrom = ProvaVariableImpl.create("CtlFrom");
-				ProvaGroup dynamic = null;
-				ProvaRule temporalRule = null;
-				ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
-						tid, ctlProtocol, ctlFrom, ProvaConstantImpl.create("eof"),
+				final ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol : CTLPROTOCOL;
+				final ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
+						tid, ctlProtocol, CTLFROM, EOF,
 						terms });
 				// Add the reaction and termination rule head literals
 				head = kb.generateHeadLiteral("rcvMsg", terms);
 				headControl = kb.generateLiteral("@temporal_rule_control",
 						(ProvaList) headControlList
 								.cloneWithVariables(variables));
-				RemoveList rl = new RemoveList(head.getPredicate(), headControl
-						.getPredicate(), ruleid, (ProvaList) head.getTerms().cloneWithVariables(variables));
-				dynamic = generateOrReuseDynamicGroup(goal, variables, ruleid, rl);
-				ProvaList removeList = ProvaListImpl.create(new ProvaObject[] {
+				final ProvaList removeList = ProvaListImpl.create(new ProvaObject[] {
 						ProvaConstantImpl.create(head.getPredicate()),
 						ProvaConstantImpl.create(headControl.getPredicate()), tid,
 						head.getTerms() });
@@ -466,13 +466,12 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 							.cloneWithVariables(variables));
 				}
 
-				temporalRule = kb.generateRule(ruleid, head, body
+				kb.generateRule(ruleid, head, body
 						.toArray(new ProvaLiteral[] {}));
 				kb.generateRule(ruleid, headControl,
 						new ProvaLiteral[] { removeLiteral });
 				if (log.isDebugEnabled())
-					log.debug("Added temporal rule: " + (dynamic==null?"":dynamic.getDynamicGroup()) + " "
-							+ head);
+					log.debug("Added temporal rule: " + head);
 				return false;
 			}
 			List<Object> groups = literal.getMetadata("group");
@@ -587,12 +586,11 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			}
 			final ProvaObject poXID = data[0];
 			final ProvaObject poProtocol = data[1];
-			ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol : ProvaVariableImpl.create("CtlProtocol");
-			ProvaVariable ctlFrom = ProvaVariableImpl.create("CtlFrom");
+			ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol : CTLPROTOCOL;
 			ProvaGroup dynamic = null;
 			ProvaRule temporalRule = null;
 			ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
-					tid, ctlProtocol, ctlFrom, ProvaConstantImpl.create("eof"),
+					tid, ctlProtocol, CTLFROM, EOF,
 					terms });
 			// Add the reaction and termination rule head literals
 			head = kb.generateHeadLiteral("rcvMsg", terms);
@@ -1005,11 +1003,11 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			ProvaLiteral head = null;
 			ProvaLiteral headControl = null;
 //			synchronized (kb) {
-				ProvaVariable ctlProtocol = ProvaVariableImpl.create("CtlProtocol");
-				ProvaVariable ctlFrom = ProvaVariableImpl.create("CtlFrom");
+				ProvaVariable ctlProtocol = CTLPROTOCOL;
+				ProvaVariable ctlFrom = CTLFROM;
 				
 				ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
-						tid, ctlProtocol, ctlFrom, ProvaConstantImpl.create("eof"),
+						tid, ctlProtocol, ctlFrom, EOF,
 						terms });
 				head = kb.generateHeadLiteral("rcvMsg", reactionTerms);
 				headControl = kb.generateLiteral("@temporal_rule_control",
