@@ -53,7 +53,7 @@ public class ProvaSparqlDisconnectImpl extends ProvaBuiltinImpl {
 		ProvaObject[] data = terms.getFixed();
 		
 		if(data.length != 1) {
-			log.error("Syntax error. Can only use 1 term.");
+			log.error("Syntax error. Need one term.");
 			return false;
 		}
 		
@@ -64,13 +64,13 @@ public class ProvaSparqlDisconnectImpl extends ProvaBuiltinImpl {
 		}
 		
 		if(!(data0 instanceof ProvaConstant)) {
-			log.error("Binding error. Term 1 must be constant.");
+			log.error("Binding error. First term must be constant.");
 			return false;
 		}
 		
 		Object obj = ((ProvaConstant) data0).getObject();
 		if(!(obj instanceof RepositoryConnection)) {
-			log.error("Binding error. Term 1 must be a RepositoryConnection.");
+			log.error("Binding error. First term must be RepositoryConnection.");
 			return false;
 		}
 		
