@@ -1,25 +1,17 @@
 package ws.prova.reference2.builtins;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.openrdf.query.Binding;
-import org.openrdf.query.BindingSet;
 import org.openrdf.query.BooleanQuery;
-import org.openrdf.query.MalformedQueryException;
-import org.openrdf.query.Query;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.query.QueryLanguage;
 import org.openrdf.query.TupleQuery;
 import org.openrdf.query.TupleQueryResult;
-import org.openrdf.query.TupleQueryResultHandler;
-import org.openrdf.query.TupleQueryResultHandlerException;
 import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaConstant;
@@ -88,7 +80,7 @@ public class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 		ProvaObject[] data = terms.getFixed();		
 		
 		if(data.length != 3) {
-			log.error("Syntax error. Need three or four terms.");
+			log.error("Syntax error. Need three terms.");
 			return false;
 		}
 		
