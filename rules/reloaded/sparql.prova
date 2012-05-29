@@ -21,7 +21,7 @@ testSelectQuery(Connection) :-
             ?company DBPPROP:industry DBPEDIA:Retail .
         }
 	',
-	sparql_query(Connection, QueryString, QueryId),
+	sparql_select(Connection, QueryString, QueryId),
 	sparql_results(QueryId, Company).
 	
 testAskQuery(Connection) :-
@@ -32,5 +32,5 @@ testAskQuery(Connection) :-
 			<http://dbpedia.org/resource/Microsoft> rdf:type owl:Thing .
 		}
 	',
-	sparql_query(Connection, QueryString, QueryId),
+	sparql_ask(Connection, QueryString, QueryId),
 	sparql_results(QueryId).

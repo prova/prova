@@ -97,9 +97,10 @@ import ws.prova.reference2.builtins.ProvaReverseImpl;
 import ws.prova.reference2.builtins.ProvaSendMsgImpl;
 import ws.prova.reference2.builtins.ProvaSendMsgSyncImpl;
 import ws.prova.reference2.builtins.ProvaSolveImpl;
+import ws.prova.reference2.builtins.ProvaSparqlAskImpl;
 import ws.prova.reference2.builtins.ProvaSparqlConnectImpl;
 import ws.prova.reference2.builtins.ProvaSparqlDisconnectImpl;
-import ws.prova.reference2.builtins.ProvaSparqlQueryImpl;
+import ws.prova.reference2.builtins.ProvaSparqlSelectImpl;
 import ws.prova.reference2.builtins.ProvaSpawnImpl;
 import ws.prova.reference2.builtins.ProvaStopPredicateJoinImpl;
 import ws.prova.reference2.builtins.ProvaTemporalRuleRemoveImpl;
@@ -216,7 +217,8 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
 		builtins.put("sparql_connect", new ProvaSparqlConnectImpl(this));
 		builtins.put("sparql_disconnect", new ProvaSparqlDisconnectImpl(this));
-		builtins.put("sparql_query", new ProvaSparqlQueryImpl(this));
+		builtins.put("sparql_select", new ProvaSparqlSelectImpl(this));
+		builtins.put("sparql_ask", new ProvaSparqlAskImpl(this));
 		
 
 		initRules();

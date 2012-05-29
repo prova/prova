@@ -1,16 +1,8 @@
 package ws.prova.reference2.builtins;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.openrdf.query.Binding;
-import org.openrdf.query.BooleanQuery;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.query.QueryLanguage;
-import org.openrdf.query.TupleQuery;
-import org.openrdf.query.TupleQueryResult;
 import org.openrdf.repository.RepositoryConnection;
 
 import ws.prova.agent2.ProvaReagent;
@@ -31,39 +23,20 @@ import ws.prova.reference2.ProvaLiteralImpl;
 import ws.prova.reference2.ProvaRuleImpl;
 
 /**
- * sparql_query built-in.
+ * Abstract sparql query base class.
  * 
- * Usage:
- * <code>
- * sparql_query(Connection, QueryStr, QueryID)
- * </code>
- * 
- * <code>sparql_query</code> executes a SPARQL select or ask query on the given 
- * repository connection. After successful execution, it binds the result set of 
- * the query to the <code>sparql_results</code> predicate, using <code>QueryID</code>
- * as the first term and the requested SPARQL variables as the remaining terms,
- * in the order they were specified in the SPARQL query.
- * 
- * <code>QueryID</code> can be either a constant term or a variable, in the latter
- * case it is assigned a random identifier number.
- * 
- * 
- * Example:
- * <code>
- * sparql_connect(Connection, "http://dbpedia.org/sparql"),
- * sparql_query(Connection, "SELECT * WHERE { ?a ?b ?c . }", QueryID),
- * sparql_results(QueryID, A, B, C),
- * println([A, " ", B, " ", C, " ."]).
- * </code>
+ * This class provides the generic SPARQL query functionality,
+ * such as resolving the Connection term and creating the QueryID
+ * identifier.
  * 
  * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
  */
-public class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
+public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 	private static final Logger log = Logger.getLogger(ProvaSparqlQueryImpl.class);
 	private static int nqid = 0;
 	
-	public ProvaSparqlQueryImpl(ProvaKnowledgeBase kb) {
-		super(kb, "sparql_query");
+	public ProvaSparqlQueryImpl(ProvaKnowledgeBase kb, String symbol) {
+		super(kb, symbol);
 	}
 	
 	@Override
@@ -115,106 +88,15 @@ public class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 		ProvaPredicate pred = null;
 		ProvaConstant cqid = ProvaConstantImpl.create(qid);
 		
-		// TODO: I'd like to let the OpenRDF parser find out if
-		// we're dealing with a SELECT or an ASK query, yet I would
-		// _not_ like to parse the query twice. There seems to be
-		// no way to pass a Parsed{Tuple,Boolean}Query to a
-		// RepositoryConnection, that's why I'm using this simple
-		// heuristic here.
-		boolean isAsk = sparql_query.toUpperCase().contains("ASK") && 
-			!sparql_query.toUpperCase().contains("SELECT");
-				
-		if(isAsk) { 
-			
-			// Prepare BooleanQuery.
-			BooleanQuery q;
-			try {
-				q = con.prepareBooleanQuery(QueryLanguage.SPARQL, sparql_query);
-			} catch (Exception e) {
-				log.error("Could not prepare ASK query.");
-				if(log.isDebugEnabled())
-					log.debug("Exception: ", e);
-				return false;
-			}
-			
-			// Evaluate BooleanQuery.
-			boolean answer;
-			try {
-				answer = q.evaluate();
-			} catch (QueryEvaluationException e) {
-				log.error("Could not evaluate boolean query.");
-				if(log.isDebugEnabled())
-					log.debug("Exception: ", e);
-				return false;
-			}
-			if(answer) {
-				// Create the sparql_results predicate and add the fact to the KB.
-				pred = kb.getOrGeneratePredicate("sparql_results", 1);
-				addFact(pred, cqid, new ArrayList<ProvaObject>());
-			}
-					
-		} else {	
-			
-			// Prepare TupleQuery.
-			TupleQuery q;
-			try {
-				q = con.prepareTupleQuery(QueryLanguage.SPARQL, sparql_query);
-			} catch (Exception e) {
-				log.error("Could not prepare SELECT query.");
-				if(log.isDebugEnabled())
-					log.debug("Exception: ", e);
-				return false;
-			}
-
-			// Evaluate TupleQuery.
-			TupleQueryResult result;
-			try {
-				result = q.evaluate();
-			} catch (QueryEvaluationException e) {
-				log.error("Could not evaluate tuple query.");
-				if(log.isDebugEnabled())
-					log.debug("Exception: ", e);
-				return false;
-			}
-			
-			try {
-				// For each result in the result set, add a fact to the KB.
-				while(result.hasNext()) {
-					List<ProvaObject> newterms = new ArrayList<ProvaObject>();
-					Iterator<Binding> it = result.next().iterator();
-					while(it.hasNext()) {
-						Binding b = it.next();
-						// TODO Handle different data types.
-						String val = b.getValue().stringValue();
-						newterms.add(ProvaConstantImpl.create(val));
-					}
-					
-					// Create the sparql_results predicate, but only once.
-					if(pred == null)
-						pred = kb.getOrGeneratePredicate("sparql_results", newterms.size() + 1);
-					addFact(pred, cqid, newterms);
-				}
-			} catch (QueryEvaluationException e) {
-				log.error("Error while fetching results.");
-				if(log.isDebugEnabled())
-					log.debug("Exception: ", e);
-				return false;
-			}
-			
-			try {
-				result.close();
-			} catch (QueryEvaluationException e) {
-				log.warn("Could not close result set.");
-				if(log.isDebugEnabled())
-					log.debug("Exception: ", e);
-			}
-			
-		}	
+		// Implemented in sub class.
+		processQuery(pred, cqid, con, sparql_query);
 		
 		return true;
 	}
 	
-	static protected ProvaObject resolve(ProvaObject o, List<ProvaVariable> variables) {
+	abstract protected boolean processQuery(ProvaPredicate pred, ProvaConstant cqid, RepositoryConnection con, String sparql_query);
+	
+	static private ProvaObject resolve(ProvaObject o, List<ProvaVariable> variables) {
 		if(o instanceof ProvaVariablePtr) {
 			ProvaVariablePtr varPtr = (ProvaVariablePtr) o;
 			o = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
@@ -223,7 +105,7 @@ public class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 	}
 	
 	@SuppressWarnings("unchecked")
-	static protected <T> T extractValue (ProvaObject[] data, List<ProvaVariable> variables, int idx) {
+	static private <T> T extractValue (ProvaObject[] data, List<ProvaVariable> variables, int idx) {
 		T retval;
 		ProvaObject o = resolve(data[idx], variables);
 		if(!(o instanceof ProvaConstant)) {
