@@ -1,7 +1,6 @@
 package ws.prova.reference2.builtins;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 import org.openrdf.repository.RepositoryConnection;
@@ -34,7 +33,7 @@ import ws.prova.reference2.ProvaRuleImpl;
  */
 public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 	private static final Logger log = Logger.getLogger(ProvaSparqlQueryImpl.class);
-	private static AtomicInteger nqid = new AtomicInteger(0);
+	private static int nqid = 0;
 	
 	public ProvaSparqlQueryImpl(ProvaKnowledgeBase kb, String symbol) {
 		super(kb, symbol);
@@ -78,7 +77,7 @@ public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 		if(data2 instanceof ProvaConstant) {
 			qid = ((ProvaConstant) data2).toString();
 		} else {
-			qid = new Integer(nqid.incrementAndGet()).toString();
+			qid = new Integer(nqid++).toString();
 			((ProvaVariable) data2).setAssigned(ProvaConstantImpl.create(qid));
 		}
 							
@@ -88,8 +87,6 @@ public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 			
 		ProvaPredicate pred = null;
 		ProvaConstant cqid = ProvaConstantImpl.create(qid);
-		
-		prova.getMessenger().rcvMsg(goal, newLiterals, query, false);
 		
 		// Implemented in sub class.
 		return processQuery(pred, cqid, con, sparql_query);
