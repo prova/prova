@@ -89,9 +89,7 @@ public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 		ProvaConstant cqid = ProvaConstantImpl.create(qid);
 		
 		// Implemented in sub class.
-		processQuery(pred, cqid, con, sparql_query);
-		
-		return true;
+		return processQuery(pred, cqid, con, sparql_query);
 	}
 	
 	abstract protected boolean processQuery(ProvaPredicate pred, ProvaConstant cqid, RepositoryConnection con, String sparql_query);
