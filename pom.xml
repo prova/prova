@@ -50,21 +50,16 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-repository-api</artifactId>
-			<version>2.6.5</version>
-			<scope>compile</scope>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>3.1.1.RELEASE</version>
+			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-repository-http</artifactId>
-			<version>2.6.5</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-queryresultio-sparqlxml</artifactId>
-			<version>2.6.5</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>3.1.1.RELEASE</version>
+			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -81,10 +76,6 @@
 				Releases</name>
 			<url>http://repository.springsource.com/maven/bundles/external</url>
 		</repository>
-       	<repository>
-       		<id>Aduna-Software</id>
-       		<url>http://repo.aduna-software.org/maven2/releases/</url>
-       	</repository>
 	</repositories>
 	<pluginRepositories>
 		<!--
@@ -273,5 +264,57 @@
 			</url>
 		</repository>
 	</distributionManagement>
+	
+	<profiles>
+		<profile>
+			<id>semanticweb</id>
+			<repositories>
+				<repository>
+		       		<id>Aduna-Software</id>
+		       		<url>http://repo.aduna-software.org/maven2/releases/</url>
+       			</repository>
+			</repositories>
+			<dependencies>
+					<dependency>
+						<groupId>org.openrdf.sesame</groupId>
+						<artifactId>sesame-repository-api</artifactId>
+						<version>2.6.5</version>
+					</dependency>
+					<dependency>
+						<groupId>org.openrdf.sesame</groupId>
+						<artifactId>sesame-repository-http</artifactId>
+						<version>2.6.5</version>
+					</dependency>
+					<dependency>
+						<groupId>org.openrdf.sesame</groupId>
+						<artifactId>sesame-queryresultio-sparqlxml</artifactId>
+						<version>2.6.5</version>
+					</dependency>
+			</dependencies>
+			<build>
+	            <plugins>
+	                <plugin>
+	                    <groupId>org.codehaus.mojo</groupId>
+	                    <artifactId>build-helper-maven-plugin</artifactId>
+	                    <version>1.5</version>
+	                    <executions>
+	                        <execution>
+	                            <id>add-sources</id>
+	                            <phase>generate-sources</phase>
+	                            <goals>
+	                                <goal>add-source</goal>
+	                            </goals>
+	                            <configuration>
+	                                <sources>
+	                                    <source>${basedir}/src/semanticweb/java</source>
+	                                </sources>
+	                            </configuration>
+	                        </execution>
+	                    </executions>
+	                </plugin>
+	            </plugins>
+	        </build>
+		</profile>
+	</profiles>
 </project>
 

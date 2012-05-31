@@ -14,6 +14,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaBuiltin;
@@ -97,10 +99,6 @@ import ws.prova.reference2.builtins.ProvaReverseImpl;
 import ws.prova.reference2.builtins.ProvaSendMsgImpl;
 import ws.prova.reference2.builtins.ProvaSendMsgSyncImpl;
 import ws.prova.reference2.builtins.ProvaSolveImpl;
-import ws.prova.reference2.builtins.ProvaSparqlAskImpl;
-import ws.prova.reference2.builtins.ProvaSparqlConnectImpl;
-import ws.prova.reference2.builtins.ProvaSparqlDisconnectImpl;
-import ws.prova.reference2.builtins.ProvaSparqlSelectImpl;
 import ws.prova.reference2.builtins.ProvaSpawnImpl;
 import ws.prova.reference2.builtins.ProvaStopPredicateJoinImpl;
 import ws.prova.reference2.builtins.ProvaTemporalRuleRemoveImpl;
@@ -116,7 +114,6 @@ import ws.prova.reference2.cache.ProvaCachedLiteralImpl;
 
 public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 
-	@SuppressWarnings("unused")
 	private final static Logger log = Logger.getLogger("prova");
 
 	private static final ProvaSolution[] noSolutions = new ProvaSolution[0];
@@ -215,11 +212,22 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("@temporal_rule_remove", new ProvaTemporalRuleRemoveImpl(this));
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
-		builtins.put("sparql_connect", new ProvaSparqlConnectImpl(this));
-		builtins.put("sparql_disconnect", new ProvaSparqlDisconnectImpl(this));
-		builtins.put("sparql_select", new ProvaSparqlSelectImpl(this));
-		builtins.put("sparql_ask", new ProvaSparqlAskImpl(this));
 		
+		// Semantic Web integration.
+		try {
+			ApplicationContext context = new ClassPathXmlApplicationContext("spring-semanticweb.xml");
+			ProvaBuiltin sconnect = (ProvaBuiltin) context.getBean("ProvaSparqlConnectImpl", this);
+			builtins.put("sparql_connect", sconnect);
+			ProvaBuiltin sdisconnect = (ProvaBuiltin) context.getBean("ProvaSparqlDisconnectImpl", this);
+			builtins.put("sparql_disconnect", sdisconnect);
+			ProvaBuiltin sselect = (ProvaBuiltin) context.getBean("ProvaSparqlSelectImpl", this);
+			builtins.put("sparql_select", sselect);
+			ProvaBuiltin sask = (ProvaBuiltin) context.getBean("ProvaSparqlAskImpl", this);
+			builtins.put("sparql_ask", sask);
+		} catch(Throwable t) {
+			if(log.isDebugEnabled())
+				log.debug("Semantic Web integration error: ", t);
+		}
 
 		initRules();
 		
