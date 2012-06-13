@@ -56,15 +56,7 @@ public class ProvaStrReplaceImpl extends ProvaBuiltinImpl {
 			log.error("Binding error. Term 1 must be constant (the string).");
 			return false;
 		}
-		String str = null;
-		try {
-			str = (String) ((ProvaConstant) data0).getObject();
-		} catch (ClassCastException cce) {
-			log.error("Binding error. Term 1 has wrong type (should be string).");
-			if(log.isDebugEnabled())
-				log.debug("Exception: ", cce);
-			return false;
-		}
+		String str = ((ProvaConstant) data0).getObject().toString();
 		
 		// Second term: Search token.
 		ProvaObject data1 = resolve(data[1], variables);
@@ -72,15 +64,8 @@ public class ProvaStrReplaceImpl extends ProvaBuiltinImpl {
 			log.error("Binding error. Term 2 must be constant (search token).");
 			return false;
 		}
-		String search = null;
-		try {
-			search = "\\$" + (String) ((ProvaConstant) data1).getObject();
-		} catch (ClassCastException cce) {
-			log.error("Binding error. Term 2 has wrong type (should be string).");
-			if(log.isDebugEnabled())
-				log.debug("Exception: ", cce);
-			return false;
-		}
+		String search = "\\$" + ((ProvaConstant) data1).getObject().toString();
+
 		
 		// Third term: Replacement token.
 		ProvaObject data2 = resolve(data[2], variables);
@@ -88,15 +73,7 @@ public class ProvaStrReplaceImpl extends ProvaBuiltinImpl {
 			log.error("Binding error. Term 3 must be constant (replacement token).");
 			return false;
 		}
-		String replace = null;
-		try {
-			replace = (String) ((ProvaConstant) data2).getObject();
-		} catch (ClassCastException cce) {
-			log.error("Binding error. Term 3 has wrong type (should be string).");
-			if(log.isDebugEnabled())
-				log.debug("Exception: ", cce);
-			return false;
-		}
+		String replace = ((ProvaConstant) data2).getObject().toString();
 		
 		// Fourth term: Variable.
 		ProvaObject data3 = resolve(data[3], variables);
