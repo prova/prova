@@ -78,16 +78,15 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		}
 		// The target is a constant
 		ProvaConstant targetConstant = (ProvaConstant) target;
-		// TODO: deal with types later
 		Object targetObject = targetConstant.getObject();
 		if( object instanceof Map<?,?> && targetObject instanceof Map<?,?> ) {
-			Map<?,?> tgt = (Map<?,?>) object;
-			Map<?,?> src = (Map<?,?>) targetObject;
-			for( Entry<?, ?> s : src.entrySet() ) {
-				ProvaObject tgtValue = (ProvaObject) tgt.get(s.getKey());
-				if( tgtValue==null )
+			Map<?,?> src = (Map<?,?>) object;
+			Map<?,?> tgt = (Map<?,?>) targetObject;
+			for( Entry<?, ?> t : tgt.entrySet() ) {
+				ProvaObject srcValue = (ProvaObject) src.get(t.getKey());
+				if( srcValue==null )
 					return false;
-				boolean rc = ((ProvaObject) s.getValue()).unify(tgtValue, unification);
+				boolean rc = srcValue.unify((ProvaObject) t.getValue(), unification);
 				if( !rc )
 					return false;
 			}
