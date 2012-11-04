@@ -158,6 +158,19 @@ public class ProvaBuiltins1Test {
 	}
 
 	@Test
+	public void map_nested() {
+		final String rulebase = "rules/reloaded/map_nested.prova";
+		final int[] numSolutions = new int[] {1,1};
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(numSolutions.length, solutions.size());
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Incorrect number of solutions for problem "+(i+1), numSolutions[i], solutions.get(i).length);
+	}
+
+	@Test
 	public void free() {
 		final String rulebase = "rules/reloaded/test010.prova";
 		final int[] numSolutions = new int[] {1};
