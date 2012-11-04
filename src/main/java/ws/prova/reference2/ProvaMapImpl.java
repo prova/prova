@@ -43,7 +43,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 				continue;
 			}
 			int r = value.collectVariables(ruleId, variables);
-			if( r!=-1 && !(value instanceof ProvaList) ) {
+			if( r!=-1 && !(value instanceof ProvaList) && !(value instanceof ProvaMapImpl) ) {
 				e.setValue(new ProvaVariablePtrImpl(ruleId, r));
 				rc = r;
 			}
