@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.junit.After;
 import org.junit.Test;
 
 import ws.prova.api2.ProvaCommunicator;
@@ -21,12 +22,22 @@ public class ProvaUpdatesTest {
 	// Unique key identifying the consulted input (useful in interactive environment)
 	int key = 0;
 	
+	private ProvaCommunicator prova;
+	
+	@After
+	public void shutdown() {
+		if( prova!=null ) {
+			prova.shutdown();
+			prova = null;
+		}
+	}
+	
 	@Test
 	public void simple_retractall() {
 		final String rulebase = "rules/reloaded/test008.prova";
 		final int[] numSolutions = new int[] {6};
 		
-		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
 
 		org.junit.Assert.assertEquals(1,solutions.size());
@@ -42,7 +53,7 @@ public class ProvaUpdatesTest {
 		AtomicInteger count = new AtomicInteger();
 		Map<String,Object> globals = new HashMap<String,Object>();
 		globals.put("$Count", count);
-		new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
 		try {
 			synchronized(this) {
@@ -60,7 +71,7 @@ public class ProvaUpdatesTest {
 		AtomicInteger count = new AtomicInteger();
 		Map<String,Object> globals = new HashMap<String,Object>();
 		globals.put("$Count", count);
-		new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
 		try {
 			synchronized(this) {
