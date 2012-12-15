@@ -230,6 +230,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 			return false;
 		if( delayed==null ) {
 			// Timeout cleanup: add all @not reactions as results
+			results.clear();
 			for( Iterator<Entry<Long, RemoveList>> iter = removeMap.entrySet().iterator(); iter.hasNext(); ) {
 				Entry<Long, RemoveList> e = iter.next();
 				RemoveList rl = e.getValue();
@@ -311,7 +312,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 					lastReaction = timeoutRemoveEntries.get(0).getReaction();
 					lastReaction.getFixed()[1] = ProvaConstantImpl.create("async");
 					lastReaction.getFixed()[2] = ProvaConstantImpl.create(0);
-				}
+				} else
+					return false;
 			} else {
 				final Object last = results.get(results.size()-1);
 				if( last instanceof ProvaList )

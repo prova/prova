@@ -303,7 +303,7 @@ public class ProvaMetadataTest {
 		Map<String,Object> globals = new HashMap<String,Object>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
-		final int numSolutions[] = {0,0};
+		final int numSolutions[] = {0,0,0,0};
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
 
 		org.junit.Assert.assertEquals(solutions.size(),numSolutions.length);
@@ -313,7 +313,7 @@ public class ProvaMetadataTest {
 		try {
 			synchronized(this) {
 				wait(3000);
-				org.junit.Assert.assertEquals(1,count.get());
+				org.junit.Assert.assertEquals(2,count.get());
 			}
 		} catch (Exception e) {
 		}

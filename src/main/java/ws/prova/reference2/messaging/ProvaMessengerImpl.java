@@ -1163,9 +1163,10 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	}
 
 	@Override
-	public synchronized void removeTemporalRule(ProvaPredicate predicate,
+	public synchronized boolean removeTemporalRule(ProvaPredicate predicate,
 			ProvaPredicate predicate2, long key, boolean recursive,
 			ProvaList reaction, Map<String, List<Object>> metadata) {
+		boolean rc = true;
 		if (log.isDebugEnabled() && reaction!=null )
 			log.debug("Removing " + reaction + " at " + key + " with "
 					+ metadata);
@@ -1192,10 +1193,13 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				avoidRemovingRule = true;
 			EventDetectionStatus detectionStatus = group.eventDetected(kb,
 					prova, key, reaction, metadata, ruleid2Group);
+			if (detectionStatus == EventDetectionStatus.failed) {
+				return false;
+			}
 			if (detectionStatus == EventDetectionStatus.complete) {
 				removeGroup(group.getDynamicGroup(), recursive);
 			} else if (detectionStatus == EventDetectionStatus.preserved)
-				return;
+				return rc;
 		} else if (metadata != null && metadata.containsKey("count")) {
 			// // TODO: This code is never executed
 			// log.error("Unexpected code branch");
@@ -1204,20 +1208,20 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			if (count == 0)
 				// @count(0) reactions never terminate, unless they have an @id
 				// and are stopped by a control reaction
-				return;
+				return rc;
 			countList.set(0, --count);
 			if (count != 0)
-				return;
+				return rc;
 		}
 
 		// Do not remove anything if it is a rcvMult reaction
 		if (avoidRemovingRule)
-			return;
+			return rc;
 
 		predicate.getClauseSet().removeTemporalClause(key);
 		predicate2.getClauseSet().removeTemporalClause(key);
 		if (ruleid2outbound.get(key) == null)
-			return;
+			return rc;
 		List<String> outbound = ruleid2outbound.get(key);
 		for (String s : outbound) {
 			// Ids of temporal rules to remove
@@ -1236,6 +1240,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 		}
 		ruleid2outbound.remove(key);
 		outcomeRuleid2Group.remove(key);
+		return rc;
 	}
 
 	/**

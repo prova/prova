@@ -36,7 +36,7 @@ public interface ProvaMessenger {
 	public boolean rcvMsgP(ProvaGoal goal,
 			List<ProvaLiteral> newLiterals, ProvaRule query, boolean mult);
 
-	public void removeTemporalRule(ProvaPredicate predicate,
+	public boolean removeTemporalRule(ProvaPredicate predicate,
 			ProvaPredicate predicate2, long key, boolean recursive, ProvaList reaction, Map<String, List<Object>> metadata);
 
 	public void cleanupGroup(String xorGroup);
