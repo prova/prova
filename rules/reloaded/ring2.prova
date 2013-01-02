@@ -1,0 +1,35 @@
+% Use a shortened form of sendMsg/rcvMsg and rcvMult.
+% Also uses bracket-less syntax for predicates rcvMult and sendMsg. 
+% Since Prova 3.2.1
+
+%:-eval(server(10000,1000)).
+:-eval(server(1000,1000)).
+%:-eval(server(10,10)).
+
+server(N,M) :-
+	NM1=N-1,
+	for 1 NM1 : I,
+	react(I).
+server(N,M) :-
+	rcvMult N M,
+	!,
+	println(done(M)),
+	$Count.incrementAndGet(),
+	$Latch.countDown().
+server(N,M) :-
+	rcvMult N J,
+	JM=J+1,
+	sendMsg 1 JM,
+	$Count.incrementAndGet(),
+	0 = J mod 10,
+	println([J]).
+
+react(I) :-
+	IM=I+1,
+	rcvMult I J,
+	sendMsg IM J.
+	
+:-eval(client()).
+
+client() :-
+	sendMsg 1 1.

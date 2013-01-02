@@ -1,0 +1,90 @@
+% This test is a simplified version of scala2.prova.
+% It also uses the Prova 3.2.1 shortened versions of sendMsg, rcvMsg and rcvMult.
+
+:- eval(init_server()).
+
+init_server() :-
+	$T0=java.lang.System.currentTimeMillis(),
+	$OrdersInFlight=java.util.concurrent.ConcurrentHashMap().
+
+:- eval(server0()).
+
+server0() :-
+	rcvMult(OrderID,order(Item)),
+	println(["Order",OrderID,"received"]," "),
+	$OrdersInFlight.put(OrderID,order(OrderID,Sender,Item)),
+	sendMsg(requestor,ack(order(OrderID))),
+	server2(OrderID,Item).
+
+:- eval(server1()).
+
+server1() :-
+	rcvMult(OrderID,cancel(Item)) [false=$OrdersInFlight.containsKey(OrderID)],
+	println(["Order",OrderID,"cannot be cancelled"]," "),
+	$FailedCancels.incrementAndGet(),
+	sendMsg(requestor,nack(cancel(OrderID))).
+
+server2(OrderID,Item) :-
+	@group(g1)
+	rcvMsg(OrderID,cancel(Item)) [!],
+	$OrdersInFlight.remove(OrderID),
+	println(["Order",OrderID,cancelled]," "),
+	$SuccessfulCancels.incrementAndGet(),
+	sendMsg(requestor,ack(cancel(OrderID))).
+server2(OrderID,Item) :-
+	@and(g1) @timeout(1000)
+	rcvMsg(OrderID,Protocol,Sender,and,E).
+server2(OrderID,Item) :-
+	@and(g1)
+	rcvMsg(OrderID,Protocol,Sender,timeout,E),
+	T=java.lang.System.currentTimeMillis(),
+	DT=T-$T0,
+	println([DT,": Timeout elapsed for order ",OrderID]),
+	$SuccessfulOrders.incrementAndGet(),
+	$OrdersInFlight.remove(OrderID),
+	println(["Proceed with the order as timeout for cancel is elapsed ",OrderID]).
+
+:- eval(client()). 
+
+client() :-
+	% Send all the test messages from a separate thread
+	switch_thread(),
+
+	% Will confirm that this cannot be cancelled
+	sendMsg(order5,cancel(item5)),
+	% Use order-id as conversation-id (XID) for partitioning so that each user is processed sequentially
+	sendMsg(order1,order(item1)),
+	rcvMsg(requestor,ack(order(order1))),
+	sendMsg(order2,order(item2)),
+	rcvMsg(requestor,ack(order(order2))),
+	sendMsg(order3,order(item3)),
+	rcvMsg(requestor,ack(order(order3))),
+	sendMsg(order4,order(item4)),
+	rcvMsg(requestor,ack(order(order4))),
+	sendMsg(order5,order(item5)),
+	rcvMsg(requestor,ack(order(order5))),
+	% Wait synchronously, could have waited asynchronously instead
+	java.lang.Thread.sleep(500L),
+	sendMsg(order2,cancel(item2)),
+	sendMsg(order5,cancel(item5)),
+	println([$OrdersInFlight]),
+	java.lang.Thread.sleep(700L),
+	sendMsg(order1,cancel(item1)),
+
+	% Can do it again for the same order
+	sendMsg(order5,order(item5)),
+	rcvMsg(requestor,ack(order(order5))),
+	java.lang.Thread.sleep(2000L),
+	sendMsg(order6,cancel(item6)),
+	sendMsg(order5,cancel(item5)).
+	
+
+switch_thread() :-
+	sendMsgSync(requestor,async,0,switch,[]),
+	rcvMsg(requestor,async,From,switch,[]).
+
+% A testing harness catch-all reaction for printing all messages
+rcvMsg(XID,Protocol,From,Performative,X) :-
+	T=java.lang.System.currentTimeMillis(),
+	DT=T-$T0,
+	println([DT,XID,Protocol,From,Performative,X]," ").
