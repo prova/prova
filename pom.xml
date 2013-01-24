@@ -49,6 +49,19 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>[2.5.6.SEC03, 3.2.0.RELEASE]</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>[2.5.6.SEC03, 3.2.0.RELEASE]</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
@@ -65,8 +78,6 @@
 		</repository>
 	</repositories>
 	<pluginRepositories>
-		<!--
-		-->
 		<pluginRepository>
 			<id>apache-plugin-snapshots</id>
 			<name>Apache Maven Plugins Snapshot Repository</name>
@@ -251,5 +262,91 @@
 			</url>
 		</repository>
 	</distributionManagement>
+	
+	<profiles>
+		<profile>
+			<id>semanticweb</id>
+			<repositories>
+				<repository>
+		       		<id>Aduna-Software</id>
+		       		<url>http://repo.aduna-software.org/maven2/releases/</url>
+       			</repository>
+			</repositories>
+			<dependencies>
+				<dependency>
+					<groupId>org.openrdf.sesame</groupId>
+					<artifactId>sesame-repository-api</artifactId>
+					<version>2.6.5</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.openrdf.sesame</groupId>
+					<artifactId>sesame-repository-http</artifactId>
+					<version>2.6.5</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.openrdf.sesame</groupId>
+					<artifactId>sesame-queryresultio-sparqlxml</artifactId>
+					<version>2.6.5</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.openrdf.sesame</groupId>
+					<artifactId>sesame-queryparser-sparql</artifactId>
+					<version>2.6.5</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.openrdf.sesame</groupId>
+					<artifactId>sesame-queryresultio-api</artifactId>
+					<version>2.6.5</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.openrdf.sesame</groupId>
+					<artifactId>sesame-queryresultio-sparqljson</artifactId>
+					<version>2.6.5</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.openrdf.sesame</groupId>
+					<artifactId>sesame-queryresultio-binary</artifactId>
+					<version>2.6.5</version>
+					<scope>compile</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.openrdf.sesame</groupId>
+					<artifactId>sesame-util</artifactId>
+					<version>2.6.5</version>
+					<type>pom</type>
+					<scope>compile</scope>
+				</dependency>
+			</dependencies>
+			<build>
+	            <plugins>
+	                <plugin>
+	                    <groupId>org.codehaus.mojo</groupId>
+	                    <artifactId>build-helper-maven-plugin</artifactId>
+	                    <version>1.5</version>
+	                    <executions>
+	                        <execution>
+	                            <id>add-sources</id>
+	                            <phase>generate-sources</phase>
+	                            <goals>
+	                                <goal>add-source</goal>
+	                            </goals>
+	                            <configuration>
+	                                <sources>
+	                                    <source>${basedir}/src/semanticweb/java</source>
+	                                </sources>
+	                            </configuration>
+	                        </execution>
+	                    </executions>
+	                </plugin>
+	            </plugins>
+	        </build>
+		</profile>
+	</profiles>
 </project>
 
