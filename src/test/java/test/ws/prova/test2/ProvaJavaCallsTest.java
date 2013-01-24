@@ -3,6 +3,7 @@ package test.ws.prova.test2;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Test;
 
 import ws.prova.api2.ProvaCommunicator;
@@ -24,11 +25,21 @@ public class ProvaJavaCallsTest {
 
 	static final String kPort = null;
 
+	private ProvaCommunicator prova;
+	
+	@After
+	public void shutdown() {
+		if( prova!=null ) {
+			prova.shutdown();
+			prova = null;
+		}
+	}
+	
 	@Test
 	public void retract_with_java_types() {
 		final String rulebase = "rules/reloaded/retract_with_java_types.prova";
 		
-		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
 		final int numSolutions[] = {3,2,3};
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
 

@@ -1,0 +1,12 @@
+% Nested Prova maps, beginning with version 3.2.0
+
+test(Num,Map,F1,F2,V) :-
+	InnerMap=Map.get(F1),
+	V=InnerMap.get(F2).
+
+% Returns: X=456
+:- solve(test(1,{a:123,b:{c:456}},b,c,X)).
+
+% Returns: Ys=Ys, X=[456|Ys]
+:- solve(test(2,{a:123,b:{c:[456|Ys]}},b,c,X)).
+

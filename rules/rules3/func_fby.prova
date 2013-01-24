@@ -1,0 +1,73 @@
+% Demonstrate using Prova solve() for pattern detections using the stream fusion approach.
+% Sum the size of all purchases by User greater than 16 within 8 time units after User logs in.
+% No conditions, no recursion, no iteration, no explicit concurrency, no state contention.
+% The processing of each inbound event is done using a pipeline of functional stages.
+% Pattern detection for users u1 and u2 is executed concurrently.
+% All the stages are pure functions apart from accept_ that receives inbound events.
+% The state is automatically passed around between cycles of pipeline processing.
+% The state in each pattern instance is always accessed from the same thread.
+% In this example, there is no handling of out-of-order logins.
+%
+% This returns:
+% SFBy=[state,[[list,[u2,0,10,18]],[]]]
+% SFBy=[state,[[list,[u2,1,10,18]],[]]]
+% SFBy=[state,[[list,[u1,1,10,37]],[]]]
+
+:- eval(consult('functional.prova')).
+
+% Prepare the patten detection before sending the test event sequence
+:- solve(run_fby(SFBy)).
+
+% Send the test event sequence
+:- eval(client()).
+
+client() :-
+	switch_thread(),
+	sendMsg(u1,async,0,data,{command:login,time:1}),
+	sendMsg(u2,async,0,data,{command:login,time:0}),
+	sendMsg(u2,async,0,data,{command:login,time:1}),
+	sendMsg(u1,async,0,data,{command:buy,size:20,time:2}),
+	sendMsg(u2,async,0,data,{command:buy,size:3,time:3}),
+	sendMsg(u2,async,0,data,{command:buy,size:18,time:5}),
+	sendMsg(u1,async,0,data,{command:buy,size:17,time:7}),
+	% punctuation: no more buys for u1 before 10 s
+	sendMsg(u1,async,0,data,{command:buy,size:0,time:10}),
+	% punctuation: no more buys for u2 before 10 s
+	sendMsg(u2,async,0,data,{command:buy,size:0,time:10}).
+	
+switch_thread() :-
+	sendMsgSync(XID,task,0,switch,[]),
+	rcvMsg(XID,task,From,switch,[]).
+
+% Monadic 'GE' filter returning an empty list if the condition does not hold, and X, if it does
+ge_m A X : list(X) = X>=A, !.
+ge_m A X : list().
+
+accept_ [] maybe(just()) : list() maybe(just([XID,T1,T1,0])) =
+	rcvMult(XID,async,From,data,{command:login,time:T1}).
+accept_ [] maybe(just([XID,T1,_,S0])) : list(S) maybe(just([XID,T1,T2,S0])) =
+	rcvMsg(XID,async,0,data,{command:buy,size:S,time:T2}).
+
+% Each purchase must pass a filter condition, otherwise it is skipped
+filter_ F list() M : list() M = !.                     % Skip
+filter_ F L maybe(nothing()) : L maybe(nothing()) = !. % Done
+filter_ F list(0) M : list(0) M  = !.                  % Pass the punctuation
+filter_ F list(S) M : X M  = derive([[F],S,X]).        % Apply the monadic filter
+
+delay_ _ list() M : list() M = !.                      % Skip
+delay_ _ L maybe(nothing()) : L maybe(nothing()) = !.  % Done
+% Within time limits -> Continue
+delay_ DT list(S) maybe(just([XID,T1,T2,S0])) : list(S) maybe(just([XID,T1,T2,S0])) = DT>=T2-T1, !.
+% Termination reached -> Done and make sure purchase size S is passed downstream
+delay_ _ list(S) maybe(just(L)) : list(L) maybe(nothing()) = !.
+
+update_ list() M : list() M = !.                       % Skip
+update_ L maybe(nothing()) : L maybe(nothing()) = !.   % Done
+% Accumulate the purchase size but no emission
+% Make sure this last stage passes the state to the first stage in the matching format
+update_ list(S) maybe(just([XID,T1,T2,S0])) : list() maybe(just([XID,T1,T2,SM])) = SM=S+S0.
+
+% Multi-valued function representing the detected patterns.
+% (update_ . delay_(8) . filter_(ge_m(5)) . accept_) is a composition pipeline executed for each inbound event.
+run_fby(X) :-
+	map [map([accept_,filter_(ge_m(16)),delay_(8),update_])] state([list([]),maybe(just())]) : X.

@@ -102,7 +102,7 @@ function
 	:	metadata? LCWORD list_body0 ':' list_body0 ('=' literals)? -> ^(CLAUSE metadata? LCWORD list_body0 list_body0 literals?);
 
 function_call	
-	:	predicate list_body0 ':' list_body0 -> ^(FUNCTION_CALL predicate list_body0 list_body0);
+	:	predicate list_body0 (':' list_body0)? -> ^(FUNCTION_CALL predicate list_body0 list_body0?);
 
 query 	:	IF NEWLINE* query_predicate NEWLINE* '(' NEWLINE* relation NEWLINE* ')' -> ^(QUERY query_predicate relation);
 

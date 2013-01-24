@@ -46,14 +46,14 @@ client() :-
 	% Wait synchronously, could have waited asynchronously instead
 	java.lang.Thread.sleep(500L),
 	sendMsg(q1,async,0,request,logout(user2,'30.30.30.30')),
-	java.lang.Thread.sleep(700L),
+	java.lang.Thread.sleep(300L),
 	sendMsg(q1,async,0,request,login(user2,'30.30.30.30')),
 	sendMsg(q1,async,0,request,logout(user1,'10.10.10.10')),
 	sendMsg(q1,async,0,request,login(user1,'20.20.20.20')),
+	sendMsg(q1,async,0,request,login(user1,'10.10.10.10')),	
 	sendMsg(q1,async,0,request,login(user1,'10.10.10.10')),
-	java.lang.Thread.sleep(1500L),
-	sendMsg(q1,async,0,request,login(user1,'10.10.10.10')),
-	sendMsg(q1,async,0,request,login(user2,'40.40.40.40')).
+	sendMsg(q1,async,0,request,login(user2,'40.40.40.40')),
+	java.lang.Thread.sleep(1500L).
 
 switch_thread() :-
 	sendMsgSync(XID,task,0,switch,[]),

@@ -145,6 +145,39 @@ public class ProvaMetadataTest {
 		}
 	}
 
+	/**
+	 * Uses the Prova 3.2.1 shortened versions of sendMsg, rcvMsg and rcvMult.
+	 */
+	@Test
+	public void scala2_simple_short() {
+		final String rulebase = "rules/reloaded/scala2_simple_short.prova";
+		
+		Map<String,Object> globals = new HashMap<String,Object>();
+		AtomicInteger successfulOrders = new AtomicInteger();
+		globals.put("$SuccessfulOrders", successfulOrders);
+		AtomicInteger successfulCancels = new AtomicInteger();
+		globals.put("$SuccessfulCancels", successfulCancels);
+		AtomicInteger failedCancels = new AtomicInteger();
+		globals.put("$FailedCancels", failedCancels);
+		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
+		final int numSolutions[] = {0,0,0,0};
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+
+		org.junit.Assert.assertEquals(solutions.size(),numSolutions.length);
+		for( int i=0; i<numSolutions.length; i++ )
+			org.junit.Assert.assertEquals("Solution "+(i+1)+" incorrect",solutions.get(i).length,numSolutions[i]);
+
+		try {
+			synchronized(this) {
+				wait(5000);
+				org.junit.Assert.assertEquals("Incorrect number of successful orders",4,successfulOrders.get());
+				org.junit.Assert.assertEquals("Incorrect number of successful cancels",2,successfulCancels.get());
+				org.junit.Assert.assertEquals("Incorrect number of failed cancels",4,failedCancels.get());
+			}
+		} catch (Exception e) {
+		}
+	}
+
 	@Test
 	public void scala1() {
 		final String rulebase = "rules/reloaded/scala1.prova";
@@ -303,7 +336,7 @@ public class ProvaMetadataTest {
 		Map<String,Object> globals = new HashMap<String,Object>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
-		final int numSolutions[] = {0,0};
+		final int numSolutions[] = {0,0,0,0};
 		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
 
 		org.junit.Assert.assertEquals(solutions.size(),numSolutions.length);
@@ -313,7 +346,7 @@ public class ProvaMetadataTest {
 		try {
 			synchronized(this) {
 				wait(3000);
-				org.junit.Assert.assertEquals(1,count.get());
+				org.junit.Assert.assertEquals(2,count.get());
 			}
 		} catch (Exception e) {
 		}

@@ -3,7 +3,6 @@ package ws.prova.examples.runner;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicLong;
 
 import ws.prova.api2.ProvaCommunicator;
 import ws.prova.api2.ProvaCommunicatorImpl;
@@ -25,7 +24,7 @@ public class ProvaSimpleAgent {
 	public ProvaSimpleAgent() {}
 	
 	private void run() {
-		AtomicLong count = new AtomicLong();
+//		AtomicLong count = new AtomicLong();
 		Map<String,Object> globals = new HashMap<String,Object>();
 		globals.put("callback", this);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
