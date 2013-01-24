@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.junit.After;
 import org.junit.Test;
 
 import ws.prova.api2.ProvaCommunicator;
@@ -30,6 +31,14 @@ public class ProvaCommunicatorTest {
 	
 	// Unique key identifying the consulted input (useful in interactive environment)
 	int key = 0;
+	
+	@After
+	public void shutdown() {
+		if( comm!=null ) {
+			comm.shutdown();
+			comm = null;
+		}
+	}
 	
 	@Test
 	public void initialization_from_nowhere() {

@@ -24,6 +24,7 @@ public class ProvaServiceTest implements EPService {
 		ProvaService service = new ProvaServiceImpl();
 		service.init();
 		org.junit.Assert.assertNotNull(service);
+		service.destroy();
 	}
 
 	@Test
@@ -60,6 +61,8 @@ public class ProvaServiceTest implements EPService {
 				org.junit.Assert.assertEquals(2,count.get());
 			}
 		} catch (Exception e) {
+		} finally {
+			service.destroy();
 		}
 	}
 
@@ -98,6 +101,8 @@ public class ProvaServiceTest implements EPService {
 				org.junit.Assert.assertEquals(5,count.get());
 			}
 		} catch (Exception e) {
+		} finally {
+			service.destroy();
 		}
 	}
 
@@ -136,6 +141,8 @@ public class ProvaServiceTest implements EPService {
 				org.junit.Assert.assertEquals(3,count.get());
 			}
 		} catch (Exception e) {
+		} finally {
+			service.destroy();
 		}
 	}
 
@@ -177,6 +184,8 @@ public class ProvaServiceTest implements EPService {
 				org.junit.Assert.assertEquals(6,count.get());
 			}
 		} catch (Exception e) {
+		} finally {
+			service.destroy();
 		}
 	}
 
@@ -225,6 +234,8 @@ public class ProvaServiceTest implements EPService {
 				org.junit.Assert.assertEquals(12,count.get());
 			}
 		} catch (Exception e) {
+		} finally {
+			service.destroy();
 		}
 	}
 
@@ -276,6 +287,8 @@ public class ProvaServiceTest implements EPService {
 				org.junit.Assert.assertEquals(12,count.get());
 			}
 		} catch (Exception e) {
+		} finally {
+			service.destroy();
 		}
 	}
 

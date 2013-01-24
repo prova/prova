@@ -35,7 +35,9 @@ public class ProvaTemporalRuleRemoveImpl extends ProvaBuiltinImpl {
 			List<ProvaVariable> variables = query.getVariables();
 			ProvaList reaction = (ProvaList) ((ProvaList) data[3]).cloneWithVariables(variables);
 			try {
-				prova.getMessenger().removeTemporalRule(predicate,predicate2,key,true,reaction,literal.getMetadata());
+				boolean status = prova.getMessenger().removeTemporalRule(predicate,predicate2,key,true,reaction,literal.getMetadata());
+				if( !status )
+					return false;
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}

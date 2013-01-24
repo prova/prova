@@ -187,7 +187,7 @@ function_call returns [List ret]
 	$ret = new ArrayList();
 }
 	:
-	^(FUNCTION_CALL pred=predicate params=list_body result=list_body) {
+	^(FUNCTION_CALL pred=predicate params=list_body result=list_body?) {
 		if( Character.isUpperCase(pred.charAt(0)) )
 			$ret.add(ProvaVariableImpl.create(pred));
 		else
@@ -195,10 +195,14 @@ function_call returns [List ret]
 		ProvaObject p = params;
 		if( params.getFixed().length==1 )
 			p = params.getFixed()[0];
-		ProvaObject o = result;
-		if( result.getFixed().length==1 )
-			o = result.getFixed()[0];
-		$ret.add(ProvaListImpl.create(new ProvaObject[] {p,o},null));
+		if( result==null )
+			$ret.add(ProvaListImpl.create(new ProvaObject[] {p,null},null));
+		else {
+			ProvaObject o = result;
+			if( result.getFixed().length==1 )
+				o = result.getFixed()[0];
+			$ret.add(ProvaListImpl.create(new ProvaObject[] {p,o},null));
+		}
 	}
 	;
 
@@ -228,7 +232,12 @@ literal returns [ProvaLiteral ret]
 		$ret.addMetadata(m);
 	}
 	| ^(fun=FUNCTION m=metadata? f=function_call) {
-		$ret=ProvaParserImpl.tlKB.get().generateLiteral((String) ((ProvaConstant) f.get(0)).getObject(),(ProvaList) f.get(1));
+		ProvaList argsResult = (ProvaList) f.get(1);
+		if( argsResult.getFixed()[1]==null ) {
+			// Just a predicate call
+			$ret=ProvaParserImpl.tlKB.get().generateLiteral((String) ((ProvaConstant) f.get(0)).getObject(), (ProvaList) argsResult.getFixed()[0]);
+		} else
+			$ret=ProvaParserImpl.tlKB.get().generateLiteral((String) ((ProvaConstant) f.get(0)).getObject(), argsResult);
 		$ret.setLine($fun.getLine());
 		$ret.addMetadata(m);
 	}

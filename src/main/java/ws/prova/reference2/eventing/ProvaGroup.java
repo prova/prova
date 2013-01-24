@@ -12,7 +12,7 @@ import ws.prova.reference2.messaging.where.WhereNode;
 
 public interface ProvaGroup {
 	
-	public enum EventDetectionStatus {incomplete,complete,preserved}
+	public enum EventDetectionStatus {incomplete,complete,preserved,failed}
 
 	public void addRemoveEntry(long ruleid, RemoveList rl);
 

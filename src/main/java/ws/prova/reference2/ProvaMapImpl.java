@@ -12,18 +12,26 @@ import ws.prova.kernel2.ProvaUnification;
 import ws.prova.kernel2.ProvaVariable;
 import ws.prova.kernel2.ProvaVariablePtr;
 
+/**
+ * A wrapper around a Java Map that recursively (for all nested Maps) wraps all Java objects in the Map values in ProvaObject(s).
+ * The keys in the original Map are converted to Java String by toString().
+ * <p/>
+ * The Prova Maps are created using the equivalent {@link #create(Map)} and {@link #wrapValues(Map)}} methods.
+ *
+ */
 public class ProvaMapImpl extends ProvaConstantImpl {
 
 	private static final long serialVersionUID = -4660675788561894085L;
 
-	public static ProvaMapImpl create(Object object) {
-		return new ProvaMapImpl(object);
+	public static ProvaMapImpl create(Map<?,?> m) {
+		return ProvaMapImpl.wrapValues(m);
 	}
 
 	protected ProvaMapImpl(Object object) {
 		super(object);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public int collectVariables(long ruleId, List<ProvaVariable> variables) {
 		int rc = -1;
@@ -35,7 +43,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 				continue;
 			}
 			int r = value.collectVariables(ruleId, variables);
-			if( r!=-1 && !(value instanceof ProvaList) ) {
+			if( r!=-1 && !(value instanceof ProvaList) && !(value instanceof ProvaMapImpl) ) {
 				e.setValue(new ProvaVariablePtrImpl(ruleId, r));
 				rc = r;
 			}
@@ -43,6 +51,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		return rc;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean updateGround(List<ProvaVariable> variables) {
 		boolean rc = true;
@@ -69,16 +78,15 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		}
 		// The target is a constant
 		ProvaConstant targetConstant = (ProvaConstant) target;
-		// TODO: deal with types later
 		Object targetObject = targetConstant.getObject();
 		if( object instanceof Map<?,?> && targetObject instanceof Map<?,?> ) {
-			Map<?,?> tgt = (Map<?,?>) object;
-			Map<?,?> src = (Map<?,?>) targetObject;
-			for( Entry<?, ?> s : src.entrySet() ) {
-				ProvaObject tgtValue = (ProvaObject) tgt.get(s.getKey());
-				if( tgtValue==null )
+			Map<?,?> src = (Map<?,?>) object;
+			Map<?,?> tgt = (Map<?,?>) targetObject;
+			for( Entry<?, ?> t : tgt.entrySet() ) {
+				ProvaObject srcValue = (ProvaObject) src.get(t.getKey());
+				if( srcValue==null )
 					return false;
-				boolean rc = ((ProvaObject) s.getValue()).unify(tgtValue, unification);
+				boolean rc = srcValue.unify((ProvaObject) t.getValue(), unification);
 				if( !rc )
 					return false;
 			}
@@ -99,6 +107,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		return object.toString();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void substituteVariables( final ProvaVariablePtr[] varsMap) {
 		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
@@ -111,6 +120,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isGround() {
 		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
@@ -121,6 +131,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ProvaObject cloneWithBoundVariables(List<ProvaVariable> variables, List<Boolean> isConstant) {
 		if( isGround() )
@@ -133,9 +144,10 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 			else
 				newMap.put(e.getKey(), e.getValue().cloneWithBoundVariables(variables, isConstant));
 		}
-		return ProvaMapImpl.create(newMap);
+		return new ProvaMapImpl(newMap);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ProvaObject cloneWithVariables(List<ProvaVariable> variables) {
 		if( isGround() )
@@ -148,9 +160,10 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 			else
 				newMap.put(e.getKey(), e.getValue().cloneWithVariables(variables));
 		}
-		return ProvaMapImpl.create(newMap);
+		return new ProvaMapImpl(newMap);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ProvaObject cloneWithVariables(final long ruleId, final List<ProvaVariable> variables) {
 		if( isGround() )
@@ -163,7 +176,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 			else
 				newMap.put(e.getKey(), e.getValue().cloneWithVariables(ruleId, variables));
 		}
-		return ProvaMapImpl.create(newMap);
+		return new ProvaMapImpl(newMap);
 	}
 
 	@Override
@@ -176,12 +189,29 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		return object;
 	}
 
-	public static ProvaObject wrapValues(Map<?,?> m) {
+	/**
+	 * Wrap the map values as ProvaObject(s) while ignoring the already present ProvaObject(s)
+	 * and recursively wrapping further Map(s).
+	 * This function is often used for wrapping Maps before passing them as payload to
+	 * {@link ws.prova.api2.ProvaCommunicator#addMsg(ProvaList)} or
+	 * {@link ws.prova.api2.ProvaCommunicator#addMsg(String, String, String, Object)}.
+	 * @param m Map to wrap
+	 * @return a wrapped Map
+	 */
+	public static ProvaMapImpl wrapValues(Map<?,?> m) {
 		final Map<String,ProvaObject> map = new HashMap<String,ProvaObject>();
 		for( Entry<?,?> e : m.entrySet() ) {
-			map.put(e.getKey().toString(), ProvaConstantImpl.create(e.getValue()));
+			final Object value = e.getValue();
+			ProvaObject store = null;
+			if( value instanceof ProvaObject )
+				store = (ProvaObject) value;
+			else if( value instanceof Map )
+				store = wrapValues((Map<?,?>) value);
+			else
+				store = ProvaConstantImpl.create(value);
+			map.put(e.getKey().toString(), store);
 		}
-		return ProvaMapImpl.create(map);
+		return new ProvaMapImpl(map);
 	}
 
 	/**
@@ -191,9 +221,10 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 	 * @return
 	 */
 	public static ProvaObject wrap(Object o) {
-		return (o instanceof ProvaObject) ? (ProvaObject) o : o instanceof Map ? create(o) : new ProvaConstantImpl(o);
+		return (o instanceof ProvaObject) ? (ProvaObject) o : o instanceof Map ? wrapValues((Map<?,?>) o) : new ProvaConstantImpl(o);
 	}
 
+	@SuppressWarnings("unchecked")
 	public ProvaObject rebuild(ProvaUnification unification) {
 		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
 		final Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
@@ -228,6 +259,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		return changed ? new ProvaMapImpl(newMap): this;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ProvaObject rebuildSource(ProvaUnification unification) {
 		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
 		final Map<String,ProvaObject> newMap = new HashMap<String,ProvaObject>();
@@ -262,6 +294,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
 		return changed ? new ProvaMapImpl(newMap): this;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Object unwrap() {
 		final Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
 		final Map<String,Object> newMap = new HashMap<String,Object>();

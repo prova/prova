@@ -43,6 +43,7 @@ import ws.prova.parser.WhereParser;
 import ws.prova.reference2.ProvaAnyImpl;
 import ws.prova.reference2.ProvaConstantImpl;
 import ws.prova.reference2.ProvaListImpl;
+import ws.prova.reference2.ProvaLiteralImpl;
 import ws.prova.reference2.ProvaMapImpl;
 import ws.prova.reference2.ProvaResolutionInferenceEngineImpl;
 import ws.prova.reference2.ProvaVariableImpl;
@@ -59,43 +60,48 @@ import ws.prova.util2.ProvaTimeUtils;
 @SuppressWarnings("unused")
 public class ProvaMessengerImpl implements ProvaMessenger {
 
-	private static final ProvaVariable CTLPROTOCOL = ProvaVariableImpl.create("CtlProtocol");
+	private static final ProvaVariable CTLPROTOCOL = ProvaVariableImpl
+			.create("CtlProtocol");
 
-	private static final ProvaVariable CTLFROM = ProvaVariableImpl.create("CtlFrom");
+	private static final ProvaVariable CTLFROM = ProvaVariableImpl
+			.create("CtlFrom");
 
-	private static final ProvaConstantImpl EOF = ProvaConstantImpl.create("eof");
+	private static final ProvaConstantImpl EOF = ProvaConstantImpl
+			.create("eof");
 
 	private final static Logger log = Logger.getLogger("prova");
 
-	private ProvaReagent prova;
+	private final ProvaReagent prova;
 
-	private ProvaKnowledgeBase kb;
+	private final ProvaKnowledgeBase kb;
 
-	private String agent;
+	private final String agent;
 
-	private String password;
+	private final String password;
 
-	private String machine;
+	private final String machine;
 
-	private ProvaAgent esb;
+	private final ProvaAgent esb;
 
-	private AtomicLong unique_iid = new AtomicLong();
+	private final AtomicLong unique_iid = new AtomicLong();
 
-	private AtomicLong reaction_iid = new AtomicLong();
+	private final AtomicLong reaction_iid = new AtomicLong();
 
-	private ConcurrentMap<Long, List<String>> ruleid2outbound = new ConcurrentHashMap<Long, List<String>>();
+	private final ConcurrentMap<Long, List<String>> ruleid2outbound = new ConcurrentHashMap<Long, List<String>>();
 
-	private ConcurrentMap<String, List<Long>> inbound2ruleids = new ConcurrentHashMap<String, List<Long>>();
+	private final ConcurrentMap<String, List<Long>> inbound2ruleids = new ConcurrentHashMap<String, List<Long>>();
 
-	private ConcurrentMap<String, String> dynamic2Static = new ConcurrentHashMap<String, String>();
+	private final ConcurrentMap<String, String> dynamic2Static = new ConcurrentHashMap<String, String>();
 
-	private ConcurrentMap<String, ProvaGroup> dynamic2Group = new ConcurrentHashMap<String, ProvaGroup>();
+	private final ConcurrentMap<String, ProvaGroup> dynamic2Group = new ConcurrentHashMap<String, ProvaGroup>();
 
-	private ConcurrentMap<Long, ProvaGroup> ruleid2Group = new ConcurrentHashMap<Long, ProvaGroup>();
+	private final ConcurrentMap<Long, ProvaGroup> ruleid2Group = new ConcurrentHashMap<Long, ProvaGroup>();
 
-	private ConcurrentMap<Long, ProvaGroup> outcomeRuleid2Group = new ConcurrentHashMap<Long, ProvaGroup>();
+	private final ConcurrentMap<Long, ProvaGroup> outcomeRuleid2Group = new ConcurrentHashMap<Long, ProvaGroup>();
 
-	private ScheduledThreadPoolExecutor timers;
+	private final ScheduledThreadPoolExecutor timers;
+
+	private final ProvaPredicate rcvMsg2;
 
 	private ProvaMiniService service;
 
@@ -127,6 +133,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 		this.esb = esb;
 		this.timers = new ScheduledThreadPoolExecutor(5,
 				new TimerThreadFactory());
+		this.rcvMsg2 = kb.getOrGeneratePredicate("rcvMsg", 2);
 	}
 
 	/**
@@ -168,7 +175,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				return false;
 			String dest = ((ProvaConstant) data[2]).getObject().toString();
 			ProvaList termsCopy = (ProvaList) terms
-			.cloneWithVariables(variables);
+					.cloneWithVariables(variables);
 			if ("esb".equals(protocol)) {
 				if (esb == null)
 					return false;
@@ -176,7 +183,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			} else if ("osgi".equals(protocol)) {
 				if (service == null)
 					return false;
-				message = new ProvaServiceMessageImpl(dest, termsCopy, agent, service);
+				message = new ProvaServiceMessageImpl(dest, termsCopy, agent,
+						service);
 			} else {
 				ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", termsCopy);
 				ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
@@ -223,7 +231,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	public boolean sendMsg(ProvaLiteral literal,
 			List<ProvaLiteral> newLiterals, ProvaRule query) {
 		try {
-			if( literal.isGround() )
+			if (literal.isGround())
 				return sendMsgGround(literal, newLiterals, query);
 			List<ProvaVariable> variables = query.getVariables();
 			ProvaList terms = literal.getTerms();
@@ -243,20 +251,34 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				((ProvaVariable) lt).setAssigned(ProvaConstantImpl.create(cid));
 			} else
 				return false;
+			if (data.length == 2) {
+				final ProvaList termsCopy = (ProvaList) terms
+						.copyWithVariables(variables);
+				final ProvaLiteral lit = new ProvaLiteralImpl(rcvMsg2,
+						termsCopy);
+				final ProvaRule goal = kb.generateGoal(new ProvaLiteral[] {
+						lit, kb.generateLiteral("fail") });
+				prova.submitAsync(partitionKey(cid), goal,
+						ProvaThreadpoolEnum.CONVERSATION);
+				return true;
+			}
+
 			if (!(data[1] instanceof ProvaConstant))
 				return false;
 			String protocol = ((ProvaConstant) data[1]).toString();
 			ProvaObject destObject = data[2];
-			if( destObject instanceof ProvaVariablePtr ) {
+			if (destObject instanceof ProvaVariablePtr) {
 				ProvaVariablePtr varPtr = (ProvaVariablePtr) destObject;
-				destObject = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
+				destObject = variables.get(varPtr.getIndex())
+						.getRecursivelyAssigned();
 			}
-			if( !(destObject instanceof ProvaConstant) )
+			if (!(destObject instanceof ProvaConstant))
 				return false;
 			String dest = ((ProvaConstant) destObject).toString();
 			if (!(data[3] instanceof ProvaConstant))
 				return false;
-			ProvaList termsCopy = (ProvaList) terms.copyWithVariables(variables);
+			final ProvaList termsCopy = (ProvaList) terms
+					.copyWithVariables(variables);
 			if ("esb".equals(protocol)) {
 				if (esb == null)
 					return false;
@@ -267,19 +289,21 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			} else if ("osgi".equals(protocol)) {
 				if (service == null)
 					return false;
-				ProvaDelayedCommand message = new ProvaServiceMessageImpl(dest, termsCopy, agent, service);
+				ProvaDelayedCommand message = new ProvaServiceMessageImpl(dest,
+						termsCopy, agent, service);
 				message.process(prova);
 				return true;
 			}
 			String verb = ((ProvaConstant) data[3]).toString();
 			ProvaLiteral lit = null;
-//			if( "eof".equals(verb) ) {
-				lit = kb.generateHeadLiteral("rcvMsg", termsCopy);
-//			} else {
-//				termsCopy = ProvaListImpl.create(new ProvaObject[] {termsCopy.getFixed()[0],ProvaAnyImpl.create(),termsCopy});
-//				lit = kb.generateHeadLiteral("@temporal_rule", termsCopy);
-//			}
-			ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
+			// if( "eof".equals(verb) ) {
+			lit = kb.generateHeadLiteral("rcvMsg", termsCopy);
+			// } else {
+			// termsCopy = ProvaListImpl.create(new ProvaObject[]
+			// {termsCopy.getFixed()[0],ProvaAnyImpl.create(),termsCopy});
+			// lit = kb.generateHeadLiteral("@temporal_rule", termsCopy);
+			// }
+			final ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
 					kb.generateLiteral("fail") });
 			if ("async".equals(protocol)) {
 				prova.submitAsync(partitionKey(cid), goal,
@@ -308,33 +332,45 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			List<ProvaLiteral> newLiterals, ProvaRule query) {
 		ProvaList terms = literal.getTerms();
 		ProvaObject[] data = terms.getFixed();
+		if (data.length == 2) {
+			// Assume it is a shortened version with conversation-id and payload
+			// only sent over async protocol
+			final ProvaLiteral lit = new ProvaLiteralImpl(rcvMsg2, terms);
+			final ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
+					kb.generateLiteral("fail") });
+			prova.submitAsync(partitionKey(data[0].toString()), goal,
+					ProvaThreadpoolEnum.CONVERSATION);
+			return true;
+		}
 		String protocol = data[1].toString();
 		String dest = data[2].toString();
 		if ("esb".equals(protocol)) {
 			if (esb == null)
 				return false;
-			ProvaDelayedCommand message = new ProvaESBMessageImpl(dest,
-					terms, esb);
+			ProvaDelayedCommand message = new ProvaESBMessageImpl(dest, terms,
+					esb);
 			message.process(prova);
 			return true;
 		} else if ("osgi".equals(protocol)) {
 			if (service == null)
 				return false;
-			ProvaDelayedCommand message = new ProvaServiceMessageImpl(dest, terms, agent, service);
+			ProvaDelayedCommand message = new ProvaServiceMessageImpl(dest,
+					terms, agent, service);
 			message.process(prova);
 			return true;
 		}
-		if( !(data[3] instanceof ProvaConstant) )
+		if (!(data[3] instanceof ProvaConstant))
 			return false;
 		String verb = data[3].toString();
 		ProvaLiteral lit = null;
 		ProvaList termsCopy = terms;
-//		if( "eof".equals(verb) ) {
-			lit = kb.generateHeadLiteral("rcvMsg", termsCopy);
-//		} else {
-//			termsCopy  = ProvaListImpl.create(new ProvaObject[] {data[0],ProvaAnyImpl.create(),termsCopy});
-//			lit = kb.generateHeadLiteral("@temporal_rule", termsCopy);
-//		}
+		// if( "eof".equals(verb) ) {
+		lit = kb.generateHeadLiteral("rcvMsg", termsCopy);
+		// } else {
+		// termsCopy = ProvaListImpl.create(new ProvaObject[]
+		// {data[0],ProvaAnyImpl.create(),termsCopy});
+		// lit = kb.generateHeadLiteral("@temporal_rule", termsCopy);
+		// }
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
 				kb.generateLiteral("fail") });
 		if ("async".equals(protocol)) {
@@ -362,8 +398,10 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 		if (ret == null)
 			ret = 0;
 		ProvaList terms = ProvaListImpl.create(new ProvaObject[] { cid,
-				ProvaConstantImpl.create("self"), ProvaConstantImpl.create("0"),
-				ProvaConstantImpl.create("return"), ProvaConstantImpl.create(ret) });
+				ProvaConstantImpl.create("self"),
+				ProvaConstantImpl.create("0"),
+				ProvaConstantImpl.create("return"),
+				ProvaConstantImpl.create(ret) });
 		ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", terms);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
 				kb.generateLiteral("fail") });
@@ -397,8 +435,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	}
 
 	public static WhereNode parse(String expr) throws Exception {
-		ByteArrayInputStream rawinput = new ByteArrayInputStream(expr
-				.getBytes("UTF-8"));
+		ByteArrayInputStream rawinput = new ByteArrayInputStream(
+				expr.getBytes("UTF-8"));
 		ANTLRInputStream input = new ANTLRInputStream(rawinput);
 		WhereLexer lexer = new WhereLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -412,27 +450,25 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	@Override
 	public boolean rcvMsg(ProvaGoal goal, List<ProvaLiteral> newLiterals,
 			ProvaRule query, boolean mult) {
-		ProvaLiteral literal = goal.getGoal();
-		ProvaRule copy = query.cloneRule();
-		List<ProvaVariable> variables = copy.getVariables();
-		ProvaLiteral literalClone = (ProvaLiteral) literal
+		final ProvaLiteral literal = goal.getGoal();
+		final ProvaRule copy = query.cloneRule();
+		final List<ProvaVariable> variables = copy.getVariables();
+		final ProvaLiteral literalClone = (ProvaLiteral) literal
 				.cloneWithVariables(variables);
-		ProvaList terms = literalClone.getTerms();
+		final ProvaList terms = literalClone.getTerms();
 		try {
-			ProvaObject[] data = terms.getFixed();
-			ProvaObject xid = data[0];
+			final ProvaObject[] data = terms.getFixed();
+			final ProvaObject xid = data[0];
 			if (!(xid instanceof ProvaConstant)
 					&& !(xid instanceof ProvaVariable))
 				return false;
-			if (!(data[2] instanceof ProvaConstant)
+			if (data.length != 2 && !(data[2] instanceof ProvaConstant)
 					&& !(data[2] instanceof ProvaVariable))
 				return false;
 			final long ruleid = reaction_iid.incrementAndGet();
 			final ProvaConstant tid = ProvaConstantImpl.create(ruleid);
-			ProvaLiteral head = null;
-			ProvaLiteral headControl = null;
-			final boolean meta = literal.getMetadata()!=null;
-			if( !meta ) {
+			final boolean meta = literal.getMetadata() != null;
+			if (!meta) {
 				final List<ProvaLiteral> body = new ArrayList<ProvaLiteral>();
 				final List<ProvaLiteral> guard = literalClone.getGuard();
 				if (guard != null) {
@@ -440,38 +476,50 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 						body.add(g);
 				}
 				final ProvaObject poXID = data[0];
-				final ProvaObject poProtocol = data[1];
-				final ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol : CTLPROTOCOL;
-				final ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
-						tid, ctlProtocol, CTLFROM, EOF,
-						terms });
+				ProvaList headControlList = null;
+				if (data.length == 2) {
+					final ProvaObject ctlProtocol = CTLPROTOCOL;
+					headControlList = ProvaListImpl.create(new ProvaObject[] {
+							tid, ctlProtocol, CTLFROM, EOF, terms });
+					// headControlList = ProvaListImpl.create(new ProvaObject[]
+					// {
+					// tid, terms });
+				} else {
+					final ProvaObject poProtocol = data[1];
+					final ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol
+							: CTLPROTOCOL;
+					headControlList = ProvaListImpl.create(new ProvaObject[] {
+							tid, ctlProtocol, CTLFROM, EOF, terms });
+				}
 				// Add the reaction and termination rule head literals
-				head = kb.generateHeadLiteral("rcvMsg", terms);
-				headControl = kb.generateLiteral("@temporal_rule_control",
-						(ProvaList) headControlList
+				final ProvaLiteral head = kb.generateHeadLiteral("rcvMsg",
+						terms);
+				final ProvaLiteral headControl = kb.generateLiteral(
+						"@temporal_rule_control", (ProvaList) headControlList
 								.cloneWithVariables(variables));
-				final ProvaList removeList = ProvaListImpl.create(new ProvaObject[] {
-						ProvaConstantImpl.create(head.getPredicate()),
-						ProvaConstantImpl.create(headControl.getPredicate()), tid,
-						head.getTerms() });
+				final ProvaList removeList = ProvaListImpl
+						.create(new ProvaObject[] {
+								ProvaConstantImpl.create(head.getPredicate()),
+								ProvaConstantImpl.create(headControl
+										.getPredicate()), tid, head.getTerms() });
 				final ProvaLiteral removeLiteral = kb.generateLiteral(
 						"@temporal_rule_remove", removeList);
 
 				if (!mult) {
 					body.add(removeLiteral);
 				}
-				ProvaLiteral[] queryLiterals = copy.getBody();
+				final ProvaLiteral[] queryLiterals = copy.getBody();
 				for (int i = 1; i < queryLiterals.length; i++) {
 					body.add((ProvaLiteral) queryLiterals[i]
 							.cloneWithVariables(variables));
 				}
 
-				kb.generateRule(ruleid, head, body
-						.toArray(new ProvaLiteral[] {}));
+				final ProvaRule rule = kb.generateRule(ruleid, head,
+						body.toArray(new ProvaLiteral[] {}));
 				kb.generateRule(ruleid, headControl,
 						new ProvaLiteral[] { removeLiteral });
 				if (log.isDebugEnabled())
-					log.debug("Added temporal rule: " + head);
+					log.debug("Added temporal rule: " + rule);
 				return false;
 			}
 			List<Object> groups = literal.getMetadata("group");
@@ -578,27 +626,28 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			if (groupsWhere != null && groupsWhere.size() != 0) {
 				where = parse(groupsWhere.get(0).toString());
 			}
-			List<ProvaLiteral> body = new ArrayList<ProvaLiteral>();
-			List<ProvaLiteral> guard = literalClone.getGuard();
+			final List<ProvaLiteral> body = new ArrayList<ProvaLiteral>();
+			final List<ProvaLiteral> guard = literalClone.getGuard();
 			if (guard != null) {
 				for (ProvaLiteral g : guard)
 					body.add(g);
 			}
 			final ProvaObject poXID = data[0];
 			final ProvaObject poProtocol = data[1];
-			ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol : CTLPROTOCOL;
+			final ProvaObject ctlProtocol = poProtocol instanceof ProvaConstant ? poProtocol
+					: CTLPROTOCOL;
 			ProvaGroup dynamic = null;
 			ProvaRule temporalRule = null;
 			ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
-					tid, ctlProtocol, CTLFROM, EOF,
-					terms });
+					tid, ctlProtocol, CTLFROM, EOF, terms });
 			// Add the reaction and termination rule head literals
-			head = kb.generateHeadLiteral("rcvMsg", terms);
-			headControl = kb.generateLiteral("@temporal_rule_control",
-					(ProvaList) headControlList
-							.cloneWithVariables(variables));
-			RemoveList rl = new RemoveList(head.getPredicate(), headControl
-					.getPredicate(), ruleid, (ProvaList) head.getTerms().cloneWithVariables(variables));
+			final ProvaLiteral head = kb.generateHeadLiteral("rcvMsg", terms);
+			final ProvaLiteral headControl = kb.generateLiteral(
+					"@temporal_rule_control",
+					(ProvaList) headControlList.cloneWithVariables(variables));
+			final RemoveList rl = new RemoveList(head.getPredicate(),
+					headControl.getPredicate(), ruleid, (ProvaList) head
+							.getTerms().cloneWithVariables(variables));
 			dynamic = generateOrReuseDynamicGroup(goal, variables, ruleid, rl);
 			ProvaList removeList = ProvaListImpl.create(new ProvaObject[] {
 					ProvaConstantImpl.create(head.getPredicate()),
@@ -622,8 +671,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				body.add(kb.generateLiteral("@add_group_result",
 						addAndResultList));
 				if (groupsNot != null) {
-					removeLiteral.setMetadata("not", Arrays
-							.asList(new Object[] {}));
+					removeLiteral.setMetadata("not",
+							Arrays.asList(new Object[] {}));
 					rl.setNot(true);
 				}
 				if (groupsTimeout != null)
@@ -647,15 +696,15 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				// relation
 				ProvaList addAndResultList = ProvaListImpl
 						.create(new ProvaObject[] {
-								ProvaConstantImpl.create(dynamic.getDynamicGroup()),
-								head.getTerms() });
+								ProvaConstantImpl.create(dynamic
+										.getDynamicGroup()), head.getTerms() });
 				removeLiteral.setMetadata("rule", Arrays
 						.asList(new Object[] { dynamic.getDynamicGroup() }));
 				body.add(kb.generateLiteral("@add_group_result",
 						addAndResultList));
 				if (groupsNot != null) {
-					removeLiteral.setMetadata("not", Arrays
-							.asList(new Object[] {}));
+					removeLiteral.setMetadata("not",
+							Arrays.asList(new Object[] {}));
 					rl.setNot(true);
 				}
 				if (groupsTimeout != null)
@@ -693,81 +742,89 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			}
 			if (groupsSize != null) {
 				if (sizeObject != null)
-					removeLiteral.setMetadata("size",
+					removeLiteral.setMetadata(
+							"size",
 							Arrays.asList(new Object[] { size, sizeReset,
 									sizeObject }));
 				else if (sizeReset != null)
-					removeLiteral.setMetadata("size", Arrays
-							.asList(new Object[] { size, sizeReset }));
+					removeLiteral.setMetadata("size",
+							Arrays.asList(new Object[] { size, sizeReset }));
 				else {
 					// Lone @size determines whether the event is required
-					removeLiteral.setMetadata("size", Arrays
-							.asList(new Object[] { size }));
+					removeLiteral.setMetadata("size",
+							Arrays.asList(new Object[] { size }));
 					rl.setOptional(Integer.parseInt((String) size) <= 0);
 				}
 			}
 			if (groupsCount != null) {
-				if( groupsAnd!=null || groupsOr!=null ) {
+				if (groupsAnd != null || groupsOr != null) {
 					// A count constraint on an exit reaction
 					dynamic.setCountMax(countMax);
 				}
-				removeLiteral.setMetadata("count", Arrays.asList(new Object[] {
-						countMin, countMax, countMode }));
+				removeLiteral.setMetadata(
+						"count",
+						Arrays.asList(new Object[] { countMin, countMax,
+								countMode }));
 				rl.setOptional(countMin <= 0);
 			}
 			if (groupsTimer != null) {
 				if (timerObject != null)
-					removeLiteral.setMetadata("timer", Arrays
-							.asList(new Object[] { timer, timerReset,
+					removeLiteral.setMetadata(
+							"timer",
+							Arrays.asList(new Object[] { timer, timerReset,
 									timerObject }));
 				else if (timerReset != null)
-					removeLiteral.setMetadata("timer", Arrays
-							.asList(new Object[] { timer, timerReset }));
+					removeLiteral.setMetadata("timer",
+							Arrays.asList(new Object[] { timer, timerReset }));
 				else
-					removeLiteral.setMetadata("timer", Arrays
-							.asList(new Object[] { timer }));
+					removeLiteral.setMetadata("timer",
+							Arrays.asList(new Object[] { timer }));
 			}
 			if (groupsVar != null) {
 				removeLiteral.setMetadata("vars", vars);
 			}
 
-//			if( poProtocol instanceof ProvaConstant && poXID instanceof ProvaConstant && ((ProvaConstant) poProtocol).getObject().equals("async") ) {
-//				temporalRule = kb.generateLocalRule(prova, partitionKey(poXID.toString()), head, body
-//						.toArray(new ProvaLiteral[] {}));
-//			}
-//			synchronized (kb) {
-				temporalRule = kb.generateRule(ruleid, head, body
-						.toArray(new ProvaLiteral[] {}));
-				kb.generateRule(ruleid, headControl,
-						new ProvaLiteral[] { removeLiteral });
-				if (log.isDebugEnabled())
-					log.debug("Added temporal rule: " + (dynamic==null?"":dynamic.getDynamicGroup()) + " "
-							+ head);
-//			}
+			// if( poProtocol instanceof ProvaConstant && poXID instanceof
+			// ProvaConstant && ((ProvaConstant)
+			// poProtocol).getObject().equals("async") ) {
+			// temporalRule = kb.generateLocalRule(prova,
+			// partitionKey(poXID.toString()), head, body
+			// .toArray(new ProvaLiteral[] {}));
+			// }
+			// synchronized (kb) {
+			temporalRule = kb.generateRule(ruleid, head,
+					body.toArray(new ProvaLiteral[] {}));
+			kb.generateRule(ruleid, headControl,
+					new ProvaLiteral[] { removeLiteral });
+			if (log.isDebugEnabled())
+				log.debug("Added temporal rule: "
+						+ (dynamic == null ? "" : dynamic.getDynamicGroup())
+						+ " " + head);
+			// }
 
-			if (dynamic != null && dynamic.isOperatorConfigured() ) {
+			if (dynamic != null && dynamic.isOperatorConfigured()) {
 				temporalRule.setMetadata("group", Arrays
 						.asList(new Object[] { dynamic.getDynamicGroup() }));
-//				if (!xid.isGround())
-					// Very important: remove literal is tagged with the group
-					// for open reactions
-					// (i.e., reactions with free conversation-id) so that
-					// when it is evaluated, there is a way to find out whether
-					// the group is a template one
-					// and so the rules should not be removed.
-					removeLiteral
-							.setMetadata("group", Arrays
-									.asList(new Object[] { dynamic
-											.getDynamicGroup() }));
+				// if (!xid.isGround())
+				// Very important: remove literal is tagged with the group
+				// for open reactions
+				// (i.e., reactions with free conversation-id) so that
+				// when it is evaluated, there is a way to find out whether
+				// the group is a template one
+				// and so the rules should not be removed.
+				removeLiteral.setMetadata("group", Arrays
+						.asList(new Object[] { dynamic.getDynamicGroup() }));
 				if (timeout != null) {
-					long delay = ProvaTimeUtils.timeIntervalInMilliseconds(timeout);
-					List<ProvaDelayedCommand> delayed = ProvaResolutionInferenceEngineImpl.delayedCommands.get();
-					if( groupsAnd!=null || groupsOr!=null ) {
+					long delay = ProvaTimeUtils
+							.timeIntervalInMilliseconds(timeout);
+					List<ProvaDelayedCommand> delayed = ProvaResolutionInferenceEngineImpl.delayedCommands
+							.get();
+					if (groupsAnd != null || groupsOr != null) {
 						delayed.add(new ProvaScheduleGroupCleanupImpl(dynamic,
-							delay));
+								delay));
 					} else {
-						delayed.add(new ProvaScheduleGroupMemberCleanupImpl(xid,
-								dynamic, head.getPredicate(), headControl
+						delayed.add(new ProvaScheduleGroupMemberCleanupImpl(
+								xid, dynamic, head.getPredicate(), headControl
 										.getPredicate(), ruleid, delay, 0,
 								removeLiteral.getMetadata()));
 					}
@@ -775,7 +832,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			} else if (dynamic == null && timeout != null) {
 				// Provide for an individual timeout here
 				if (timeout != null) {
-					long delay = ProvaTimeUtils.timeIntervalInMilliseconds(timeout);
+					long delay = ProvaTimeUtils
+							.timeIntervalInMilliseconds(timeout);
 					scheduleCleanup(xid, dynamic, head.getPredicate(),
 							headControl.getPredicate(), ruleid, delay, 0,
 							removeLiteral.getMetadata());
@@ -783,7 +841,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			} else if (dynamic != null && timeout != null) {
 				// A group member timeout
 				if (timeout != null) {
-					long delay = ProvaTimeUtils.timeIntervalInMilliseconds(timeout);
+					long delay = ProvaTimeUtils
+							.timeIntervalInMilliseconds(timeout);
 					List<ProvaDelayedCommand> delayed = ProvaResolutionInferenceEngineImpl.delayedCommands
 							.get();
 					delayed.add(new ProvaScheduleGroupMemberCleanupImpl(xid,
@@ -794,20 +853,25 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			} else if (dynamic != null && timer != null) {
 				// A group member timer
 				if (timer != null) {
-					long delay = ProvaTimeUtils.timeIntervalInMilliseconds(timer);
-					long period = ProvaTimeUtils.timeIntervalInMilliseconds(timerReset);
+					long delay = ProvaTimeUtils
+							.timeIntervalInMilliseconds(timer);
+					long period = ProvaTimeUtils
+							.timeIntervalInMilliseconds(timerReset);
 					List<ProvaDelayedCommand> delayed = ProvaResolutionInferenceEngineImpl.delayedCommands
 							.get();
-					if( timerObject!=null && timerObject instanceof ProvaEventsAccumulator) {
+					if (timerObject != null
+							&& timerObject instanceof ProvaEventsAccumulator) {
 						ProvaEventsAccumulator acc = (ProvaEventsAccumulator) timerObject;
 						Date now = new Date();
-						if( acc.getDuration()!=0 ) {
+						if (acc.getDuration() != 0) {
 							// State passed to the operator
 							// Expected end of current timer
-							Date endDate = DateUtils.addMilliseconds(acc.getStartTime(), acc.getDuration());
+							Date endDate = DateUtils.addMilliseconds(
+									acc.getStartTime(), acc.getDuration());
 							// Time remaining in the current window
-							long timeRemaining = endDate.getTime() - now.getTime();
-							if( timeRemaining>0 )
+							long timeRemaining = endDate.getTime()
+									- now.getTime();
+							if (timeRemaining > 0)
 								delay = timeRemaining;
 							else
 								delay = 0;
@@ -824,7 +888,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				}
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Possible formatting error in rcvMsg: "+e.getMessage());
+			throw new RuntimeException("Possible formatting error in rcvMsg: "
+					+ e.getMessage());
 		}
 		return false;
 	}
@@ -935,14 +1000,15 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				tlStatic2Dynamic.set(new HashMap<String, String>());
 			Map<String, String> s2d = tlStatic2Dynamic.get();
 			dynamicGroup = s2d.get(group);
-//			if(  dynamicGroup!=null ) {
-//				ProvaGroup oldGroup = dynamic2Group.get(dynamicGroup);
-//				if( oldGroup!=null && oldGroup.getRemoveMap().isEmpty() )
-//					// The old group instance is complete and is awaiting the results publication
-//					//    so we need to create a new group instance
-//					dynamicGroup = null;
-//			}
-			if( dynamicGroup==null ) {
+			// if( dynamicGroup!=null ) {
+			// ProvaGroup oldGroup = dynamic2Group.get(dynamicGroup);
+			// if( oldGroup!=null && oldGroup.getRemoveMap().isEmpty() )
+			// // The old group instance is complete and is awaiting the results
+			// publication
+			// // so we need to create a new group instance
+			// dynamicGroup = null;
+			// }
+			if (dynamicGroup == null) {
 				dynamicGroup = generateCid();
 				s2d.put(group, dynamicGroup);
 				dynamic2Static.put(dynamicGroup, group);
@@ -1002,56 +1068,53 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			ruleid2outbound.put(ruleid, outbound);
 			ProvaLiteral head = null;
 			ProvaLiteral headControl = null;
-//			synchronized (kb) {
-				ProvaVariable ctlProtocol = CTLPROTOCOL;
-				ProvaVariable ctlFrom = CTLFROM;
-				
-				ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
-						tid, ctlProtocol, ctlFrom, EOF,
-						terms });
-				head = kb.generateHeadLiteral("rcvMsg", reactionTerms);
-				headControl = kb.generateLiteral("@temporal_rule_control",
-						(ProvaList) headControlList
-								.cloneWithVariables(variables));
-		
-				List<ProvaLiteral> body = new ArrayList<ProvaLiteral>();
-				ProvaList removeList = ProvaListImpl.create(new ProvaObject[] {
-						ProvaConstantImpl.create(head.getPredicate()),
-						ProvaConstantImpl.create(headControl.getPredicate()), tid,
-						head.getTerms() });
-				List<ProvaLiteral> guard = literalClone.getGuard();
-				if (guard != null) {
-					for (ProvaLiteral g : guard)
-						body.add(g);
-				}
-				if (data.length > 3
-						&& data[3] instanceof ProvaList
-						&& ((ProvaConstant) ((ProvaList) data[3]).getFixed()[0])
-								.getObject().toString().equals("condition")) {
-					String symbol = ((ProvaConstant) ((ProvaList) ((ProvaList) data[3])
-							.getFixed()[1]).getFixed()[0]).getObject()
-							.toString();
-					body.add(kb.generateLiteral(symbol,
-							((ProvaList) ((ProvaList) data[3]).getFixed()[1])
-									.getFixed(), 1));
-				}
-				if (!mult)
-					body.add(kb.generateLiteral("@temporal_rule_remove",
-							removeList));
-				ProvaLiteral[] queryLiterals = copy.getBody();
-				for (int i = 1; i < queryLiterals.length; i++) {
-					body.add((ProvaLiteral) queryLiterals[i]
-							.cloneWithVariables(variables));
-				}
-				ProvaRule temporalRule = kb.generateRule(ruleid, head, body
-						.toArray(new ProvaLiteral[] {}));
-				// Add end-of-reaction removal rule
-				temporalRule = kb.generateRule(ruleid, headControl,
-						new ProvaLiteral[] { kb.generateLiteral(
-								"@temporal_rule_remove", removeList) });
-				if (log.isDebugEnabled())
-					log.debug("Added temporal rule: "+head);
-//			}
+			// synchronized (kb) {
+			ProvaVariable ctlProtocol = CTLPROTOCOL;
+			ProvaVariable ctlFrom = CTLFROM;
+
+			ProvaList headControlList = ProvaListImpl.create(new ProvaObject[] {
+					tid, ctlProtocol, ctlFrom, EOF, terms });
+			head = kb.generateHeadLiteral("rcvMsg", reactionTerms);
+			headControl = kb.generateLiteral("@temporal_rule_control",
+					(ProvaList) headControlList.cloneWithVariables(variables));
+
+			List<ProvaLiteral> body = new ArrayList<ProvaLiteral>();
+			ProvaList removeList = ProvaListImpl.create(new ProvaObject[] {
+					ProvaConstantImpl.create(head.getPredicate()),
+					ProvaConstantImpl.create(headControl.getPredicate()), tid,
+					head.getTerms() });
+			List<ProvaLiteral> guard = literalClone.getGuard();
+			if (guard != null) {
+				for (ProvaLiteral g : guard)
+					body.add(g);
+			}
+			if (data.length > 3
+					&& data[3] instanceof ProvaList
+					&& ((ProvaConstant) ((ProvaList) data[3]).getFixed()[0])
+							.getObject().toString().equals("condition")) {
+				String symbol = ((ProvaConstant) ((ProvaList) ((ProvaList) data[3])
+						.getFixed()[1]).getFixed()[0]).getObject().toString();
+				body.add(kb.generateLiteral(symbol,
+						((ProvaList) ((ProvaList) data[3]).getFixed()[1])
+								.getFixed(), 1));
+			}
+			if (!mult)
+				body.add(kb
+						.generateLiteral("@temporal_rule_remove", removeList));
+			ProvaLiteral[] queryLiterals = copy.getBody();
+			for (int i = 1; i < queryLiterals.length; i++) {
+				body.add((ProvaLiteral) queryLiterals[i]
+						.cloneWithVariables(variables));
+			}
+			ProvaRule temporalRule = kb.generateRule(ruleid, head,
+					body.toArray(new ProvaLiteral[] {}));
+			// Add end-of-reaction removal rule
+			temporalRule = kb.generateRule(ruleid, headControl,
+					new ProvaLiteral[] { kb.generateLiteral(
+							"@temporal_rule_remove", removeList) });
+			if (log.isDebugEnabled())
+				log.debug("Added temporal rule: " + head);
+			// }
 		} catch (Exception e) {
 		}
 		return false;
@@ -1065,9 +1128,9 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 
 			@Override
 			public void run() {
-//				synchronized (kb) {
-					removeGroup(dynamicGroup, true);
-//				}
+				// synchronized (kb) {
+				removeGroup(dynamicGroup, true);
+				// }
 			}
 
 		};
@@ -1147,13 +1210,14 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 
 	@Override
 	public void addMsg(String xid, String agent, String verb, Object payload) {
-		ProvaList terms = ProvaListImpl.create( new ProvaObject[] {
-			ProvaConstantImpl.create(xid),
-			ProvaConstantImpl.create("osgi"),
-			ProvaConstantImpl.create(agent),
-			ProvaConstantImpl.create(verb),
-			payload instanceof Map<?,?> ? ProvaMapImpl.wrapValues((Map<?,?>) payload) : ProvaMapImpl.wrap(payload)
-		});
+		ProvaList terms = ProvaListImpl.create(new ProvaObject[] {
+				ProvaConstantImpl.create(xid),
+				ProvaConstantImpl.create("osgi"),
+				ProvaConstantImpl.create(agent),
+				ProvaConstantImpl.create(verb),
+				payload instanceof Map<?, ?> ? ProvaMapImpl
+						.wrapValues((Map<?, ?>) payload) : ProvaConstantImpl
+						.wrap(payload) });
 		ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg", terms);
 		ProvaRule goal = kb.generateGoal(new ProvaLiteral[] { lit,
 				kb.generateLiteral("fail") });
@@ -1163,13 +1227,14 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	}
 
 	@Override
-	public synchronized void removeTemporalRule(ProvaPredicate predicate,
+	public synchronized boolean removeTemporalRule(ProvaPredicate predicate,
 			ProvaPredicate predicate2, long key, boolean recursive,
 			ProvaList reaction, Map<String, List<Object>> metadata) {
-		if (log.isDebugEnabled() && reaction!=null )
+		boolean rc = true;
+		if (log.isDebugEnabled() && reaction != null)
 			log.debug("Removing " + reaction + " at " + key + " with "
 					+ metadata);
-		if( reaction==null && log.isDebugEnabled() )
+		if (reaction == null && log.isDebugEnabled())
 			log.debug("Removing on timeout");
 		ProvaGroup group = ruleid2Group.get(key);
 
@@ -1192,10 +1257,13 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				avoidRemovingRule = true;
 			EventDetectionStatus detectionStatus = group.eventDetected(kb,
 					prova, key, reaction, metadata, ruleid2Group);
+			if (detectionStatus == EventDetectionStatus.failed) {
+				return false;
+			}
 			if (detectionStatus == EventDetectionStatus.complete) {
 				removeGroup(group.getDynamicGroup(), recursive);
 			} else if (detectionStatus == EventDetectionStatus.preserved)
-				return;
+				return rc;
 		} else if (metadata != null && metadata.containsKey("count")) {
 			// // TODO: This code is never executed
 			// log.error("Unexpected code branch");
@@ -1204,20 +1272,20 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 			if (count == 0)
 				// @count(0) reactions never terminate, unless they have an @id
 				// and are stopped by a control reaction
-				return;
+				return rc;
 			countList.set(0, --count);
 			if (count != 0)
-				return;
+				return rc;
 		}
 
 		// Do not remove anything if it is a rcvMult reaction
 		if (avoidRemovingRule)
-			return;
+			return rc;
 
 		predicate.getClauseSet().removeTemporalClause(key);
 		predicate2.getClauseSet().removeTemporalClause(key);
 		if (ruleid2outbound.get(key) == null)
-			return;
+			return rc;
 		List<String> outbound = ruleid2outbound.get(key);
 		for (String s : outbound) {
 			// Ids of temporal rules to remove
@@ -1236,6 +1304,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 		}
 		ruleid2outbound.remove(key);
 		outcomeRuleid2Group.remove(key);
+		return rc;
 	}
 
 	/**
@@ -1246,7 +1315,7 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	 */
 	private void removeGroup(String dynamicGroup, boolean recursive) {
 		ProvaGroup group = dynamic2Group.get(dynamicGroup);
-		if (group != null && !group.isExtended() ) {
+		if (group != null && !group.isExtended()) {
 			group.stop();
 		}
 
@@ -1254,9 +1323,9 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				.get();
 		if (delayed == null) {
 			// Running from a timed task: remove the dynamic group for good
-//			synchronized(group) {
-				cleanupGroup(dynamicGroup);
-//			}
+			// synchronized(group) {
+			cleanupGroup(dynamicGroup);
+			// }
 			// new ProvaGroupCleanupImpl(dynamicGroup).process(prova);
 			return;
 		}
@@ -1285,15 +1354,16 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 	@Override
 	public void cleanupGroup(String dynamicGroup) {
 		ProvaGroup group = dynamic2Group.get(dynamicGroup);
-		if( group!=null && group.isExtended() ) {
-			// Do not clean up if the reaction group was extended with a new reaction
+		if (group != null && group.isExtended()) {
+			// Do not clean up if the reaction group was extended with a new
+			// reaction
 			// Clear the 'extended' flag
 			group.setExtended(false);
 			return;
 		}
 		dynamic2Static.remove(dynamicGroup);
 		if (group != null) {
-			synchronized(kb) {
+			synchronized (kb) {
 				group.cleanup(kb, prova, ruleid2Group, dynamic2Group);
 			}
 		}
@@ -1313,7 +1383,8 @@ public class ProvaMessengerImpl implements ProvaMessenger {
 				group.start(ruleid2Group);
 				dynamic2Group.put(dynamicGroup, group);
 				if (log.isDebugEnabled()) {
-					log.debug("Group " + dynamicGroup + " is a template/concrete");
+					log.debug("Group " + dynamicGroup
+							+ " is a template/concrete");
 				}
 			}
 			group.addResult((ProvaList) fixed[1]);

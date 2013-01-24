@@ -1,27 +1,29 @@
 % Demonstrate an @and group with equational constraints using context variables.
-% Only the first pair is detected since reactions for login and logout have default multiplicity of one.
-% and_multi_repeated.prova shows how to detect more than one pair.
+% Two pairs are detected one each for each reaction group instance.
 %
 % This will print:
 %
-% Pattern detected: [[[q1,async,0,request,[login,user1,10.10.10.10]], [q1,async,0,request,[logout,user1,10.10.10.10]]]]
+% Pattern detected: [[[q1,async,0,request,[logout,user1,10.10.10.10]], [q1,async,0,request,[login,user1,10.10.10.10]]]] 
+% Pattern detected: [[[q2,async,0,request,[logout,user2,30.30.30.30]], [q2,async,0,request,[login,user2,30.30.30.30]]]]
 %
 % Global constant $Count is used for counting successful and unsuccessful detections and passing them back to the Java test
 
-:- eval(server()). 
+% Running these three goals as separate goals guarantees that the reaction rules instances are distinct.
+% This is always the case when reaction rules have a reaction before them.
+%   initiator message
+:- eval(server(q1)). 
+:- eval(server(q2)). 
+:- eval(server(q3)). 
 
-server() :-
-	server_1().
-
-server_1() :-
+server(Q) :-
 	@group(g1) @vars(User,IP)
-	rcvMsg(q1,Protocol,From,request,login(User,IP)).
-server_1() :-
+	rcvMsg(Q,Protocol,From,request,login(User,IP)).
+server(Q) :-
 	@group(g1) @vars(User,IP)
-	rcvMsg(q1,Protocol,From,request,logout(User,IP)).
-server_1() :-
-	@and(g1) @timeout(2000)
-	rcvMsg(q1,Protocol,From,and,Events),
+	rcvMsg(Q,Protocol,From,request,logout(User,IP)).
+server(Q) :-
+	@and(g1) @timeout('2 s')
+	rcvMsg(Q,Protocol,From,and,Events),
 	$Count.incrementAndGet(),
 	println(["Pattern detected: ",Events," "]).
 	
@@ -31,20 +33,21 @@ client() :-
 	% Send all the test messages from a separate thread
 	switch_thread(),
 
-	% Use user-id as conversation-id (XID) for partitioning so that each user is processed sequentially
-	sendMsg(q1,async,0,request,login(user1,'10.10.10.10')),
+	% Use user-id as conversation-id q1 and q2 for partitioning so that each user is processed sequentially
+	sendMsg(q1,async,0,request,logout(user1,'10.10.10.10')),
 	% Wait synchronously, could have waited asynchronously instead
 	java.lang.Thread.sleep(500L),
-	sendMsg(q1,async,0,request,login(user2,'30.30.30.30')),
-	java.lang.Thread.sleep(700L),
-	sendMsg(q1,async,0,request,logout(user1,'10.10.10.10')),
-	% If this message arrives before the previous one, it removes the logout reaction above, preventing the chance
-	%    of a logout matching (user1,10.10.10.10) being detected.
-	% The @count annotation must be used to allow for reaction to stay and accumulate the matches (see and_multi_repeated.prova).
-	sendMsg(q1,async,0,request,logout(user2,'30.30.30.30')),
-	sendMsg(q1,async,0,request,login(user1,'20.20.20.20')),
-	java.lang.Thread.sleep(1500L),
-	sendMsg(q1,async,0,request,login(user2,'40.40.40.40')).
+	% This message goes to the second reaction group for conversation q2
+	sendMsg(q2,async,0,request,logout(user2,'30.30.30.30')),
+	java.lang.Thread.sleep(300L),
+	sendMsg(q1,async,0,request,login(user1,'10.10.10.10')),
+	% The message below does not disrupt the pattern detection and is ignored
+	%   due to @vars enforcing the exact match on User and IP in the q2 reaction 
+	sendMsg(q2,async,0,request,login(user2,'20.20.20.20')),
+	sendMsg(q2,async,0,request,login(user2,'30.30.30.30')),
+	java.lang.Thread.sleep(100L),
+	sendMsg(q3,async,0,request,login(user2,'40.40.40.40')),
+	sendMsg(q3,async,0,request,login(user2,'50.50.50.50')).
 
 switch_thread() :-
 	sendMsgSync(XID,task,0,switch,[]),

@@ -1,0 +1,11 @@
+% Prints
+% X=1
+% X=1
+:- solve(test_map(X)).
+
+data({a:1,b:2}).
+
+test_map(X) :-
+	data({a:X,b:2,c:3}).
+test_map(X) :-
+	data({a:X,b:2,c:X}).

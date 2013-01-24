@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.apache.log4j.Logger;
 
@@ -37,20 +39,29 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 		}
 	}
 	
-	private Map<Long,List<MetaVars>> varResults;
+	private class MetaVarsKey {
+		public MetaVarsKey(String dynamicGroup, long ruleid) {
+			this.dynamicGroup = dynamicGroup;
+			this.ruleid = ruleid;
+		}
+		public String dynamicGroup;
+		public long ruleid;
+	}
+	
+	private ConcurrentMap<MetaVarsKey,List<MetaVars>> varResults;
 
 	private List<Object> local;
 	
 	public ProvaAndGroupImpl(String dynamicGroup, String staticGroup) {
 		super(dynamicGroup,staticGroup);
 		results = new ArrayList<Object>();
-		varResults = new HashMap<Long,List<MetaVars>>();
+		varResults = new ConcurrentHashMap<MetaVarsKey,List<MetaVars>>();
 	}
 
 	public ProvaAndGroupImpl(ProvaGroup g) {
 		super((ProvaBasicGroupImpl) g);
 		results = new ArrayList<Object>();
-		varResults = new HashMap<Long,List<MetaVars>>();
+		varResults = new ConcurrentHashMap<MetaVarsKey,List<MetaVars>>();
 	}
 
 	@Override
@@ -67,7 +78,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 
 	@Override
 	public boolean isGroupFailed() {
-		return !removeMap.isEmpty() && local==null;
+		return /*results.isEmpty() ||*/ (!removeMap.isEmpty() && local==null);
 	}
 
 	@Override
@@ -82,6 +93,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 		}
 		
 		boolean dynamicContext = false;
+		boolean noMatches = false;
 		if( metadata!=null && metadata.containsKey("vars") ) {
 			dynamicContext = true;
 			List<Object> vars = metadata.get("vars");
@@ -95,7 +107,10 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 			}
 
 			// Find new full AND solutions
-			List<List<ProvaList>> matches = findFullAnd(ruleid, varsMap, reaction);
+			List<List<ProvaList>> matches = findFullAnd(ruleid, varsMap, reaction, ruleid2Group, metadata);
+			if( matches==null )
+				// Strict mismatch against vars values set by another, already closed channel
+				return EventDetectionStatus.failed;
 			addVarResults(ruleid, varsMap, (ProvaList) reaction.cloneWithVariables(null));
 
 			if( !matches.isEmpty() ) {
@@ -111,6 +126,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 						return EventDetectionStatus.complete;
 					}
 				}
+			} else {
+				noMatches = true;
 			}
 			local = null;
 
@@ -153,6 +170,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 					if( log.isDebugEnabled() )
 						log.debug("@and not complete"+results);
 					this.failed = true;
+					lastReaction = reaction;
 					return EventDetectionStatus.complete;
 				}
 				if( countMin>0 )
@@ -244,6 +262,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 			this.lastReaction = reaction;
 			return EventDetectionStatus.complete;
 		}
+		if( noMatches && removeMap.isEmpty() )
+			return EventDetectionStatus.failed;
 		return EventDetectionStatus.incomplete;
 	}
 
@@ -268,10 +288,17 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 		return out;
 	}
 
-	private List<List<ProvaList>> findFullAnd(long ruleid, Map<Object, Object> varsMap, ProvaList reaction) {
+	private List<List<ProvaList>> findFullAnd(
+			long ruleid,
+			Map<Object, Object> varsMap,
+			ProvaList reaction,
+			Map<Long, ProvaGroup> ruleid2Group,
+			Map<String, List<Object>> metadata) {
 		List<List<ProvaList>> matches = new ArrayList<List<ProvaList>>();
-		for( Entry<Long,List<MetaVars>> e : varResults.entrySet() ) {
-			if( e.getKey()==ruleid )
+		for( Entry<MetaVarsKey,List<MetaVars>> e : varResults.entrySet() ) {
+			if( e.getKey().dynamicGroup!=dynamicGroup || e.getKey().ruleid==ruleid )
+				// Only compare with the same reaction group instance
+				//    and avoid self-comparing
 				continue;
 			List<ProvaList> legMatches = new ArrayList<ProvaList>();
 			for( MetaVars values : e.getValue() ) {
@@ -283,6 +310,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 						break;
 					}
 				}
+				if( !matching && !metadata.containsKey("count") && ruleid2Group.get(e.getKey())==null )
+					return null;
 				if( where!=null ) {
 					// Check the WHERE constraints
 					for( WhereNode w : where ) {
@@ -299,11 +328,8 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 					legMatches.add(values.result);
 				}
 			}
-			if( legMatches.isEmpty() ) {
-				matches.clear();
-				return matches;
-			}
-			matches.add(legMatches);
+			if( !legMatches.isEmpty() )
+				matches.add(legMatches);
 		}
 		if( !matches.isEmpty() )
 			matches.add(Arrays.<ProvaList>asList( new ProvaList[] {reaction}));
@@ -314,7 +340,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 		List<MetaVars> vars = varResults.get(ruleid);
 		if( vars==null ) {
 			vars = new ArrayList<MetaVars>();
-			varResults.put(ruleid, vars);
+			varResults.put(new MetaVarsKey(dynamicGroup,ruleid), vars);
 		}
 		MetaVars mv = new MetaVars(reaction, varsMap);
 		vars.add(mv);

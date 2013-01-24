@@ -6,7 +6,7 @@ PROVA_HOME=".."
 PROVA_LIBS="$PROVA_HOME/lib"
 
 # Building the Classpath
-CLASSPATH="$CLASSPATH:$PROVA_LIBS/ws.prova.compact-3.1.9.jar"
+CLASSPATH="$CLASSPATH:$PROVA_LIBS/ws.prova.compact-3.2.1.jar"
 CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.apache.commons.lang.jar"
 CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.antlr.runtime.jar"
 CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.apache.commons.beanutils.jar"
