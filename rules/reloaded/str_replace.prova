@@ -1,0 +1,6 @@
+:- solve(test01(Newstring)).
+
+test01(Newstring) :-
+	String = "Hello $world",
+	Replacement = "Prova",
+	str_replace(String, world, Replacement, Newstring).

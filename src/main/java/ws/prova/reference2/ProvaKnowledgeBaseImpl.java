@@ -99,6 +99,7 @@ import ws.prova.reference2.builtins.ProvaSendMsgSyncImpl;
 import ws.prova.reference2.builtins.ProvaSolveImpl;
 import ws.prova.reference2.builtins.ProvaSpawnImpl;
 import ws.prova.reference2.builtins.ProvaStopPredicateJoinImpl;
+import ws.prova.reference2.builtins.ProvaStrReplaceImpl;
 import ws.prova.reference2.builtins.ProvaTemporalRuleRemoveImpl;
 import ws.prova.reference2.builtins.ProvaTokenizeEnumImpl;
 import ws.prova.reference2.builtins.ProvaTokenizeListImpl;
@@ -211,6 +212,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 		builtins.put("@temporal_rule_remove", new ProvaTemporalRuleRemoveImpl(this));
 		builtins.put("@add_group_result", new ProvaAddGroupResultImpl(this));
 		builtins.put("expr_literal", new ProvaExpressionLiteralImpl(this));
+		builtins.put("str_replace", new ProvaStrReplaceImpl(this));
 
 		initRules();
 		

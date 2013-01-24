@@ -20,6 +20,16 @@ public class ProvaBuiltins1Test {
 	static final String kPort = null;
 
 	@Test
+	public void str_replace() {
+		final String rulebase = "rules/reloaded/str_replace.prova";
+		
+		ProvaCommunicator prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC);
+		List<ProvaSolution[]> solutions = prova.getInitializationSolutions();
+		org.junit.Assert.assertEquals(1, solutions.get(0).length);
+		org.junit.Assert.assertEquals("Hello Prova", ((ProvaConstant) solutions.get(0)[0].getNv("Newstring")).getObject());
+	}
+	
+	@Test
 	public void list_ops() {
 		final String rulebase = "rules/reloaded/list_ops.prova";
 		final int[] numSolutions = new int[] {1,0,1,0,1,1,1,1,0,1,1,1};
