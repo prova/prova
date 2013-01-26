@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry kind="src" output="target/classes" path="src/semanticweb/java"/>
 	<classpathentry kind="src" output="target/classes" path="src/main/antlr"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="META-INF"/>

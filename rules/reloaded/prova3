@@ -2,11 +2,11 @@
 
 # Prova batch file
 
-PROVA_HOME=".."
+PROVA_HOME="../.."
 PROVA_LIBS="$PROVA_HOME/lib"
 
 # Building the Classpath
-CLASSPATH="$CLASSPATH:$PROVA_HOME/bin/ws.prova.compact-3.2.1.jar"
+CLASSPATH="$CLASSPATH:$PROVA_HOME/target/ws.prova.compact-3.2.1.jar"
 CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.apache.commons.lang-2.4.0.jar"
 CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.antlr.runtime-3.1.3.jar"
 CLASSPATH="$CLASSPATH:$PROVA_LIBS/com.springsource.org.apache.commons.beanutils-1.8.0.jar"

@@ -10,7 +10,7 @@
 
 	<dependencySets>
 		<dependencySet>
-			<outputFileNameMapping>${artifact.artifactId}.${artifact.extension}
+			<outputFileNameMapping>${artifact.artifactId}-${artifact.version}.${artifact.extension}
 			</outputFileNameMapping>
 			<excludes>
 				<exclude>com.simontuffs:one-jar-boot
@@ -22,11 +22,8 @@
 			<unpack>false</unpack>
 			<scope>runtime</scope>
 		</dependencySet>
-		<!--                
--->
 		<dependencySet>
 			<includes>
-
 				<include>${project.groupId}:${project.artifactId}
 				</include>
 			</includes>
@@ -66,6 +63,22 @@
 			</source>
 			<outputDirectory>/rules</outputDirectory>
 			<destName>prova3.bat</destName>
+			<fileMode>0755</fileMode>
+			<filtered />
+		</file>
+		<file>
+			<source>src/main/assembly/prova3
+			</source>
+			<outputDirectory>/bin</outputDirectory>
+			<destName>prova</destName>
+			<fileMode>0755</fileMode>
+			<filtered />
+		</file>
+		<file>
+			<source>src/main/assembly/prova3
+			</source>
+			<outputDirectory>/rules</outputDirectory>
+			<destName>prova3</destName>
 			<fileMode>0755</fileMode>
 			<filtered />
 		</file>

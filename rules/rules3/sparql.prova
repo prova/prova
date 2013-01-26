@@ -1,0 +1,41 @@
+:- eval(test()).
+
+test() :-
+	println(["========== sparql_query test =========="]),
+	sparql_connect(Connection, "http://dbpedia.org/sparql"),
+	println(["==> Connected."]),
+	testSelectQuery(Connection),
+	println(["==> SELECT query done."]),
+	testAskQuery(Connection),
+	println(["==> ASK query done."]),
+	sparql_disconnect(Connection),
+	println(["==> Disconnected."]).
+   
+testSelectQuery(Connection) :-
+	QueryString = '
+        PREFIX DBPPROP: <http://dbpedia.org/property/>
+        PREFIX DBPEDIA: <http://dbpedia.org/resource/>
+
+        SELECT ?company WHERE {
+            ?company DBPPROP:industry DBPEDIA:Software .
+        }
+	',
+	sparql_select(Connection, QueryString, QueryId),
+	sparql_results(QueryId, Company),
+	println([QueryId,": ",Company]),
+	fail().
+testSelectQuery(_).
+	
+testAskQuery(Connection) :-
+	QueryString = '
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX owl: <http://www.w3.org/2002/07/owl#>
+		ASK WHERE {
+			<http://dbpedia.org/resource/Microsoft> rdf:type owl:Thing .
+		}
+	',
+	sparql_ask(Connection, QueryString, QueryId),
+	sparql_results(QueryId),
+	println(['yes']),
+	fail().
+testAskQuery(_).
