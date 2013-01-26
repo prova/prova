@@ -75,11 +75,4 @@ public class ProvaMkListImpl extends ProvaBuiltinImpl {
 		return true;
 	}
 
-	private ProvaObject[] concat(ProvaObject[] left, ProvaObject[] right) { 
-		ProvaObject[] out= new ProvaObject[left.length+right.length]; 
-		   System.arraycopy(left, 0, out, 0, left.length); 
-		   System.arraycopy(right, 0, out, left.length, right.length); 
-		   return out; 
-		} 
-	
 }

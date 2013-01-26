@@ -118,12 +118,12 @@ public class ProvaReagentImpl implements ProvaReagent {
 		this.pool = 
 //			Executors.newFixedThreadPool(10);
 			new ThreadPoolExecutor(10, 10,
-			    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<Runnable>(8192));
+			    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<Runnable>(81920));
 		for (int i = 0; i < partitionedPool.length; i++) {
 			final int index = i;
 			this.partitionedPool[i] =
 				new ThreadPoolExecutor(1, 1,
-					    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<Runnable>(8192),
+					    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<Runnable>(81920),
 //				Executors.newFixedThreadPool(1,
 					new ThreadFactory() {
 

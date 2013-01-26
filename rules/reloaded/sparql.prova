@@ -17,12 +17,14 @@ testSelectQuery(Connection) :-
         PREFIX DBPEDIA: <http://dbpedia.org/resource/>
 
         SELECT ?company WHERE {
-            ?company DBPPROP:industry DBPEDIA:Computer_software .
-            ?company DBPPROP:industry DBPEDIA:Retail .
+            ?company DBPPROP:industry DBPEDIA:Software .
         }
 	',
 	sparql_select(Connection, QueryString, QueryId),
-	sparql_results(QueryId, Company).
+	sparql_results(QueryId, Company),
+	println([QueryId,": ",Company]),
+	fail().
+testSelectQuery(_).
 	
 testAskQuery(Connection) :-
 	QueryString = '
@@ -33,4 +35,7 @@ testAskQuery(Connection) :-
 		}
 	',
 	sparql_ask(Connection, QueryString, QueryId),
-	sparql_results(QueryId).
+	sparql_results(QueryId),
+	println(['yes']),
+	fail().
+testAskQuery(_).
