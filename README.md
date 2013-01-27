@@ -1,10 +1,11 @@
-prova
-=====
+prova (http://www.prova.ws)
+===========================
 
 Prova is an economic and efficient, Java JVM based, open source rule language for reactive agents and event processing. It combines imperative, declarative and functional programming styles. It is designed to work in distributed Enterprise Service Bus and OSGi environments.
 
 The project is led by Alex Kozlenkov (Betfair Ltd., London, England) and Adrian Paschke (Free University, Berlin, Germany)
 
+The issue control is maintained in Prova JIRA over at http://www.prova.ws/jira and the up-to-date documentation is available in Confluence at http://www.prova.ws/confluence.
 
 Latest updates
 
