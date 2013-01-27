@@ -1,5 +1,5 @@
-prova (http://www.prova.ws)
-===========================
+Prova rule language (http://www.prova.ws)
+=========================================
 
 Prova is an economic and efficient, Java JVM based, open source rule language for reactive agents and event processing. It combines imperative, declarative and functional programming styles. It is designed to work in distributed Enterprise Service Bus and OSGi environments.
 
