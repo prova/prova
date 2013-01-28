@@ -70,8 +70,9 @@
 			<source>src/main/assembly/prova3
 			</source>
 			<outputDirectory>/bin</outputDirectory>
-			<destName>prova</destName>
+			<destName>prova3</destName>
 			<fileMode>0755</fileMode>
+			<lineEnding>unix</lineEnding>
 			<filtered />
 		</file>
 		<file>
@@ -80,6 +81,7 @@
 			<outputDirectory>/rules</outputDirectory>
 			<destName>prova3</destName>
 			<fileMode>0755</fileMode>
+			<lineEnding>unix</lineEnding>
 			<filtered />
 		</file>
 		<file>

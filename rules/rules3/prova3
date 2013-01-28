@@ -21,4 +21,4 @@ CLASSPATH="$CLASSPATH:$PROVA_LIBS/openrdf-sesame-onejar-osgi-2.1.1.jar"
 
 export CLASSPATH 
 
-java -Xms512m -Xmx512m -XX:NewSize=256m -XX:MaxNewSize=256m ws.prova.reagent mediator password $*
+java -Xms512m -Xmx512m -XX:NewSize=256m -XX:MaxNewSize=256m ws.prova.api2.ProvaCommunicatorImpl prova password $*
