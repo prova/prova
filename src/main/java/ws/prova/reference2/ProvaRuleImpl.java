@@ -1,12 +1,9 @@
 package ws.prova.reference2;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaLiteral;
@@ -18,11 +15,11 @@ import ws.prova.kernel2.ProvaVariablePtr;
 
 public class ProvaRuleImpl implements ProvaRule {
 
-	private final static Logger log = Logger.getLogger("prova");
+	private final static Logger log = LoggerFactory.getLogger("prova");
 
 	private long ruleId;
 	
-	private List<ProvaVariable> variables = new ArrayList<ProvaVariable>();
+	private List<ProvaVariable> variables = new ArrayList<>();
 	
 	private ProvaLiteral head;
 	
@@ -128,8 +125,8 @@ public class ProvaRuleImpl implements ProvaRule {
 			List<ProvaVariable> variables) {
 		this.ruleId = ruleId;
 		int size = variables.size();
-		for( int i=0; i<size; i++ ) {
-			this.variables.add(variables.get(i).clone(ruleId));
+		for (ProvaVariable variable : variables) {
+			this.variables.add(variable.clone(ruleId));
 		}
 		this.head = head;
 		this.body = body;
@@ -207,7 +204,7 @@ public class ProvaRuleImpl implements ProvaRule {
 	@Override
 	public ProvaLiteral[] getGuardedBody(ProvaLiteral sourceLiteral) {
 		if( sourceLiteral instanceof ProvaGuardedLiteralImpl ) {
-			List<ProvaLiteral> guard = ((ProvaGuardedLiteralImpl) sourceLiteral).getGuard();
+			List<ProvaLiteral> guard = sourceLiteral.getGuard();
 			ProvaLiteral[] guardedBody = new ProvaLiteral[guard.size()+body.length];
 			int index = 0;
 			for( ProvaLiteral g : guard )
@@ -251,23 +248,21 @@ public class ProvaRuleImpl implements ProvaRule {
 	@Override
 	public List<ProvaVariable> cloneVariables() {
 		int size = variables.size();
-		List<ProvaVariable> newVariables = new ArrayList<ProvaVariable>(size);
-		for( int i=0; i<size; i++ ) {
-			newVariables.add(variables.get(i).clone());
+		List<ProvaVariable> newVariables = new ArrayList<>(size);
+		for (ProvaVariable variable : variables) {
+			newVariables.add(variable.clone());
 		}
 		return newVariables;
 	}
 
-	@Override
 	/**
 	 * Advance the goal to the next query
 	 * @return True if the next query is fail
 	 */
+	@Override
 	public boolean advance() {
 		offset++;
-		if( offset!= body.length && body[offset].getTerms()==null )
-			return true;
-		return false;
+		return offset != body.length && body[offset].getTerms() == null;
 	}
 
 	@Override
@@ -410,14 +405,14 @@ public class ProvaRuleImpl implements ProvaRule {
 	@Override
 	public void setMetadata(String property, List<Object> value) {
 		if( metadata==null )
-			metadata = new HashMap<String,List<Object>>();
+			metadata = new HashMap<>();
 		metadata.put(property,value);
 	}
 
 	@Override
 	public void setSrc(List<Object> value) {
 		if( metadata==null )
-			metadata = new HashMap<String,List<Object>>();
+			metadata = new HashMap<>();
 		metadata.put("src",value);
 		final String src = (String) value.get(0);
 		final ProvaPredicate predicate = head.getPredicate();
@@ -432,16 +427,16 @@ public class ProvaRuleImpl implements ProvaRule {
 
 	@Override
 	public void addMetadata(Map<String, List<Object>> m) {
-		if( m==null )
+		if( m == null )
 			return;
 		if( metadata==null )
-			this.metadata = new HashMap<String,List<Object>>();
+			this.metadata = new HashMap<>();
 		this.metadata.putAll(m);
 	}
 
 	@Override
 	public Map<String, List<Object>> getMetadata() {
-		if( metadata!=null )
+		if( metadata != null )
 			return metadata;
 		return Collections.emptyMap();
 	}
@@ -449,8 +444,8 @@ public class ProvaRuleImpl implements ProvaRule {
 	@Override
 	public void setLine(int line) {
 		if( metadata==null )
-			metadata = new HashMap<String,List<Object>>();
-		metadata.put("line",Collections.<Object>singletonList(Integer.toString(line)));
+			metadata = new HashMap<>();
+		metadata.put("line", Arrays.asList(Integer.toString(line)));
 		this.line = line;
 	}
 

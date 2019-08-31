@@ -43,8 +43,8 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 	@Override
 	public int collectVariables(long ruleId, List<ProvaVariable> variables) {
 		if( object instanceof Map<?,?> ) {
-			Map<String,ProvaObject> map = (Map<String,ProvaObject>) object;
-			for( Entry<String,ProvaObject> e : map.entrySet() ) {
+			Map<String,ProvaObject> map = (Map<String, ProvaObject>) object;
+			for( Entry<String, ProvaObject> e : map.entrySet() ) {
 				int r = e.getValue().collectVariables(ruleId, variables);
 				if( r!=-1 ) {
 					e.setValue(new ProvaVariablePtrImpl(ruleId, r));
@@ -83,9 +83,9 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 			return object.equals(targetObject);
 		}
 		if( target instanceof ProvaVariable )
-			return ((ProvaVariable) target).unify(this, unification);
+			return target.unify(this, unification);
 		if( target instanceof ProvaVariablePtr ) {
-			return ((ProvaVariablePtr) target).unify(this, unification);
+			return target.unify(this, unification);
 		}
         if (object instanceof ProvaObject) {
             return ((ProvaObject) object).unify(target, unification);
@@ -142,6 +142,11 @@ public class ProvaConstantImpl extends ProvaTermImpl implements ProvaConstant, P
 	@Override
 	public Object computeIfExpression() {
 		return object;
+	}
+
+	@Override
+	public ProvaObject computeProvaIfExpression() {
+		return this;
 	}
 
 	public static ProvaObject wrap(Object o) {

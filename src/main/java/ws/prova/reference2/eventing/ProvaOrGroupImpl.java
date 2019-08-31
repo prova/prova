@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.time.DateUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.eventing.ProvaEventsAccumulator;
@@ -18,17 +18,17 @@ import ws.prova.reference2.messaging.RemoveList;
 
 public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 
-	private final static Logger log = Logger.getLogger("prova.eventing");
+	private final static Logger log = LoggerFactory.getLogger("prova.eventing");
 
 	public ProvaOrGroupImpl(String dynamicGroup, String staticGroup) {
 		super(dynamicGroup,staticGroup);
-		results = new ArrayList<Object>();
+		results = new ArrayList<>();
 	}
 
 	public ProvaOrGroupImpl(ProvaGroup g) {
 		super((ProvaBasicGroupImpl) g);
 		g.setConcrete(this);
-		results = new ArrayList<Object>();
+		results = new ArrayList<>();
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 			} else
 				sizeList.set(0,Integer.toString(--size));
 			if( log.isDebugEnabled() )
-				log.debug(size);
+				log.debug("size={}", size);
 			if( size!=0 )
 				return EventDetectionStatus.preserved;
 			else if( sizeList.size()>1 ) {
@@ -88,7 +88,7 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 				this.sendGroupResults(results, kb, prova);
 				if( countMax>0 && numEmitted==countMax )
 					return EventDetectionStatus.complete;
-				this.results = new ArrayList<Object>();
+				this.results = new ArrayList<>();
 				sizeList.set(0,sizeList.get(1));
 				this.lastReaction = null;
 				return EventDetectionStatus.preserved;
@@ -111,10 +111,10 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 					return EventDetectionStatus.preserved;
 				}
 				if( this.lastReaction==null )
-					this.lastReaction = (ProvaList) resultRemoveEntry.getReaction().shallowCopy(); 
+					this.lastReaction = resultRemoveEntry.getReaction().shallowCopy();
 				if( log.isDebugEnabled() ) {
-					log.debug("resultRemoveEntry.getReaction(): "+resultRemoveEntry.getReaction());
-					log.debug("Set last reaction to: "+this.lastReaction);
+					log.debug("resultRemoveEntry.getReaction(): {}", resultRemoveEntry.getReaction());
+					log.debug("Set last reaction to: {}", this.lastReaction);
 				}
 				this.results.clear();
 				if( timerList.size()>2 ) {
@@ -128,11 +128,11 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 				this.sendGroupResults(results, kb, prova);
 				if( countMax>0 && numEmitted==countMax )
 					return EventDetectionStatus.complete;
-				this.results = new ArrayList<Object>();
+				this.results = new ArrayList<>();
 				timerList.set(0,timerList.get(1));
 				this.lastReaction = null;
 				if( log.isDebugEnabled() )
-					log.debug("resultRemoveEntry.getReaction(): "+resultRemoveEntry.getReaction());
+					log.debug("resultRemoveEntry.getReaction(): {}", resultRemoveEntry.getReaction());
 				return EventDetectionStatus.preserved;
 			}
 		} else {
@@ -147,7 +147,7 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 		}
 		if( metadata!=null && metadata.containsKey("not") ) {
 			if( log.isDebugEnabled() )
-				log.debug("@or not complete"+results);
+				log.debug("@or not complete {}", results);
 			return EventDetectionStatus.preserved;
 		}
 		
@@ -232,10 +232,7 @@ public class ProvaOrGroupImpl extends ProvaBasicGroupImpl {
 
 	@Override
 	public void childFailed(ProvaGroup child, Map<Long, ProvaGroup> ruleid2Group, Map<String, ProvaGroup> dynamic2Group) {
-		for( Iterator<ProvaGroup> iter = children.iterator(); iter.hasNext(); ) {
-			if( child==iter.next() )
-				iter.remove();
-		}
+		children.removeIf(provaGroup -> child == provaGroup);
 		this.lastReaction = null;
 	}
 	

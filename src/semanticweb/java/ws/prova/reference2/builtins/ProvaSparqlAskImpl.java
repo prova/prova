@@ -2,11 +2,13 @@ package ws.prova.reference2.builtins;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
-import org.openrdf.query.BooleanQuery;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.query.QueryLanguage;
-import org.openrdf.repository.RepositoryConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.eclipse.rdf4j.query.BooleanQuery;
+import org.eclipse.rdf4j.query.QueryEvaluationException;
+import org.eclipse.rdf4j.query.QueryLanguage;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
 
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaKnowledgeBase;
@@ -41,7 +43,7 @@ import ws.prova.kernel2.ProvaPredicate;
  */
 public class ProvaSparqlAskImpl extends ProvaSparqlQueryImpl {
 
-	private static final Logger log = Logger.getLogger(ProvaSparqlAskImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ProvaSparqlAskImpl.class);
 	
 	public ProvaSparqlAskImpl(ProvaKnowledgeBase kb) {
 		super(kb, "sparql_ask");
@@ -75,7 +77,7 @@ public class ProvaSparqlAskImpl extends ProvaSparqlQueryImpl {
 		if(answer) {
 			// Create the sparql_results predicate and add the fact to the KB.
 			pred = kb.getOrGeneratePredicate("sparql_results", 1);
-			addFact(pred, cqid, new ArrayList<ProvaObject>());
+			addFact(pred, cqid, new ArrayList<>());
 		}
 		
 		return true;

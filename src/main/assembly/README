@@ -1,13 +1,10 @@
-Thanks for downloading and welcome to the Prova Rule Language version 3.2.1.
+Thanks for downloading and welcome to the Prova Rule Language version 3.2.2.
 
 It is a complete rewrite of the Prova rule-based scripting and agent language
 currently distributed under GNU Lesser General Public License version 2.1: http://opensource.org/licenses/lgpl-2.1.php.
 
 The User's Guide manual is included in the docs directory and also available at
-http://www.prova.ws/etc/Prova_3.0_Users_Guide.pdf.
-
-A comprehensive and up-to-date Prova WIKI is available at http://www.prova.ws/confluence and the issue tracker system is
-at http://www.prova.ws/jira.
+https://github.com/prova/prova/blob/master/doc/Prova%203.0%20User%20Guide%20-%20May%202010.pdf.
 
 To run a Prova 3.0 rulebase as a script file, change to the bin directory, and run
 	prova3[.bat] <rulebase file>

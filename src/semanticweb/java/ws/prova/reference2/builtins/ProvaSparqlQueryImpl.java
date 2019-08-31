@@ -3,8 +3,10 @@ package ws.prova.reference2.builtins;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.log4j.Logger;
-import org.openrdf.repository.RepositoryConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.eclipse.rdf4j.repository.RepositoryConnection;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaConstant;
@@ -33,10 +35,10 @@ import ws.prova.reference2.ProvaRuleImpl;
  * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
  */
 public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
-	private static final Logger log = Logger.getLogger(ProvaSparqlQueryImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ProvaSparqlQueryImpl.class);
 	private static AtomicInteger nqid = new AtomicInteger(0);
 	
-	public ProvaSparqlQueryImpl(ProvaKnowledgeBase kb, String symbol) {
+	ProvaSparqlQueryImpl(ProvaKnowledgeBase kb, String symbol) {
 		super(kb, symbol);
 	}
 	
@@ -50,7 +52,7 @@ public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 			ProvaGoal goal, List<ProvaLiteral> newLiterals, ProvaRule query) {
 		List<ProvaVariable> variables = query.getVariables();
 		ProvaLiteral literal = goal.getGoal();
-		ProvaList terms = (ProvaList) literal.getTerms();
+		ProvaList terms = literal.getTerms();
 		ProvaObject[] data = terms.getFixed();		
 		
 		if(data.length != 3) {
@@ -76,9 +78,9 @@ public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 		String qid;
 		ProvaObject data2 = resolve(data[2], variables);
 		if(data2 instanceof ProvaConstant) {
-			qid = ((ProvaConstant) data2).toString();
+			qid = data2.toString();
 		} else {
-			qid = new Integer(nqid.incrementAndGet()).toString();
+			qid = Integer.toString(nqid.incrementAndGet());
 			((ProvaVariable) data2).setAssigned(ProvaConstantImpl.create(qid));
 		}
 							
@@ -122,7 +124,7 @@ public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
 		return retval;
 	}
 	
-	static protected void addFact(ProvaPredicate pred, ProvaConstant cqid, List<ProvaObject> terms) {	
+	static void addFact(ProvaPredicate pred, ProvaConstant cqid, List<ProvaObject> terms) {
 		terms.add(0, cqid);
 		ProvaList ls = ProvaListImpl.create(terms);
 		ProvaLiteral lit = new ProvaLiteralImpl(pred, ls);

@@ -45,7 +45,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 //		this.rules = rules;
 		String[] prot;
 		if (port != null) {
-			prot = new String[]{new String("jade")};
+			prot = new String[]{"jade"};
 		} else {
 			prot = null;
 		}
@@ -73,7 +73,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 //		this.rules = rules;
 		String[] prot;
 		if (port != null) {
-			prot = new String[]{new String("jade")};
+			prot = new String[]{"jade"};
 		} else {
 			prot = null;
 		}
@@ -85,7 +85,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			Object rules, boolean async, ProvaAgent esb, Map<String,Object> globals) {
 		String[] prot;
 		if (port != null) {
-			prot = new String[]{new String("jade")};
+			prot = new String[]{"jade"};
 		} else {
 			prot = null;
 		}
@@ -102,7 +102,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 			String agent, String port, Object rules, boolean async, Map<String, Object> globals) {
 		String[] prot;
 		if (port != null) {
-			prot = new String[]{new String("jade")};
+			prot = new String[]{"jade"};
 		} else {
 			prot = null;
 		}
@@ -121,7 +121,6 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 		return prova.getInitializationSolutions();
 	}
 	
-	@Override
 	/**
 	 * A wrapper for a synchronous query to the rulebase
 	 *
@@ -136,14 +135,13 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	 *         free variables in that goal.
 	 * @throws Exception
 	 */
+    @Override
 	public List<ProvaSolution[]> consultSync(String src, String key, Object[] objects) throws Exception {
 		final Future<List<ProvaSolution[]>> list = prova.consultSync(src, key, objects);
 		// Wait indefinitely for results
-		List<ProvaSolution[]> results = list.get();
-		return results;
+        return list.get();
 	}
 
-	@Override
 	/**
 	 * A wrapper for a synchronous query to the rulebase
 	 *
@@ -157,12 +155,12 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	 *         For one goal, each resultset contains zero or more solutions with instantiations of all
 	 *         free variables in that goal.
 	 */
+    @Override
 	public List<ProvaSolution[]> consultSync(BufferedReader in, String key, Object[] objects) {
 		try {
 			final Future<List<ProvaSolution[]>> list = prova.consultSync(in, key, objects);
 			// Wait indefinitely for results
-			List<ProvaSolution[]> results = list.get();
-			return results;
+            return list.get();
 		} catch (Exception e) {
 			if( e.getCause() instanceof ProvaParsingException )
 				throw new RuntimeException(e.getCause());
@@ -234,19 +232,18 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	 *         with the conversation-id returned here.
 	 */
 	public Object sendMsg(String xid, String protocol, Object obj_receiver, String perf, String term, Object[] objs) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(":-sendMsg(");
-		sb.append(xid);
-		sb.append(',');
-		sb.append(protocol);
-		sb.append(',');
-		sb.append(obj_receiver);
-		sb.append(',');
-		sb.append(perf);
-		sb.append(',');
-		sb.append(term);
-		sb.append(").");
-		BufferedReader in = new BufferedReader(new StringReader(sb.toString()));
+        String sb = ":-sendMsg(" +
+                xid +
+                ',' +
+                protocol +
+                ',' +
+                obj_receiver +
+                ',' +
+                perf +
+                ',' +
+                term +
+                ").";
+        BufferedReader in = new BufferedReader(new StringReader(sb));
 		try {
 			consultSync(in,"",objs);
 		} catch( Exception e ) {
@@ -299,7 +296,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 				break;
 		}
 		
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		for( int offset=i; i<args.length; i++ ) {
 			globals.put("$"+(i-offset),args[i]);
 		}
@@ -352,6 +349,11 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 	@Override
 	public void addMsg(ProvaList terms) {
 		messenger.addMsg(terms);
+	}
+
+	@Override
+	public void addMsg(String xid, Map<String, Object> msg) {
+		messenger.addMsg(xid, msg);
 	}
 
 	@Override

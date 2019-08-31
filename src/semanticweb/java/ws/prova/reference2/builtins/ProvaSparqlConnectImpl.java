@@ -2,11 +2,13 @@ package ws.prova.reference2.builtins;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.openrdf.repository.Repository;
-import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
-import org.openrdf.repository.http.HTTPRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.eclipse.rdf4j.repository.Repository;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.RepositoryException;
+import org.eclipse.rdf4j.repository.http.HTTPRepository;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaConstant;
@@ -39,7 +41,7 @@ import ws.prova.reference2.ProvaConstantImpl;
  * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
  */
 public class ProvaSparqlConnectImpl extends ProvaBuiltinImpl {
-	private static final Logger log = Logger.getLogger(ProvaSparqlConnectImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ProvaSparqlConnectImpl.class);
 	
 	public ProvaSparqlConnectImpl(ProvaKnowledgeBase kb) {
 		super(kb, "sparql_connect");
@@ -55,7 +57,7 @@ public class ProvaSparqlConnectImpl extends ProvaBuiltinImpl {
 			ProvaGoal goal, List<ProvaLiteral> newLiterals, ProvaRule query) {
 		List<ProvaVariable> variables = query.getVariables();
 		ProvaLiteral literal = goal.getGoal();
-		ProvaList terms = (ProvaList) literal.getTerms();
+		ProvaList terms = literal.getTerms();
 		ProvaObject[] data = terms.getFixed();
 		
 		if(data.length != 2) {
@@ -97,7 +99,7 @@ public class ProvaSparqlConnectImpl extends ProvaBuiltinImpl {
 		// Initialize repository.
 		Repository repo = new HTTPRepository(url);
 		try {
-			repo.initialize();
+			repo.init();
 		} catch (RepositoryException e) {
 			log.error("Could not initialize repository \"" + url + "\".");
 			if(log.isDebugEnabled())
@@ -126,7 +128,7 @@ public class ProvaSparqlConnectImpl extends ProvaBuiltinImpl {
 	/*
 	 * Little helper method to resolve ProvaVariables to the constants their bound to
 	 */
-	protected ProvaObject resolve(ProvaObject o, List<ProvaVariable> variables) {
+	private ProvaObject resolve(ProvaObject o, List<ProvaVariable> variables) {
 		if(o instanceof ProvaVariablePtr) {
 			ProvaVariablePtr varPtr = (ProvaVariablePtr) o;
 			o = variables.get(varPtr.getIndex()).getRecursivelyAssigned();

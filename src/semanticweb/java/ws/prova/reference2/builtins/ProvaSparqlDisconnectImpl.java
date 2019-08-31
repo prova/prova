@@ -2,9 +2,11 @@ package ws.prova.reference2.builtins;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.RepositoryException;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaConstant;
@@ -33,7 +35,7 @@ import ws.prova.kernel2.ProvaVariablePtr;
  */
 public class ProvaSparqlDisconnectImpl extends ProvaBuiltinImpl {
 
-	private static final Logger log = Logger.getLogger(ProvaSparqlDisconnectImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ProvaSparqlDisconnectImpl.class);
 	
 	public ProvaSparqlDisconnectImpl(ProvaKnowledgeBase kb) {
 		super(kb, "sparql_disconnect");
@@ -49,7 +51,7 @@ public class ProvaSparqlDisconnectImpl extends ProvaBuiltinImpl {
 			ProvaGoal goal, List<ProvaLiteral> newLiterals, ProvaRule query) {
 		List<ProvaVariable> variables = query.getVariables();
 		ProvaLiteral literal = goal.getGoal();
-		ProvaList terms = (ProvaList) literal.getTerms();
+		ProvaList terms = literal.getTerms();
 		ProvaObject[] data = terms.getFixed();
 		
 		if(data.length != 1) {

@@ -15,43 +15,45 @@ import ws.prova.service.ProvaMiniService;
 
 public interface ProvaMessenger {
 
-	public boolean sendMsg(ProvaLiteral literal, List<ProvaLiteral> newLiterals,
+	boolean sendMsg(ProvaLiteral literal, List<ProvaLiteral> newLiterals,
 			ProvaRule query);
 
-	public boolean spawn(ProvaLiteral literal, List<ProvaLiteral> newLiterals,
+	boolean spawn(ProvaLiteral literal, List<ProvaLiteral> newLiterals,
 			ProvaRule query);
 
-	public boolean rcvMsg(ProvaGoal goal, List<ProvaLiteral> newLiterals,
+	boolean rcvMsg(ProvaGoal goal, List<ProvaLiteral> newLiterals,
 			ProvaRule query, boolean mult);
 
-	public void sendReturnAsMsg(ProvaConstant cid, Object ret);
+	void sendReturnAsMsg(ProvaConstant cid, Object ret);
 
-	public boolean prepareMsg(ProvaLiteral literal, List<ProvaLiteral> newLiterals,
+	boolean prepareMsg(ProvaLiteral literal, List<ProvaLiteral> newLiterals,
 			ProvaRule query);
 
-	public String generateCid();
+	String generateCid();
 
-	public void addMsg(ProvaList terms);
+	void addMsg(ProvaList terms);
 
-	public boolean rcvMsgP(ProvaGoal goal,
+	boolean rcvMsgP(ProvaGoal goal,
 			List<ProvaLiteral> newLiterals, ProvaRule query, boolean mult);
 
-	public boolean removeTemporalRule(ProvaPredicate predicate,
+	boolean removeTemporalRule(ProvaPredicate predicate,
 			ProvaPredicate predicate2, long key, boolean recursive, ProvaList reaction, Map<String, List<Object>> metadata);
 
-	public void cleanupGroup(String xorGroup);
+	void cleanupGroup(String xorGroup);
 
-	public void addGroupResult(ProvaList terms);
+	void addGroupResult(ProvaList terms);
 
 	void scheduleCleanup(ProvaObject xid, ProvaGroup group, ProvaPredicate p1, ProvaPredicate p2, long ruleid,
 			long delay, long period, Map<String, List<Object>> metadata);
 
 	void scheduleCleanup(ProvaGroup dynamic, long delay);
 
-	public void stop();
+	void stop();
 
-	public void setService(ProvaMiniService service);
+	void setService(ProvaMiniService service);
 
-	public void addMsg(String xid, String dest, String agent, Object payload);
+	void addMsg(String xid, String dest, String agent, Object payload);
+
+	void addMsg(String xid, Map<String, Object> msg);
 
 }

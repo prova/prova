@@ -88,6 +88,11 @@ public class ProvaAnyImpl extends ProvaTermImpl implements ProvaConstant, ProvaC
 	}
 
 	@Override
+	public ProvaObject computeProvaIfExpression() {
+		return null;
+	}
+
+	@Override
 	public boolean matched(ProvaConstant target) {
 		return true;
 	}

@@ -238,6 +238,8 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 
 	@Override
 	public boolean equals( Object o ) {
+		if (!(o instanceof ProvaVariableImpl))
+			return false;
 		ProvaVariableImpl var = (ProvaVariableImpl) o;
 		return var.name.equals(name) && var.type==type;
 	}
@@ -275,6 +277,11 @@ public class ProvaVariableImpl extends ProvaTermImpl implements ProvaVariable {
 
 	@Override
 	public Object computeIfExpression() {
+		return this;
+	}
+
+	@Override
+	public ProvaObject computeProvaIfExpression() {
 		return this;
 	}
 

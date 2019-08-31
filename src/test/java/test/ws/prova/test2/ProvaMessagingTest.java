@@ -15,9 +15,9 @@ import ws.prova.api2.ProvaCommunicatorImpl;
 
 public class ProvaMessagingTest {
 
-	static final String kAgent = "prova";
+	private static final String kAgent = "prova";
 
-	static final String kPort = null;
+	private static final String kPort = null;
 
 	// Unique key identifying the consulted input (useful in interactive environment)
 	int key = 0;
@@ -37,7 +37,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/parallel.prova";
 
 		AtomicInteger count = new AtomicInteger();
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -46,7 +46,7 @@ public class ProvaMessagingTest {
 				wait(200);
 				org.junit.Assert.assertEquals(1,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -55,7 +55,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/test023.prova";
 		
 		AtomicInteger count = new AtomicInteger();
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -64,7 +64,7 @@ public class ProvaMessagingTest {
 				wait(1800);
 				org.junit.Assert.assertEquals(8,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -73,7 +73,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg001.prova";
 		
 		AtomicInteger count = new AtomicInteger();
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -82,7 +82,7 @@ public class ProvaMessagingTest {
 				wait(1000);
 				org.junit.Assert.assertEquals(4,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -91,7 +91,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg002.prova";
 		
 		AtomicInteger count = new AtomicInteger();
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -100,7 +100,7 @@ public class ProvaMessagingTest {
 				wait(1000);
 				org.junit.Assert.assertEquals(1,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -109,7 +109,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg003.prova";
 		
 		AtomicInteger count = new AtomicInteger();
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -118,7 +118,7 @@ public class ProvaMessagingTest {
 				wait(1000);
 				org.junit.Assert.assertEquals(2,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -127,7 +127,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg004.prova";
 		
 		AtomicInteger count = new AtomicInteger();
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -136,7 +136,7 @@ public class ProvaMessagingTest {
 				wait(1000);
 				org.junit.Assert.assertEquals(20,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -145,7 +145,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg005.prova";
 		
 		AtomicInteger count = new AtomicInteger();
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -154,7 +154,7 @@ public class ProvaMessagingTest {
 				wait(2500);
 				org.junit.Assert.assertEquals(2,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -163,7 +163,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg006.prova";
 		
 		AtomicInteger count = new AtomicInteger();
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -172,7 +172,7 @@ public class ProvaMessagingTest {
 				wait(2000);
 				org.junit.Assert.assertEquals(1,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -181,7 +181,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg007.prova";
 		
 		AtomicInteger count = new AtomicInteger();
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -190,7 +190,7 @@ public class ProvaMessagingTest {
 				wait(2000);
 				org.junit.Assert.assertEquals(2,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -202,7 +202,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg008.prova";
 		
 		AtomicInteger count = new AtomicInteger(0);
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -211,7 +211,7 @@ public class ProvaMessagingTest {
 				wait(2000);
 				org.junit.Assert.assertEquals(4,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -220,7 +220,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg009.prova";
 		
 		AtomicInteger count = new AtomicInteger(0);
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -229,7 +229,7 @@ public class ProvaMessagingTest {
 				wait(1000);
 				org.junit.Assert.assertEquals(4,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -238,7 +238,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg011.prova";
 		
 		AtomicInteger count = new AtomicInteger(0);
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -247,7 +247,7 @@ public class ProvaMessagingTest {
 				wait(1000);
 				org.junit.Assert.assertEquals(1,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -264,7 +264,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/msg010.prova";
 		
 		AtomicInteger count = new AtomicInteger(0);
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -273,7 +273,7 @@ public class ProvaMessagingTest {
 				wait(2000);
 				org.junit.Assert.assertEquals(6,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
@@ -282,7 +282,7 @@ public class ProvaMessagingTest {
 		final String rulebase = "rules/reloaded/async_2.prova";
 		
 		AtomicInteger count = new AtomicInteger(0);
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		globals.put("$Count", count);
 		prova = new ProvaCommunicatorImpl(kAgent,kPort,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 
@@ -291,19 +291,19 @@ public class ProvaMessagingTest {
 				wait(2000);
 				org.junit.Assert.assertEquals(3,count.get());
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 		}
 	}
 
-	@Test
 	/**
 	 * Pass messages 1000 times around a ring of 1000 reagents (1M messages total)
 	 */
+	@Test
 	public void ring() {
 		final String rulebase = "rules/reloaded/ring.prova";
 		
 		AtomicLong count = new AtomicLong(0);
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		CountDownLatch doneSignal = new CountDownLatch(1);
 		globals.put("$Latch", doneSignal);
 		globals.put("$Count", count);
@@ -324,16 +324,16 @@ public class ProvaMessagingTest {
 
 	}
 
-	@Test
 	/**
 	 * Pass messages 1000 times around a ring of 1000 reagents (1M messages total).
 	 * Use shortened versions of sendMsg and rcvMsg/rcvMult
 	 */
+	@Test
 	public void ring2() {
 		final String rulebase = "rules/reloaded/ring2.prova";
 		
 		AtomicLong count = new AtomicLong(0);
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		CountDownLatch doneSignal = new CountDownLatch(1);
 		globals.put("$Latch", doneSignal);
 		globals.put("$Count", count);
@@ -354,15 +354,15 @@ public class ProvaMessagingTest {
 
 	}
 
-	@Test
 	/**
 	 * Pass 10 messages concurrently 100 times each around a ring of 10000 reagents (10M messages total)
 	 */
+	@Test
 	public void ring_parallel() {
 		final String rulebase = "rules/reloaded/ring_parallel.prova";
 		
 		AtomicLong count = new AtomicLong(0);
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		CountDownLatch doneSignal = new CountDownLatch(10);
 		globals.put("$Latch", doneSignal);
 		globals.put("$Count", count);
@@ -383,15 +383,15 @@ public class ProvaMessagingTest {
 
 	}
 
-//	@Test
 	/**
 	 * Pass messages 1000 times around a ring of 10000 reagents
 	 */
+//	@Test
 	public void ring3() {
 		final String rulebase = "rules/reloaded/ring2.prova";
 		
 		AtomicLong count = new AtomicLong(0);
-		Map<String,Object> globals = new HashMap<String,Object>();
+		Map<String,Object> globals = new HashMap<>();
 		CountDownLatch doneSignal = new CountDownLatch(1);
 		globals.put("$Latch", doneSignal);
 		globals.put("$Count", count);

@@ -6,7 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaGoal;
@@ -23,7 +24,7 @@ import ws.prova.kernel2.ProvaVariablePtr;
 public class ProvaGoalImpl implements ProvaGoal {
 
 	@SuppressWarnings("unused")
-	private final static Logger log = Logger.getLogger("prova");
+	private final static Logger log = LoggerFactory.getLogger("prova");
 	
 	private ProvaRule query;
 	
@@ -92,7 +93,7 @@ public class ProvaGoalImpl implements ProvaGoal {
 					if( keyClauses.size()==1 ) {
 						this.singleClause = true;
 					}
-					final List<ProvaRule> tempClauses = new ArrayList<ProvaRule>(keyClauses);
+					final List<ProvaRule> tempClauses = new ArrayList<>(keyClauses);
 					this.iterator = tempClauses.iterator();
 				}
 				return;
@@ -116,7 +117,7 @@ public class ProvaGoalImpl implements ProvaGoal {
 		String symbol = (String) ((ProvaConstant) fixed[0]).getObject();
 		ProvaList terms = (ProvaList) fixed[1];
 		Map<String,List<Object>> m = goal.getMetadata();
-		meta = new ArrayList<ProvaList>();
+		meta = new ArrayList<>();
 		for( int i=2; i<fixed.length; i++ ) {
 			meta.add((ProvaList) fixed[i]);
 		}
@@ -244,14 +245,14 @@ public class ProvaGoalImpl implements ProvaGoal {
 	@Override
 	public void addAnswer(ProvaList terms) {
 		if( extraAnswers==null )
-			extraAnswers = new ArrayList<ProvaList>();
+			extraAnswers = new ArrayList<>();
 		extraAnswers.add(terms);
 	}
 
 	@Override
 	public void addOuterAnswer(ProvaList terms) {
 		if( outerAnswers==null )
-			outerAnswers = new ArrayList<ProvaList>();
+			outerAnswers = new ArrayList<>();
 		outerAnswers.add(terms);
 	}
 

@@ -27,7 +27,9 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.SwingUtilities;
 
 import org.apache.commons.beanutils.MethodUtils;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.api2.ProvaCommunicator;
 import ws.prova.api2.ProvaCommunicatorImpl;
@@ -53,7 +55,7 @@ import ws.prova.service.ProvaMiniService;
 @SuppressWarnings("unused")
 public class ProvaReagentImpl implements ProvaReagent {
 
-	private final static Logger log = Logger.getLogger("prova");
+	private static final Logger log = LoggerFactory.getLogger(ProvaReagentImpl.class);
 
 	private static final ProvaSolution[] noSolutions = new ProvaSolution[0];
 
@@ -74,7 +76,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 
 	private final ExecutorService[] partitionedPool = new ExecutorService[32];
 
-	private final Map<Long, Integer> threadId2Index = new HashMap<Long, Integer>(
+	private final Map<Long, Integer> threadId2Index = new HashMap<>(
 			32);
 
 	private ProvaMessenger messenger;
@@ -98,45 +100,35 @@ public class ProvaReagentImpl implements ProvaReagent {
 		try {
 			this.machine = InetAddress.getLocalHost().getHostName()
 					.toLowerCase();
-		} catch (UnknownHostException ex) {
+		} catch (UnknownHostException ignored) {
 		}
 
 		kb = new ProvaKnowledgeBaseImpl();
 		kb.setGlobals(globals);
 
-		this.executor = Executors.newFixedThreadPool(1,new ThreadFactory() {
-
-			@Override
-			public Thread newThread(Runnable r) {
-				final Thread th = new Thread(r);
-				th.setName("Sync");
-				th.setDaemon(true);
-				return th;
-			}
-			
+		this.executor = Executors.newFixedThreadPool(1, r -> {
+			final Thread th = new Thread(r);
+			th.setName("Sync");
+			th.setDaemon(true);
+			return th;
 		});
 		this.pool = 
 //			Executors.newFixedThreadPool(10);
 			new ThreadPoolExecutor(10, 10,
-			    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<Runnable>(81920));
+			    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<>(81920));
 		for (int i = 0; i < partitionedPool.length; i++) {
 			final int index = i;
 			this.partitionedPool[i] =
 				new ThreadPoolExecutor(1, 1,
-					    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<Runnable>(81920),
+					    0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueueWithPut<>(81920),
 //				Executors.newFixedThreadPool(1,
-					new ThreadFactory() {
-
-						@Override
-						public Thread newThread(Runnable r) {
+						r -> {
 							final Thread th = new Thread(r);
 							threadId2Index.put(th.getId(), index);
 							th.setName("Async-"+(index+1));
 							th.setDaemon(true);
 							return th;
-						}
-
-					});
+						});
 		}
 
 		this.messenger = new ProvaMessengerImpl(this, kb, agent, password,
@@ -145,11 +137,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 		communicator.setMessenger(messenger);
 		this.workflows = new ProvaWorkflowsImpl(kb);
 
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			public void run() {
-				shutdown();
-			}
-		});
+		Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
 
 		if (rules != null && !rules.equals("")) {
 			// Import prova rules from .prova file or a BufferedReader
@@ -192,26 +180,22 @@ public class ProvaReagentImpl implements ProvaReagent {
 		// consultSync(in,"shutdown",null);
 	}
 
-	public List<ProvaSolution[]> consultSyncInternal(BufferedReader in,
-			String key, Object[] objects) {
+	private List<ProvaSolution[]> consultSyncInternal(BufferedReader in,
+													  String key, Object[] objects) {
 		return kb.consultSyncInternal(this, in, key, objects);
 	}
 
-	public List<ProvaSolution[]> consultSyncInternal(String src, String key,
-			Object[] objects) {
+	private List<ProvaSolution[]> consultSyncInternal(String src, String key,
+													  Object[] objects) {
 		return kb.consultSyncInternal(this, src, key, objects);
 	}
 
 	@Override
 	public Future<List<ProvaSolution[]>> consultSync(final String src,
 			final String key, final Object[] objects) {
-		Callable<List<ProvaSolution[]>> task = new Callable<List<ProvaSolution[]>>() {
-			public List<ProvaSolution[]> call() {
-				return ProvaReagentImpl.this.consultSyncInternal(src, key,
-						objects);
-			}
-		};
-		FutureTask<List<ProvaSolution[]>> ftask = new FutureTask<List<ProvaSolution[]>>(
+		Callable<List<ProvaSolution[]>> task = () -> ProvaReagentImpl.this.consultSyncInternal(src, key,
+				objects);
+		FutureTask<List<ProvaSolution[]>> ftask = new FutureTask<>(
 				task);
 		Future<?> future = executor.submit(ftask);
 		return ftask;
@@ -220,13 +204,9 @@ public class ProvaReagentImpl implements ProvaReagent {
 	@Override
 	public Future<List<ProvaSolution[]>> consultSync(final BufferedReader in,
 			final String key, final Object[] objects) {
-		Callable<List<ProvaSolution[]>> task = new Callable<List<ProvaSolution[]>>() {
-			public List<ProvaSolution[]> call() {
-				return ProvaReagentImpl.this.consultSyncInternal(in, key,
-						objects);
-			}
-		};
-		FutureTask<List<ProvaSolution[]>> ftask = new FutureTask<List<ProvaSolution[]>>(
+		Callable<List<ProvaSolution[]>> task = () -> ProvaReagentImpl.this.consultSyncInternal(in, key,
+				objects);
+		FutureTask<List<ProvaSolution[]>> ftask = new FutureTask<>(
 				task);
 		executor.submit(ftask);
 		return ftask;
@@ -237,24 +217,14 @@ public class ProvaReagentImpl implements ProvaReagent {
 			final Object[] objects) {
 		final StringReader sr = new StringReader(src);
 		final BufferedReader in = new BufferedReader(sr);
-		Runnable task = new Runnable() {
-			@Override
-			public void run() {
-				ProvaReagentImpl.this.consultSyncInternal(in, key, objects);
-			}
-		};
+		Runnable task = () -> ProvaReagentImpl.this.consultSyncInternal(in, key, objects);
 		executor.submit(task);
 	}
 
 	@Override
 	public void consultAsync(final BufferedReader in, final String key,
 			final Object[] objects) {
-		Runnable task = new Runnable() {
-			@Override
-			public void run() {
-				ProvaReagentImpl.this.consultSyncInternal(in, key, objects);
-			}
-		};
+		Runnable task = () -> ProvaReagentImpl.this.consultSyncInternal(in, key, objects);
 		executor.submit(task);
 	}
 
@@ -270,14 +240,11 @@ public class ProvaReagentImpl implements ProvaReagent {
 	public void submitAsync(final long partition, final ProvaRule goal,
 			final ProvaThreadpoolEnum threadPool) {
 		this.latestTimestamp = System.currentTimeMillis();
-		Runnable job = new Runnable() {
-			@Override
-			public void run() {
-				try {
-					ProvaReagentImpl.this.submitSyncInternal(goal);
-				} catch (RuntimeException e) {
-					log.error("Runtime Java exception: " + e);
-				}
+		Runnable job = () -> {
+			try {
+				ProvaReagentImpl.this.submitSyncInternal(goal);
+			} catch (RuntimeException e) {
+				log.error("Runtime Java exception: " + e);
 			}
 		};
 		switch (threadPool) {
@@ -308,19 +275,13 @@ public class ProvaReagentImpl implements ProvaReagent {
 		case SWING:
 			// All Swing events are queued to the Swing events thread
 			// (this is to be conforming to the Swing threads rules)
-			Runnable task = new Runnable() {
-				@Override
-				public void run() {
-					ProvaReagentImpl.this.submitSyncInternal(goal);
-				}
-			};
+			Runnable task = () -> ProvaReagentImpl.this.submitSyncInternal(goal);
 			try {
 				if (SwingUtilities.isEventDispatchThread())
 					task.run();
 				else
 					SwingUtilities.invokeAndWait(task);
-			} catch (InvocationTargetException ex) {
-			} catch (InterruptedException ex) {
+			} catch (InvocationTargetException | InterruptedException ignored) {
 			}
 			break;
 		case CONVERSATION:
@@ -345,7 +306,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 	 *            partition key
 	 * @return thread index
 	 */
-	public int threadIndex(final long partition) {
+	private int threadIndex(final long partition) {
 		return (int) (partition % (partitionedPool.length));
 	}
 
@@ -367,8 +328,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 					task.run();
 				else
 					SwingUtilities.invokeAndWait(task);
-			} catch (InvocationTargetException ex) {
-			} catch (InterruptedException ex) {
+			} catch (InvocationTargetException | InterruptedException ex) {
 			}
 			break;
 		case TASK:
@@ -406,26 +366,23 @@ public class ProvaReagentImpl implements ProvaReagent {
 			args0[0] = ((ProvaConstant) argsRaw).getObject();
 		}
 		final Object[] args = args0;
-		Callable<?> task = new Callable<Object>() {
-			@Override
-			public Object call() throws Exception {
-				Object ret = null;
-				if (target instanceof Class<?>) {
-					Class<?> targetClass = (Class<?>) target;
-					ret = MethodUtils.invokeStaticMethod(targetClass, method,
-							args);
-				} else {
-					ret = MethodUtils.invokeMethod(target, method, args);
-				}
-				messenger.sendReturnAsMsg((ProvaConstant) data[0], ret);
-				return ret;
+		Callable<?> task = (Callable<Object>) () -> {
+			Object ret;
+			if (target instanceof Class<?>) {
+				Class<?> targetClass = (Class<?>) target;
+				ret = MethodUtils.invokeStaticMethod(targetClass, method,
+						args);
+			} else {
+				ret = MethodUtils.invokeMethod(target, method, args);
 			}
+			messenger.sendReturnAsMsg((ProvaConstant) data[0], ret);
+			return ret;
 		};
 		Future<?> future = pool.submit(task);
 		return true;
 	}
 
-	protected void submitSyncInternal(ProvaRule goal) {
+	private void submitSyncInternal(ProvaRule goal) {
 		ProvaResolutionInferenceEngine engine = new ProvaResolutionInferenceEngineImpl(
 				kb, goal);
 		engine.setReagent(this);
@@ -506,7 +463,7 @@ public class ProvaReagentImpl implements ProvaReagent {
 
 		private static final long serialVersionUID = -3392821517081645923L;
 
-		public ArrayBlockingQueueWithPut(int capacity) {
+		ArrayBlockingQueueWithPut(int capacity) {
 			super(capacity);
 		}
 

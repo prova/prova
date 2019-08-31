@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaGoal;
@@ -19,17 +20,17 @@ import ws.prova.kernel2.ProvaUnification;
 public class ProvaRuleSetImpl implements ProvaRuleSet {
 
 	@SuppressWarnings("unused")
-	private final static Logger log = Logger.getLogger("prova");
+	private final static Logger log = LoggerFactory.getLogger("prova");
 
 	private final String symbol;
 
 	private final int arity;
 	
-	private final List<ProvaRule> clauses = new ArrayList<ProvaRule>();
+	private final List<ProvaRule> clauses = new ArrayList<>();
 	
-	private final ConcurrentMap<Object,List<ProvaRule>> firstArgMap = new ConcurrentHashMap<Object,List<ProvaRule>>();
+	private final ConcurrentMap<Object,List<ProvaRule>> firstArgMap = new ConcurrentHashMap<>();
 
-	private final ConcurrentMap<String,List<ProvaRule>> srcMap = new ConcurrentHashMap<String,List<ProvaRule>>();
+	private final ConcurrentMap<String,List<ProvaRule>> srcMap = new ConcurrentHashMap<>();
 
 	private ConcurrentMap<Long,ProvaRule> temporalRuleMap;
 
@@ -38,7 +39,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 		this.arity = -1;
 	}
 
-	public ProvaRuleSetImpl(String symbol, int arity) {
+	ProvaRuleSetImpl(String symbol, int arity) {
 		this.symbol = symbol;
 		this.arity = arity;
 	}
@@ -52,10 +53,10 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 		return clauses;
 	}
 
-	@Override
 	/**
 	 * Now implements pre-filtering by spotting mismatched constants in the source and target arguments
 	 */
+	@Override
 	public synchronized List<ProvaRule> getClauses(Object key, ProvaObject[] source) {
 		List<ProvaRule> bound = firstArgMap.get(key);
 		List<ProvaRule> free = firstArgMap.get("@");
@@ -66,7 +67,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 		// Merge the two
 		final int boundSize = bound.size();
 		final int freeSize = free.size();
-		List<ProvaRule> merged = new ArrayList<ProvaRule>(boundSize+freeSize);
+		List<ProvaRule> merged = new ArrayList<>(boundSize + freeSize);
 		int i1 = 0;
 		int i2 = 0;
 		while( i1<boundSize && i2<freeSize ) {
@@ -150,8 +151,8 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 		ProvaLiteral goalLit = kb.generateLiteral(data);
 		ProvaRule query = kb.generateGoal(new ProvaLiteral[] {goalLit});
 		ProvaGoal goal = new ProvaGoalImpl(query);
-        ProvaUnification unification = null;
-		while( (unification = goal.nextUnification(kb))!=null ) {
+        ProvaUnification unification;
+		while( (unification = goal.nextUnification(kb)) != null ) {
 			boolean result = unification.unify();
 			if( !result || !unification.targetUnchanged() )
 				continue;
@@ -170,12 +171,11 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 		ProvaLiteral goalLit = kb.generateLiteral(data);
 		ProvaRule query = kb.generateGoal(new ProvaLiteral[] {goalLit});
 		ProvaGoal goal = new ProvaGoalImpl(query);
-        ProvaUnification unification = null;
+        ProvaUnification unification;
 		while( (unification = goal.nextUnification(kb))!=null ) {
 			boolean result = unification.unify();
 			if( result && unification.targetUnchanged() )
 				goal.removeTarget();
-			continue;
 		}
 		return true;
 	}
@@ -194,17 +194,13 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	public synchronized void add(ProvaRule clause) {
 		final Object firstArg = clause.getFirstArg();
 		if( firstArg!=null ) {
-			List<ProvaRule> rules = firstArgMap.get(firstArg);
-			if( rules==null ) {
-				rules = new ArrayList<ProvaRule>();
-				firstArgMap.put(firstArg, rules);
-			}
+			List<ProvaRule> rules = firstArgMap.computeIfAbsent(firstArg, k -> new ArrayList<>());
 			rules.add(clause);
 		}
 		if( clause.getRuleId()<0 ) {
 			// It is a temporal rule, so store it in the map
 			if( this.temporalRuleMap==null )
-				this.temporalRuleMap = new ConcurrentHashMap<Long, ProvaRule>();
+				this.temporalRuleMap = new ConcurrentHashMap<>();
 			this.temporalRuleMap.put(clause.getRuleId(), clause);
 		}
 		// TODO: understand the implications of this
@@ -216,11 +212,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	public synchronized void addA(ProvaRule clause) {
 		final Object firstArg = clause.getFirstArg();
 		if( firstArg!=null ) {
-			List<ProvaRule> rules = firstArgMap.get(firstArg);
-			if( rules==null ) {
-				rules = new ArrayList<ProvaRule>();
-				firstArgMap.put(firstArg, rules);
-			}
+			List<ProvaRule> rules = firstArgMap.computeIfAbsent(firstArg, k -> new ArrayList<>());
 			rules.add(0,clause);
 		}
 		// TODO: understand the implications of this
@@ -241,11 +233,7 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 
 	@Override
 	public synchronized void addRuleToSrc(ProvaRuleImpl rule, String src) {
-		List<ProvaRule> rules = srcMap.get(src);
-		if( rules==null ) {
-			rules = new ArrayList<ProvaRule>();
-			srcMap.put(src, rules);
-		}
+		List<ProvaRule> rules = srcMap.computeIfAbsent(src, k -> new ArrayList<>());
 		rules.add(rule);
 	}
 
@@ -263,12 +251,11 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
 	@Override
 	public ProvaUnification nextMatch(ProvaKnowledgeBase kb,
 			ProvaGoal goal) {
-        ProvaUnification unification = null;
-		while( (unification = goal.nextUnification(kb))!=null ) {
+        ProvaUnification unification;
+		while( (unification = goal.nextUnification(kb)) != null ) {
 			boolean result = unification.unify();
 			if( result )
 				return unification;
-			continue;
 		}
 		return null;
 	}

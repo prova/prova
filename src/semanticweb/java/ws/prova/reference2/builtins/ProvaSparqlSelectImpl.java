@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.openrdf.query.Binding;
-import org.openrdf.query.QueryEvaluationException;
-import org.openrdf.query.QueryLanguage;
-import org.openrdf.query.TupleQuery;
-import org.openrdf.query.TupleQueryResult;
-import org.openrdf.repository.RepositoryConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.eclipse.rdf4j.query.Binding;
+import org.eclipse.rdf4j.query.QueryEvaluationException;
+import org.eclipse.rdf4j.query.QueryLanguage;
+import org.eclipse.rdf4j.query.TupleQuery;
+import org.eclipse.rdf4j.query.TupleQueryResult;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
 
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaKnowledgeBase;
@@ -47,7 +49,7 @@ import ws.prova.reference2.ProvaConstantImpl;
  * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
  */
 public class ProvaSparqlSelectImpl extends ProvaSparqlQueryImpl {
-	private static final Logger log = Logger.getLogger(ProvaSparqlSelectImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ProvaSparqlSelectImpl.class);
 	
 	public ProvaSparqlSelectImpl(ProvaKnowledgeBase kb) {
 		super(kb, "sparql_select");
@@ -82,10 +84,8 @@ public class ProvaSparqlSelectImpl extends ProvaSparqlQueryImpl {
 		try {
 			// For each result in the result set, add a fact to the KB.
 			while(result.hasNext()) {
-				List<ProvaObject> newterms = new ArrayList<ProvaObject>();
-				Iterator<Binding> it = result.next().iterator();
-				while(it.hasNext()) {
-					Binding b = it.next();
+				List<ProvaObject> newterms = new ArrayList<>();
+				for (Binding b : result.next()) {
 					// TODO Handle different data types.
 					String val = b.getValue().stringValue();
 					newterms.add(ProvaConstantImpl.create(val));

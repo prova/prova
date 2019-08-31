@@ -129,7 +129,7 @@ public class ProvaListPtrImpl implements ProvaListPtr {
 
 	@Override
 	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables) {
-		if( assigned!=null && assigned!=this )
+		if( assigned != null /*&& assigned!=this*/)
 			return assigned.cloneWithVariables(variables);
 		throw new UnsupportedOperationException();
 	}
@@ -141,6 +141,11 @@ public class ProvaListPtrImpl implements ProvaListPtr {
 
 	@Override
 	public Object computeIfExpression() {
+		return this;
+	}
+
+	@Override
+	public ProvaObject computeProvaIfExpression() {
 		return this;
 	}
 

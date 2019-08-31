@@ -30,7 +30,7 @@ public class ProvaJavaPredicateImpl extends ProvaBuiltinImpl {
 			ProvaGoal goal, List<ProvaLiteral> newLiterals, ProvaRule query) {
 		ProvaLiteral literal = goal.getGoal();
 		List<ProvaVariable> variables = query.getVariables();
-		ProvaList terms = (ProvaList) literal.getTerms();
+		ProvaList terms = literal.getTerms();
 		ProvaObject[] data = terms.getFixed();
 		if( data.length!=3 )
 			return false;
@@ -47,7 +47,7 @@ public class ProvaJavaPredicateImpl extends ProvaBuiltinImpl {
 			return false;
 		String method = (String) methodObject;
 		ProvaList argsList = (ProvaList) data[2];
-		List<Object> args = new ArrayList<Object>();
+		List<Object> args = new ArrayList<>();
 		// TODO: deal with the list tail
 		for( ProvaObject argObject : argsList.getFixed() ) {
 			if( argObject instanceof ProvaVariablePtr ) {
@@ -55,28 +55,23 @@ public class ProvaJavaPredicateImpl extends ProvaBuiltinImpl {
 				argObject = variables.get(varPtr.getIndex()).getRecursivelyAssigned();
 			}
 			if( argObject instanceof ProvaMapImpl ) {
-				final ProvaMapImpl map = (ProvaMapImpl) ((ProvaMapImpl) argObject).cloneWithVariables(variables);
-				args.add( map.getObject() );
+				// We detect when ProvaMapImpl is passed
+				//   to the Java external functions and unwrap it
+				args.add( ((ProvaMapImpl) argObject).unwrap());
 			} else if( argObject instanceof ProvaConstant ) {
 				args.add(((ProvaConstant) argObject).getObject());
 			} else {
 				args.add(argObject);
 			}
 		}
-		Object rc = null;
+		Object rc;
 		try {
 			Object targetObject = ((ProvaConstant) target).getObject();
 			if( targetObject instanceof Class<?> )
 				rc = MethodUtils.invokeStaticMethod((Class<?>) targetObject,method,args.toArray());
 			else
 				rc = MethodUtils.invokeMethod(((ProvaConstant) target).getObject(),method,args.toArray());
-		} catch (SecurityException e) {
-			throw new RuntimeException(e);
-		} catch (NoSuchMethodException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalArgumentException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
+		} catch (SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		} catch (InvocationTargetException e) {
 			throw new RuntimeException(e.getCause());

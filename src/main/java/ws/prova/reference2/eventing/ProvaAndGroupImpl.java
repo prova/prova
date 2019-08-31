@@ -11,7 +11,8 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.kernel2.ProvaConstant;
@@ -26,25 +27,25 @@ import ws.prova.reference2.messaging.where.WhereNode;
 
 public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 
-	private final static Logger log = Logger.getLogger("prova.eventing");
+	private final static Logger log = LoggerFactory.getLogger("prova.eventing");
 	
 	private class MetaVars {
 		// Bound metadata variables
 		public Map<Object, Object> vars;
 		// Results index
 		public ProvaList result;
-		public MetaVars(ProvaList result, Map<Object, Object> varList) {
+		MetaVars(ProvaList result, Map<Object, Object> varList) {
 			this.result = result;
-			this.vars = new HashMap<Object, Object>(varList);
+			this.vars = new HashMap<>(varList);
 		}
 	}
 	
 	private class MetaVarsKey {
-		public MetaVarsKey(String dynamicGroup, long ruleid) {
+		MetaVarsKey(String dynamicGroup, long ruleid) {
 			this.dynamicGroup = dynamicGroup;
 			this.ruleid = ruleid;
 		}
-		public String dynamicGroup;
+		String dynamicGroup;
 		public long ruleid;
 	}
 	
@@ -54,14 +55,14 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 	
 	public ProvaAndGroupImpl(String dynamicGroup, String staticGroup) {
 		super(dynamicGroup,staticGroup);
-		results = new ArrayList<Object>();
-		varResults = new ConcurrentHashMap<MetaVarsKey,List<MetaVars>>();
+		results = new ArrayList<>();
+		varResults = new ConcurrentHashMap<>();
 	}
 
 	public ProvaAndGroupImpl(ProvaGroup g) {
 		super((ProvaBasicGroupImpl) g);
-		results = new ArrayList<Object>();
-		varResults = new ConcurrentHashMap<MetaVarsKey,List<MetaVars>>();
+		results = new ArrayList<>();
+		varResults = new ConcurrentHashMap<>();
 	}
 
 	@Override
@@ -98,7 +99,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 			dynamicContext = true;
 			List<Object> vars = metadata.get("vars");
 			Map<Object, ProvaObject> contextVarsMap = ProvaLiteralImpl.tlVars.get();
-			Map<Object, Object> varsMap = new HashMap<Object, Object>(contextVarsMap.size());
+			Map<Object, Object> varsMap = new HashMap<>(contextVarsMap.size());
 
 			// Clean up assignments
 			for( Object var : vars ) {
@@ -117,7 +118,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 				this.lastReaction = reaction;
 				List<List<ProvaList>> localResults = nextResults(0, matches);
 				for( List<ProvaList> localResult : localResults ) {
-					local = new ArrayList<Object>(localResult.size());
+					local = new ArrayList<>(localResult.size());
 					for( ProvaList result : localResult )
 						local.add(result.cloneWithVariables(null));
 					sendGroupResults(local, kb, prova);
@@ -192,7 +193,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 				if( countMax>0 )
 					countList.set(1,--countMax);
 				if( log.isDebugEnabled() )
-					log.debug(countMin);
+					log.debug("{}", countMin);
 				if( !not && countMin==0 && removeMap.containsKey(ruleid) )
 					// Necessary minimum events have arrived, further events are now optional
 					removeMap.get(ruleid).setOptional(true);
@@ -269,18 +270,17 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 
 	private List<List<ProvaList>> nextResults(int offset, List<List<ProvaList>> matches) {
 		if( offset==matches.size() )
-			return Collections.<List<ProvaList>>emptyList();
-		List<List<ProvaList>> out = new ArrayList<List<ProvaList>>();
+			return Collections.emptyList();
+		List<List<ProvaList>> out = new ArrayList<>();
 		List<List<ProvaList>> remainder = nextResults(offset+1, matches);
 		for( ProvaList match : matches.get(offset) ) {
 			if( remainder.isEmpty() ) {
-				out.add( Arrays.<ProvaList>asList( new ProvaList[] {match}));
+				out.add( Arrays.asList(match));
 			} else {
 				for( List<ProvaList> r : remainder ) {
-					List<ProvaList> n = new ArrayList<ProvaList>();
+					List<ProvaList> n = new ArrayList<>();
 					n.add(match);
-					for( ProvaList k : r )
-						n.add(k);
+					n.addAll(r);
 					out.add(n);
 				}
 			}
@@ -294,13 +294,13 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 			ProvaList reaction,
 			Map<Long, ProvaGroup> ruleid2Group,
 			Map<String, List<Object>> metadata) {
-		List<List<ProvaList>> matches = new ArrayList<List<ProvaList>>();
+		List<List<ProvaList>> matches = new ArrayList<>();
 		for( Entry<MetaVarsKey,List<MetaVars>> e : varResults.entrySet() ) {
-			if( e.getKey().dynamicGroup!=dynamicGroup || e.getKey().ruleid==ruleid )
+			if( e.getKey().dynamicGroup != dynamicGroup || e.getKey().ruleid==ruleid )
 				// Only compare with the same reaction group instance
 				//    and avoid self-comparing
 				continue;
-			List<ProvaList> legMatches = new ArrayList<ProvaList>();
+			List<ProvaList> legMatches = new ArrayList<>();
 			for( MetaVars values : e.getValue() ) {
 				boolean matching = true;
 				for( Entry<Object, Object> e2 : values.vars.entrySet() ) {
@@ -332,14 +332,14 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 				matches.add(legMatches);
 		}
 		if( !matches.isEmpty() )
-			matches.add(Arrays.<ProvaList>asList( new ProvaList[] {reaction}));
+			matches.add(Collections.singletonList(reaction));
 		return matches;
 	}
 
 	private void addVarResults(long ruleid, Map<Object, Object> varsMap, ProvaList reaction) {
 		List<MetaVars> vars = varResults.get(ruleid);
 		if( vars==null ) {
-			vars = new ArrayList<MetaVars>();
+			vars = new ArrayList<>();
 			varResults.put(new MetaVarsKey(dynamicGroup,ruleid), vars);
 		}
 		MetaVars mv = new MetaVars(reaction, varsMap);
@@ -373,10 +373,7 @@ public class ProvaAndGroupImpl extends ProvaBasicGroupImpl {
 
 	@Override
 	public void childFailed(ProvaGroup child, Map<Long, ProvaGroup> ruleid2Group, Map<String, ProvaGroup> dynamic2Group) {
-		for( Iterator<ProvaGroup> iter = children.iterator(); iter.hasNext(); ) {
-			if( child==iter.next() )
-				iter.remove();
-		}
+		children.removeIf(provaGroup -> child == provaGroup);
 		this.lastReaction = null;
 		immediateCleanup(ruleid2Group,dynamic2Group);
 	}

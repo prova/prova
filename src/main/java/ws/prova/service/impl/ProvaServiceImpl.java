@@ -11,7 +11,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.api2.ProvaCommunicator;
 import ws.prova.api2.ProvaCommunicatorImpl;
@@ -28,20 +29,20 @@ import ws.prova.service.ProvaService;
  */
 public class ProvaServiceImpl implements ProvaService {
 
-	private final static Logger log = Logger.getLogger("service");
+	private final static Logger log = LoggerFactory.getLogger("service");
 
 	private String id;
 	
 	private ConcurrentMap<String,ProvaCommunicator> engines;
 
-	private ConcurrentMap<String, List<String>> topicDestinations = new ConcurrentHashMap<String, List<String>>();
+	private ConcurrentMap<String, List<String>> topicDestinations = new ConcurrentHashMap<>();
 
-	private ConcurrentMap<String, EPService> callbacks = new ConcurrentHashMap<String, EPService>();
+	private ConcurrentMap<String, EPService> callbacks = new ConcurrentHashMap<>();
 	
 	@Override
 	public void init() {
 		id = UUID.randomUUID().toString();
-		engines = new ConcurrentHashMap<String,ProvaCommunicator>();
+		engines = new ConcurrentHashMap<>();
 		System.out.println("Prova Service "+id+" created");
 	}
 	
@@ -56,9 +57,9 @@ public class ProvaServiceImpl implements ProvaService {
 	
 	@Override
 	public String instance(String agent, String rulebase) {
-		ProvaCommunicator prova = null;
+		ProvaCommunicator prova;
 		try {
-			Map<String,Object> globals = new HashMap<String,Object>();
+			Map<String,Object> globals = new HashMap<>();
 			prova = new ProvaCommunicatorImpl(this,agent,null,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 			engines.put(agent, prova);
 		} catch (Exception e) {
@@ -69,9 +70,9 @@ public class ProvaServiceImpl implements ProvaService {
 
 	@Override
 	public String instance(String agent, String rulebase, PrintWriter out) {
-		ProvaCommunicator prova = null;
+		ProvaCommunicator prova;
 		try {
-			Map<String,Object> globals = new HashMap<String,Object>();
+			Map<String,Object> globals = new HashMap<>();
 			prova = new ProvaCommunicatorImpl(this,agent,null,rulebase,ProvaCommunicatorImpl.SYNC,globals);
 			prova.setPrintWriter(out);
 			engines.put(agent, prova);
@@ -95,8 +96,7 @@ public class ProvaServiceImpl implements ProvaService {
 			ProvaCommunicator engine = engines.get(agent);
 			if( engine==null )
 				throw new RuntimeException("No engine instance "+agent);
-			List<ProvaSolution[]> resultSets = engine.consultSync(src, key, new Object[]{});
-			return resultSets;
+			return engine.consultSync(src, key, new Object[]{});
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -108,8 +108,7 @@ public class ProvaServiceImpl implements ProvaService {
 			ProvaCommunicator engine = engines.get(agent);
 			if( engine==null )
 				throw new RuntimeException("No engine instance "+agent);
-			List<ProvaSolution[]> resultSets = engine.consultSync(in, key, new Object[]{});
-			return resultSets;
+			return engine.consultSync(in, key, new Object[]{});
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -155,11 +154,7 @@ public class ProvaServiceImpl implements ProvaService {
 	}
 
 	private synchronized void registerMapping(String topic, String dest) {
-		List<String> list = topicDestinations.get(topic);
-		if( list==null ) {
-			list = new ArrayList<String>();
-			topicDestinations.put(topic, list);
-		}
+		List<String> list = topicDestinations.computeIfAbsent(topic, k -> new ArrayList<>());
 		list.add(dest);
 	}
 
@@ -207,14 +202,11 @@ public class ProvaServiceImpl implements ProvaService {
 	@Override
 	public void send(String xid, String dest, String agent, String verb, Object content, EPService callback) {
 		if( callback!=this ) {
-			EPService callback0 = callbacks.get(agent);
-			if( callback0==null ) {
-				callbacks.put(agent, callback);
-			}
+			callbacks.putIfAbsent(agent, callback);
 		}
 		if( "present".equals(verb) ) {
 			// Ask the subscriber to start receiving the stream
-			String topic = null;
+			String topic;
 			if( content instanceof ProvaList ) {
 				topic = ((ProvaConstant) ((ProvaList) content).getFixed()[0]).getObject().toString();
 			} else {
@@ -259,10 +251,7 @@ public class ProvaServiceImpl implements ProvaService {
 
 	@Override
 	public void register(String agent, EPService epService) {
-		EPService callback0 = callbacks.get(agent);
-		if( callback0==null ) {
-			callbacks.put(agent, epService);
-		}
+		callbacks.putIfAbsent(agent, epService);
 	}
 
 }

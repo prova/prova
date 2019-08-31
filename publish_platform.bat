@@ -1,1 +1,0 @@
-java -jar E:\springsource\sts-2.3.2.RELEASE/plugins/org.eclipse.equinox.launcher_*.jar -debug -consolelog -nosplash -verbose -application org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher -metadataRepository file:d:/workspace/prova-compact/platform/repo -artifactRepository file:d:/workspace/prova-compact/platform/repo  -source platform -compress -publishArtifacts

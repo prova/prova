@@ -1,14 +1,12 @@
 package ws.prova.reference2.messaging;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.kernel2.ProvaConstant;
 import ws.prova.kernel2.ProvaKnowledgeBase;
@@ -26,15 +24,15 @@ import ws.prova.reference2.ProvaUnificationImpl;
 
 public class ProvaWorkflowsImpl implements ProvaWorkflows {
 
-	private final static Logger log = Logger.getLogger("prova");
+	private final static Logger log = LoggerFactory.getLogger("prova");
 
 	private ProvaKnowledgeBase kb;
 
-	private ConcurrentMap<String,List<List<ProvaObject>>> join_record = new ConcurrentHashMap<String, List<List<ProvaObject>>>();
+	private ConcurrentMap<String,List<List<ProvaObject>>> join_record = new ConcurrentHashMap<>();
 
-	private ConcurrentMap<String,Object[]> predicate_join_record = new ConcurrentHashMap<String,Object[]>();
+	private ConcurrentMap<String,Object[]> predicate_join_record = new ConcurrentHashMap<>();
 
-	private ConcurrentMap<String,ReentrantLock> predicate_join_locks = new ConcurrentHashMap<String,ReentrantLock>();
+	private final ConcurrentMap<String,ReentrantLock> predicate_join_locks = new ConcurrentHashMap<>();
 
 	public ProvaWorkflowsImpl(ProvaKnowledgeBase kb) {
 		this.kb = kb;
@@ -53,25 +51,22 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 		String key = ((ProvaConstant) data[0]).getObject().toString() + ((ProvaConstant) data[1]).getObject().toString(); 
 		if( join_record.containsKey(key) )
 			return false;
-		ProvaObject[] expectedList = null;
+		ProvaObject[] expectedList;
 		if( data[2].getClass()==ProvaConstantImpl.class && ((ProvaConstant) data[2]).getObject() instanceof List ) {
 			final List list = (List) ((ProvaConstant) data[2]).getObject();
-			final List<ProvaObject> wrappedList = new ArrayList<ProvaObject>();
+			final List<ProvaObject> wrappedList = new ArrayList<>();
 			for( Object o : list ) {
 				wrappedList.add( ProvaMapImpl.wrap(o));
 			}
-			expectedList = (ProvaObject[]) wrappedList.toArray(new ProvaObject[wrappedList.size()]);
+			expectedList = wrappedList.toArray(new ProvaObject[wrappedList.size()]);
 		} else {
 			if( !(data[2] instanceof ProvaList) )
 				return false;
 			expectedList = ((ProvaList) data[2]).getFixed();
 		}
-		List<ProvaObject> waiting = new ArrayList<ProvaObject>();
-		for( ProvaObject expected : expectedList ) {
-			waiting.add(expected);
-		}
-		List<ProvaObject> complete = new ArrayList<ProvaObject>();
-		List<List<ProvaObject>> record = new ArrayList<List<ProvaObject>>();
+		List<ProvaObject> waiting = new ArrayList<>(Arrays.asList(expectedList));
+		List<ProvaObject> complete = new ArrayList<>();
+		List<List<ProvaObject>> record = new ArrayList<>();
 		record.add(waiting);
 		record.add(complete);
 		join_record.put(key,record);
@@ -129,13 +124,13 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 		if( predicate_join_record.containsKey(key) )
 			return false;
 		ProvaObject[] expectedList = ((ProvaList) data[2]).getFixed();
-		List<ProvaObject> waiting = new ArrayList<ProvaObject>();
+		List<ProvaObject> waiting = new ArrayList<>();
 		for( ProvaObject expected : expectedList ) {
 			if( !(expected instanceof ProvaList) )
 				return false;
 			waiting.add(expected);
 		}
-		List<ProvaObject> complete = new ArrayList<ProvaObject>();
+		List<ProvaObject> complete = new ArrayList<>();
 		predicate_join_record.put(key,new Object[] {((ProvaConstant) data[3]).getObject(),waiting,complete});
 		return true;
 	}
@@ -153,7 +148,7 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 		// Key is XID+JoinID
 		String key = ((ProvaConstant) data[0]).getObject().toString() + ((ProvaConstant) data[1]).getObject().toString();
 		predicate_join_record.remove(key);
-		ReentrantLock lock = (ReentrantLock) predicate_join_locks.get(key);
+		ReentrantLock lock = predicate_join_locks.get(key);
 		try {
 			lock.unlock();
 			predicate_join_locks.remove(key);
@@ -176,9 +171,9 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 			return false;
 		// Key is XID+JoinID
 		String key = ((ProvaConstant) data[0]).getObject().toString() + ((ProvaConstant) data[1]).getObject().toString(); 
-		ReentrantLock lock = null;
+		ReentrantLock lock;
 		synchronized (predicate_join_locks ) {
-			lock = (ReentrantLock) predicate_join_locks.get(key);
+			lock = predicate_join_locks.get(key);
 			if (lock == null) {
 				lock = new ReentrantLock();
 				predicate_join_locks.put(key, lock);
@@ -186,7 +181,7 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 			lock.lock();
 		}
 		try {
-			Object[] value = (Object[]) predicate_join_record.get(key);
+			Object[] value = predicate_join_record.get(key);
 			String joinPredicate = (String) value[0];
 			List<ProvaList> complete = (List<ProvaList>) value[2];
 			if (value[1] instanceof Long) {
@@ -214,7 +209,7 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 				}
 			}
 		} finally {
-			if (!rc && lock != null)
+			if (!rc)
 				lock.unlock();
 		}
 		return rc;
@@ -238,7 +233,7 @@ public class ProvaWorkflowsImpl implements ProvaWorkflows {
 			} else {
 				Object state = ((ProvaConstant) data[2]).getObject();
 				if (state.equals("reset")) {
-					Object[] value = (Object[]) predicate_join_record.get(key);
+					Object[] value = predicate_join_record.get(key);
 					if( value==null )
 						// This may happen if stop has been executed from another thread
 						return false;

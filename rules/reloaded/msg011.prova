@@ -1,5 +1,6 @@
 % Send and receive a message containing a Prova map payload.
 % This test can only be run from ProvaMessagingTest.java as it requires an AtomicLong count passed a global constant.
+% Uses simplified sendMsg and rcvMsg built-ins
 
 :- eval(msg011()).
 
@@ -8,17 +9,17 @@ msg011() :-
 
 	% Only one message will be received here as the reaction disappears after the first message is consumed
 	% Messaging is contravariant in that the more general pattern in the reaction subsumes the message parameters
-	rcvMsg(XID,Protocol,From,inform,{b->Integer.I}),
-	println(["Received: ",rcvMsg(XID,self,From,inform,{b->Integer.I})]),
+	rcvMsg 1 {b:Integer.I},
+	println(["Received: ",{b:Integer.I}]),
 	Count=$Count,
 	Count.incrementAndGet().
 msg011() :-
 	for 1 2 : I,
-	sendMsg(XID,self,0,inform,{a->1,b->I}),
-	println(["Sent: ",sendMsg(XID,self,0,inform,{a->1,b->I})],"").
+	sendMsg 1 {a:1,b:I},
+	println(["Sent: ", {a:1,b:I}]).
 
 % This outputs:
 % ==========Messaging test 011==========
-% Sent: [sendMsg,prova:1,self,0,inform,{b=1, a=1}]
-% Sent: [sendMsg,prova:2,self,0,inform,{b=2, a=1}]
-% Received: [rcvMsg,prova:1,self,0,inform,{b=1}]
+% Sent: {b=1, a=1}
+% Sent: {b=2, a=1}
+% Received: {b=1}

@@ -3,6 +3,7 @@ package ws.prova.api2;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.exchange.ProvaSolution;
@@ -11,36 +12,38 @@ import ws.prova.kernel2.messaging.ProvaMessenger;
 
 public interface ProvaCommunicator {
 
-	public List<ProvaSolution[]> getInitializationSolutions();
+	List<ProvaSolution[]> getInitializationSolutions();
 
-	public void setPrintWriter(PrintWriter printWriter);
+	void setPrintWriter(PrintWriter printWriter);
 
-	public List<ProvaSolution[]> consultSync(String src, String key, Object[] objects)
+	List<ProvaSolution[]> consultSync(String src, String key, Object[] objects)
 			throws Exception;
 
-	public List<ProvaSolution[]> consultSync(BufferedReader in, String key, Object[] objects)
+	List<ProvaSolution[]> consultSync(BufferedReader in, String key, Object[] objects)
 			throws Exception;
 
-	public void consultAsync(String src, String key, Object[] objects)
+	void consultAsync(String src, String key, Object[] objects)
 			throws Exception;
 
-	public void consultAsync(BufferedReader in, String key, Object[] objects)
+	void consultAsync(BufferedReader in, String key, Object[] objects)
 			throws Exception;
 
-	public void shutdown();
+	void shutdown();
 
-	public ProvaReagent getReagent();
+	ProvaReagent getReagent();
 
-	public void addMsg(ProvaList terms);
+	void addMsg(ProvaList terms);
 
-	public void unconsultSync(String src);
+	void unconsultSync(String src);
 
-	public void stop();
+	void stop();
 
-	public void setGlobalConstant(String name, Object value);
+	void setGlobalConstant(String name, Object value);
 
-	public void addMsg(String xid, String agent, String verb, Object payload);
+	void addMsg(String xid, String agent, String verb, Object payload);
 
-	public void setMessenger(ProvaMessenger messenger);
+	void setMessenger(ProvaMessenger messenger);
+
+	void addMsg(String xid, Map<String, Object> msg);
 
 }

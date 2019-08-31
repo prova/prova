@@ -34,7 +34,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 
 	protected int line;
 	
-	public static ThreadLocal<Map<Object, ProvaObject>> tlVars = new ThreadLocal<Map<Object, ProvaObject>>();
+	public static ThreadLocal<Map<Object, ProvaObject>> tlVars = new ThreadLocal<>();
 
 	public ProvaLiteralImpl(ProvaPredicate predicate, ProvaList terms) {
 		this.predicate = predicate;
@@ -122,28 +122,28 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 		return ret;
 	}
 
-	protected void copyMetadata(ProvaUnification unification,
-		final ProvaLiteralImpl ret) {
+	void copyMetadata(ProvaUnification unification,
+					  final ProvaLiteralImpl ret) {
 		// Make variable substitutions in the metadata if it contains variables
-		ret.metadata = new HashMap<String, List<Object>>(this.metadata);
+		ret.metadata = new HashMap<>(this.metadata);
 		for( Entry<String,List<Object>> e : metadata.entrySet() ) {
 			for( int i=0; i<e.getValue().size(); i++ ) {
 				Object o = e.getValue().get(i);
 				if( o instanceof ProvaVariable ) {
 					Object oo = ((ProvaVariable) o).getAssigned();
-					if( oo==null || !(oo instanceof ProvaVariable) )
+					if(!(oo instanceof ProvaVariable))
 						oo = o;
 					for( int j=0; j<unification.getTarget().getVariables().size(); j++ ) {
 						ProvaVariable var = unification.getTarget().getVariables().get(j);
 						if( var==oo ) {
 							Map<Object, ProvaObject> vars = tlVars.get();
 							if( vars==null ) {
-								vars = new HashMap<Object, ProvaObject>();
+								vars = new HashMap<>();
 								tlVars.set(vars);
 							}
 							// Note that this entry must be cleared immediately after the metadata value is used.
 							// So far only ProvaAndGroupImpl does that.
-							vars.put(((ProvaVariable) o).getName(), ((ProvaVariable) unification.getTargetVariables().get(j)).getAssigned());
+							vars.put(((ProvaVariable) o).getName(), unification.getTargetVariables().get(j).getAssigned());
 						}
 					}
 				}
@@ -160,11 +160,9 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder(predicate.getSymbol());
-		sb.append('(');
-		sb.append(terms);
-		sb.append(')');
-		return sb.toString();
+		return predicate.getSymbol() + '(' +
+				terms +
+				')';
 	}
 
 	@Override
@@ -294,7 +292,7 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 	@Override
 	public void setMetadata(String property, List<Object> value) {
 		if( metadata==null )
-			metadata = new HashMap<String,List<Object>>();
+			metadata = new HashMap<>();
 		metadata.put(property,value);
 	}
 
@@ -308,9 +306,9 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 		if( m==null )
 			return null;
 		if( metadata==null )
-			metadata = new HashMap<String,List<Object>>();
+			metadata = new HashMap<>();
 		metadata.putAll(m);
-		List<ProvaObject> metaVariables = new ArrayList<ProvaObject>();
+		List<ProvaObject> metaVariables = new ArrayList<>();
 		for( Entry<String, List<Object>> e : m.entrySet() ) {
 			for( Object value : e.getValue() ) {
 				if( !(value instanceof String) )
@@ -346,6 +344,11 @@ public class ProvaLiteralImpl implements ProvaLiteral {
 
 	@Override
 	public Object computeIfExpression() {
+		return this;
+	}
+
+	@Override
+	public ProvaObject computeProvaIfExpression() {
 		return this;
 	}
 

@@ -11,7 +11,8 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.concurrent.ScheduledFuture;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.agent2.ProvaReagent;
 import ws.prova.agent2.ProvaThreadpoolEnum;
@@ -31,49 +32,49 @@ import ws.prova.reference2.messaging.where.WhereNode;
 
 public class ProvaBasicGroupImpl implements ProvaGroup {
 
-	private final static Logger log = Logger.getLogger("prova.eventing");
+	private final static Logger log = LoggerFactory.getLogger("prova.eventing");
 
-	protected String dynamicGroup;
+	String dynamicGroup;
 	
 	protected List<Object> results;
 	
-	protected RemoveList resultRemoveEntry;
+	RemoveList resultRemoveEntry;
 	
-	protected List<RemoveList> timeoutRemoveEntries;
+	private List<RemoveList> timeoutRemoveEntries;
 	
-	protected Map<Long,RemoveList> removeMap;
+	Map<Long,RemoveList> removeMap;
 
-	protected ProvaList lastReaction;
+	ProvaList lastReaction;
 
 	protected ProvaGroup parent;
 
-	protected List<ProvaGroup> children;
+	List<ProvaGroup> children;
 	
 	protected long timeout;
 	
 	protected boolean failed = false;
 
-	protected Map<String,Long> id2ruleid;
+	Map<String,Long> id2ruleid;
 	
-	protected Set<Long> paused;
+	Set<Long> paused;
 
 	private String staticGroup;
 	
-	protected boolean template;
+	private boolean template;
 	
-	protected boolean permanent;
+	boolean permanent;
 	
-	protected String templateDynamicGroup;
+	private String templateDynamicGroup;
 	
-	protected ScheduledFuture<?> future = null;
+	ScheduledFuture<?> future = null;
 	
-	protected long numEmitted = 0;
+	long numEmitted = 0;
 	
 	protected List<WhereNode> where = null;
 
 	private boolean extended = false;
 
-	protected int countMax;
+	int countMax;
 	
 	private ProvaGroup concrete = null;
 
@@ -85,11 +86,11 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		this.templateDynamicGroup = null;
 		this.permanent = false;
 		this.countMax = -1;
-		removeMap = new HashMap<Long,RemoveList>();
-		paused = new HashSet<Long>();
+		removeMap = new HashMap<>();
+		paused = new HashSet<>();
 	}
 
-	public ProvaBasicGroupImpl(ProvaBasicGroupImpl g) {
+	ProvaBasicGroupImpl(ProvaBasicGroupImpl g) {
 		this.dynamicGroup = g.dynamicGroup;
 		this.templateDynamicGroup = g.templateDynamicGroup;
 		this.staticGroup = g.staticGroup;
@@ -118,12 +119,12 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		return g;
 	}
 	
-	protected void adjustClone( ProvaBasicGroupImpl group ) {
+	void adjustClone(ProvaBasicGroupImpl group) {
 		permanent = true;
 		templateDynamicGroup = group.dynamicGroup;
-		removeMap = new HashMap<Long,RemoveList>();
+		removeMap = new HashMap<>();
 		removeMap.putAll(group.removeMap);
-		paused = new HashSet<Long>();
+		paused = new HashSet<>();
 	}
 	
 	@Override
@@ -157,8 +158,8 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 
 	@Override
 	public void addTimeoutEntry( RemoveList rl ) {
-		if( this.timeoutRemoveEntries==null )
-			this.timeoutRemoveEntries = new ArrayList<RemoveList>();
+		if( this.timeoutRemoveEntries == null )
+			this.timeoutRemoveEntries = new ArrayList<>();
 		this.timeoutRemoveEntries.add(rl);
 	}
 
@@ -203,7 +204,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 	public void stop() {
 		for( Entry<Long, RemoveList> e : removeMap.entrySet() ) {
 			if( log.isDebugEnabled() )
-				log.debug(e);
+				log.debug("{}", e);
 			RemoveList r = e.getValue();
 			long k = r.getRuleid();
 			r.getP1().getClauseSet().removeTemporalClause(k);
@@ -299,7 +300,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		return false;
 	}
 
-	protected synchronized boolean sendGroupResults(List<Object> results, ProvaKnowledgeBase kb, ProvaReagent prova) {
+	synchronized boolean sendGroupResults(List<Object> results, ProvaKnowledgeBase kb, ProvaReagent prova) {
 		ProvaList content = null;
 		if( isGroupFailed() ) {
 			// TODO: Is it always timeout here?
@@ -358,7 +359,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		final ProvaObject cidObject = ProvaConstantImpl.create(cid);
 		lastReaction.getFixed()[0] = cidObject;
 		ProvaLiteral lit = kb.generateHeadLiteral("rcvMsg",lastReaction);
-		Map<String, List<Object>> meta = new HashMap<String, List<Object>>(1);
+		Map<String, List<Object>> meta = new HashMap<>(1);
 		if( this.templateDynamicGroup!=null )
 			meta.put("group", Arrays.asList(new Object[] {templateDynamicGroup}));
 		else
@@ -377,8 +378,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 
 	@Override
 	public boolean isGroupFailed() {
-		boolean result = results.size()==0 || lastReaction==null;
-		return result;
+		return results.size()==0 || lastReaction==null;
 	}
 
 	@Override
@@ -394,7 +394,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 	@Override
 	public void addChild(ProvaGroup g) {
 		if( children==null )
-			children = new ArrayList<ProvaGroup>();
+			children = new ArrayList<>();
 		children.add(g);
 	}
 
@@ -421,7 +421,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 	@Override
 	public void putId2ruleid(String id, long ruleid) {
 		if( id2ruleid==null )
-			id2ruleid = new HashMap<String,Long>();
+			id2ruleid = new HashMap<>();
 		id2ruleid.put(id,ruleid);
 	}
 
@@ -430,7 +430,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 		paused.add(ruleidToPause);
 	}
 
-	protected void resume(long ruleidToPause) {
+	void resume(long ruleidToPause) {
 		paused.remove(ruleidToPause);
 	}
 
@@ -465,7 +465,7 @@ public class ProvaBasicGroupImpl implements ProvaGroup {
 	@Override
 	public void addWhere(WhereNode newWhere) {
 		if( where==null )
-			where = new ArrayList<WhereNode>();
+			where = new ArrayList<>();
 		where.add(newWhere);
 		
 	}

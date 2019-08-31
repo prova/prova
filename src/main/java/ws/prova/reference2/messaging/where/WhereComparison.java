@@ -33,7 +33,7 @@ public class WhereComparison implements WhereNode {
 	
 	private final Type type;
 
-	public WhereComparison(String param, String compareTo, Type type) {
+	WhereComparison(String param, String compareTo, Type type) {
 		if (param == null)
 			throw new NullPointerException();
 
@@ -72,7 +72,7 @@ public class WhereComparison implements WhereNode {
 					default:
 						return false;
 					}
-				} catch (NumberFormatException ex) {
+				} catch (Exception ex) {
 //					String[] values = value.toString().split(",");
 					return false;
 				}			

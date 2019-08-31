@@ -10,31 +10,31 @@ import java.util.List;
  */
 public interface ProvaObject extends Serializable {
 	
-	public ProvaObject getRecursivelyAssigned();
+	ProvaObject getRecursivelyAssigned();
 	
-	public int collectVariables(long ruleId, List<ProvaVariable> variables);
+	int collectVariables(long ruleId, List<ProvaVariable> variables);
 
-	public int computeSize();
+	int computeSize();
 
-//	public void collectVariables(long ruleId, Vector<ProvaVariable> variables, int offset);
+	boolean unify(ProvaObject target, ProvaUnification unification);
 
-	public boolean unify(ProvaObject target, ProvaUnification unification);
+	void substituteVariables(final ProvaVariablePtr[] varsMap);
 
-	public void substituteVariables(final ProvaVariablePtr[] varsMap);
+	boolean isGround();
 
-	public boolean isGround();
+	String toString(final List<ProvaVariable> variables);
 
-	public String toString(final List<ProvaVariable> variables);
+	ProvaObject cloneWithVariables(final List<ProvaVariable> variables);
 
-	public ProvaObject cloneWithVariables(final List<ProvaVariable> variables);
-
-	public ProvaObject cloneWithVariables(final long ruleId,
+	ProvaObject cloneWithVariables(final long ruleId,
 			final List<ProvaVariable> variables);
 
-	public Object computeIfExpression();
+	Object computeIfExpression();
 
-	public ProvaObject cloneWithBoundVariables(final List<ProvaVariable> variables, final List<Boolean> isConstant);
+	ProvaObject computeProvaIfExpression();
 
-	public boolean updateGround(final List<ProvaVariable> variables);
+	ProvaObject cloneWithBoundVariables(final List<ProvaVariable> variables, final List<Boolean> isConstant);
+
+	boolean updateGround(final List<ProvaVariable> variables);
 
 }

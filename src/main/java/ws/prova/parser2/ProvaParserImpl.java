@@ -21,7 +21,9 @@ import org.antlr.runtime.tree.CommonTreeAdaptor;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.TreeAdaptor;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ws.prova.kernel2.ProvaKnowledgeBase;
 import ws.prova.kernel2.ProvaResultSet;
@@ -32,17 +34,17 @@ import ws.prova.parser.ProvaWalker2;
 
 public class ProvaParserImpl {
 
-	private final static Logger log = Logger.getLogger("prova");
+	private final static Logger log = LoggerFactory.getLogger("prova");
 
-	public static ThreadLocal<Object[]> tlObjects = new ThreadLocal<Object[]>();
+	public static ThreadLocal<Object[]> tlObjects = new ThreadLocal<>();
 
-	public static ThreadLocal<ProvaKnowledgeBase> tlKB = new ThreadLocal<ProvaKnowledgeBase>();
+	public static ThreadLocal<ProvaKnowledgeBase> tlKB = new ThreadLocal<>();
 
-	static ThreadLocal<Random> tlRandom = new ThreadLocal<Random>();
+	private static ThreadLocal<Random> tlRandom = new ThreadLocal<>();
 
-	public static ThreadLocal<ProvaResultSet> tlRS = new ThreadLocal<ProvaResultSet>();
+	public static ThreadLocal<ProvaResultSet> tlRS = new ThreadLocal<>();
 
-	public static ThreadLocal<String> tlSrc = new ThreadLocal<String>();
+	public static ThreadLocal<String> tlSrc = new ThreadLocal<>();
 
 	// The source being parsed ("reader" or filename)
 	private String src;
@@ -69,7 +71,7 @@ public class ProvaParserImpl {
 
 	}
 
-	static final TreeAdaptor adaptor = new CommonTreeAdaptor() {
+	private static final TreeAdaptor adaptor = new CommonTreeAdaptor() {
 		public Object create(Token payload) {
 			return new ProvaAST(payload);
 		}
@@ -98,7 +100,7 @@ public class ProvaParserImpl {
 
 	@SuppressWarnings("unchecked")
 	public List<ProvaRule> parse(final ProvaKnowledgeBase kb, final ProvaResultSet resultSet, final BufferedReader in) throws ProvaParsingException, IOException {
-        List<ProvaRule> rules = new ArrayList<ProvaRule>();
+        List<ProvaRule> rules = new ArrayList<>();
         Prova2Lexer lex = new Prova2Lexer(new ANTLRReaderStream(in));
        	CommonTokenStream tokens = new CommonTokenStream(lex);
         Prova2Parser parser = new Prova2Parser(tokens);
@@ -195,8 +197,7 @@ public class ProvaParserImpl {
 				in = new BufferedReader(fr);
 			}
 			kb.updateContext(filename);
-			List<ProvaRule> results = parse(kb,resultSet,in);
-			return results;
+			return parse(kb,resultSet,in);
 		} finally {
 			if( is!=null )
 				is.close();

@@ -16,7 +16,7 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	
 	private int index;
 	
-	public ProvaVariablePtrImpl(final long ruleId, final int index) {
+	ProvaVariablePtrImpl(final long ruleId, final int index) {
 		this.ruleId = ruleId;
 		this.index = index;
 	}
@@ -41,9 +41,7 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 		ProvaVariablePtrImpl other = (ProvaVariablePtrImpl) obj;
 		if (index != other.index)
 			return false;
-		if (ruleId != other.ruleId)
-			return false;
-		return true;
+		return ruleId == other.ruleId;
 	}
 
 	public void setIndex(int index) {
@@ -117,11 +115,9 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 	}
 
 	public String toString() {
-		StringBuilder sb = new StringBuilder("@");
-		sb.append(ruleId);
-		sb.append(':');
-		sb.append(index);
-		return sb.toString(); 
+		return "@" + ruleId +
+				':' +
+				index;
 	}
 
 	@Override
@@ -163,6 +159,11 @@ public class ProvaVariablePtrImpl implements ProvaVariablePtr {
 
 	@Override
 	public Object computeIfExpression() {
+		return this;
+	}
+
+	@Override
+	public ProvaObject computeProvaIfExpression() {
 		return this;
 	}
 
