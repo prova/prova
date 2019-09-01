@@ -13,35 +13,35 @@
 ra002_1(X,Y) :-
 	println(["-----"]),
 	% The first fact not more general than this is removed by retract below
-	retract(f(ws.prova.examples.Portfolio.N,M)),
+	retract(f(org.provarules.examples.Portfolio.N,M)),
 	f(X,Y).
 ra002_2(X,Y) :-
 	println(["-----"]),
 	% Facts more general than this are not removed by retractall below 
-	retractall(f(ws.prova.examples.IBMPortfolio.N,Integer.M)),
+	retractall(f(org.provarules.examples.IBMPortfolio.N,Integer.M)),
 	f(X,Y).
 ra002_3(X,Y) :-
 	println(["-----"]),
-	insert(f(ws.prova.examples.Portfolio.N,Integer.M)),
+	insert(f(org.provarules.examples.Portfolio.N,Integer.M)),
 	% Does not add anything as it subsumes a fact already in the KB
-	insert(f(ws.prova.examples.Portfolio.N,M)),
+	insert(f(org.provarules.examples.Portfolio.N,M)),
 	f(X,Y).
 
-f(ws.prova.examples.IBMPortfolio.N,Integer.M).
-f(ws.prova.examples.Portfolio.N,M).
-f(ws.prova.examples.IBMPortfolio.N,Integer.M).
+f(org.provarules.examples.IBMPortfolio.N,Integer.M).
+f(org.provarules.examples.Portfolio.N,M).
+f(org.provarules.examples.IBMPortfolio.N,Integer.M).
 f(2,3).
 
 % ==================
 % This prints:
 % -----
-% X=ws.prova.examples.Portfolio.<30>, Y=<27>
-% X=ws.prova.examples.IBMPortfolio.<39>, Y=java.lang.Integer.<40>
+% X=org.provarules.examples.Portfolio.<30>, Y=<27>
+% X=org.provarules.examples.IBMPortfolio.<39>, Y=java.lang.Integer.<40>
 % X=2, Y=3
 % -----
-% X=ws.prova.examples.Portfolio.<80>, Y=<77>
+% X=org.provarules.examples.Portfolio.<80>, Y=<77>
 % X=2, Y=3
 % -----
 % X=2, Y=3
-% X=ws.prova.examples.Portfolio.<137>, Y=java.lang.Integer.<138>
-% X=ws.prova.examples.Portfolio.<150>, Y=<146>
+% X=org.provarules.examples.Portfolio.<137>, Y=java.lang.Integer.<138>
+% X=org.provarules.examples.Portfolio.<150>, Y=<146>

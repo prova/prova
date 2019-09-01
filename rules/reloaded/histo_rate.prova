@@ -6,7 +6,7 @@
 histo_rate(Min,Step) :-
 	println(["==========Histogram rate test=========="]),
 
-	Counter = ws.prova.eventing.MapCounter(),
+	Counter = org.provarules.eventing.MapCounter(),
 	% This reaction operates indefinitely. When the timer elapses,
 	%   the groupby map Counter is sent as part of the result,
 	%   and the timer is reset back to the second argument of @timer.

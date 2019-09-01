@@ -7,7 +7,7 @@
 test_spawn() :-
 	println(["==========test spawn=========="]),
 
-	P=ws.prova.examples.Portfolio("IBM"),
+	P=org.provarules.examples.Portfolio("IBM"),
 	% P.longcalc(1L) is an instance method that takes a Long.
 	% It takes 1 seconds to complete and returns a Boolean.
 	spawn(XID,P,longcalc,1L),

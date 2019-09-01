@@ -6,7 +6,7 @@
 groupby_size() :-
 	println(["==========Groupby size test=========="]),
 
-	Counter = ws.prova.eventing.MapCounter(),
+	Counter = org.provarules.eventing.MapCounter(),
 	% This reaction operates indefinitely. When the count hits 5,
 	%   a copy of the current groupby map Counter is sent as part of the result,
 	%   and the count is reset back to 5 (second argument of @size) and Counter is cleared.

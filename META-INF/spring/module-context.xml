@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="provaService" class="ws.prova.service.impl.ProvaServiceImpl"
+	<bean id="provaService" class="org.provarules.service.impl.ProvaServiceImpl"
 		init-method="init" destroy-method="destroy">
 	</bean>
 

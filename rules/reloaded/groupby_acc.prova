@@ -6,7 +6,7 @@
 groupby_acc() :-
 	println(["==========Groupby accumulator rate test=========="]),
 
-	Acc = ws.prova.eventing.SortedAccumulator(),
+	Acc = org.provarules.eventing.SortedAccumulator(),
 	% This reaction operates indefinitely. When the timer elapses,
 	%   the sorted accumulator Acc is sent as part of the result,
 	%   and the timer is reset back to the second argument of @timer.

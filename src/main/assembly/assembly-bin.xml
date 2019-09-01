@@ -53,7 +53,7 @@
 		<file>
 			<source>src/main/assembly/prova3.bat
 			</source>
-			<outputDirectory>/bin</outputDirectory>
+			<outputDirectory>/</outputDirectory>
 			<destName>prova3.bat</destName>
 			<fileMode>0755</fileMode>
 			<filtered />
@@ -69,7 +69,7 @@
 		<file>
 			<source>src/main/assembly/prova3
 			</source>
-			<outputDirectory>/bin</outputDirectory>
+			<outputDirectory>/</outputDirectory>
 			<destName>prova3</destName>
 			<fileMode>0755</fileMode>
 			<lineEnding>unix</lineEnding>

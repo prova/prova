@@ -241,7 +241,7 @@ process_mouse([clicked,javax.swing.JButton.JB,Event]) :-
 test_spawn() :-
 	println(["==========test spawn=========="]),
 
-	P=ws.prova.examples.Portfolio("IBM"),
+	P=org.provarules.examples.Portfolio("IBM"),
 	% P.longcalc(2) is an instance method.
 	% It takes 2 seconds to complete and returns a Boolean.
 	spawn(XID,P,longcalc,2L),

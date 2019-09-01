@@ -5,6 +5,6 @@
 	  http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
 	<service ref="provaService" 
-		interface="ws.prova.service.ProvaService" />
+		interface="org.provarules.service.ProvaService" />
 
 </beans:beans>

@@ -6,9 +6,9 @@ PROVA_HOME="../.."
 PROVA_LIBS="$PROVA_HOME/lib"
 
 # Building the Classpath
-CLASSPATH="$CLASSPATH:$PROVA_HOME/target/ws.prova.compact-3.2.2.jar"
+CLASSPATH="$CLASSPATH:$PROVA_HOME/target/*"
 CLASSPATH="$CLASSPATH:$PROVA_LIBS/*"
 
 export CLASSPATH 
 
-java -Xms512m -Xmx512m -XX:NewSize=256m -XX:MaxNewSize=256m ws.prova.api2.ProvaCommunicatorImpl prova password $*
+java -Xms512m -Xmx512m -XX:NewSize=256m -XX:MaxNewSize=256m org.provarules.api2.ProvaCommunicatorImpl prova password $*

@@ -37,7 +37,7 @@ client() :-
 	branch(XID).
 
 branch(XID) :-
-	Acc = ws.prova.eventing.SortedAccumulator(),
+	Acc = org.provarules.eventing.SortedAccumulator(),
 	@group(bids) @timer('0 minutes 500 ms','500 ms',Acc)
 	rcvMsg(XID,self,Me,respond,[Service,Offer]),
 	Acc.processAt(Offer,Service),

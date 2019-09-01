@@ -4,17 +4,17 @@
 :- solve(test1(Size)).
 
 test1(Size) :-
-    L  = test.ws.prova.helper.ProvaListAux.createProvaList(),
+    L = org.provarules.helper.ProvaListAux.createProvaList(),
     println(["The list is: ", L]),
-    Size = test.ws.prova.helper.ProvaListAux.calculateSize(L),
+    Size = org.provarules.helper.ProvaListAux.calculateSize(L),
     println(["Its size is: ", Size]).
 
 % Returns: V=b
 :- solve(test2(V)).
 
 test2(V) :-
-    V  = ws.prova.reference2.ProvaVariableImpl.create(a),
+    V = org.provarules.reference2.ProvaVariableImpl.create(a),
     println(["The variable name is: ", V]),
     V=b,
     println(["When assigned it becomes: ", V]).
-   
+ 
