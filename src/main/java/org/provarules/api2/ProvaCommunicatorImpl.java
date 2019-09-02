@@ -138,7 +138,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
      * where each result set corresponds to one goal in the consulted code.
      * For one goal, each resultset contains zero or more solutions with instantiations of all
      * free variables in that goal.
-     * @throws Exception
+     * @throws Exception Any exception from running the rulebase
      */
     @Override
     public List<ProvaSolution[]> consultSync(String src, String key, Object[] objects) throws Exception {
@@ -184,7 +184,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
      *                objects used in goals, facts, and rules.
      * @param key     Unique key identifying the consulted code (useful in interactive environments)
      * @param objects Java objects embedded into the <code>input</code> parameter.
-     * @throws Exception
+     * @throws Exception Any exception from running the rulebase
      */
     @Override
     public void consultAsync(String src, String key, Object[] objects) throws Exception {
@@ -199,7 +199,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
      *                objects used in goals, facts, and rules.
      * @param key     Unique key identifying the consulted code (useful in interactive environments)
      * @param objects Java objects embedded into the <code>input</code> parameter.
-     * @throws Exception
+     * @throws Exception Any exception from running the rulebase
      */
     @Override
     public void consultAsync(BufferedReader in, String key, Object[] objects) throws Exception {
@@ -260,7 +260,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
 
     /**
      * The main Prova Reloaded runner.
-     * <br/>
+     * <p>
      * Example:
      * prova3[.bat|.sh] agent password rules/rules/test001_args.prova anticoagulant
      *

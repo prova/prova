@@ -21,25 +21,25 @@ import java.util.List;
  * sparql_select(Connection, QueryStr, QueryID)
  * </code>
  *
- * <code>sparql_select/code> executes a SPARQL select query on the given
+ * `sparql_select` executes a SPARQL select query on the given
  * repository connection. After successful execution, it binds the result set of
- * the query to the <code>sparql_results</code> predicate, using <code>QueryID</code>
+ * the query to the `sparql_results` predicate, using `QueryID`
  * as the first term and the requested SPARQL variables as the remaining terms,
  * in the order they were specified in the SPARQL query.
  *
- * <code>QueryID</code> can be either a constant term or a variable, in the latter
+ * `QueryID` can be either a constant term or a variable, in the latter
  * case it is assigned a random identifier number.
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Example:
- * <code>
+ * {@code
  * sparql_connect(Connection, "http://dbpedia.org/sparql"),
  * sparql_select(Connection, "SELECT * WHERE { ?a ?b ?c . }", QueryID),
  * sparql_results(QueryID, A, B, C),
  * println([A, " ", B, " ", C, " ."]).
- * </code>
+ * }
  *
- * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
+ * @author <a href="mailto:malte.rohde@inf.fu-berlin.de">Malte Rohde</a>
  */
 public class ProvaSparqlSelectImpl extends ProvaSparqlQueryImpl {
     private static final Logger log = LoggerFactory.getLogger(ProvaSparqlSelectImpl.class);

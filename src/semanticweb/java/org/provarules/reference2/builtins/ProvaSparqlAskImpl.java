@@ -27,16 +27,16 @@ import java.util.ArrayList;
  *
  * <code>QueryID</code> can be either a constant term or a variable, in the latter
  * case it is assigned a random identifier number.
- * <p>
- * <p>
+ * <br>
+ * <br>
  * Example:
- * <code>
+ * {@code
  * sparql_connect(Connection, "http://dbpedia.org/sparql"),
  * sparql_ask(Connection, "ASK WHERE { <...> <...> <...> . }", QueryID),
  * sparql_results(QueryID).
- * </code>
+ * }
  *
- * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
+ * @author <a href="mailto:malte.rohde@inf.fu-berlin.de">Malte Rohde</a>
  */
 public class ProvaSparqlAskImpl extends ProvaSparqlQueryImpl {
 

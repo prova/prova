@@ -14,20 +14,20 @@ import java.util.List;
 
 /**
  * sparql_connect built-in.
- * <p>
+ * <br>
  * Usage:
- * <code>
+ * {@code
  * sparql_connect(Connection, HTTPEndpoint).
- * </code>
- * <p>
- * sparql_connect connects to the SPARQL HTTP end point specified in <code>HTTPEndpoint</code>
- * and binds the connection to the (free) <code>Connection</code> variable.
- * <p>
- * If <code>Connection</code> is bound to an existing <code>RepositoryConnection</code>
+ * }
+ * <br>
+ * sparql_connect connects to the SPARQL HTTP end point specified in `HTTPEndpoint`
+ * and binds the connection to the (free) `Connection` variable.
+ * <br>
+ * If `Connection` is bound to an existing `RepositoryConnection`
  * object (from a previous call), the predicate tests whether the connection is open.
- * In this case, <code>HTTPEndpoint</code> is ignored.
+ * In this case, `HTTPEndpoint` is ignored.
  *
- * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
+ * @author <a href="mailto:malte.rohde@inf.fu-berlin.de">Malte Rohde</a>
  */
 public class ProvaSparqlConnectImpl extends ProvaBuiltinImpl {
     private static final Logger log = LoggerFactory.getLogger(ProvaSparqlConnectImpl.class);

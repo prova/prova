@@ -15,12 +15,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Abstract sparql query base class.
- * <p>
+ * <br>
  * This class provides the generic SPARQL query functionality,
- * such as resolving the Connection term and creating the QueryID
+ * such as resolving the Connection term and creating the `QueryID`
  * identifier.
  *
- * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
+ * @author <a href="mailto:malte.rohde@inf.fu-berlin.de">Malte Rohde</a>
  */
 public abstract class ProvaSparqlQueryImpl extends ProvaBuiltinImpl {
     private static final Logger log = LoggerFactory.getLogger(ProvaSparqlQueryImpl.class);

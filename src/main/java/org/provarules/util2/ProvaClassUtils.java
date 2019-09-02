@@ -3,11 +3,11 @@ package org.provarules.util2;
 public class ProvaClassUtils {
 
     /**
-     * A helper method attempting to retrieve a Class given its fully qualified name
+     * A helper method attempting to retrieve a `Class` given its fully qualified name
      *
      * @param className String
      * @return Class
-     * @throws ClassNotFoundException
+     * @throws ClassNotFoundException Exception thrown when class is not found
      */
     public static Class<?> forName(String className) throws ClassNotFoundException {
         try {

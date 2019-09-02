@@ -11,16 +11,15 @@ import java.util.List;
 
 /**
  * sparql_disconnect built-in.
- * <p>
+ * <br>
  * Usage:
- * <code>
+ * {@code
  * sparql_disconnect(Connection).
- * </code>
- * <p>
- * sparql_connect disconnects the <code>RepositoryConnection</code> stored in
- * <code>Connection</code>.
+ * }
+ * <br>
+ * sparql_connect disconnects the `RepositoryConnection` stored in `Connection`.
  *
- * @author Malte Rohde <malte.rohde@inf.fu-berlin.de>
+ * @author <a href="mailto:malte.rohde@inf.fu-berlin.de">Malte Rohde</a>
  */
 public class ProvaSparqlDisconnectImpl extends ProvaBuiltinImpl {
 

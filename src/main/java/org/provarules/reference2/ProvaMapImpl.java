@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * A wrapper around a Java Map that recursively (for all nested Maps) wraps all Java objects in the Map values in ProvaObject(s).
- * The keys in the original Map are converted to Java String by toString().
- * <p/>
+ * A wrapper around a Java Map that recursively (for all nested Maps) wraps all Java objects in the `Map` values in `ProvaObject`(s).
+ * The keys in the original Map are converted to Java `String` by `toString()`.
+ * <br>
  * The Prova Maps are created using the equivalent {@link #create(Map)} and {@link #wrapValues(Map)}} methods.
  */
 public class ProvaMapImpl extends ProvaConstantImpl {
@@ -185,8 +185,8 @@ public class ProvaMapImpl extends ProvaConstantImpl {
     }
 
     /**
-     * Wrap the map values as ProvaObject(s) while ignoring the already present ProvaObject(s)
-     * and recursively wrapping further Map(s).
+     * Wrap the map values as `ProvaObject`(s) while ignoring the already present `ProvaObject`(s)
+     * and recursively wrapping further `Map`(s).
      * This function is often used for wrapping Maps before passing them as payload to
      * {@link ProvaCommunicator#addMsg(ProvaList)} or
      * {@link ProvaCommunicator#addMsg(String, String, String, Object)}.
@@ -211,11 +211,11 @@ public class ProvaMapImpl extends ProvaConstantImpl {
     }
 
     /**
-     * Wrap an object in a ProvaMapImpl or ProvaConstantImpl if it is a Map or any other non-Prova object.
-     * Keep it as it is if it is already a ProvaObject.
+     * Wrap an object in a `ProvaMapImpl` or `ProvaConstantImpl` if it is a Map or any other non-Prova object.
+     * Keep it as it is if it is already a `ProvaObject`.
      *
-     * @param o
-     * @return
+     * @param o a naked object
+     * @return a wrapped object or `o`, if it is already wrapped
      */
     public static ProvaObject wrap(Object o) {
         return (o instanceof ProvaObject) ? (ProvaObject) o : o instanceof Map ? wrapValues((Map<?, ?>) o) : new ProvaConstantImpl(o);
@@ -266,21 +266,18 @@ public class ProvaMapImpl extends ProvaConstantImpl {
                 if (ov != nv) {
                     changed = true;
                 }
-                continue;
             } else if (ov instanceof ProvaList) {
                 ProvaObject nv = ((ProvaList) ov).rebuildSource(unification);
                 newMap.put(e.getKey(), nv);
                 if (ov != nv) {
                     changed = true;
                 }
-                continue;
             } else if (ov instanceof ProvaMapImpl) {
                 ProvaObject nv = ((ProvaMapImpl) ov).rebuildSource(unification);
                 newMap.put(e.getKey(), nv);
                 if (ov != nv) {
                     changed = true;
                 }
-                continue;
             } else
                 newMap.put(e.getKey(), ov);
 
@@ -291,7 +288,7 @@ public class ProvaMapImpl extends ProvaConstantImpl {
     @SuppressWarnings("unchecked")
     public Object unwrap() {
         final Map<String, ProvaObject> map = (Map<String, ProvaObject>) object;
-        final Map<String, Object> newMap = new HashMap<String, Object>();
+        final Map<String, Object> newMap = new HashMap<>();
         for (Entry<String, ProvaObject> e : map.entrySet()) {
             ProvaObject ov = e.getValue();
             if (ov instanceof ProvaConstant)
