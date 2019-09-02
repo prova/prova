@@ -272,10 +272,9 @@
 		</pluginManagement>
 	</build>
 	<scm>
-		<connection>scm:git:git://github.com/prova/prova.git</connection>
-		<developerConnection>scm:git:git@github.com:prova/prova.git</developerConnection>
+		<connection>scm:git:ssh://git@github.com/prova/prova.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/prova/prova.git</developerConnection>
 		<url>https://github.com/prova/prova</url>
-		<tag>prova-3.3.0</tag>
 	</scm>
 	<distributionManagement>
 		<repository>
