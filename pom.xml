@@ -4,7 +4,7 @@
 	<groupId>org.provarules</groupId>
 	<artifactId>prova</artifactId>
 	<name>prova</name>
-	<version>3.3.0-SNAPSHOT</version>
+	<version>3.3.0</version>
 	<packaging>jar</packaging>
 	<licenses>
 		<license>
@@ -233,7 +233,7 @@
 				<configuration>
 					<mavenExecutorId>forked-path</mavenExecutorId>
 					<useReleaseProfile>false</useReleaseProfile>
-					<arguments>-Psonatype-oss-release -Dgpg.passphrase=${gpg.passphrase}</arguments>
+					<arguments>-Psonatype-oss-release</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
