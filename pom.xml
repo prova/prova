@@ -233,7 +233,7 @@
 				<configuration>
 					<mavenExecutorId>forked-path</mavenExecutorId>
 					<useReleaseProfile>false</useReleaseProfile>
-					<arguments>-Psonatype-oss-release</arguments>
+					<arguments>-Psonatype-oss-release -Dgpg.passphrase=${gpg.passphrase}</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -285,9 +285,10 @@
 		</pluginManagement>
 	</build>
 	<scm>
-		<connection>scm:git:ssh://git@github.com/prova/prova.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/prova/prova.git</developerConnection>
+		<connection>scm:git:git://github.com/prova/prova.git</connection>
+		<developerConnection>scm:git:git@github.com:prova/prova.git</developerConnection>
 		<url>https://github.com/prova/prova</url>
+		<tag>HEAD</tag>
 	</scm>
 	<distributionManagement>
 		<repository>
