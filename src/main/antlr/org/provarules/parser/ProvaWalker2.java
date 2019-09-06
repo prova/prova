@@ -1,14 +1,9 @@
 // $ANTLR 3.4 C:\\home\\kozlenkova\\git\\prova\\src\\main\\antlr\\org\\provarules\\parser\\ProvaWalker2.g 2013-01-02 17:05:40
 
 	package org.provarules.parser;
-	import java.util.List;
-	import java.util.ArrayList;
-	import java.util.Arrays;
-	import java.util.Set;
-	import java.util.HashSet;
-	import java.util.Map;
-	import java.util.HashMap;
+	import java.util.*;
 
+    import org.antlr.runtime.BitSet;
     import org.provarules.kernel2.ProvaConstant;
     import org.provarules.kernel2.ProvaList;
     import org.provarules.kernel2.ProvaLiteral;
@@ -32,7 +27,6 @@
 
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
-import java.util.Stack;
 
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class ProvaWalker2 extends TreeParser {
@@ -4733,8 +4727,8 @@ public class ProvaWalker2 extends TreeParser {
 
     // $ANTLR start "pos_number"
     // C:\\home\\kozlenkova\\git\\prova\\src\\main\\antlr\\org\\provarules\\parser\\ProvaWalker2.g:786:1: pos_number returns [Number ret] : (i= INT_LITERAL |l= LONG_LITERAL |f= float_literal );
-    public final Number pos_number() throws RecognitionException {
-        Number ret = null;
+    public final Vector<Number> pos_number() throws RecognitionException {
+        Vector<Number> ret = new Vector<>(1);
 
 
         CommonTree i=null;
@@ -4780,7 +4774,7 @@ public class ProvaWalker2 extends TreeParser {
                     {
                     i=(CommonTree)match(input,INT_LITERAL,FOLLOW_INT_LITERAL_in_pos_number1938); 
 
-                    ret =Integer.parseInt(i.toString());
+                    ret.add(Integer.parseInt(i.toString()));
 
                     }
                     break;
@@ -4789,7 +4783,8 @@ public class ProvaWalker2 extends TreeParser {
                     {
                     l=(CommonTree)match(input,LONG_LITERAL,FOLLOW_LONG_LITERAL_in_pos_number1948); 
 
-                    String s = l.toString(); ret =Long.parseLong(s.substring(0,s.length()-1));
+                    String s = l.toString();
+                    ret.add(Long.parseLong(s.substring(0,s.length()-1)));
 
                     }
                     break;
@@ -4802,7 +4797,7 @@ public class ProvaWalker2 extends TreeParser {
                     state._fsp--;
 
 
-                    ret =Double.parseDouble(f.toString());
+                    ret.add(Double.parseDouble(f.toString()));
 
                     }
                     break;
@@ -4919,7 +4914,7 @@ public class ProvaWalker2 extends TreeParser {
 
 
             pushFollow(FOLLOW_pos_number_in_number2016);
-            p=pos_number();
+            p=pos_number().firstElement();
 
             state._fsp--;
 
