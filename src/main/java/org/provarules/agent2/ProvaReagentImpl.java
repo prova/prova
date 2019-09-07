@@ -25,6 +25,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -32,9 +33,7 @@ import java.util.concurrent.*;
 @SuppressWarnings("unused")
 public class ProvaReagentImpl implements ProvaReagent {
 
-    private static final Logger log = LoggerFactory.getLogger(ProvaReagentImpl.class);
-
-    private static final ProvaSolution[] noSolutions = new ProvaSolution[0];
+    private static Logger log = LoggerFactory.getLogger(ProvaReagentImpl.class);
 
     private String agent;
 
@@ -47,11 +46,11 @@ public class ProvaReagentImpl implements ProvaReagent {
     private String machine;
 
     // A queue for sequential execution of Prova goals and inbound messages
-    private final ExecutorService executor;
+    private ExecutorService executor;
 
-    private final ExecutorService pool;
+    private ExecutorService pool;
 
-    private final ExecutorService[] partitionedPool = new ExecutorService[32];
+    private ExecutorService[] partitionedPool = new ExecutorService[32];
 
     private final Map<Long, Integer> threadId2Index = new HashMap<>(
             32);
@@ -113,8 +112,6 @@ public class ProvaReagentImpl implements ProvaReagent {
         this.messenger.setService(service);
         communicator.setMessenger(messenger);
         this.workflows = new ProvaWorkflowsImpl(kb);
-
-        Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
 
         if (rules != null && !rules.equals("")) {
             // Import prova rules from .prova file or a BufferedReader
@@ -391,12 +388,23 @@ public class ProvaReagentImpl implements ProvaReagent {
     @Override
     public void shutdown() {
         messenger.stop();
+        messenger = null;
+        workflows = null;
         pool.shutdown();
-        for (ExecutorService partitioned : partitionedPool) {
-            partitioned.shutdown();
-            partitioned = null;
+        pool = null;
+        for (int i=0; i<32; i++ ) {
+            partitionedPool[i].shutdown();
         }
+//        for (ExecutorService partitioned : partitionedPool) {
+//            partitioned.shutdown();
+//        }
+        partitionedPool = null;
         executor.shutdown();
+        executor = null;
+        kb.shutdown();
+        kb = null;
+        initializationSolutions = null;
+        log = null;
     }
 
     @Override

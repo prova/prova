@@ -90,6 +90,8 @@ public interface ProvaKnowledgeBase {
 
     void updateContext(String filename);
 
+    void shutdown();
+
 //	ProvaRule generateLocalRule(ProvaReagent prova, long partitionKey,
 //			ProvaLiteral head, ProvaLiteral[] array);
 

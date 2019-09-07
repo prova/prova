@@ -344,6 +344,7 @@ public class ProvaCommunicatorImpl implements ProvaCommunicator {
     @Override
     public void shutdown() {
         prova.shutdown();
+        prova = null;
     }
 
     @Override

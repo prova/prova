@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.*;
@@ -22,8 +23,6 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 
     private final static Logger log = LoggerFactory.getLogger("prova");
-
-    private static final ProvaSolution[] noSolutions = new ProvaSolution[0];
 
     private AtomicLong seqRuleId = new AtomicLong();
 
@@ -37,7 +36,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
 
     private NavigableSet<String> cachePredicateSymbols;
 
-    private final Map<String, List<ProvaRuleSet>> srcMap = new HashMap<>();
+    private Map<String, List<ProvaRuleSet>> srcMap = new HashMap<>();
 
     private Object context;
 
@@ -155,8 +154,13 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
                 "for([From,To],I) :-" +
                 "	From2=From+1," +
                 "	for([From2,To],I).\n";
-        BufferedReader in = new BufferedReader(new StringReader(input));
-        consultSyncInternal(null, in, "-1", null);
+
+        try (StringReader sr = new StringReader(input);
+             BufferedReader in = new BufferedReader(sr)) {
+            consultSyncInternal(null, in, "-1", null);
+        } catch (IOException e) {
+            log.warn("Exception initialising the init rules");
+        }
     }
 
     @Override
@@ -172,7 +176,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
                     ProvaResolutionInferenceEngine engine = new ProvaResolutionInferenceEngineImpl(this, rule);
                     engine.setReagent(prova);
                     ProvaDerivationNode node = engine.run();
-                    ProvaSolution[] goalResults = resultSet.getSolutions().toArray(noSolutions);
+                    ProvaSolution[] goalResults = resultSet.getSolutions().toArray(new ProvaSolution[0]);
                     // The second literal in the body is not fail() when it is a solve (not eval)
                     if (node != null && goalResults.length == 0 && rule.getBody().length == 2 && rule.getBody()[1].getPredicate().getArity() != 0)
                         this.getPrintWriter().println("no");
@@ -212,7 +216,7 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
                     ProvaResolutionInferenceEngine engine = new ProvaResolutionInferenceEngineImpl(this, rule);
                     engine.setReagent(prova);
                     ProvaDerivationNode node = engine.run();
-                    ProvaSolution[] goalResults = resultSet.getSolutions().toArray(noSolutions);
+                    ProvaSolution[] goalResults = resultSet.getSolutions().toArray(new ProvaSolution[0]);
                     // The second literal in the body is not fail() when it is a solve (not eval)
                     if (node != null && goalResults.length == 0 && rule.getBody().length == 2 && rule.getBody()[1].getPredicate().getArity() != 0)
                         this.getPrintWriter().println("no");
@@ -692,6 +696,15 @@ public class ProvaKnowledgeBaseImpl implements ProvaKnowledgeBase {
         for (ProvaRuleSet ruleset : rulesets)
             ruleset.removeClausesBySrc(src);
         srcMap.remove(src);
+    }
+
+    @Override
+    public void shutdown() {
+        builtins = null;
+        predicates = null;
+        globals = null;
+        cachePredicateSymbols = null;
+        srcMap = null;
     }
 
 }

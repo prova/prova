@@ -34,13 +34,13 @@ import java.util.concurrent.atomic.AtomicLong;
 @SuppressWarnings("unused")
 public class ProvaMessengerImpl implements ProvaMessenger {
 
-    private static final ProvaVariable CTLPROTOCOL = ProvaVariableImpl
+    private final static ProvaVariable CTLPROTOCOL = ProvaVariableImpl
             .create("CtlProtocol");
 
-    private static final ProvaVariable CTLFROM = ProvaVariableImpl
+    private final static ProvaVariable CTLFROM = ProvaVariableImpl
             .create("CtlFrom");
 
-    private static final ProvaConstantImpl EOF = ProvaConstantImpl
+    private final static ProvaConstantImpl EOF = ProvaConstantImpl
             .create("eof");
 
     private final static Logger log = LoggerFactory.getLogger("prova");

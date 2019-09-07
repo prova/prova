@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -113,10 +114,15 @@ public class ProvaRuleSetImpl implements ProvaRuleSet {
             return;
         }
         List<ProvaRule> bound = firstArgMap.get(key);
-        for (ProvaRule rule : bound) {
+        for (Iterator<ProvaRule> iter = bound.iterator(); iter.hasNext();) {
+            ProvaRule rule = iter.next();
             rule.setRemoved();
             clauses.remove(rule);
         }
+//        for (ProvaRule rule : bound) {
+//            rule.setRemoved();
+//            clauses.remove(rule);
+//        }
     }
 
     /**
