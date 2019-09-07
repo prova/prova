@@ -4,7 +4,7 @@
 	<groupId>org.provarules</groupId>
 	<artifactId>prova</artifactId>
 	<name>prova</name>
-	<version>3.3.2-SNAPSHOT</version>
+	<version>3.3.2</version>
 	<packaging>jar</packaging>
 	<licenses>
 		<license>
