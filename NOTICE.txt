@@ -1,0 +1,4 @@
+Prova Rule Language
+Copyright 2008-2019 Alex Kozlenkov and Adrian Paschke
+
+This product includes software developed by Alex Kozlenkov and Adrian Paschke.
